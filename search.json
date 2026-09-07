@@ -4050,7 +4050,7 @@
     "href": "weeks/week-9.html",
     "title": "Week 9",
     "section": "",
-    "text": "Fall reading week. No lecture.\nMath assignment 2 due."
+    "text": "Slides\nMissing recording due to technical issue\nIn-class Exercise & Solutions\nIn-person lab session: transfer learning and double descent lab07\nLecture 8 pre-recorded videos and quizzes"
   },
   {
     "objectID": "weeks/week-13.html",
@@ -4631,7 +4631,7 @@
     "href": "weeks/week-8.html",
     "title": "Week 8",
     "section": "",
-    "text": "Week 8 Overview\nSlides\nMissing recording due to technical issue\nIn-class Exercise & Solutions\nIn-person lab session: transfer learning and double descent lab07\nLecture 8 pre-recorded videos and quizzes"
+    "text": "Week 8 Overview\nFall reading week. No lecture.\nMath assignment 2 due."
   },
   {
     "objectID": "hw/hw-5.html",
@@ -5674,37 +5674,7 @@
     "href": "index.html",
     "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
     "section": "",
-    "text": "It is very hard to hand-design programs to solve many real-world problems, e.g. distinguishing images of cats v.s. dogs. Machine learning algorithms allow computers to learn from example data, and produce a program that does the job. Neural networks are a class of machine learning algorithms originally inspired by the brain, but which have recently have seen a lot of success at practical applications. They’re at the heart of production systems at companies like Google and Facebook for image processing, speech-to-text, and language understanding.\nThis course gives an overview of both the foundational ideas and the recent advances in neural net algorithms. Roughly the first 2/3 of the course focuses on supervised learning - training the network to produce a specified behavior when one has lots of labeled examples of that behavior. The last 1/3 focuses on unsupervised learning.\n\n\n\nPrerequisite: CSC311H5 or CSC411H5\nExclusion: CSC321H5 or CSC321H1 or CSC413H1 or CSC421H1 (SCI)\nDistribution Requirement: SCI\nStudents who lack a pre/co-requisite can be removed at any time unless they have received an explicit waiver from the department. The waiver form can be downloaded from here.\n\n\n\n\n\n\n\n\n\n\n\n\n\nLectures\nProf\nDay\nTime\nLocation\n\n\n\n\nLEC0101\nIgor Gilitschenski\nTuesday\n5:00 pm - 7:00 pm\nMN3190\n\n\nLEC0102\nFlorian Shkurti\nWednesday\n11:00 am - 1:00 pm\nMN3190\n\n\n\n\n\n\nTutorials/Labs\nDay\nTime\nLocation\n\n\n\n\nPRA0101\nFriday\n10:00 am - 11:00 am\nDH2020\n\n\nPRA0102\nFriday\n11:00 am - 12:00 pm\nDH2020\n\n\nPRA0103\nFriday\n12:00 pm - 1:00 pm\nDH2020\n\n\n\n\nAnnouncements will be posted on Quercus\nDiscussions will take place on Piazza\nZoom recordings will be posted on Quercus after lectures",
-    "crumbs": [
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "index.html#overview",
-    "href": "index.html#overview",
-    "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
-    "section": "",
-    "text": "It is very hard to hand-design programs to solve many real-world problems, e.g. distinguishing images of cats v.s. dogs. Machine learning algorithms allow computers to learn from example data, and produce a program that does the job. Neural networks are a class of machine learning algorithms originally inspired by the brain, but which have recently have seen a lot of success at practical applications. They’re at the heart of production systems at companies like Google and Facebook for image processing, speech-to-text, and language understanding.\nThis course gives an overview of both the foundational ideas and the recent advances in neural net algorithms. Roughly the first 2/3 of the course focuses on supervised learning - training the network to produce a specified behavior when one has lots of labeled examples of that behavior. The last 1/3 focuses on unsupervised learning.\n\n\n\nPrerequisite: CSC311H5 or CSC411H5\nExclusion: CSC321H5 or CSC321H1 or CSC413H1 or CSC421H1 (SCI)\nDistribution Requirement: SCI\nStudents who lack a pre/co-requisite can be removed at any time unless they have received an explicit waiver from the department. The waiver form can be downloaded from here.\n\n\n\n\n\n\n\n\n\n\n\n\n\nLectures\nProf\nDay\nTime\nLocation\n\n\n\n\nLEC0101\nIgor Gilitschenski\nTuesday\n5:00 pm - 7:00 pm\nMN3190\n\n\nLEC0102\nFlorian Shkurti\nWednesday\n11:00 am - 1:00 pm\nMN3190\n\n\n\n\n\n\nTutorials/Labs\nDay\nTime\nLocation\n\n\n\n\nPRA0101\nFriday\n10:00 am - 11:00 am\nDH2020\n\n\nPRA0102\nFriday\n11:00 am - 12:00 pm\nDH2020\n\n\nPRA0103\nFriday\n12:00 pm - 1:00 pm\nDH2020\n\n\n\n\nAnnouncements will be posted on Quercus\nDiscussions will take place on Piazza\nZoom recordings will be posted on Quercus after lectures",
-    "crumbs": [
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "index.html#syllabus",
-    "href": "index.html#syllabus",
-    "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
-    "section": "Syllabus",
-    "text": "Syllabus\nClick here to download a PDF copy of the syllabus.",
-    "crumbs": [
-      "Overview"
-    ]
-  },
-  {
-    "objectID": "index.html#teaching-staff",
-    "href": "index.html#teaching-staff",
-    "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
-    "section": "Teaching Staff",
-    "text": "Teaching Staff\n\nInstructor\n\nFlorian Shkurti is an assistant professor in computer science at the University of Toronto, where he leads the Robot Vision and Learning lab. He is a faculty member of the University of Toronto Robotics Institute, the Acceleration Consortium, and a faculty affiliate at Vector Institute. His research group develops methods that enable robots to learn to perceive, reason, plan, and act effectively and safely, particularly in dynamic environments and alongside humans. Application areas of his research include field robotics for environmental monitoring, visual navigation for autonomous vehicles, and mobile manipulation.\n\n\n\nOffice hours\nLocation\n\n\n\n\nMondays 10:00-11:00am ET\nDH3066\n\n\n\n\nIgor Gilitschenski is an assistant professor in computer science at the University of Toronto, where he leads the Toronto Intelligent Systems Lab. His work focuses on developing novel probabilistic and learning-based techniques for robotic perception and decision-making with the ultimate goal of enabling robust interactive autonomy.\n\n\n\nOffice hours\nLocation\n\n\n\n\nTuesdays 7:00-8:00pm ET\nDH3070\n\n\n\n\n\nTeaching Assistants\n\n\n\n\n\n\n\n\n\n\n\nAidan Li\nVivian Chu\nJasper Gerigk\nNavid Hasanzadeh\nLucas Jin\nEnsieh Khazaei\n\n\n\n\n\n\n\n\nOffice hours\nLocation\n\n\n\n\nMonday 11-12pm ET\n(Online) Zoom\n\n\nThursday 2-3pm ET\n(Online) Zoom",
+    "text": "It is very hard to hand-design programs to solve many real-world problems, e.g. distinguishing images of cats v.s. dogs. Machine learning algorithms allow computers to learn from example data, and produce a program that does the job. Neural networks are a class of machine learning algorithms originally inspired by the brain, but which have recently have seen a lot of success at practical applications. They’re at the heart of production systems at large tech companies for image and video processing, speech-to-text, language understanding, and generative AI.\nThis course gives an overview of both the foundational ideas and the recent advances in neural net algorithms. Roughly the first 2/3 of the course focuses on supervised learning - training the network to produce a specified behavior when one has lots of labeled examples of that behavior. The last 1/3 focuses on unsupervised learning.",
     "crumbs": [
       "Overview"
     ]
@@ -5714,7 +5684,7 @@
     "href": "index.html#schedule",
     "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
     "section": "Schedule",
-    "text": "Schedule\nThis page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nPrepare\nSlides\nRecordings\nLabs\nQuiz\nAssignments\nTests\nProject\n\n\n\n\n1\nSept 2-6\nLinear Model\n📖\n🖥️\n🎥\n\n\n\n\n\n\n\n2\nSept 9-13\nMulti-Layer Perceptron, Backpropagation, Losses\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n3\nSept 16-20\nAutomatic Differentiation, Distributed Representation\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n4\nSept 23-27\nConvolutional Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n✍️\n\n\n\n\n5\nOct 1-4\nOptimization\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n6\nOct 7-11\nGeneralization\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n7\nOct 14-18\nInterpreting Convolutional Neural Networks\n📖\n🖥️\n🎥\n\n\n✍️\n✅\n\n\n\n8\nOct 21-25\nRecurrent Neural Networks\n📖\n🖥️\n\n💻\n📋\n\n\n\n\n\n9\nOct 28-Nov 1\nFall Reading Week\n📖\n\n\n\n\n\n\n\n\n\n10\nNov 4-8\nAttention and Transformers\n📖\n🖥️\n🎥\n💻\n\n\n\n📂\n\n\n11\nNov 11-15\nAutoencoders and Transpose Convolutions\n📖\n🖥️\n🎥\n\n📋\n\n✅\n\n\n\n12\nNov 18-22\nGenerative Adversarial Networks\n📖\n🖥️\n🎥\n💻\n\n\n\n\n\n\n13\nNov 25-29\nUse of Deep Learning in the Research of Profs Shkurti and Gilitschenski\n📖\n🖥️\n🎥\n💻\n\n\n\n\n\n\n14\nDec 2-6\nFinal project submission\n📖\n\n\n\n\n\n\n📂",
+    "text": "Schedule\nThis page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nPrepare\nSlides\nRecordings\nLabs\nQuiz\nAssignments\nMidterms\nProject\n\n\n\n\n1\nSept 7-11\nLinear Models and Regression/Classification\n📖\n🖥️\n🎥\n\n\n\n\n\n\n\n2\nSept 14-18\nMulti-Layer Perceptron, Backpropagation, Losses\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n3\nSept 21-25\nAutomatic Differentiation, Distributed Representation\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n4\nSept 28-Oct 2\nConvolutional Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n✍️\n\n\n\n\n5\nOct 5-9\nOptimization\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n6\nOct 12-16\nGeneralization\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n7\nOct 19-23\nInterpreting Convolutional Neural Networks\n📖\n🖥️\n🎥\n\n\n✍️\n✅\n\n\n\n8\nOct 26-30\nFall Reading Week\n📖\n\n\n\n\n\n\n\n\n\n9\nNov 2-6\nRecurrent Neural Networks\n📖\n🖥️\n\n💻\n📋\n\n\n\n\n\n10\nNov 9-13\nAttention and Transformers\n📖\n🖥️\n🎥\n💻\n\n\n\n📂\n\n\n11\nNov 16-20\nAutoencoders and Transpose Convolutions\n📖\n🖥️\n🎥\n\n📋\n\n✅\n\n\n\n12\nNov 23-27\nGenerative Adversarial Networks\n📖\n🖥️\n🎥\n💻\n\n\n\n\n\n\n13\nNov 30-Dec 4\nTBA\n📖\n🖥️\n🎥\n💻\n\n\n\n\n\n\n14\nDec 7-11\nFinal project submission\n📖\n\n\n\n\n\n\n📂",
     "crumbs": [
       "Overview"
     ]
@@ -5734,7 +5704,7 @@
     "href": "index.html#project-proposal",
     "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
     "section": "Project Proposal",
-    "text": "Project Proposal\n\nLogistics\nProjects must be done in groups of 3-4. Please form groups on Markus by March 17, 10pm. Exceptions to this rule can be made only in rare cases provided there is good reason to do so. Email the instructors if this applies to you. If you do not know anyone in class feel free to post a message on Piazza. We will also set aside some time during the tutorial for students who are looking for collaborators to find each other and discuss forming a group.\nA 1-2 page project proposal is due March 21, 10pm. You will also be asked to summarize the data set that you are using for this proposal.\nEach team will submit a github repository page that describes the deep learning model built in the project. The repository should also contain the code that you wrote.\n\n\nProject Requirements\nBy default, your project must either take a sequence (of variable length) as an input, or produce a sequence as an output, or both. If you have a project proposal that does not involve sequences, please contact the instructors.\nYour model should thus involve an RNN or a Transformer component. Students who want to use methods that we have not covered in the course (e.g. diffusion models, neural ODEs) are free to do so, as long as they confirm their methodology with the instructors before they submit this project proposal. There is also flexibility for students to pursue an open research problem. If any groups want to attempt this, they need to discuss this with one of the instructors before the prject proposal deadline.\nHere are some examples of possible projects:\n\nUsing an RNN (or transformer) to classify sequences (e.g. whether a restaurant review is positive or negative)\nUsing a generative RNN to produce sequences (e.g. South Park TV scripts)\nUsing a Siamese network to determine whether two StackOverflow questions are duplicates\nPredict the next item in a sequence (e.g. Stock market)\nPredict the outcome of a patient based on some sequential factors\nPredict the dynamics of objects under contact and collision (e.g. robotics and graphics)\nGenerate molecules, or predict properties of molecules\n\nBefore choosing a project, consider whether there is data available for you. Since the project deadline is about a month away, consider tailoring your project ideas to what data is available to you.\nYou are encouraged to use transfer learning and data augmentation ideas in your project.\nYou can use deep learning packages (e.g. pytorch, huggingface). However, you should be able to explain the steps involved in the forward pass computation of your model.\n\n\nProject Proposal\nA 1-2 page project proposal is due March 21, 10pm. Please use 12-point font and standard margins. You will also be asked to summarize the data set that you are using for this proposal.\nThe proposal should:\n\nClearly describe the task that your model will perform. (2pt)\n\n2/2 for clearly describing the task using standard deep learning terminology\n1.5/2 for describing the task in a way that is understandable to the grader, but that uses non-standard terminology\n1/2 for describing the task generally (e.g. “sequence classification” without stating the exact classes)\n0/2 for a proposal that does not align with the project requirements\n\nClearly describe the model that you intend to use (2pt)\n\n2/2 for clearly describing the model using standard deep learning terminology; the grader can picture exactly how the model could be used.\n1.5/2 for describing the task in a way that is understandable to the grader, but that uses non-standard terminology\n1/2 for describing the models generally (e.g. sequence-to-sequence model, without describing which ones)\n0/2 for a model that does not align with the project requirements\n\nOutline the data set that you intend to use, and provide some statistics about the amount/type of data that is available (4pt)\n\n1 point for convincing the grader that you are able to acquire the data that you need (with the appropriate license/permission for educational use)\n1 point for convincing the grader that the type and amount of data is sufficient (e.g. via summary statistics, examples data set)\n2 points for convincing the grader that you have explored the data, and considered information about your data relevant to your model (like in A1 Q1)\n\nDiscuss any ethical implications of your model—how might the use (or misuse) of this model help or hurt people? (2pt)\n\n2/2 For a thoughtful discussion that considers the ethical implications across many groups of people (that different groups may be impacted differently).\n1/2 For a discussion that is generic, or considers the ethical implications for only one group of people.\n\nDescribe how work will be divided amongst the team members. We recommend pair-coding for parts of the project, but consider the work that it might take to load/format your data, write a first model, “overfit” to a single data point, etc… (2pt)\n\n2/2 The description provides enough detail so that if a team member is replaced, they know exactly what their responsibilities will be.\n1/2 There is clearly an attempt to describe the division of tasks, but the communication is unclear and/or only the tasks listed above are assigned.\n0/2 Only vague assertions are made (e.g. “we will divide the work equally”, “everyone will work on everything”, or “we will determine who will work on what as the project progresses).\n\nProper formatting (2pt)\n\n2/2 Proposal is 1-2 pages. The proposal is formatted so that readers can find specific information quickly (e.g. via the use of paragraphs and topic sentences)\n1/2 Proposal is slightly over the length limit. There was clearly an attempt to format the proposal, but information is still scattered in various places.\n0/2 Proposal runs extremely long. It is difficult to understand the structure of the proposal.",
+    "text": "Project Proposal\n\nLogistics\nProjects must be done in groups of 3-4. Please form groups on CrowdMark by [date TBA] . Exceptions to this rule can be made only in rare cases provided there is good reason to do so. Email the instructors if this applies to you. If you do not know anyone in class feel free to post a message on Piazza. We will also set aside some time during the tutorial for students who are looking for collaborators to find each other and discuss forming a group.\nA 1-2 page project proposal is due by [date TBA]. You will also be asked to summarize the data set that you are using for this proposal.\nEach team will submit a github repository page that describes the deep learning model built in the project. The repository should also contain the code that you wrote.\n\n\nProject Requirements\nBy default, your project must either take a sequence (of variable length) as an input, or produce a sequence as an output, or both. If you have a project proposal that does not involve sequences, please contact the instructors.\nYour model should thus involve an RNN or a Transformer component. Students who want to use methods that we have not covered in the course (e.g. diffusion models, neural ODEs) are free to do so, as long as they confirm their methodology with the instructors before they submit this project proposal. There is also flexibility for students to pursue an open research problem. If any groups want to attempt this, they need to discuss this with one of the instructors before the prject proposal deadline.\nHere are some examples of possible projects:\n\nUsing an RNN (or transformer) to classify sequences (e.g. whether a restaurant review is positive or negative)\nUsing a generative RNN to produce sequences (e.g. South Park TV scripts)\nUsing a Siamese network to determine whether two StackOverflow questions are duplicates\nPredict the next item in a sequence (e.g. Stock market)\nPredict the outcome of a patient based on some sequential factors\nPredict the dynamics of objects under contact and collision (e.g. robotics and graphics)\nGenerate molecules, or predict properties of molecules\n\nBefore choosing a project, consider whether there is data available for you. Since the project deadline is about a month away, consider tailoring your project ideas to what data is available to you.\nYou are encouraged to use transfer learning and data augmentation ideas in your project.\nYou can use deep learning packages (e.g. pytorch, huggingface). However, you should be able to explain the steps involved in the forward pass computation of your model.\n\n\nProject Proposal\nA 1-2 page project proposal is due by [date TBA]. Please use 12-point font and standard margins. You will also be asked to summarize the data set that you are using for this proposal.\nThe proposal should:\n\nClearly describe the task that your model will perform. (2pt)\n\n2/2 for clearly describing the task using standard deep learning terminology\n1.5/2 for describing the task in a way that is understandable to the grader, but that uses non-standard terminology\n1/2 for describing the task generally (e.g. “sequence classification” without stating the exact classes)\n0/2 for a proposal that does not align with the project requirements\n\nClearly describe the model that you intend to use (2pt)\n\n2/2 for clearly describing the model using standard deep learning terminology; the grader can picture exactly how the model could be used.\n1.5/2 for describing the task in a way that is understandable to the grader, but that uses non-standard terminology\n1/2 for describing the models generally (e.g. sequence-to-sequence model, without describing which ones)\n0/2 for a model that does not align with the project requirements\n\nOutline the data set that you intend to use, and provide some statistics about the amount/type of data that is available (4pt)\n\n1 point for convincing the grader that you are able to acquire the data that you need (with the appropriate license/permission for educational use)\n1 point for convincing the grader that the type and amount of data is sufficient (e.g. via summary statistics, examples data set)\n2 points for convincing the grader that you have explored the data, and considered information about your data relevant to your model (like in A1 Q1)\n\nDiscuss any ethical implications of your model—how might the use (or misuse) of this model help or hurt people? (2pt)\n\n2/2 For a thoughtful discussion that considers the ethical implications across many groups of people (that different groups may be impacted differently).\n1/2 For a discussion that is generic, or considers the ethical implications for only one group of people.\n\nDescribe how work will be divided amongst the team members. We recommend pair-coding for parts of the project, but consider the work that it might take to load/format your data, write a first model, “overfit” to a single data point, etc… (2pt)\n\n2/2 The description provides enough detail so that if a team member is replaced, they know exactly what their responsibilities will be.\n1/2 There is clearly an attempt to describe the division of tasks, but the communication is unclear and/or only the tasks listed above are assigned.\n0/2 Only vague assertions are made (e.g. “we will divide the work equally”, “everyone will work on everything”, or “we will determine who will work on what as the project progresses).\n\nProper formatting (2pt)\n\n2/2 Proposal is 1-2 pages. The proposal is formatted so that readers can find specific information quickly (e.g. via the use of paragraphs and topic sentences)\n1/2 Proposal is slightly over the length limit. There was clearly an attempt to format the proposal, but information is still scattered in various places.\n0/2 Proposal runs extremely long. It is difficult to understand the structure of the proposal.",
     "crumbs": [
       "Overview"
     ]
@@ -5744,7 +5714,7 @@
     "href": "index.html#final-project",
     "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
     "section": "Final Project",
-    "text": "Final Project\n\nSubmission\nPlease submit a file called github.txt containing a link to the github repository. If your repository will be private, please email the instructors by April 7, 10pm so that TAs and instructors can be added—even if you use tokens.\n\n\nRepository Content\nThe repository should contain:\n\nThe code you used to pre-process the data, but not the data itself. It is generally a bad idea to include data in your github repository, since git is great for lots of small files, but a poor choice for sharing large files. Moreover, most groups are using data collected by other people. While you should share the source of your data, you should generally not share a copy of the data.\nThe code you used to train your model. You may opt to share model weights, or not.\nA README file with the following component:\n\n\nIntroduction that states the deep learning model that you are building\nModel:\n\nA figure/diagram of the model architecture that demonstrates understanding of the steps involved in computing the forward pass\nCount the number of parameters in the model, and a description of where the parameters come from\nExamples of how the model performs on two actual examples from the test set: one successful and one unsuccessful\n\nData:\n\nDescribe the source of your data\nProvide summary statistics of your data to help interpret your results (similar to in the proposal)\nDescribe how you transformed the data (e.g. any data augmentation techniques)\nIf appropriate to your project, describe how the train/validation/test set was split. (Note that splitting the training/validation/test set is not always straightforward!)\n\nTraining:\n\nThe training curve of your final model\nA description how you tuned hyper-parameters\n\nResults:\n\nDescribe the quantitative measure that you are using to evaluate your result\nDescribe the quantitative and qualitative results\nA justification that your implemented method performed reasonably, given the difficulty of the problem—or a hypothesis for why it doesn’t (this is extremely important)\n\nEthical Consideration:\n\nDescription of a use of the system that could give rise to ethical issues. Are there limitations of your model? Your training data?\n\nAuthors\n\nA description of how the work was split—i.e. who did what in this project.\n\n\n\n\nMarking Scheme\nHere is the marking scheme that we will use. Note that you model must be able to make reasonable predictions for your project to receive a passing project grade. In particular, without a reasonable model, you won’t be able to earn credit for Model Examples, Training Curve, Hyperparameter Tuning, Qualitative/Quantitative Results, etc.\nREADME/Writeup (70 points)\n\nIntroduction (4 points): What deep learning model are you building? We are looking for a clear and concise description that uses standard deep learning terminology. Clearly describe the type of task that you are solving, and what your input/outputs are.\nModel Figure (4 points): A figure/diagram of the model architecture that demonstrates understanding of the steps involved in computing the forward pass. We are looking to see if you understand the steps involved in the model computation (i.e. are you treating the model as a black box or do you understand what it’s doing?)\nModel Parameters(4 points): Count the number of parameters in the model, and a description of where the parameters come from. Again, we are looking to see if you understand what the model is doing, and what parameters are being tuned.\nModel Examples (4 points): Examples of how the model performs on two actual examples from the test set: one successful and one unsuccessful.\nData Source (1 point): Describe the source of your data.\nData Summary (4 points): Provide summary statistics of your data to help interpret your results, similar to in the proposal. Please review the feedback provided in the proposal for some guidance on what information is helpful for interpreting your model behaviour.\nData Transformation (3 points): Describe how you transformed the data, i.e. the steps you took to turn the data from what you downloaded, to something that a neural network can use as input. We are looking for a concise description that has just enough information for another person to replicate your process.\nData Split (2 points): If appropriate to your project, describe how the train/validation/test set was split. Note that splitting strategy is not always straightforward, so we are looking to see a split that can be justified.\nTraining Curve (4 points): The training curve of your final model. We are looking for a curve that shows both training and validation performance (if applicable). Your training curve should look reasonable for the problem that you are solving.\nHyperparamter Tuning (4 points): A description how you tuned hyper-parameters. We are looking for hyperparameter choices that makes sense.\nQuantitative Measures (2 points): A description and justification of the quantitative measure that you are using to evaluate your results. For some problems this will be straightforward. For others, please justify the measure that you chose.\nQuantitative and Qualitative Results (8 points): Describe the quantitative and qualitative results. You may choose to use a table or figure to aid in your description. We are looking for both a clear presentation, and a result that makes sense given your data summary. (As an extreme example, you should not have a result that performs worse than a model that, say, predicts the most common class.)\nJustification of Results (20 points): A justification that your implemented method performed reasonably, given the difficulty of the problem—or a hypothesis for why it doesn’t. This is extremely important. We are looking for an interpretation of the result. You may want to refer to your data summary and hyperparameter choices to make your argument.\nEthical Consideration (4 points): Description of a use of the system that could give rise to ethical issues. Are there limitations of your model? Your training data? Please review the feedback provided in the proposal for some guidance on how to think deeply about these issues.\nAuthors (2 points): A description of how the work was split—i.e. who did what in this project. If there are significant issues with the way that work is split, we may follow up with individual teams, and not award equal points to all team members.\n\nCode/Documentation (20 points) We are looking for whether TAs can generally understand what your code does, how it is organized, and the steps that needs to be taken to replicate your model and results. Your code must be in working order (otherwise the TA will not be able to replicate your results)\nAdvanced Concept (10 points). Your project involves at least one of the following:\n\nData Augmentation applied in a way that makes sense for your domain\nTransformer\nGenerative Model, Sequence-to-Sequence Architecture (e.g. that uses teacher-forcing)",
+    "text": "Final Project\n\nSubmission\nPlease submit a file called github.txt containing a link to the github repository. If your repository will be private, please email the instructors by [date TBA] so that TAs and instructors can be added—even if you use tokens.\n\n\nRepository Content\nThe repository should contain:\n\nThe code you used to pre-process the data, but not the data itself. It is generally a bad idea to include data in your github repository, since git is great for lots of small files, but a poor choice for sharing large files. Moreover, most groups are using data collected by other people. While you should share the source of your data, you should generally not share a copy of the data.\nThe code you used to train your model. You may opt to share model weights, or not.\nA README file with the following component:\n\n\nIntroduction that states the deep learning model that you are building\nModel:\n\nA figure/diagram of the model architecture that demonstrates understanding of the steps involved in computing the forward pass\nCount the number of parameters in the model, and a description of where the parameters come from\nExamples of how the model performs on two actual examples from the test set: one successful and one unsuccessful\n\nData:\n\nDescribe the source of your data\nProvide summary statistics of your data to help interpret your results (similar to in the proposal)\nDescribe how you transformed the data (e.g. any data augmentation techniques)\nIf appropriate to your project, describe how the train/validation/test set was split. (Note that splitting the training/validation/test set is not always straightforward!)\n\nTraining:\n\nThe training curve of your final model\nA description how you tuned hyper-parameters\n\nResults:\n\nDescribe the quantitative measure that you are using to evaluate your result\nDescribe the quantitative and qualitative results\nA justification that your implemented method performed reasonably, given the difficulty of the problem—or a hypothesis for why it doesn’t (this is extremely important)\n\nEthical Consideration:\n\nDescription of a use of the system that could give rise to ethical issues. Are there limitations of your model? Your training data?\n\nAuthors\n\nA description of how the work was split—i.e. who did what in this project.\n\n\n\n\nMarking Scheme\nHere is the marking scheme that we will use. Note that you model must be able to make reasonable predictions for your project to receive a passing project grade. In particular, without a reasonable model, you won’t be able to earn credit for Model Examples, Training Curve, Hyperparameter Tuning, Qualitative/Quantitative Results, etc.\nREADME/Writeup (70 points)\n\nIntroduction (4 points): What deep learning model are you building? We are looking for a clear and concise description that uses standard deep learning terminology. Clearly describe the type of task that you are solving, and what your input/outputs are.\nModel Figure (4 points): A figure/diagram of the model architecture that demonstrates understanding of the steps involved in computing the forward pass. We are looking to see if you understand the steps involved in the model computation (i.e. are you treating the model as a black box or do you understand what it’s doing?)\nModel Parameters(4 points): Count the number of parameters in the model, and a description of where the parameters come from. Again, we are looking to see if you understand what the model is doing, and what parameters are being tuned.\nModel Examples (4 points): Examples of how the model performs on two actual examples from the test set: one successful and one unsuccessful.\nData Source (1 point): Describe the source of your data.\nData Summary (4 points): Provide summary statistics of your data to help interpret your results, similar to in the proposal. Please review the feedback provided in the proposal for some guidance on what information is helpful for interpreting your model behaviour.\nData Transformation (3 points): Describe how you transformed the data, i.e. the steps you took to turn the data from what you downloaded, to something that a neural network can use as input. We are looking for a concise description that has just enough information for another person to replicate your process.\nData Split (2 points): If appropriate to your project, describe how the train/validation/test set was split. Note that splitting strategy is not always straightforward, so we are looking to see a split that can be justified.\nTraining Curve (4 points): The training curve of your final model. We are looking for a curve that shows both training and validation performance (if applicable). Your training curve should look reasonable for the problem that you are solving.\nHyperparamter Tuning (4 points): A description how you tuned hyper-parameters. We are looking for hyperparameter choices that makes sense.\nQuantitative Measures (2 points): A description and justification of the quantitative measure that you are using to evaluate your results. For some problems this will be straightforward. For others, please justify the measure that you chose.\nQuantitative and Qualitative Results (8 points): Describe the quantitative and qualitative results. You may choose to use a table or figure to aid in your description. We are looking for both a clear presentation, and a result that makes sense given your data summary. (As an extreme example, you should not have a result that performs worse than a model that, say, predicts the most common class.)\nJustification of Results (20 points): A justification that your implemented method performed reasonably, given the difficulty of the problem—or a hypothesis for why it doesn’t. This is extremely important. We are looking for an interpretation of the result. You may want to refer to your data summary and hyperparameter choices to make your argument.\nEthical Consideration (4 points): Description of a use of the system that could give rise to ethical issues. Are there limitations of your model? Your training data? Please review the feedback provided in the proposal for some guidance on how to think deeply about these issues.\nAuthors (2 points): A description of how the work was split—i.e. who did what in this project. If there are significant issues with the way that work is split, we may follow up with individual teams, and not award equal points to all team members.\n\nCode/Documentation (20 points) We are looking for whether TAs can generally understand what your code does, how it is organized, and the steps that needs to be taken to replicate your model and results. Your code must be in working order (otherwise the TA will not be able to replicate your results)\nAdvanced Concept (10 points). Your project involves at least one of the following:\n\nData Augmentation applied in a way that makes sense for your domain\nTransformer\nGenerative Model, Sequence-to-Sequence Architecture (e.g. that uses teacher-forcing)",
     "crumbs": [
       "Overview"
     ]
@@ -7588,21 +7558,28 @@
     "href": "lecs/w01/lec01.html#introduction-instructors",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Introduction: Instructors",
-    "text": "Introduction: Instructors\nIgor Gilitschenski (LEC0101)\n\ni.gilitschenski@utoronto.ca\nOffice Hours: Tue 7-8pm DH3070\n\nFlorian Shkurti (LEC0102)\n\nflorian@cs.toronto.edu\nOffice Hours: Wed 10-11am DH3066\n\nPlease use Piazza for course-related questions"
+    "text": "Introduction: Instructors\nAkshay Gadi Patil (LEC0101, Tuesdays, 5-7pm)\nFlorian Shkurti (LEC0102, Thursdays, 3-5pm)\nRandy Hickey (LEC0103, Thursdays, 1-3pm)\nPlease use Piazza for course-related questions. Course delivery details are on Quercus."
   },
   {
-    "objectID": "lecs/w01/lec01.html#introduction---you-why-you-are-here",
-    "href": "lecs/w01/lec01.html#introduction---you-why-you-are-here",
+    "objectID": "lecs/w01/lec01.html#introduction-tas",
+    "href": "lecs/w01/lec01.html#introduction-tas",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Introduction - You! Why you are here",
-    "text": "Introduction - You! Why you are here\n\n\nI hope to apply [deep learning models] in my future career\nTo gain a better understanding of AI and potentially open up a career path in this direction\n\n\n\n\nI am kinda leaning towards doing machine learning in grad school\nMy [ROP] supervisor suggested that I take this course."
+    "section": "Introduction: TAs",
+    "text": "Introduction: TAs\nYuanliang Ju Saba Ale Ebrahim Ali Parchekani Koorosh Moslemi Ensieh Khazaei Seyed Sheikholeslami Nicholas Baldassini"
   },
   {
-    "objectID": "lecs/w01/lec01.html#introduction---you-why-you-are-here-ii",
-    "href": "lecs/w01/lec01.html#introduction---you-why-you-are-here-ii",
+    "objectID": "lecs/w01/lec01.html#introduction---why-are-you-here",
+    "href": "lecs/w01/lec01.html#introduction---why-are-you-here",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Introduction - You! Why you are here II",
-    "text": "Introduction - You! Why you are here II\n\n\nI am excited by the prospects of neural networks in the near future in fields such as finance, health, entertainment, etc.\nFields such as genetics are currently teeming with opportunities for deep learning, and I’d like to be a part of that advancement in the future.\n\n\n\n\nIt’s fascinating what tasks NN can do and that’s why i want to learn that.\nInterested in learning about neural network after csc311"
+    "section": "Introduction - Why are you here?",
+    "text": "Introduction - Why are you here?\n\n\nI hope to apply [deep learning models] in my future career\nTo gain a better understanding of AI and potentially open up a career path in this direction\n\n\n\n\nI am kinda leaning towards doing machine learning in grad school\nMy [ROP] supervisor suggested that I take this course."
+  },
+  {
+    "objectID": "lecs/w01/lec01.html#introduction---why-are-you-here-1",
+    "href": "lecs/w01/lec01.html#introduction---why-are-you-here-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Introduction - Why are you here?",
+    "text": "Introduction - Why are you here?\n\n\nI am excited by the prospects of neural networks in the near future in fields such as finance, health, entertainment, etc.\nFields such as genetics are currently teeming with opportunities for deep learning, and I’d like to be a part of that advancement in the future.\n\n\n\n\nIt’s fascinating what tasks NN can do and that’s why i want to learn that.\nInterested in learning about neural network after csc311"
   },
   {
     "objectID": "lecs/w01/lec01.html#computational-resources",
@@ -7616,14 +7593,14 @@
     "href": "lecs/w01/lec01.html#flipped-classroom",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Flipped Classroom",
-    "text": "Flipped Classroom\n\nWe turned tutorials into labs (practical, for credit)\nWe are trying active learning:\n\nwe provide a lecture recording before class\nyou watch it carefully before class\nyou come to class to ask questions and do group exercises (practical, not for credit)\nmaximizing interaction and discussion, minimizing one-way lecture"
+    "text": "Flipped Classroom\n\nWe turned tutorials into labs (practical, for credit)\nWe are trying active learning:\n\nwe provide a lecture recording before class\nyou watch it carefully before class\nyou come to class prepared to ask questions\nmaximizing interaction and discussion, minimizing one-way lecture"
   },
   {
     "objectID": "lecs/w01/lec01.html#will-it-work-better-than-typical-lectures",
     "href": "lecs/w01/lec01.html#will-it-work-better-than-typical-lectures",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Will it Work Better than Typical Lectures?",
-    "text": "Will it Work Better than Typical Lectures?\n\nWe don’t know, but it’s a useful experiment to try\nMeasuring success: students do better on average than previous years"
+    "section": "Will it work better than typical lectures?",
+    "text": "Will it work better than typical lectures?\n\nWe don’t know, but it’s a useful experiment to try\nMeasuring success: students do better on average than previous years"
   },
   {
     "objectID": "lecs/w01/lec01.html#what-is-the-difference-between",
@@ -7675,11 +7652,11 @@
     "text": "What are Neural Networks?\nNeural networks are a class of models originally inspired by the brain.\n\nMost of the biological details aren’t essential, so we use vastly simplified models of neurons.\nNowadays we mostly think about math, statistics, etc\n\n\\[\ny = \\phi \\left(\\bf{w}^\\top \\bf{x} + b\\right)\n\\]"
   },
   {
-    "objectID": "lecs/w01/lec01.html#what-are-neural-networks-ii",
-    "href": "lecs/w01/lec01.html#what-are-neural-networks-ii",
+    "objectID": "lecs/w01/lec01.html#what-are-neural-networks-1",
+    "href": "lecs/w01/lec01.html#what-are-neural-networks-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "What are Neural Networks? II",
-    "text": "What are Neural Networks? II\n\nNowadays we mostly think about math, statistics, etc\n\n\\[\ny = \\phi \\left(\\bf{w}^\\top \\bf{x} + b\\right)\n\\]\n\nNeural networks are collections of thousands (or millions) of these simple processing units that together perform useful computations"
+    "section": "What are Neural Networks?",
+    "text": "What are Neural Networks?\n\nNowadays we mostly think about math, statistics, etc\n\n\\[\ny = \\phi \\left(\\bf{w}^\\top \\bf{x} + b\\right)\n\\]\n\nNeural networks are collections of thousands (or millions) of these simple processing units that together perform useful computations"
   },
   {
     "objectID": "lecs/w01/lec01.html#why-neural-networks",
@@ -7728,7 +7705,7 @@
     "href": "lecs/w01/lec01.html#course-coverage",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Course Coverage",
-    "text": "Course Coverage\n\nMostly supervised learning\n\nMulti-layer perceptions (week 2-5)\nConvolutional Neural Networks for images (weeks 6-7)\nRecurrent Neural Networks for sequences (weeks 8-9)\n\nSome unsupervised learning\n\nAutoencoders (week 10)\nGenerative Adversarial Networks (week 11)\n\nSpecial topic TBA (week 12)"
+    "text": "Course Coverage\n\nMostly supervised learning\n\nMulti-layer perceptions\nConvolutional Neural Networks for images\nRecurrent Neural Networks and Tranformers for sequences\n\nSome unsupervised learning\n\nAutoencoders\nGenerative Adversarial Networks\nnanoGPT?\n\nSpecial topic TBA (week 12)"
   },
   {
     "objectID": "lecs/w01/lec01.html#course-syllabus-scavenger-hunt-breakout-group",
@@ -7780,18 +7757,18 @@
     "text": "Linear Regression for Exam Grade Prediction\nFor the exam prediction problem, we only have a single feature, so we can simplify our model to:\n\\[y = w x + b\\]"
   },
   {
-    "objectID": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-ii",
-    "href": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-ii",
+    "objectID": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-1",
+    "href": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Linear Regression for Exam Grade Prediction II",
-    "text": "Linear Regression for Exam Grade Prediction II\nOur hypothesis space includes all functions of the form \\(y = w x + b\\). Here are some examples:\n\n\\(y = 0.4 x + 0.2\\)\n\\(y = 0.9 x + 0.2\\)\n\\(y = 0.1 x + 0.7\\)\n\\(y = - x - 1\\)\n…"
+    "section": "Linear Regression for Exam Grade Prediction",
+    "text": "Linear Regression for Exam Grade Prediction\nOur hypothesis space includes all functions of the form \\(y = w x + b\\). Here are some examples:\n\n\\(y = 0.4 x + 0.2\\)\n\\(y = 0.9 x + 0.2\\)\n\\(y = 0.1 x + 0.7\\)\n\\(y = - x - 1\\)\n…"
   },
   {
-    "objectID": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-iii",
-    "href": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-iii",
+    "objectID": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-2",
+    "href": "lecs/w01/lec01.html#linear-regression-for-exam-grade-prediction-2",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Linear Regression for Exam Grade Prediction III",
-    "text": "Linear Regression for Exam Grade Prediction III\nThe variables \\(w\\) and \\(b\\) are called weights or parameters of our model. (Sometimes \\(w\\) and \\(b\\) are referred to as coefficients and intercept, respectively.)"
+    "section": "Linear Regression for Exam Grade Prediction",
+    "text": "Linear Regression for Exam Grade Prediction\nThe variables \\(w\\) and \\(b\\) are called weights or parameters of our model. (Sometimes \\(w\\) and \\(b\\) are referred to as coefficients and intercept, respectively.)"
   },
   {
     "objectID": "lecs/w01/lec01.html#which-hypothesis-is-better-suited-to-the-data",
@@ -7815,11 +7792,11 @@
     "text": "Cost Function (Loss Function)\nThe “badness” of an entire hypothesis is the average badness across our labeled data.\n\\[\\begin{align*}\n\\mathcal{E}(w, b) &= \\frac{1}{N} \\sum_i \\mathcal{L}\\left(y^{(i)}, t^{(i)}\\right) \\\\\n    &= \\frac{1}{2N} \\sum_i \\left(y^{(i)} - t^{(i)}\\right)^2 \\\\\n    &= \\frac{1}{2N} \\sum_i \\left(\\left(w x^{(i)} + b\\right) - t^{(i)}\\right)^2\n\\end{align*}\\]"
   },
   {
-    "objectID": "lecs/w01/lec01.html#cost-function-loss-function-ii",
-    "href": "lecs/w01/lec01.html#cost-function-loss-function-ii",
+    "objectID": "lecs/w01/lec01.html#cost-function-loss-function-1",
+    "href": "lecs/w01/lec01.html#cost-function-loss-function-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Cost Function (Loss Function) II",
-    "text": "Cost Function (Loss Function) II\nThis is called the cost of a particular hypothesis (in practice, “loss” and “cost” functions are used inter-changeably).\nSince the loss depends on the choice of \\(w\\) and \\(b\\), we call \\(\\mathcal{E}(w, b)\\) the cost function."
+    "section": "Cost Function (Loss Function)",
+    "text": "Cost Function (Loss Function)\nThis is called the cost of a particular hypothesis (in practice, “loss” and “cost” functions are used inter-changeably).\nSince the loss depends on the choice of \\(w\\) and \\(b\\), we call \\(\\mathcal{E}(w, b)\\) the cost function."
   },
   {
     "objectID": "lecs/w01/lec01.html#minimize-cost-direct-solution",
@@ -7941,11 +7918,11 @@
     "text": "Linear Regression Summary\n\n\n\n\n\n\n\nModel\n\\[y = {\\bf w}^T{\\bf x} + b\\]\n\n\nLoss Function\n\\[\\mathcal{L}(y, t) = (y- t)^2\\]\n\n\nOptimization Method\n\\[\\min_{{\\bf w},\\, b}\\left(\\left\\{\\mathcal{E}({\\bf w}, b)\\right\\}\\right) \\text{ via Gradient Descent}\\]"
   },
   {
-    "objectID": "lecs/w01/lec01.html#linear-regression-summary-ii",
-    "href": "lecs/w01/lec01.html#linear-regression-summary-ii",
+    "objectID": "lecs/w01/lec01.html#linear-regression-summary-1",
+    "href": "lecs/w01/lec01.html#linear-regression-summary-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Linear Regression Summary II",
-    "text": "Linear Regression Summary II\nUpdating rules:\n\\[\n{\\bf w} \\leftarrow {\\bf w} - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf w}}, \\quad b \\leftarrow b  - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial b}\n\\]"
+    "section": "Linear Regression Summary",
+    "text": "Linear Regression Summary\nUpdating rules:\n\\[\n{\\bf w} \\leftarrow {\\bf w} - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf w}}, \\quad b \\leftarrow b  - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial b}\n\\]"
   },
   {
     "objectID": "lecs/w01/lec01.html#linear-regression-vectorization",
@@ -7955,11 +7932,11 @@
     "text": "Linear Regression Vectorization\nUse vectors rather than writing\n\\[\n\\mathcal{E}({\\bf w}, b) = \\frac{1}{2N}\\sum_{i = 1}^N \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2\n\\]\nSo we have: \\[\n\\textbf{y} = \\textbf{X}\\textbf{w} + b{\\bf 1}\n\\]\nwhere…"
   },
   {
-    "objectID": "lecs/w01/lec01.html#linear-regression-vectorization-ii",
-    "href": "lecs/w01/lec01.html#linear-regression-vectorization-ii",
+    "objectID": "lecs/w01/lec01.html#linear-regression-vectorization-1",
+    "href": "lecs/w01/lec01.html#linear-regression-vectorization-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Linear Regression Vectorization II",
-    "text": "Linear Regression Vectorization II\n\\[\\begin{align*}\n\\textbf{X} &=\n\\begin{bmatrix}\n    x^{(1)}_1 & ... & x^{(1)}_D \\\\\n    \\vdots & \\ddots & \\vdots \\\\\n    x^{(N)}_1 & ... & x^{(N)}_D\n\\end{bmatrix},\n\\,\n\\textbf{w} =\n\\begin{bmatrix}\nw_1 \\\\\n\\vdots \\\\\nw_D \\\\\n\\end{bmatrix}, \\,\n\\textbf{y} =\n\\begin{bmatrix}\n    y^{(1)} \\\\\n    \\vdots \\\\\n    y^{(N)} \\\\\n\\end{bmatrix},\n\\,\n\\textbf{t} =\n\\begin{bmatrix}\n    t^{(1)} \\\\\n    \\vdots \\\\\n    t^{(N)} \\\\\n\\end{bmatrix}\n\\end{align*}\\]\n(You can also fold the bias \\(b\\) into the weight , but we won’t.)"
+    "section": "Linear Regression Vectorization",
+    "text": "Linear Regression Vectorization\n\\[\\begin{align*}\n\\textbf{X} &=\n\\begin{bmatrix}\n    x^{(1)}_1 & ... & x^{(1)}_D \\\\\n    \\vdots & \\ddots & \\vdots \\\\\n    x^{(N)}_1 & ... & x^{(N)}_D\n\\end{bmatrix},\n\\,\n\\textbf{w} =\n\\begin{bmatrix}\nw_1 \\\\\n\\vdots \\\\\nw_D \\\\\n\\end{bmatrix}, \\,\n\\textbf{y} =\n\\begin{bmatrix}\n    y^{(1)} \\\\\n    \\vdots \\\\\n    y^{(N)} \\\\\n\\end{bmatrix},\n\\,\n\\textbf{t} =\n\\begin{bmatrix}\n    t^{(1)} \\\\\n    \\vdots \\\\\n    t^{(N)} \\\\\n\\end{bmatrix}\n\\end{align*}\\]\n(You can also fold the bias \\(b\\) into the weight , but we won’t.)"
   },
   {
     "objectID": "lecs/w01/lec01.html#vectorized-loss-function",
@@ -8000,8 +7977,8 @@
     "objectID": "lecs/w01/lec01.html#q-why-not-use-regression",
     "href": "lecs/w01/lec01.html#q-why-not-use-regression",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Q: Why not Use Regression?",
-    "text": "Q: Why not Use Regression?\nWhy can’t we set up this problem as a regression problem?\nUse the model:\n\\[\ny = wx + b\n\\]\nOur prediction for \\(t\\) would be \\(1\\) if \\(y \\geq 0.5\\), and \\(0\\) otherwise.\n\nWith the loss function\n\\[\\mathcal{L}(y, t) = \\frac{1}{2}(y - t)^2\\]\nAnd minimize the cost function via gradient descent?"
+    "section": "Q: Why Not Use Regression?",
+    "text": "Q: Why Not Use Regression?\nWhy can’t we set up this problem as a regression problem?\nUse the model:\n\\[\ny = wx + b\n\\]\nOur prediction for \\(t\\) would be \\(1\\) if \\(y \\geq 0.5\\), and \\(0\\) otherwise.\n\nWith the loss function\n\\[\\mathcal{L}(y, t) = \\frac{1}{2}(y - t)^2\\]\nAnd minimize the cost function via gradient descent?"
   },
   {
     "objectID": "lecs/w01/lec01.html#classification-as-regression-problem",
@@ -8088,11 +8065,11 @@
     "text": "Logistic Regression Summary\n\n\n\n\n\n\n\nModel\n\\[y = \\sigma({\\bf w}^T{\\bf x} + b)\\]\n\n\nLoss Function\n\\[\\mathcal{L}(y, t) = -t \\log(y) - (1-t) \\log(1-y)\\]\n\n\nOptimization Method\n\\[\\min_{{\\bf w},\\, b}\\mathcal{E}({\\bf w}, b) \\text{ via Gradient Descent}\\]"
   },
   {
-    "objectID": "lecs/w01/lec01.html#logistic-regression-summary-ii",
-    "href": "lecs/w01/lec01.html#logistic-regression-summary-ii",
+    "objectID": "lecs/w01/lec01.html#logistic-regression-summary-1",
+    "href": "lecs/w01/lec01.html#logistic-regression-summary-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Logistic Regression Summary II",
-    "text": "Logistic Regression Summary II\nUpdating rules:\n\\[\n{\\bf w} \\leftarrow {\\bf w} - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf w}}, \\quad b \\leftarrow b  - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial b}\n\\]"
+    "section": "Logistic Regression Summary",
+    "text": "Logistic Regression Summary\nUpdating rules:\n\\[\n{\\bf w} \\leftarrow {\\bf w} - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf w}}, \\quad b \\leftarrow b  - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial b}\n\\]"
   },
   {
     "objectID": "lecs/w01/lec01.html#grade-classification-example",
@@ -8151,11 +8128,11 @@
     "text": "Multi-class Classification Summary\n\n\n\n\n\n\n\nModel\n\\[{\\bf y} = \\text{softmax}({\\bf W}^T{\\bf x} + {\\bf b})\\]\n\n\nLoss Function\n\\[\\mathcal{L}({\\bf y}, {\\bf t}) =- {\\bf t}^T \\log({\\bf y})\\]\n\n\nOptimization Method\n\\[\\min_{{\\bf w},\\, b}\\mathcal{E}({\\bf w}, b) \\text{ via Gradient Descent}\\]"
   },
   {
-    "objectID": "lecs/w01/lec01.html#multi-class-classification-summary-ii",
-    "href": "lecs/w01/lec01.html#multi-class-classification-summary-ii",
+    "objectID": "lecs/w01/lec01.html#multi-class-classification-summary-1",
+    "href": "lecs/w01/lec01.html#multi-class-classification-summary-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Multi-class Classification Summary II",
-    "text": "Multi-class Classification Summary II\nUpdating rules:\n\\[\n{\\bf W} \\leftarrow {\\bf W} - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf W}}, \\quad {\\bf b} \\leftarrow {\\bf b}  - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf b}}\n\\]"
+    "section": "Multi-class Classification Summary",
+    "text": "Multi-class Classification Summary\nUpdating rules:\n\\[\n{\\bf W} \\leftarrow {\\bf W} - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf W}}, \\quad {\\bf b} \\leftarrow {\\bf b}  - \\alpha \\frac{\\partial \\mathcal{E}}{\\partial {\\bf b}}\n\\]"
   },
   {
     "objectID": "lecs/w01/lec01.html#example-beatle-recognition",

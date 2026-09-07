@@ -190,9 +190,11 @@
   </style>
 <meta property="og:title" content="CSC413 Neural Networks and Deep Learning – CSC413 - Fall 2026, UTM">
 <meta property="og:description" content="Lecture 1">
+<meta property="og:image" content="https://utm-csc413.github.io/2026F-website/lecs/w01/images/neural_network.jpg">
 <meta property="og:site_name" content="CSC413 - Fall 2026, UTM">
 <meta name="twitter:title" content="CSC413 Neural Networks and Deep Learning – CSC413 - Fall 2026, UTM">
 <meta name="twitter:description" content="Lecture 1">
+<meta name="twitter:image" content="https://utm-csc413.github.io/2026F-website/lecs/w01/images/neural_network.jpg">
 <meta name="twitter:card" content="summary">
 </head>
 <body class="quarto-light">
@@ -208,26 +210,23 @@
 
 </section>
 <section>
-<section id="welcome-to-csc413" class="title-slide slide level1 center">
-<h1>Welcome to CSC413!</h1>
+<section id="welcome-to-csc413-neural-networks-and-deep-learning" class="title-slide slide level1 center">
+<h1>Welcome to CSC413: Neural Networks and Deep Learning!</h1>
 
 </section>
 <section id="introduction-instructors" class="slide level2">
 <h2>Introduction: Instructors</h2>
-<p><strong>Igor Gilitschenski</strong> (LEC0101)</p>
-<ul>
-<li><a href="mailto:i.gilitschenski@utoronto.ca">i.gilitschenski@utoronto.ca</a></li>
-<li>Office Hours: Tue 7-8pm DH3070</li>
-</ul>
-<p><strong>Florian Shkurti</strong> (LEC0102)</p>
-<ul>
-<li><a href="mailto:florian@cs.toronto.edu">florian@cs.toronto.edu</a></li>
-<li>Office Hours: Wed 10-11am DH3066</li>
-</ul>
-<p>Please use Piazza for course-related questions</p>
+<p><strong>Akshay Gadi Patil</strong> (LEC0101, Tuesdays, 5-7pm)</p>
+<p><strong>Florian Shkurti</strong> (LEC0102, Thursdays, 3-5pm)</p>
+<p><strong>Randy Hickey</strong> (LEC0103, Thursdays, 1-3pm)</p>
+<p>Please use Piazza for course-related questions. Course delivery details are on Quercus.</p>
 </section>
-<section id="introduction---you-why-you-are-here" class="slide level2">
-<h2>Introduction - You! Why you are here</h2>
+<section id="introduction-tas" class="slide level2">
+<h2>Introduction: TAs</h2>
+<p><strong>Yuanliang Ju</strong> <strong>Saba Ale Ebrahim</strong> <strong>Ali Parchekani</strong> <strong>Koorosh Moslemi</strong> <strong>Ensieh Khazaei</strong> <strong>Seyed Sheikholeslami</strong> <strong>Nicholas Baldassini</strong></p>
+</section>
+<section id="introduction---why-are-you-here" class="slide level2">
+<h2>Introduction - Why are you here?</h2>
 <div class="fragment">
 <ul>
 <li>I hope to apply [deep learning models] in my future career</li>
@@ -241,8 +240,8 @@
 </ul>
 </div>
 </section>
-<section id="introduction---you-why-you-are-here-ii" class="slide level2">
-<h2>Introduction - You! Why you are here II</h2>
+<section id="introduction---why-are-you-here-1" class="slide level2">
+<h2>Introduction - Why are you here?</h2>
 <div class="fragment">
 <ul>
 <li>I am excited by the prospects of neural networks in the near future in fields such as finance, health, entertainment, etc.</li>
@@ -272,13 +271,13 @@
 <ul>
 <li>we provide a lecture recording before class</li>
 <li>you watch it carefully before class</li>
-<li>you come to class to ask questions and do group exercises (practical, not for credit)</li>
+<li>you come to class prepared to ask questions</li>
 <li>maximizing interaction and discussion, minimizing one-way lecture</li>
 </ul></li>
 </ul>
 </section>
 <section id="will-it-work-better-than-typical-lectures" class="slide level2">
-<h2>Will it Work Better than Typical Lectures?</h2>
+<h2>Will it work better than typical lectures?</h2>
 <ul>
 <li>We don’t know, but it’s a useful experiment to try</li>
 <li>Measuring success: students do better on average than previous years</li>
@@ -363,8 +362,8 @@
 y = \phi \left(\bf{w}^\top \bf{x} + b\right)
 \]</span></p>
 </section>
-<section id="what-are-neural-networks-ii" class="slide level2">
-<h2>What are Neural Networks? II</h2>
+<section id="what-are-neural-networks-1" class="slide level2">
+<h2>What are Neural Networks?</h2>
 <ul>
 <li>Nowadays we mostly think about math, statistics, etc</li>
 </ul>
@@ -419,14 +418,15 @@ y = \phi \left(\bf{w}^\top \bf{x} + b\right)
 <ul>
 <li>Mostly supervised learning
 <ul>
-<li>Multi-layer perceptions (week 2-5)</li>
-<li>Convolutional Neural Networks for images (weeks 6-7)</li>
-<li>Recurrent Neural Networks for sequences (weeks 8-9)</li>
+<li>Multi-layer perceptions</li>
+<li>Convolutional Neural Networks for images</li>
+<li>Recurrent Neural Networks and Tranformers for sequences</li>
 </ul></li>
 <li>Some unsupervised learning
 <ul>
-<li>Autoencoders (week 10)</li>
-<li>Generative Adversarial Networks (week 11)</li>
+<li>Autoencoders</li>
+<li>Generative Adversarial Networks</li>
+<li>nanoGPT?</li>
 </ul></li>
 <li>Special topic TBA (week 12)</li>
 </ul>
@@ -500,8 +500,8 @@ y = \phi \left(\bf{w}^\top \bf{x} + b\right)
 <p>For the exam prediction problem, we only have a single feature, so we can simplify our model to:</p>
 <p><span class="math display">\[y = w x + b\]</span></p>
 </section>
-<section id="linear-regression-for-exam-grade-prediction-ii" class="slide level2">
-<h2>Linear Regression for Exam Grade Prediction II</h2>
+<section id="linear-regression-for-exam-grade-prediction-1" class="slide level2">
+<h2>Linear Regression for Exam Grade Prediction</h2>
 <p>Our <strong>hypothesis space</strong> includes all functions of the form <span class="math inline">\(y = w x + b\)</span>. Here are some examples:</p>
 <ul>
 <li><span class="math inline">\(y = 0.4 x + 0.2\)</span></li>
@@ -511,8 +511,8 @@ y = \phi \left(\bf{w}^\top \bf{x} + b\right)
 <li>…</li>
 </ul>
 </section>
-<section id="linear-regression-for-exam-grade-prediction-iii" class="slide level2">
-<h2>Linear Regression for Exam Grade Prediction III</h2>
+<section id="linear-regression-for-exam-grade-prediction-2" class="slide level2">
+<h2>Linear Regression for Exam Grade Prediction</h2>
 <p>The variables <span class="math inline">\(w\)</span> and <span class="math inline">\(b\)</span> are called <strong>weights</strong> or <strong>parameters</strong> of our model. (Sometimes <span class="math inline">\(w\)</span> and <span class="math inline">\(b\)</span> are referred to as coefficients and intercept, respectively.)</p>
 </section>
 <section id="which-hypothesis-is-better-suited-to-the-data" class="slide level2">
@@ -537,8 +537,8 @@ y = \phi \left(\bf{w}^\top \bf{x} + b\right)
     &amp;= \frac{1}{2N} \sum_i \left(\left(w x^{(i)} + b\right) - t^{(i)}\right)^2
 \end{align*}\]</span></p>
 </section>
-<section id="cost-function-loss-function-ii" class="slide level2">
-<h2>Cost Function (Loss Function) II</h2>
+<section id="cost-function-loss-function-1" class="slide level2">
+<h2>Cost Function (Loss Function)</h2>
 <p>This is called the <strong>cost</strong> of a particular hypothesis (in practice, “loss” and “cost” functions are used inter-changeably).</p>
 <p>Since the loss depends on the choice of <span class="math inline">\(w\)</span> and <span class="math inline">\(b\)</span>, we call <span class="math inline">\(\mathcal{E}(w, b)\)</span> the <strong>cost function</strong>.</p>
 </section>
@@ -711,8 +711,8 @@ y = \phi \left(\bf{w}^\top \bf{x} + b\right)
 </tbody>
 </table>
 </section>
-<section id="linear-regression-summary-ii" class="slide level2">
-<h2>Linear Regression Summary II</h2>
+<section id="linear-regression-summary-1" class="slide level2">
+<h2>Linear Regression Summary</h2>
 <p>Updating rules:</p>
 <p><span class="math display">\[
 {\bf w} \leftarrow {\bf w} - \alpha \frac{\partial \mathcal{E}}{\partial {\bf w}}, \quad b \leftarrow b  - \alpha \frac{\partial \mathcal{E}}{\partial b}
@@ -729,8 +729,8 @@ y = \phi \left(\bf{w}^\top \bf{x} + b\right)
 \]</span></p>
 <p>where…</p>
 </section>
-<section id="linear-regression-vectorization-ii" class="slide level2">
-<h2>Linear Regression Vectorization II</h2>
+<section id="linear-regression-vectorization-1" class="slide level2">
+<h2>Linear Regression Vectorization</h2>
 <p><span class="math display">\[\begin{align*}
 \textbf{X} &amp;=
 \begin{bmatrix}
@@ -821,7 +821,7 @@ w_D \\
 </center>
 </section>
 <section id="q-why-not-use-regression" class="slide level2">
-<h2>Q: Why not Use Regression?</h2>
+<h2>Q: Why Not Use Regression?</h2>
 <p>Why can’t we set up this problem as a regression problem?</p>
 <p>Use the model:</p>
 <p><span class="math display">\[
@@ -986,8 +986,8 @@ y &amp;= \sigma(z) \\
 </tbody>
 </table>
 </section>
-<section id="logistic-regression-summary-ii" class="slide level2">
-<h2>Logistic Regression Summary II</h2>
+<section id="logistic-regression-summary-1" class="slide level2">
+<h2>Logistic Regression Summary</h2>
 <p>Updating rules:</p>
 <p><span class="math display">\[
 {\bf w} \leftarrow {\bf w} - \alpha \frac{\partial \mathcal{E}}{\partial {\bf w}}, \quad b \leftarrow b  - \alpha \frac{\partial \mathcal{E}}{\partial b}
@@ -1081,8 +1081,8 @@ y &amp;= \sigma(z) \\
 </tbody>
 </table>
 </section>
-<section id="multi-class-classification-summary-ii" class="slide level2">
-<h2>Multi-class Classification Summary II</h2>
+<section id="multi-class-classification-summary-1" class="slide level2">
+<h2>Multi-class Classification Summary</h2>
 <p>Updating rules:</p>
 <p><span class="math display">\[
 {\bf W} \leftarrow {\bf W} - \alpha \frac{\partial \mathcal{E}}{\partial {\bf W}}, \quad {\bf b} \leftarrow {\bf b}  - \alpha \frac{\partial \mathcal{E}}{\partial {\bf b}}
