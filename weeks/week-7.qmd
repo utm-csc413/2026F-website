@@ -4,9 +4,9 @@ subtitle: "Interpreting Convolutional Neural Networks"
 editor: visual
 ---
 
-[Week 7 Overview](https://q.utoronto.ca/courses/366713/pages/week-7-overview?module_item_id=5872118)
+[Week 7 Overview](https://q.utoronto.ca/courses/443734/pages/week-7-overview?module_item_id=5872118)
 
-[Slides](/lecs/w07/lec07.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w07/lec07.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 [Troubleshooting Deep Neural Networks](http://josh-tobin.com/assets/pdf/troubleshooting-deep-neural-networks-01-19.pdf)
 
@@ -14,6 +14,6 @@ editor: visual
 
 In-person midterm #1 which covers weeks 1-5. Held during the tutorial / lab sessions
 
-[Math assignment 2](https://q.utoronto.ca/courses/366713/files/folder/A2) posted
+[Math assignment 2](https://q.utoronto.ca/courses/443734/files/folder/A2) posted
 
 <br><br>

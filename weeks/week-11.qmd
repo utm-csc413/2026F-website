@@ -4,15 +4,15 @@ subtitle: "Autoencoders and Transpose Convolutions"
 editor: visual
 ---
 
-[Slides](/lecs/w10/lec10.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w10/lec10.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-[Autoencoder Notebook](https://q.utoronto.ca/courses/366713)
+[Autoencoder Notebook](https://q.utoronto.ca/courses/443734)
 
 [In-class Exercise](/ex/w10/exercises10.html "Exercise"){aria-label="Exercise 10"} & [Solutions](/ex/w10/exercises10_solution.html "Exercise Solutions"){aria-label="Exercise 10 Solutions"}
 
 In-person midterm #2 which covers weeks 6-9. Held during the tutorial / lab sessions
 
-[Lecture 10 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/421077)
+[Lecture 10 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/421077)
 
 **Final Project** - Written feedback on project proposals sent by TAs and instructors
 

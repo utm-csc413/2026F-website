@@ -4,7 +4,7 @@ subtitle: "Use of Deep Learning in the Research of Profs Shkurti and Gilitschens
 editor: visual
 ---
 
-[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 If you are interested in both groups' research, it is worth attending or watching both lectures this week.
 

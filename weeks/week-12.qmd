@@ -4,7 +4,7 @@ subtitle: "Generative Adversarial Networks"
 editor: visual
 ---
 
-[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 [In-class Exercise](/ex/w11/exercises11.html "Exercise"){aria-label="Exercise 11"} & [Solutions](/ex/w11/exercises11_solution.html "Exercise Solutions"){aria-label="Exercise 11 Solutions"}
 

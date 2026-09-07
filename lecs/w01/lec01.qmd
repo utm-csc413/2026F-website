@@ -20,23 +20,29 @@ html-math-method:
   url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 ---
 
-# Welcome to CSC413!
+# Welcome to CSC413: Neural Networks and Deep Learning!
 
 ## Introduction: Instructors
 
-**Igor Gilitschenski** (LEC0101)
+**Akshay Gadi Patil** (LEC0101, Tuesdays, 5-7pm)
 
--   [i.gilitschenski\@utoronto.ca](mailto:i.gilitschenski@utoronto.ca)
--   Office Hours: Tue 7-8pm DH3070
+**Florian Shkurti** (LEC0102, Thursdays, 3-5pm)
 
-**Florian Shkurti** (LEC0102)
+**Randy Hickey** (LEC0103, Thursdays, 1-3pm)
 
--   [florian\@cs.toronto.edu](mailto:florian@cs.toronto.edu)
--   Office Hours: Wed 10-11am DH3066
+Please use Piazza for course-related questions. Course delivery details are on Quercus.
 
-Please use Piazza for course-related questions
+## Introduction: TAs
 
-## Introduction - You! Why you are here
+**Yuanliang Ju**
+**Saba Ale Ebrahim**
+**Ali Parchekani**
+**Koorosh Moslemi**
+**Ensieh Khazaei**
+**Seyed Sheikholeslami**
+**Nicholas Baldassini**
+
+## Introduction - Why are you here?
 
 . . .
 
@@ -48,7 +54,7 @@ Please use Piazza for course-related questions
 -   I am kinda leaning towards doing machine learning in grad school
 -   My \[ROP\] supervisor suggested that I take this course.
 
-## Introduction - You! Why you are here II
+## Introduction - Why are you here? 
 
 . . .
 
@@ -72,10 +78,10 @@ Please use Piazza for course-related questions
 -   We are trying active learning:
     -   we provide a lecture recording before class
     -   you watch it carefully before class
-    -   you come to class to ask questions and do group exercises (practical, not for credit)
+    -   you come to class prepared to ask questions 
     -   maximizing interaction and discussion, minimizing one-way lecture
 
-## Will it Work Better than Typical Lectures?
+## Will it work better than typical lectures?
 
 -   We don't know, but it's a useful experiment to try
 -   Measuring success: students do better on average than previous years
@@ -164,7 +170,7 @@ $$
 y = \phi \left(\bf{w}^\top \bf{x} + b\right)
 $$
 
-## What are Neural Networks? II
+## What are Neural Networks?
 
 -   Nowadays we mostly think about math, statistics, etc
 
@@ -209,12 +215,13 @@ from <https://xkcd.com/1838/>
 ## Course Coverage
 
 -   Mostly supervised learning
-    -   Multi-layer perceptions (week 2-5)
-    -   Convolutional Neural Networks for images (weeks 6-7)
-    -   Recurrent Neural Networks for sequences (weeks 8-9)
+    -   Multi-layer perceptions 
+    -   Convolutional Neural Networks for images 
+    -   Recurrent Neural Networks and Tranformers for sequences 
 -   Some unsupervised learning
-    -   Autoencoders (week 10)
-    -   Generative Adversarial Networks (week 11)
+    -   Autoencoders 
+    -   Generative Adversarial Networks
+    -   nanoGPT? 
 -   Special topic TBA (week 12)
 
 ## Course Syllabus Scavenger Hunt: Breakout Group
@@ -282,7 +289,7 @@ For the exam prediction problem, we only have a single feature, so we can simpli
 
 $$y = w x + b$$
 
-## Linear Regression for Exam Grade Prediction II
+## Linear Regression for Exam Grade Prediction
 
 Our **hypothesis space** includes all functions of the form $y = w x + b$. Here are some examples:
 
@@ -292,7 +299,7 @@ Our **hypothesis space** includes all functions of the form $y = w x + b$. Here 
 -   $y = - x - 1$
 -   ...
 
-## Linear Regression for Exam Grade Prediction III
+## Linear Regression for Exam Grade Prediction
 
 The variables $w$ and $b$ are called **weights** or **parameters** of our model. (Sometimes $w$ and $b$ are referred to as coefficients and intercept, respectively.)
 
@@ -324,7 +331,7 @@ The "badness" of an entire hypothesis is the average badness across our labeled 
     &= \frac{1}{2N} \sum_i \left(\left(w x^{(i)} + b\right) - t^{(i)}\right)^2
 \end{align*}
 
-## Cost Function (Loss Function) II
+## Cost Function (Loss Function) 
 
 This is called the **cost** of a particular hypothesis (in practice, "loss" and "cost" functions are used inter-changeably).
 
@@ -482,7 +489,7 @@ Q: What happens if the batch size is **too small**?
 | Loss Function | $$\mathcal{L}(y, t) = (y- t)^2$$ |
 | Optimization Method | $$\min_{{\bf w},\, b}\left(\left\{\mathcal{E}({\bf w}, b)\right\}\right) \text{ via Gradient Descent}$$ |
 
-## Linear Regression Summary II
+## Linear Regression Summary
 
 Updating rules:
 
@@ -504,7 +511,7 @@ $$
 
 where...
 
-## Linear Regression Vectorization II
+## Linear Regression Vectorization 
 
 \begin{align*}
 \textbf{X} &=
@@ -595,7 +602,7 @@ In binary classification, we'll use the labels $t \in \{0, 1\}$. Training exampl
 
 <center>![](imgs/classification.png){height="300"}</center>
 
-## Q: Why not Use Regression?
+## Q: Why Not Use Regression?
 
 Why can't we set up this problem as a regression problem?
 
@@ -782,7 +789,7 @@ $$\mathcal{L}(y, t) = - t \log(y) - (1-t) \log(1-y)$$
 | Loss Function | $$\mathcal{L}(y, t) = -t \log(y) - (1-t) \log(1-y)$$ |
 | Optimization Method | $$\min_{{\bf w},\, b}\mathcal{E}({\bf w}, b) \text{ via Gradient Descent}$$ |
 
-## Logistic Regression Summary II
+## Logistic Regression Summary
 
 Updating rules:
 
@@ -864,7 +871,7 @@ Recall that only one of the $t_k$ is going to be 1, and the rest are 0.
 | Loss Function | $$\mathcal{L}({\bf y}, {\bf t}) =- {\bf t}^T \log({\bf y})$$ |
 | Optimization Method | $$\min_{{\bf w},\, b}\mathcal{E}({\bf w}, b) \text{ via Gradient Descent}$$ |
 
-## Multi-class Classification Summary II
+## Multi-class Classification Summary
 
 Updating rules:
 

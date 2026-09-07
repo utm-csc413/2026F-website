@@ -7,6 +7,7 @@ website:
   title: "CSC413 - Fall 2026, UTM"
   description: "Homepage for CSC413 - Neural Networks and Deep Learning, Fall 2026, UTM."
   site-url: "https://utm-csc413.github.io/2026F-website/"
+  image: "images/neural_network.jpg"
 
   repo-url: https://github.com/utm-csc413/2026F-website
   repo-actions: [issue]
@@ -14,7 +15,7 @@ website:
   open-graph: true
 
   twitter-card:
-    card-style: "summary" 
+    card-style: "summary"
 
   page-footer:
     right: "This page is built with ❤️, [Quarto](https://quarto.org/) and inspiration from [STA210](https://sta210-s22.github.io/website/)."
@@ -36,7 +37,7 @@ website:
         href: https://piazza.com/utoronto.ca/fall2026/csc413h5flec0101/home
         text: "Discuss on Piazza"
       - icon: megaphone
-        href: https://q.utoronto.ca/courses/366713
+        href: https://q.utoronto.ca/courses/443734
         text: "Official announcements on Quercus"
       - icon: envelope-at
         href: index.html#teaching-staff
@@ -51,7 +52,7 @@ website:
         text: Overview
       - href: https://piazza.com/utoronto.ca/fall2026/csc413h5flec0101/home
         text: Piazza
-      - href: https://q.utoronto.ca/courses/366713
+      - href: https://q.utoronto.ca/courses/443734
         text: Quercus	
       - href: index.qmd#syllabus
         text: Syllabus

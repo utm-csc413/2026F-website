@@ -4,9 +4,9 @@ subtitle: "Attention and Transformers"
 editor: visual
 ---
 
-[Week 10 Overview](https://q.utoronto.ca/courses/366713/pages/week-10-overview?module_item_id=5872133)
+[Week 10 Overview](https://q.utoronto.ca/courses/443734/pages/week-10-overview?module_item_id=5872133)
 
-[Slides](/lecs/w09/lec09.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w09/lec09.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 Transformer video: <https://www.youtube.com/watch?v=XSSTuhyAmnI>
 

@@ -1,11 +1,17 @@
 ---
 title: "Week 9"
-subtitle: "Fall Reading Week"
+subtitle: "Recurrent Neural Networks"
 editor: visual
 ---
 
-Fall reading week. No lecture.
+[Slides](/lecs/w08/lec08.html)
 
-Math assignment 2 due.
+Missing recording due to technical issue
+
+[In-class Exercise](/ex/w08/exercises08.html "Exercise"){aria-label="Exercise 8"} & [Solutions](/ex/w08/exercises08_solution.html "Exercise Solutions"){aria-label="Exercise 8 Solutions"}
+
+In-person lab session: transfer learning and double descent [lab07](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab07.ipynb "Lab instructions"){aria-label="Lab 7 instructions"}
+
+[Lecture 8 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/419409)
 
 <br><br>

@@ -4,9 +4,9 @@ subtitle: "Optimization"
 editor: visual
 ---
 
-[Week 5 Overview](https://q.utoronto.ca/courses/366713/pages/week-6-overview?module_item_id=5872108)
+[Week 5 Overview](https://q.utoronto.ca/courses/443734/pages/week-6-overview?module_item_id=5872108)
 
-[Slides](/lecs/w05/lec05.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w05/lec05.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 [In-class Exercise](/ex/w05/exercises05.html "Exercise"){aria-label="Exercise 5"} & [Solutions](/ex/w05/exercises05_solution.html "Exercise Solutions"){aria-label="Exercise 5 Solutions"}
 
@@ -14,6 +14,6 @@ Taylor Series <https://www.youtube.com/watch?v=3d6DsjIBzJ4>
 
 Tutorial: how to implement SGD with momentum [neural network optimization](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/neural_network_optimization.ipynb)
 
-[Lecture 5 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/417060)
+[Lecture 5 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/417060)
 
 <br><br>

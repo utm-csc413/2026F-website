@@ -4,16 +4,16 @@ subtitle: "Multi-Layer Perceptron, Backpropagation, Losses"
 editor: visual
 ---
 
-[Week 2 Overview](https://q.utoronto.ca/courses/366713/modules/items/5872098 "Week 2 Overview")
+[Week 2 Overview](https://q.utoronto.ca/courses/443734/modules/items/5872098 "Week 2 Overview")
 
-[Slides](/lecs/w02/lec02.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w02/lec02.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-Prof. Roger Grosse's notes on [backdrop](https://q.utoronto.ca/courses/366713/files/32607080?wrap=1)
+Prof. Roger Grosse's notes on [backdrop](https://q.utoronto.ca/courses/443734/files/32607080?wrap=1)
 
 No exercises this week
 
 In-person lab session: PyTorch basics with linear models [lab01](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab01.ipynb "Lab instructions"){aria-label="Lab 1 instructions"}
 
-[Lec2 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/366713/quizzes/404473)
+[Lec2 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/443734/quizzes/404473)
 
 <br><br>

@@ -6,15 +6,15 @@ title: "Weekly Materials"
 
 #### Prepare
 
-[Software Installations](https://q.utoronto.ca/courses/366713/pages/software-installations)
+[Software Installations](https://q.utoronto.ca/courses/443734/pages/software-installations)
 
 #### Lecture
 
-[Slides](/lecs/w01/lec01.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w01/lec01.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 #### Tutorials/Labs
 
-No tutorials/labs this week but please complete the [Pre-Requisite Math Problems](https://q.utoronto.ca/courses/366713/files/32607079?wrap=1 "prereq.pdf")
+No tutorials/labs this week but please complete the [Pre-Requisite Math Problems](https://q.utoronto.ca/courses/443734/files/32607079?wrap=1 "prereq.pdf")
 
 Suggested Review :
 
@@ -25,9 +25,9 @@ Suggested Review :
 
 #### Lecture
 
-[Slides](/lecs/w02/lec02.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w02/lec02.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-Prof. Roger Grosse's notes on [backdrop](https://q.utoronto.ca/courses/366713/files/32607080?wrap=1)
+Prof. Roger Grosse's notes on [backdrop](https://q.utoronto.ca/courses/443734/files/32607080?wrap=1)
 
 #### Exercises
 
@@ -39,7 +39,7 @@ In-person lab session: PyTorch basics with linear models [lab01](/labs/lab01.htm
 
 #### Quiz
 
-[Lec2 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/366713/quizzes/404473)
+[Lec2 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/443734/quizzes/404473)
 
 ## Week 3 {#week-3}
 
@@ -49,7 +49,7 @@ In-person lab session: PyTorch basics with linear models [lab01](/labs/lab01.htm
 
 [Video on autodiff](https://www.youtube.com/watch?v=wG_nF1awSSY)
 
-[Slides](/lecs/w01/lec01.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w01/lec01.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 #### Exercises
 
@@ -61,11 +61,11 @@ In-person lab session: numerical gradients / word embeddings [lab02](/labs/lab02
 
 #### Quiz
 
-[Lec3 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/366713/quizzes/412392)
+[Lec3 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/443734/quizzes/412392)
 
 #### Additional Resources
 
-Prof. Roger Grosse's notes on [autodiff](https://q.utoronto.ca/courses/366713/files/32607086?wrap=1 "L03a.pdf") and [word embeddings](https://q.utoronto.ca/courses/366713/files/32607091?wrap=1 "L03b.pdf")
+Prof. Roger Grosse's notes on [autodiff](https://q.utoronto.ca/courses/443734/files/32607086?wrap=1 "L03a.pdf") and [word embeddings](https://q.utoronto.ca/courses/443734/files/32607091?wrap=1 "L03b.pdf")
 
 Notes on Backpropagation <https://cs231n.github.io/optimization-2/>
 
@@ -75,7 +75,7 @@ Automatic Differentiation in Machine Learning: a Survey (2018) <https://arxiv.or
 
 #### Lecture
 
-[Slides](/lecs/w04/lec04.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w04/lec04.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 Demo: [Colab Notebook](https://colab.research.google.com/drive/1AL2ocL6muULg4P2hzHBOLTPL6RGbQaB5?usp=sharing)
 
@@ -89,17 +89,17 @@ In-person lab session: classification and medical MNIST [lab03](/labs/lab03.html
 
 #### Quiz
 
-[Lecture 4 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/405061)
+[Lecture 4 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/405061)
 
 #### Assignment
 
-[Math Assignment 1](https://q.utoronto.ca/courses/366713/files/folder/A1) posted
+[Math Assignment 1](https://q.utoronto.ca/courses/443734/files/folder/A1) posted
 
 ## Week 5 {#week-5}
 
 #### Lecture
 
-[Slides](/lecs/w05/lec05.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w05/lec05.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 #### Exercises
 
@@ -107,11 +107,11 @@ In-person lab session: classification and medical MNIST [lab03](/labs/lab03.html
 
 #### Tutorials/Labs
 
-Tutorial: how to implement SGD with momentum [neural network optimization](https://q.utoronto.ca/courses/366713/files/33627019?wrap=1)
+Tutorial: how to implement SGD with momentum [neural network optimization](https://q.utoronto.ca/courses/443734/files/33627019?wrap=1)
 
 #### Quiz
 
-[Lecture 5 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/417060)
+[Lecture 5 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/417060)
 
 #### Additional Resources
 
@@ -121,9 +121,9 @@ Taylor Series <https://www.youtube.com/watch?v=3d6DsjIBzJ4>
 
 #### Lecture
 
-[Slides](/lecs/w06/lec06.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w06/lec06.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-[Ensembling code skeleton](https://q.utoronto.ca/courses/366713/files/32607111?wrap=1 "exercises06-ensembling.ipynb")
+[Ensembling code skeleton](https://q.utoronto.ca/courses/443734/files/32607111?wrap=1 "exercises06-ensembling.ipynb")
 
 [The definition of differential privacy](https://www.youtube.com/watch?v=lg-VhHlztqo)
 
@@ -137,7 +137,7 @@ In-person lab session: optimization and differential privacy [lab05](/labs/lab05
 
 #### Quiz
 
-[Lecture 6 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/418108)
+[Lecture 6 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/418108)
 
 #### Assignment
 
@@ -147,7 +147,7 @@ Math assignment 1 due
 
 #### Lecture
 
-[Slides](/lecs/w07/lec07.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w07/lec07.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 [Troubleshooting Deep Neural Networks](http://josh-tobin.com/assets/pdf/troubleshooting-deep-neural-networks-01-19.pdf)
 
@@ -161,7 +161,7 @@ In-person midterm #1 which covers weeks 1-5. Held during the tutorial / lab sess
 
 #### Assignment
 
-[Math assignment 2](https://q.utoronto.ca/courses/366713/files/folder/A2) posted
+[Math assignment 2](https://q.utoronto.ca/courses/443734/files/folder/A2) posted
 
 ## Week 8 {#week-8}
 
@@ -181,7 +181,7 @@ In-person lab session: transfer learning and double descent [lab07](/labs/lab07.
 
 #### Quiz
 
-[Lecture 8 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/419409)
+[Lecture 8 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/419409)
 
 ## Week 9 {#week-9}
 
@@ -193,7 +193,7 @@ Math assignment 2 due.
 
 #### Lecture
 
-[Slides](/lecs/w09/lec09.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w09/lec09.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 #### Exercises
 
@@ -221,9 +221,9 @@ Last year's A3 (a seq2seq autoencoder) <http://modelai.gettysburg.edu/2021/headl
 
 #### Lecture
 
-[Slides](/lecs/w10/lec10.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w10/lec10.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-[Autoencoder Notebook](https://q.utoronto.ca/courses/366713)
+[Autoencoder Notebook](https://q.utoronto.ca/courses/443734)
 
 #### Exercises
 
@@ -235,7 +235,7 @@ In-person midterm #2 which covers weeks 6-9. Held during the tutorial / lab sess
 
 #### Quiz
 
-[Lecture 10 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/421077)
+[Lecture 10 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/421077)
 
 #### Final Project
 
@@ -245,7 +245,7 @@ Written feedback on project proposals sent by TAs and instructors.
 
 #### Lecture
 
-[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 #### Exercises
 
@@ -259,7 +259,7 @@ In-person lab session: RNN text classification [lab10](/labs/lab10.html "Lab ins
 
 #### Lecture
 
-[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/366713)
+[Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
 If you are interested in both groups' research, it is worth attending or watching both lectures this week.
 
