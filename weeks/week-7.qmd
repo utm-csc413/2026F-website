@@ -12,8 +12,6 @@ editor: visual
 
 [In-class Exercise](/ex/w07/exercises07.html "Exercise"){aria-label="Exercise 7"} & [Solutions](/ex/w07/exercises07_solution.html "Exercise Solutions"){aria-label="Exercise 7 Solutions"}
 
-In-person midterm #1 which covers weeks 1-5. Held during the tutorial / lab sessions
-
 [Math assignment 2](https://q.utoronto.ca/courses/443734/files/folder/A2) posted
 
 <br><br>

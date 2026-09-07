@@ -16,4 +16,8 @@ Tutorial: how to implement SGD with momentum [neural network optimization](https
 
 [Lecture 5 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/417060)
 
+[Math Assignment 1](https://q.utoronto.ca/courses/443734/files/folder/A1) due
+
+In-person midterm #1 which covers weeks 1-5. Held during the tutorial / lab sessions
+
 <br><br>

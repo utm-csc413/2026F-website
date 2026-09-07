@@ -34,13 +34,13 @@ website:
         href: https://github.com/utm-csc413 
         text: "Github workspace for the course"
       - icon: chat-quote
-        href: https://piazza.com/utoronto.ca/fall2026/csc413h5flec0101/home
+        href: https://piazza.com/utoronto.ca/fall2026/csc413h5fall2026utm/home
         text: "Discuss on Piazza"
       - icon: megaphone
         href: https://q.utoronto.ca/courses/443734
         text: "Official announcements on Quercus"
       - icon: envelope-at
-        href: index.html#teaching-staff
+        href: https://q.utoronto.ca/courses/443734
         text: "Email teaching staff"
    	
         
@@ -50,13 +50,13 @@ website:
     contents:
       - href: index.qmd
         text: Overview
-      - href: https://piazza.com/utoronto.ca/fall2026/csc413h5flec0101/home
+      - href: https://piazza.com/utoronto.ca/fall2026/csc413h5fall2026utm/home
         text: Piazza
       - href: https://q.utoronto.ca/courses/443734
         text: Quercus	
-      - href: index.qmd#syllabus
+      - href: https://q.utoronto.ca/courses/443734
         text: Syllabus
-      - href: index.qmd#teaching-staff
+      - href: index.qmd#instructors
         text: Teaching Staff
       - href: index.qmd#schedule
         text: Schedule

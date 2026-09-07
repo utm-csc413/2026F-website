@@ -14,4 +14,6 @@ In-person lab session: transfer learning and double descent [lab07](https://cola
 
 [Lecture 8 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/419409)
 
+**Final Project** - Deadline to form project groups on Markus, and submit a [project proposal](../index.html#project-proposal)
+
 <br><br>
