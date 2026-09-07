@@ -12,7 +12,7 @@ editor: visual
 
 Taylor Series <https://www.youtube.com/watch?v=3d6DsjIBzJ4>
 
-Tutorial: how to implement SGD with momentum [neural network optimization](https://colab.research.google.com/github/UofTCSC413/2024F-website/blob/main/labs/neural_network_optimization.ipynb)
+Tutorial: how to implement SGD with momentum [neural network optimization](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/neural_network_optimization.ipynb)
 
 [Lecture 5 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/417060)
 

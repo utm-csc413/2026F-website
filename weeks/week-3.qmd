@@ -20,7 +20,7 @@ Notes on Backpropagation <https://cs231n.github.io/optimization-2/>
 
 Automatic Differentiation in Machine Learning: a Survey (2018) <https://arxiv.org/pdf/1502.05767.pdf>
 
-In-person lab session: numerical gradients / word embeddings [lab02](https://colab.research.google.com/github/UofTCSC413/2024F-website/blob/main/labs/lab02.ipynb "Lab instructions"){aria-label="Lab 2 instructions"}
+In-person lab session: numerical gradients / word embeddings [lab02](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab02.ipynb "Lab instructions"){aria-label="Lab 2 instructions"}
 
 [Lec3 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/366713/quizzes/412392)
 

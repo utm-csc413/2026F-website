@@ -205,7 +205,7 @@ In-person lab session: gradcam and input gradients [lab09](/labs/lab09.html "Lab
 
 #### Final Project
 
-Deadline to form project groups on Markus, and submit a [project proposal](project-description.html#project-proposal)
+Deadline to form project groups on Markus, and submit a [project proposal](index.html#project-proposal)
 
 #### Additional Resources
 
@@ -269,4 +269,4 @@ In-person lab session: text generation with transformers [lab11](/labs/lab11.htm
 
 ## Week 14 {#week-14}
 
-[Final project](project-description.html#final-project) submission
+[Final project](index.html#final-project) submission

@@ -1,6 +1,6 @@
-# Website for CSC 413 at the University of Toronto Mississauga (Fall 2024)
+# Website for CSC 413 at the University of Toronto Mississauga (Fall 2026)
 
-🔗 https://utm-csc413.github.io/2024F-website/
+🔗 https://utm-csc413.github.io/2026F-website/
 
 ## Quarto Website Setup Guide
 
@@ -19,11 +19,47 @@ quarto --version
 Clone this repository to your local machine:
 
 ``` bash
-git clone https://github.com/utm-csc413/2024F-website.git
-cd 2024F-website
+git clone https://github.com/utm-csc413/2026F-website.git
+cd 2026F-website
 ```
 
-### 3. Compile the Website and Run Locally
+### 3. Set Up R (required for slides with executable R code)
+
+Slides under `slides/` run R code and depend on a large set of packages pinned in `renv.lock` via [renv](https://rstudio.github.io/renv/).
+
+1. Install R (this project was last synced against R 4.4.3, but any recent R 4.x should work).
+2. Install a Fortran compiler — some packages (e.g. `rms`, `mvtnorm`) build from source and need one:
+   - **macOS**: install the official [R development tools](https://mac.r-project.org/tools/) (provides `gfortran` at `/opt/gfortran`, the path R expects). If you use Homebrew's `gfortran` (`brew install gcc`) instead, tell R where to find it by creating `~/.R/Makevars`:
+     ``` make
+     FC = /opt/homebrew/bin/gfortran
+     F77 = /opt/homebrew/bin/gfortran
+     FLIBS = -L/opt/homebrew/lib/gcc/current -lgfortran -lquadmath -lm
+     ```
+     (adjust the `gcc` lib path to match your `brew --prefix gcc`)
+   - **Windows**: install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) matching your R version.
+   - **Linux**: install via your package manager, e.g. `sudo apt install gfortran`.
+3. From the repo root, install and restore the pinned packages:
+   ``` r
+   install.packages("renv")
+   renv::restore()
+   ```
+   This installs every package in `renv.lock` at its pinned version, including the two GitHub-only packages (`colorblindr`, `emo`).
+
+### 4. Set Up Python (required for `lecs/w10/lec10.qmd`)
+
+One lecture (`lecs/w10/lec10.qmd`) runs executable PyTorch code cells via a dedicated Jupyter kernel named `myenv`. Set it up with:
+
+``` bash
+python3 -m venv myenv
+myenv/bin/pip install torch numpy ipykernel
+myenv/bin/python -m ipykernel install --user --name myenv --display-name "Python (myenv)"
+```
+
+Quarto will automatically pick up the `myenv` kernel when rendering that file.
+
+> **Note:** `renv.lock` only tracks R package versions — it does not cover the R interpreter/compiler toolchain (like `gfortran` above) or this Python environment, so both need to be set up separately.
+
+### 5. Compile the Website and Run Locally
 
 To compile the source files (.qmd, .md) into a HTML website, run the following command after navigating to the cloned repository:
 
@@ -43,7 +79,7 @@ This command will start a local development server, allowing you to view the web
 
 More details on rendering can be found in the [Quarto documentation](https://quarto.org/docs/websites/).
 
-### 4. Deploy to GitHub Pages
+### 6. Deploy to GitHub Pages
 
 To publish the compiled site directly to GitHub Pages, run the following command:
 
@@ -51,7 +87,7 @@ To publish the compiled site directly to GitHub Pages, run the following command
 quarto publish gh-pages
 ```
 
-This command will push the contents of the `_site/` directory to the `gh-pages` branch of the repository, making it available at `https://utm-csc413.github.io/2024F-website/`.
+This command will push the contents of the `_site/` directory to the `gh-pages` branch of the repository, making it available at `https://utm-csc413.github.io/2026F-website/`.
 
 ## Colors
 

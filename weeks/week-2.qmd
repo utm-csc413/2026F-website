@@ -12,7 +12,7 @@ Prof. Roger Grosse's notes on [backdrop](https://q.utoronto.ca/courses/366713/fi
 
 No exercises this week
 
-In-person lab session: PyTorch basics with linear models [lab01](https://colab.research.google.com/github/UofTCSC413/2024F-website/blob/main/labs/lab01.ipynb "Lab instructions"){aria-label="Lab 1 instructions"}
+In-person lab session: PyTorch basics with linear models [lab01](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab01.ipynb "Lab instructions"){aria-label="Lab 1 instructions"}
 
 [Lec2 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/366713/quizzes/404473)
 

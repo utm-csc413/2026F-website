@@ -12,7 +12,7 @@ Demo: [Colab Notebook](https://colab.research.google.com/drive/1AL2ocL6muULg4P2h
 
 [In-class Exercise](/ex/w04/exercises04.html "Exercise"){aria-label="Exercise 4"} & [Solutions](/ex/w04/exercises04_solution.html "Exercise Solutions"){aria-label="Exercise 4 Solutions"}
 
-In-person lab session: classification and medical MNIST [lab03](https://colab.research.google.com/github/UofTCSC413/2024F-website/blob/main/labs/lab03.ipynb "Lab instructions"){aria-label="Lab 3 instructions"}
+In-person lab session: classification and medical MNIST [lab03](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab03.ipynb "Lab instructions"){aria-label="Lab 3 instructions"}
 
 [Lecture 4 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/366713/quizzes/405061)
 

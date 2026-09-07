@@ -4,11 +4,11 @@ project:
 
 website:
   page-navigation: true
-  title: "CSC413 - Fall 2024, UTM"
-  description: "Homepage for CSC413 - Neural Networks and Deep Learning, Fall 2024, UTM."
-  site-url: "https://utm-csc413.github.io/2024F-website/"
+  title: "CSC413 - Fall 2026, UTM"
+  description: "Homepage for CSC413 - Neural Networks and Deep Learning, Fall 2026, UTM."
+  site-url: "https://utm-csc413.github.io/2026F-website/"
 
-  repo-url: https://github.com/utm-csc413/2024F-website
+  repo-url: https://github.com/utm-csc413/2026F-website
   repo-actions: [issue]
 
   open-graph: true
@@ -18,7 +18,7 @@ website:
 
   page-footer:
     right: "This page is built with ❤️, [Quarto](https://quarto.org/) and inspiration from [STA210](https://sta210-s22.github.io/website/)."
-    left: "&copy; Copyright 2024, Florian Shkurti"
+    left: "&copy; Copyright 2026, Florian Shkurti"
     background: "#D9E3E4"
 
   sidebar:
@@ -33,13 +33,13 @@ website:
         href: https://github.com/utm-csc413 
         text: "Github workspace for the course"
       - icon: chat-quote
-        href: https://piazza.com/utoronto.ca/fall2024/csc413h5flec0101/home
+        href: https://piazza.com/utoronto.ca/fall2026/csc413h5flec0101/home
         text: "Discuss on Piazza"
       - icon: megaphone
         href: https://q.utoronto.ca/courses/366713
         text: "Official announcements on Quercus"
       - icon: envelope-at
-        href: course-team.html
+        href: index.html#teaching-staff
         text: "Email teaching staff"
    	
         
@@ -49,17 +49,17 @@ website:
     contents:
       - href: index.qmd
         text: Overview
-      - href: https://piazza.com/utoronto.ca/fall2024/csc413h5flec0101/home
+      - href: https://piazza.com/utoronto.ca/fall2026/csc413h5flec0101/home
         text: Piazza
       - href: https://q.utoronto.ca/courses/366713
         text: Quercus	
-      - href: course-syllabus.qmd
+      - href: index.qmd#syllabus
         text: Syllabus
-      - href: course-team.qmd
+      - href: index.qmd#teaching-staff
         text: Teaching Staff
-      - href: course-schedule.qmd
+      - href: index.qmd#schedule
         text: Schedule
-      - href: project-description.qmd
+      - href: index.qmd#final-project-guidelines
         text: Final Project
       
 format:

@@ -4,6 +4,6 @@ subtitle: "Final project submission"
 editor: visual
 ---
 
-[Final project](../project-description.html#final-project) submission
+[Final project](../index.html#final-project) submission
 
 <br><br>

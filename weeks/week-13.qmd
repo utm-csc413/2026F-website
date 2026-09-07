@@ -8,6 +8,6 @@ editor: visual
 
 If you are interested in both groups' research, it is worth attending or watching both lectures this week.
 
-In-person lab session: text generation with transformers [lab11](https://colab.research.google.com/github/UofTCSC413/2024F-website/blob/main/labs/lab11.ipynb "Lab instructions"){aria-label="Lab 11 instructions"}
+In-person lab session: text generation with transformers [lab11](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab11.ipynb "Lab instructions"){aria-label="Lab 11 instructions"}
 
 <br><br>
