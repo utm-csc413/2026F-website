@@ -14,7 +14,7 @@ editor: visual
 
 [In-class Exercise](/ex/w03/exercises03.html "Exercise"){aria-label="Exercise 3"} & [Solutions](/ex/w03/exercises03_solution.html "Exercise Solutions"){aria-label="Exercise 3 Solutions"}
 
-Prof. Roger Grosse's notes on [autodiff](https://q.utoronto.ca/courses/443734/files/32607086?wrap=1 "L03a.pdf") and [word embeddings](https://q.utoronto.ca/courses/443734/files/32607091?wrap=1 "L03b.pdf")
+Prof. Roger Grosse's notes on [autodiff](https://uoft-csc413.github.io/2023/assets/readings/L03a.pdf "L03a.pdf") and [word embeddings](https://uoft-csc413.github.io/2023/assets/readings/L03b.pdf "L03b.pdf") (archived PDFs from the 2023 course website).
 
 Notes on Backpropagation <https://cs231n.github.io/optimization-2/>
 

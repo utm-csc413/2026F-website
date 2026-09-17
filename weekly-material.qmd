@@ -27,7 +27,7 @@ Suggested Review :
 
 [Slides](/lecs/w02/lec02.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-Prof. Roger Grosse's notes on [backdrop](https://q.utoronto.ca/courses/443734/files/32607080?wrap=1)
+Prof. Roger Grosse's notes on [backpropagation](https://uoft-csc413.github.io/2023/assets/readings/L02b.pdf) (archived PDF from the 2023 course website).
 
 #### Exercises
 
@@ -65,7 +65,7 @@ In-person lab session: numerical gradients / word embeddings [lab02](/labs/lab02
 
 #### Additional Resources
 
-Prof. Roger Grosse's notes on [autodiff](https://q.utoronto.ca/courses/443734/files/32607086?wrap=1 "L03a.pdf") and [word embeddings](https://q.utoronto.ca/courses/443734/files/32607091?wrap=1 "L03b.pdf")
+Prof. Roger Grosse's notes on [autodiff](https://uoft-csc413.github.io/2023/assets/readings/L03a.pdf "L03a.pdf") and [word embeddings](https://uoft-csc413.github.io/2023/assets/readings/L03b.pdf "L03b.pdf") (archived PDFs from the 2023 course website).
 
 Notes on Backpropagation <https://cs231n.github.io/optimization-2/>
 

@@ -8,7 +8,7 @@ editor: visual
 
 [Slides](/lecs/w02/lec02.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-Prof. Roger Grosse's notes on [backdrop](https://q.utoronto.ca/courses/443734/files/32607080?wrap=1)
+Prof. Roger Grosse's notes on [backpropagation](https://uoft-csc413.github.io/2023/assets/readings/L02b.pdf) (archived PDF from the 2023 course website).
 
 No exercises this week
 
