@@ -4071,7 +4071,7 @@
     "href": "weeks/week-3.html",
     "title": "Week 3",
     "section": "",
-    "text": "Week 3 Overview\nGloVe embedding demo \nVideo on autodiff\nSlides & Recordings\nIn-class Exercise & Solutions\nProf. Roger Grosse’s notes on autodiff and word embeddings\nNotes on Backpropagation https://cs231n.github.io/optimization-2/\nAutomatic Differentiation in Machine Learning: a Survey (2018) https://arxiv.org/pdf/1502.05767.pdf\nIn-person lab session: numerical gradients / word embeddings lab02\nLec3 pre-recorded videos with quizzes"
+    "text": "Week 3 Overview\nGloVe embedding demo \nVideo on autodiff\nSlides & Recordings\nIn-class Exercise & Solutions\nProf. Roger Grosse’s notes on autodiff and word embeddings (archived PDFs from the 2023 course website).\nNotes on Backpropagation https://cs231n.github.io/optimization-2/\nAutomatic Differentiation in Machine Learning: a Survey (2018) https://arxiv.org/pdf/1502.05767.pdf\nIn-person lab session: numerical gradients / word embeddings lab02\nLec3 pre-recorded videos with quizzes"
   },
   {
     "objectID": "weeks/week-4.html",
@@ -4106,14 +4106,14 @@
     "href": "weekly-material.html#week-2",
     "title": "Weekly Materials",
     "section": "Week 2",
-    "text": "Week 2\n\nLecture\nSlides & Recordings\nProf. Roger Grosse’s notes on backdrop\n\n\nExercises\nIn-class Exercise & Solutions\n\n\nTutorials/Labs\nIn-person lab session: PyTorch basics with linear models lab01\n\n\nQuiz\nLec2 pre-recorded videos with quizzes"
+    "text": "Week 2\n\nLecture\nSlides & Recordings\nProf. Roger Grosse’s notes on backpropagation (archived PDF from the 2023 course website).\n\n\nExercises\nIn-class Exercise & Solutions\n\n\nTutorials/Labs\nIn-person lab session: PyTorch basics with linear models lab01\n\n\nQuiz\nLec2 pre-recorded videos with quizzes"
   },
   {
     "objectID": "weekly-material.html#week-3",
     "href": "weekly-material.html#week-3",
     "title": "Weekly Materials",
     "section": "Week 3",
-    "text": "Week 3\n\nLecture\nGloVe embedding demo \nVideo on autodiff\nSlides & Recordings\n\n\nExercises\nIn-class Exercise & Solutions\n\n\nTutorials/Labs\nIn-person lab session: numerical gradients / word embeddings lab02\n\n\nQuiz\nLec3 pre-recorded videos with quizzes\n\n\nAdditional Resources\nProf. Roger Grosse’s notes on autodiff and word embeddings\nNotes on Backpropagation https://cs231n.github.io/optimization-2/\nAutomatic Differentiation in Machine Learning: a Survey (2018) https://arxiv.org/pdf/1502.05767.pdf"
+    "text": "Week 3\n\nLecture\nGloVe embedding demo \nVideo on autodiff\nSlides & Recordings\n\n\nExercises\nIn-class Exercise & Solutions\n\n\nTutorials/Labs\nIn-person lab session: numerical gradients / word embeddings lab02\n\n\nQuiz\nLec3 pre-recorded videos with quizzes\n\n\nAdditional Resources\nProf. Roger Grosse’s notes on autodiff and word embeddings (archived PDFs from the 2023 course website).\nNotes on Backpropagation https://cs231n.github.io/optimization-2/\nAutomatic Differentiation in Machine Learning: a Survey (2018) https://arxiv.org/pdf/1502.05767.pdf"
   },
   {
     "objectID": "weekly-material.html#week-4",
@@ -4610,7 +4610,7 @@
     "href": "weeks/week-2.html",
     "title": "Week 2",
     "section": "",
-    "text": "Week 2 Overview\nSlides & Recordings\nProf. Roger Grosse’s notes on backdrop\nNo exercises this week\nIn-person lab session: PyTorch basics with linear models lab01\nLec2 pre-recorded videos with quizzes"
+    "text": "Week 2 Overview\nSlides & Recordings\nProf. Roger Grosse’s notes on backpropagation (archived PDF from the 2023 course website).\nNo exercises this week\nIn-person lab session: PyTorch basics with linear models lab01\nLec2 pre-recorded videos with quizzes"
   },
   {
     "objectID": "weeks/week-11.html",
