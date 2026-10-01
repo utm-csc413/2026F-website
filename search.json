@@ -6018,14 +6018,42 @@
     "href": "lecs/w03/lec03.html#reverse-mode-automatic-differentiation-1",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Reverse-Mode Automatic Differentiation",
-    "text": "Reverse-Mode Automatic Differentiation\n\n… we have \\(\\overline{\\bf x}^\\top = \\overline{\\bf z}^\\top J_{f_1}(\\bf{x})\\)\n\n\n\n… which is a vector-Jacobian product\n\n\n\nSummary: For each primitive operation, we don’t need to be able to compute entire Jacobian matrix. We need to be able to compute the vector-Jacobian product."
+    "text": "Reverse-Mode Automatic Differentiation\n\n… we have \\(\\overline{\\bf x}^\\top = \\overline{\\bf z}^\\top J_{f_1}(\\bf{x})\\)\n\n\n\n… which is a vector-Jacobian product\n\n\n\nSummary: For each primitive operation, we don’t need to compute the entire Jacobian matrix first. We need to be able to compute the vector-Jacobian product."
   },
   {
-    "objectID": "lecs/w03/lec03.html#vector-jacobian-products",
-    "href": "lecs/w03/lec03.html#vector-jacobian-products",
+    "objectID": "lecs/w03/lec03.html#why-we-dont-build-the-full-jacobian",
+    "href": "lecs/w03/lec03.html#why-we-dont-build-the-full-jacobian",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Vector Jacobian Products",
-    "text": "Vector Jacobian Products\nFor each primitive operation, we must specify the VJPs for each of its arguments\nThe VJP function should takes in the output gradient (i.e. \\({\\bar y}\\)), the answer (\\(y\\)), and the arguments (\\(x\\)), and returns the input gradient (\\({\\bar x}\\)). Here are some examples from https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py\ndefvjp(anp.negative, lambda g, ans, x: -g)\ndefvjp(anp.exp,    lambda g, ans, x: ans * g)\ndefvjp(anp.log,    lambda g, ans, x: g / x)\n\ndefvjp(anp.add,         lambda g, ans, x, y : unbroadcast(x, g),\n                        lambda g, ans, x, y : unbroadcast(y, g))\ndefvjp(anp.multiply,    lambda g, ans, x, y : unbroadcast(x, y * g),\n                        lambda g, ans, x, y : unbroadcast(y, x * g))\ndefvjp(anp.subtract,    lambda g, ans, x, y : unbroadcast(x, g),\n                        lambda g, ans, x, y : unbroadcast(y, -g))"
+    "section": "Why We Don’t Build the Full Jacobian",
+    "text": "Why We Don’t Build the Full Jacobian\nExample: centering, \\({\\bf z} = {\\bf x} - \\text{mean}({\\bf x})\\), i.e. \\(z_i = x_i - \\frac{1}{n}\\sum_k x_k\\), with \\({\\bf x} \\in \\mathbb{R}^n\\). Every output depends on every input, so the Jacobian is a dense \\(n \\times n\\) matrix:\n\\[J({\\bf x}) = I - \\frac{1}{n}{\\bf 1}{\\bf 1}^\\top = \\begin{bmatrix} 1 - \\frac{1}{n} & -\\frac{1}{n} & \\cdots & -\\frac{1}{n} \\\\ -\\frac{1}{n} & 1 - \\frac{1}{n} & \\cdots & -\\frac{1}{n} \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ -\\frac{1}{n} & -\\frac{1}{n} & \\cdots & 1 - \\frac{1}{n} \\end{bmatrix}\\]"
+  },
+  {
+    "objectID": "lecs/w03/lec03.html#why-we-dont-build-the-full-jacobian-1",
+    "href": "lecs/w03/lec03.html#why-we-dont-build-the-full-jacobian-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Why We Don’t Build the Full Jacobian",
+    "text": "Why We Don’t Build the Full Jacobian\nBut the VJP has a simple closed form:\n\\[\\begin{align*}\n\\overline{\\bf x}^\\top &= \\overline{\\bf z}^\\top J \\\\\n\\Longrightarrow \\quad \\overline{\\bf x} &= J^\\top \\overline{\\bf z} = \\overline{\\bf z} - \\frac{1}{n}{\\bf 1}\\underbrace{({\\bf 1}^\\top \\overline{\\bf z})}_{\\text{scalar}} = \\overline{\\bf z} - \\text{mean}(\\overline{\\bf z})\n\\end{align*}\\]\nIn code: x_bar = z_bar - z_bar.mean(), which costs \\(O(n),\\) instead of storing \\(n^2\\) entries and doing an \\(O(n^2)\\) matrix-vector product. The VJP still uses all the information in the Jacobian. We just derive a formula for the product \\(\\overline{\\bf z}^\\top J\\) directly, instead of first building \\(J\\) and then multiplying."
+  },
+  {
+    "objectID": "lecs/w03/lec03.html#implementing-vjps",
+    "href": "lecs/w03/lec03.html#implementing-vjps",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Implementing VJPs",
+    "text": "Implementing VJPs\ndefvjp(op, vjp_arg0, vjp_arg1, ...) registers, for a primitive operation op, one VJP function per argument. Each VJP function receives:\n\ng: the output gradient \\(\\overline{\\bf z} = \\frac{\\partial \\mathcal{L}}{\\partial {\\bf z}}\\) (same shape as the output)\nans: the output \\({\\bf z}\\) itself, saved from the forward pass\nx, y: the original inputs\n\nand returns the input gradient \\(\\overline{\\bf x}\\) (same shape as x).\n\nCareful: g is not the output. For example, defvjp(anp.exp, lambda g, ans, x: ans * g) means \\(\\overline{\\bf x} = {\\bf z} \\odot \\overline{\\bf z}\\), where \\(\\odot\\) is elementwise multiplication."
+  },
+  {
+    "objectID": "lecs/w03/lec03.html#elementwise-operations-have-cheap-vjps",
+    "href": "lecs/w03/lec03.html#elementwise-operations-have-cheap-vjps",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Elementwise Operations Have Cheap VJPs",
+    "text": "Elementwise Operations Have Cheap VJPs\nFor elementwise operations, \\(z_i\\) depends only on \\(x_i\\), so the Jacobian is diagonal, and \\(\\overline{\\bf z}^\\top \\text{diag}({\\bf d}) = ({\\bf d} \\odot \\overline{\\bf z})^\\top\\):\n\n\n\n\n\n\n\n\nOperation\nJacobian w.r.t. x (and y)\nVJP\n\n\n\n\nexp(x)\n\\(\\text{diag}(e^{\\bf x})\\)\nans * g\n\n\nlog(x)\n\\(\\text{diag}(1/{\\bf x})\\)\ng / x\n\n\nadd(x, y)\n\\(I\\), \\(I\\)\ng, g\n\n\nsubtract(x, y)\n\\(I\\), \\(-I\\)\ng, -g\n\n\nmultiply(x, y)\n\\(\\text{diag}({\\bf y})\\), \\(\\text{diag}({\\bf x})\\)\ny * g, x * g\n\n\n\n(The code on the next slide wraps some of these in unbroadcast, which handles numpy broadcasting. Without broadcasting, it does nothing.)\n\n\nEach VJP costs \\(O(n)\\) and never allocates an \\(n \\times n\\) matrix\nexp reuses ans, since \\(\\frac{d}{dx}e^x = e^x\\): no need to recompute it\nVJPs are written with (autograd-wrapped) operations, so they are themselves differentiable, which gives us gradients of gradients"
+  },
+  {
+    "objectID": "lecs/w03/lec03.html#implementing-vjps-1",
+    "href": "lecs/w03/lec03.html#implementing-vjps-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Implementing VJPs",
+    "text": "Implementing VJPs\nFor each primitive operation, we must specify the VJPs for each of its arguments. The VJP function takes in the output gradient (i.e. \\({\\bar y}\\)), the answer (\\(y\\)), and the arguments (\\(x\\)), and returns the input gradient (\\({\\bar x}\\)). Here are some examples from https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py\ndefvjp(anp.exp,    lambda g, ans, x: ans * g)\ndefvjp(anp.log,    lambda g, ans, x: g / x)\n\ndefvjp(anp.add,         lambda g, ans, x, y : unbroadcast(x, g),\n                        lambda g, ans, x, y : unbroadcast(y, g))\ndefvjp(anp.multiply,    lambda g, ans, x, y : unbroadcast(x, y * g),\n                        lambda g, ans, x, y : unbroadcast(y, x * g))\ndefvjp(anp.subtract,    lambda g, ans, x, y : unbroadcast(x, g),\n                        lambda g, ans, x, y : unbroadcast(y, -g))"
   },
   {
     "objectID": "lecs/w03/lec03.html#backprop-as-message-passing",

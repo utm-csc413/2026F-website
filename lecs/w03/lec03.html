@@ -541,23 +541,101 @@ J_f({\bf x}) &amp;= \begin{bmatrix}
 </ul>
 </div>
 <div class="fragment">
-<p><strong>Summary:</strong> For each primitive operation, we don’t need to be able to compute entire Jacobian matrix. <strong>We need to be able to compute the vector-Jacobian product.</strong></p>
+<p><strong>Summary:</strong> For each primitive operation, we don’t need to compute the entire Jacobian matrix first. <strong>We need to be able to compute the vector-Jacobian product.</strong></p>
 </div>
 </section>
-<section id="vector-jacobian-products" class="slide level2">
-<h2>Vector Jacobian Products</h2>
-<p>For each primitive operation, we must specify the VJPs for each of its arguments</p>
-<p>The VJP function should takes in the output gradient (i.e.&nbsp;<span class="math inline">\({\bar y}\)</span>), the answer (<span class="math inline">\(y\)</span>), and the arguments (<span class="math inline">\(x\)</span>), and returns the input gradient (<span class="math inline">\({\bar x}\)</span>). Here are some examples from <a href="https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py" class="uri">https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>defvjp(anp.negative, <span class="kw">lambda</span> g, ans, x: <span class="op">-</span>g)</span>
-<span id="cb6-2"><a></a>defvjp(anp.exp,    <span class="kw">lambda</span> g, ans, x: ans <span class="op">*</span> g)</span>
-<span id="cb6-3"><a></a>defvjp(anp.log,    <span class="kw">lambda</span> g, ans, x: g <span class="op">/</span> x)</span>
-<span id="cb6-4"><a></a></span>
-<span id="cb6-5"><a></a>defvjp(anp.add,         <span class="kw">lambda</span> g, ans, x, y : unbroadcast(x, g),</span>
-<span id="cb6-6"><a></a>                        <span class="kw">lambda</span> g, ans, x, y : unbroadcast(y, g))</span>
-<span id="cb6-7"><a></a>defvjp(anp.multiply,    <span class="kw">lambda</span> g, ans, x, y : unbroadcast(x, y <span class="op">*</span> g),</span>
-<span id="cb6-8"><a></a>                        <span class="kw">lambda</span> g, ans, x, y : unbroadcast(y, x <span class="op">*</span> g))</span>
-<span id="cb6-9"><a></a>defvjp(anp.subtract,    <span class="kw">lambda</span> g, ans, x, y : unbroadcast(x, g),</span>
-<span id="cb6-10"><a></a>                        <span class="kw">lambda</span> g, ans, x, y : unbroadcast(y, <span class="op">-</span>g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="why-we-dont-build-the-full-jacobian" class="slide level2 smaller">
+<h2>Why We Don’t Build the Full Jacobian</h2>
+<p>Example: centering, <span class="math inline">\({\bf z} = {\bf x} - \text{mean}({\bf x})\)</span>, i.e.&nbsp;<span class="math inline">\(z_i = x_i - \frac{1}{n}\sum_k x_k\)</span>, with <span class="math inline">\({\bf x} \in \mathbb{R}^n\)</span>. Every output depends on every input, so the Jacobian is a <strong>dense</strong> <span class="math inline">\(n \times n\)</span> matrix:</p>
+<p><span class="math display">\[J({\bf x}) = I - \frac{1}{n}{\bf 1}{\bf 1}^\top = \begin{bmatrix} 1 - \frac{1}{n} &amp; -\frac{1}{n} &amp; \cdots &amp; -\frac{1}{n} \\ -\frac{1}{n} &amp; 1 - \frac{1}{n} &amp; \cdots &amp; -\frac{1}{n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ -\frac{1}{n} &amp; -\frac{1}{n} &amp; \cdots &amp; 1 - \frac{1}{n} \end{bmatrix}\]</span></p>
+</section>
+<section id="why-we-dont-build-the-full-jacobian-1" class="slide level2 smaller">
+<h2>Why We Don’t Build the Full Jacobian</h2>
+<p>But the VJP has a simple closed form:</p>
+<p><span class="math display">\[\begin{align*}
+\overline{\bf x}^\top &amp;= \overline{\bf z}^\top J \\
+\Longrightarrow \quad \overline{\bf x} &amp;= J^\top \overline{\bf z} = \overline{\bf z} - \frac{1}{n}{\bf 1}\underbrace{({\bf 1}^\top \overline{\bf z})}_{\text{scalar}} = \overline{\bf z} - \text{mean}(\overline{\bf z})
+\end{align*}\]</span></p>
+<p>In code: <code>x_bar = z_bar - z_bar.mean()</code>, which costs <span class="math inline">\(O(n),\)</span> instead of storing <span class="math inline">\(n^2\)</span> entries and doing an <span class="math inline">\(O(n^2)\)</span> matrix-vector product. The VJP still uses all the information in the Jacobian. We just derive a formula for the <strong>product</strong> <span class="math inline">\(\overline{\bf z}^\top J\)</span> directly, instead of first building <span class="math inline">\(J\)</span> and then multiplying.</p>
+</section>
+<section id="implementing-vjps" class="slide level2 smaller">
+<h2>Implementing VJPs</h2>
+<p><code>defvjp(op, vjp_arg0, vjp_arg1, ...)</code> registers, for a primitive operation <code>op</code>, one VJP function per argument. Each VJP function receives:</p>
+<ul>
+<li><code>g</code>: the output gradient <span class="math inline">\(\overline{\bf z} = \frac{\partial \mathcal{L}}{\partial {\bf z}}\)</span> (same shape as the output)</li>
+<li><code>ans</code>: the output <span class="math inline">\({\bf z}\)</span> itself, saved from the forward pass</li>
+<li><code>x</code>, <code>y</code>: the original inputs</li>
+</ul>
+<p>and returns the input gradient <span class="math inline">\(\overline{\bf x}\)</span> (same shape as <code>x</code>).</p>
+<div class="fragment">
+<p><strong>Careful:</strong> <code>g</code> is <em>not</em> the output. For example, <code>defvjp(anp.exp, lambda g, ans, x: ans * g)</code> means <span class="math inline">\(\overline{\bf x} = {\bf z} \odot \overline{\bf z}\)</span>, where <span class="math inline">\(\odot\)</span> is elementwise multiplication.</p>
+</div>
+</section>
+<section id="elementwise-operations-have-cheap-vjps" class="slide level2 smallest">
+<h2>Elementwise Operations Have Cheap VJPs</h2>
+<p>For elementwise operations, <span class="math inline">\(z_i\)</span> depends only on <span class="math inline">\(x_i\)</span>, so the Jacobian is <strong>diagonal</strong>, and <span class="math inline">\(\overline{\bf z}^\top \text{diag}({\bf d}) = ({\bf d} \odot \overline{\bf z})^\top\)</span>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operation</th>
+<th>Jacobian w.r.t. <code>x</code> (and <code>y</code>)</th>
+<th>VJP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>exp(x)</code></td>
+<td><span class="math inline">\(\text{diag}(e^{\bf x})\)</span></td>
+<td><code>ans * g</code></td>
+</tr>
+<tr class="even">
+<td><code>log(x)</code></td>
+<td><span class="math inline">\(\text{diag}(1/{\bf x})\)</span></td>
+<td><code>g / x</code></td>
+</tr>
+<tr class="odd">
+<td><code>add(x, y)</code></td>
+<td><span class="math inline">\(I\)</span>, <span class="math inline">\(I\)</span></td>
+<td><code>g</code>, <code>g</code></td>
+</tr>
+<tr class="even">
+<td><code>subtract(x, y)</code></td>
+<td><span class="math inline">\(I\)</span>, <span class="math inline">\(-I\)</span></td>
+<td><code>g</code>, <code>-g</code></td>
+</tr>
+<tr class="odd">
+<td><code>multiply(x, y)</code></td>
+<td><span class="math inline">\(\text{diag}({\bf y})\)</span>, <span class="math inline">\(\text{diag}({\bf x})\)</span></td>
+<td><code>y * g</code>, <code>x * g</code></td>
+</tr>
+</tbody>
+</table>
+<p>(The code on the next slide wraps some of these in <code>unbroadcast</code>, which handles numpy broadcasting. Without broadcasting, it does nothing.)</p>
+<div class="fragment">
+<ul>
+<li>Each VJP costs <span class="math inline">\(O(n)\)</span> and never allocates an <span class="math inline">\(n \times n\)</span> matrix</li>
+<li><code>exp</code> reuses <code>ans</code>, since <span class="math inline">\(\frac{d}{dx}e^x = e^x\)</span>: no need to recompute it</li>
+<li>VJPs are written with (autograd-wrapped) operations, so they are themselves differentiable, which gives us gradients of gradients</li>
+</ul>
+</div>
+</section>
+<section id="implementing-vjps-1" class="slide level2 smaller">
+<h2>Implementing VJPs</h2>
+<p>For each primitive operation, we must specify the VJPs for each of its arguments. The VJP function takes in the output gradient (i.e.&nbsp;<span class="math inline">\({\bar y}\)</span>), the answer (<span class="math inline">\(y\)</span>), and the arguments (<span class="math inline">\(x\)</span>), and returns the input gradient (<span class="math inline">\({\bar x}\)</span>). Here are some examples from <a href="https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py" class="uri">https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py</a></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>defvjp(anp.exp,    <span class="kw">lambda</span> g, ans, x: ans <span class="op">*</span> g)</span>
+<span id="cb6-2"><a></a>defvjp(anp.log,    <span class="kw">lambda</span> g, ans, x: g <span class="op">/</span> x)</span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a>defvjp(anp.add,         <span class="kw">lambda</span> g, ans, x, y : unbroadcast(x, g),</span>
+<span id="cb6-5"><a></a>                        <span class="kw">lambda</span> g, ans, x, y : unbroadcast(y, g))</span>
+<span id="cb6-6"><a></a>defvjp(anp.multiply,    <span class="kw">lambda</span> g, ans, x, y : unbroadcast(x, y <span class="op">*</span> g),</span>
+<span id="cb6-7"><a></a>                        <span class="kw">lambda</span> g, ans, x, y : unbroadcast(y, x <span class="op">*</span> g))</span>
+<span id="cb6-8"><a></a>defvjp(anp.subtract,    <span class="kw">lambda</span> g, ans, x, y : unbroadcast(x, g),</span>
+<span id="cb6-9"><a></a>                        <span class="kw">lambda</span> g, ans, x, y : unbroadcast(y, <span class="op">-</span>g))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="backprop-as-message-passing" class="slide level2">
 <h2>Backprop as Message Passing</h2>
@@ -1225,7 +1303,7 @@ Q: What are the tunable parameters in this model?
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
