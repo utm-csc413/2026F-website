@@ -17,7 +17,7 @@ format:
     include-after-body: ../custom.html
     html-math-method:
       method: mathjax
-      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js"
 ---
 
 ## Lecture Plan
@@ -344,18 +344,68 @@ Then we have:
 
 . . .
 
-**Summary:** For each primitive operation, we don't need to be able to compute entire Jacobian matrix. **We need to be able to compute the vector-Jacobian product.**
+**Summary:** For each primitive operation, we don't need to compute the entire Jacobian matrix first. **We need to be able to compute the vector-Jacobian product.**
 
-## Vector Jacobian Products
+## Why We Don't Build the Full Jacobian {.smaller}
 
-For each primitive operation, we must specify the VJPs for each of its arguments
+Example: centering, ${\bf z} = {\bf x} - \text{mean}({\bf x})$, i.e. $z_i = x_i - \frac{1}{n}\sum_k x_k$, with ${\bf x} \in \mathbb{R}^n$. Every output depends on every input, so the Jacobian is a **dense** $n \times n$ matrix:
 
-The VJP function should takes in the output gradient (i.e. ${\bar y}$), the answer ($y$), and the arguments ($x$), and returns the input gradient (${\bar x}$). Here are some examples from <https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py>
+$$J({\bf x}) = I - \frac{1}{n}{\bf 1}{\bf 1}^\top = \begin{bmatrix} 1 - \frac{1}{n} & -\frac{1}{n} & \cdots & -\frac{1}{n} \\ -\frac{1}{n} & 1 - \frac{1}{n} & \cdots & -\frac{1}{n} \\ \vdots & \vdots & \ddots & \vdots \\ -\frac{1}{n} & -\frac{1}{n} & \cdots & 1 - \frac{1}{n} \end{bmatrix}$$
+
+## Why We Don't Build the Full Jacobian {.smaller}
+
+But the VJP has a simple closed form:
+
+\begin{align*}
+\overline{\bf x}^\top &= \overline{\bf z}^\top J \\
+\Longrightarrow \quad \overline{\bf x} &= J^\top \overline{\bf z} = \overline{\bf z} - \frac{1}{n}{\bf 1}\underbrace{({\bf 1}^\top \overline{\bf z})}_{\text{scalar}} = \overline{\bf z} - \text{mean}(\overline{\bf z})
+\end{align*}
+
+In code: `x_bar = z_bar - z_bar.mean()`, which costs $O(n),$ instead of storing $n^2$ entries and doing an $O(n^2)$ matrix-vector product. The VJP still uses all the information in the Jacobian. We just derive a formula for the **product** $\overline{\bf z}^\top J$ directly, instead of first building $J$ and then multiplying.
+
+## Implementing VJPs {.smaller}
+
+`defvjp(op, vjp_arg0, vjp_arg1, ...)` registers, for a primitive operation `op`, one VJP function per argument. Each VJP function receives:
+
+-   `g`: the output gradient $\overline{\bf z} = \frac{\partial \mathcal{L}}{\partial {\bf z}}$ (same shape as the output)
+-   `ans`: the output ${\bf z}$ itself, saved from the forward pass
+-   `x`, `y`: the original inputs
+
+and returns the input gradient $\overline{\bf x}$ (same shape as `x`).
+
+. . .
+
+**Careful:** `g` is *not* the output. For example, `defvjp(anp.exp, lambda g, ans, x: ans * g)` means $\overline{\bf x} = {\bf z} \odot \overline{\bf z}$, where $\odot$ is elementwise multiplication.
+
+## Elementwise Operations Have Cheap VJPs {.smallest}
+
+For elementwise operations, $z_i$ depends only on $x_i$, so the Jacobian is **diagonal**, and $\overline{\bf z}^\top \text{diag}({\bf d}) = ({\bf d} \odot \overline{\bf z})^\top$:
+
+| Operation | Jacobian w.r.t. `x` (and `y`) | VJP |
+|---|---|---|
+| `exp(x)` | $\text{diag}(e^{\bf x})$ | `ans * g` |
+| `log(x)` | $\text{diag}(1/{\bf x})$ | `g / x` |
+| `add(x, y)` | $I$, $I$ | `g`, `g` |
+| `subtract(x, y)` | $I$, $-I$ | `g`, `-g` |
+| `multiply(x, y)` | $\text{diag}({\bf y})$, $\text{diag}({\bf x})$ | `y * g`, `x * g` |
+
+(The code on the next slide wraps some of these in `unbroadcast`, which handles numpy broadcasting. Without broadcasting, it does nothing.)
+
+. . .
+
+-   Each VJP costs $O(n)$ and never allocates an $n \times n$ matrix
+-   `exp` reuses `ans`, since $\frac{d}{dx}e^x = e^x$: no need to recompute it
+-   VJPs are written with (autograd-wrapped) operations, so they are themselves differentiable, which gives us gradients of gradients
+
+## Implementing VJPs {.smaller}
+
+For each primitive operation, we must specify the VJPs for each of its arguments. The VJP function takes in the output gradient (i.e. ${\bar y}$), 
+the answer ($y$), and the arguments ($x$), and returns the input gradient (${\bar x}$). Here are some examples 
+from <https://github.com/mattjj/autodidact/blob/master/autograd/numpy/numpy_vjps.py>
 
 \footnotesize
 
 ``` python
-defvjp(anp.negative, lambda g, ans, x: -g)
 defvjp(anp.exp,    lambda g, ans, x: ans * g)
 defvjp(anp.log,    lambda g, ans, x: g / x)
 

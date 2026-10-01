@@ -5,3 +5,11 @@
 .border-thick {
     border-width: 3px;
 }
+
+.reveal .slides section.smallest {
+    font-size: 0.55em;
+}
+
+.reveal .slides section.smallest table {
+    font-size: inherit;
+}
