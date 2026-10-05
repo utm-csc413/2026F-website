@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Week 12 Optional Exercises: Variational Autoencoders – CSC413 - Fall 2026, UTM</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-aa2e280f5f0f1c206e9e1b595e865951.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-40808b6f0c3085988c400b067a015837.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Week 12 Optional Exercises: Variational Autoencoders – CSC413 - Fall 2026, UTM">
+<meta property="og:description" content="Homepage for CSC413 - Neural Networks and Deep Learning, Fall 2026, UTM.">
+<meta property="og:image" content="https://utm-csc413.github.io/2026F-website/optional_exercises/w12/images/neural_network.jpg">
+<meta property="og:site_name" content="CSC413 - Fall 2026, UTM">
+<meta name="twitter:title" content="Week 12 Optional Exercises: Variational Autoencoders – CSC413 - Fall 2026, UTM">
+<meta name="twitter:description" content="Homepage for CSC413 - Neural Networks and Deep Learning, Fall 2026, UTM.">
+<meta name="twitter:image" content="https://utm-csc413.github.io/2026F-website/optional_exercises/w12/images/neural_network.jpg">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Exercises</h2>
+   
+  <ul class="collapse">
+  <li><a href="#exercise-1---entropy" id="toc-exercise-1---entropy" class="nav-link active" data-scroll-target="#exercise-1---entropy">Exercise 1 - Entropy</a></li>
+  <li><a href="#exercise-2---kl-divergence" id="toc-exercise-2---kl-divergence" class="nav-link" data-scroll-target="#exercise-2---kl-divergence">Exercise 2 - KL Divergence</a></li>
+  <li><a href="#exercise-3---kl-divergence-between-gaussians" id="toc-exercise-3---kl-divergence-between-gaussians" class="nav-link" data-scroll-target="#exercise-3---kl-divergence-between-gaussians">Exercise 3 - KL Divergence Between Gaussians</a></li>
+  <li><a href="#exercise-4---the-evidence-lower-bound" id="toc-exercise-4---the-evidence-lower-bound" class="nav-link" data-scroll-target="#exercise-4---the-evidence-lower-bound">Exercise 4 - The Evidence Lower Bound</a></li>
+  <li><a href="#exercise-5---the-reparameterization-trick" id="toc-exercise-5---the-reparameterization-trick" class="nav-link" data-scroll-target="#exercise-5---the-reparameterization-trick">Exercise 5 - The Reparameterization Trick</a></li>
+  </ul>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/utm-csc413/2026F-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 12 Optional Exercises: Variational Autoencoders</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="hidden">
+<p><span class="math display">\[
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\]</span></p>
+</div>
+<p>These exercises are optional and are not graded. They are based on the material from <a href="../../lecs/w12/lec12.html">Lecture 12</a>. Try each exercise on your own first, then click on <strong>Solution</strong> to reveal a worked answer.</p>
+<p>Unless stated otherwise, <span class="math inline">\(\log\)</span> denotes the natural logarithm (so entropies and KL divergences are measured in <em>nats</em>). Use <span class="math inline">\(\log_2\)</span> to measure them in <em>bits</em>.</p>
+<section id="exercise-1---entropy" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1---entropy">Exercise 1 - Entropy</h2>
+<p>Recall the entropy of a discrete random variable, <span class="math inline">\(H[X] = \sum_x p(x) \log \frac{1}{p(x)}\)</span>.</p>
+<p><strong>(a)</strong> Consider a coin that comes up heads with probability <span class="math inline">\(p\)</span>. Write down its entropy <span class="math inline">\(H(p)\)</span> as a function of <span class="math inline">\(p\)</span>. Show that it is maximized at <span class="math inline">\(p = 0.5\)</span>.</p>
+<p><strong>(b)</strong> Compute <span class="math inline">\(H(p)\)</span> in bits for <span class="math inline">\(p = 0.5\)</span>, <span class="math inline">\(p = 0.9\)</span>, and <span class="math inline">\(p = 1\)</span>. Interpret the results.</p>
+<p><strong>(c)</strong> Show that the entropy of the uniform distribution over <span class="math inline">\(K\)</span> outcomes is <span class="math inline">\(\log K\)</span>. What is the entropy of a fair six-sided die in bits?</p>
+<p><strong>(d)</strong> Show that <span class="math inline">\(H[X] \geq 0\)</span> for any discrete random variable.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> <span class="math inline">\(H(p) = -p\log p - (1-p)\log(1-p)\)</span>. Its derivative is <span class="math display">\[H'(p) = -\log p - 1 + \log(1-p) + 1 = \log\frac{1-p}{p},\]</span> which is zero if and only if <span class="math inline">\(p = 1 - p\)</span>, i.e.&nbsp;<span class="math inline">\(p = 0.5\)</span>. Since <span class="math inline">\(H''(p) = -\frac{1}{p} - \frac{1}{1-p} &lt; 0\)</span>, this is a maximum.</p>
+<p><strong>(b)</strong> <span class="math inline">\(H(0.5) = \log_2 2 = 1\)</span> bit. <span class="math inline">\(H(0.9) = -0.9\log_2 0.9 - 0.1\log_2 0.1 \approx 0.137 + 0.332 = 0.469\)</span> bits. <span class="math inline">\(H(1) = 0\)</span> bits (using the convention <span class="math inline">\(0 \log 0 = 0\)</span>). A fair coin is maximally unpredictable, a biased coin is less surprising on average, and a coin that always comes up heads carries no information at all.</p>
+<p><strong>(c)</strong> <span class="math inline">\(H = \sum_{k=1}^K \frac{1}{K}\log K = \log K\)</span>. For a fair die, <span class="math inline">\(\log_2 6 \approx 2.585\)</span> bits.</p>
+<p><strong>(d)</strong> For every outcome, <span class="math inline">\(0 &lt; p(x) \leq 1\)</span>, so <span class="math inline">\(\log\frac{1}{p(x)} \geq 0\)</span>. Every term of the sum is therefore non-negative.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2---kl-divergence" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2---kl-divergence">Exercise 2 - KL Divergence</h2>
+<p>Recall the KL divergence between two discrete distributions, <span class="math display">\[\KL(q \,\|\, p) = \sum_z q(z) \log\frac{q(z)}{p(z)}.\]</span></p>
+<p><strong>(a)</strong> Let <span class="math inline">\(p\)</span> be an unfair coin with <span class="math inline">\(p(1) = 0.7\)</span>, <span class="math inline">\(p(0) = 0.3\)</span>, and let <span class="math inline">\(q\)</span> be a fair coin. Compute <span class="math inline">\(\KL(q\,\|\,p)\)</span> and <span class="math inline">\(\KL(p\,\|\,q)\)</span> in nats. Is the KL divergence a distance (metric)?</p>
+<p><strong>(b)</strong> Show that <span class="math inline">\(\KL(q\,\|\,p) \geq 0\)</span>, with equality if <span class="math inline">\(q = p\)</span>. <em>Hint:</em> use Jensen’s inequality, <span class="math inline">\(\E[\log Y] \leq \log \E[Y]\)</span>.</p>
+<p><strong>(c)</strong> Let <span class="math inline">\(q = (0.5, 0.5)\)</span> and <span class="math inline">\(p = (1, 0)\)</span>. Compute <span class="math inline">\(\KL(q\,\|\,p)\)</span> and <span class="math inline">\(\KL(p\,\|\,q)\)</span>. What does this tell you about what happens when we fit an approximation <span class="math inline">\(q\)</span> to a target <span class="math inline">\(p\)</span> by minimizing <span class="math inline">\(\KL(q\,\|\,p)\)</span>?</p>
+<p><strong>(d)</strong> Show that <span class="math inline">\(\KL(q\,\|\,p) = H(q, p) - H(q)\)</span>, where <span class="math inline">\(H(q, p) = -\sum_z q(z)\log p(z)\)</span> is the cross-entropy. When <span class="math inline">\(q\)</span> is fixed (e.g.&nbsp;the data distribution) and we optimize <span class="math inline">\(p\)</span>, why is minimizing the KL divergence equivalent to minimizing the cross-entropy?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> <span class="math display">\[
+\KL(q\,\|\,p) = 0.5\log\frac{0.5}{0.7} + 0.5\log\frac{0.5}{0.3} \approx 0.5(-0.336) + 0.5(0.511) \approx 0.087,
+\]</span> <span class="math display">\[
+\KL(p\,\|\,q) = 0.7\log\frac{0.7}{0.5} + 0.3\log\frac{0.3}{0.5} \approx 0.7(0.336) + 0.3(-0.511) \approx 0.082.
+\]</span> The two values differ, so the KL divergence is not symmetric and therefore not a metric. (It also does not satisfy the triangle inequality.)</p>
+<p><strong>(b)</strong> Since <span class="math inline">\(\log\)</span> is concave, Jensen’s inequality gives <span class="math display">\[
+-\KL(q\,\|\,p) = \sum_z q(z)\log\frac{p(z)}{q(z)} \leq \log\sum_z q(z)\frac{p(z)}{q(z)} = \log\sum_{z: q(z) &gt; 0} p(z) \leq \log 1 = 0.
+\]</span> If <span class="math inline">\(q = p\)</span>, every term <span class="math inline">\(\log\frac{q(z)}{p(z)}\)</span> is <span class="math inline">\(\log 1 = 0\)</span>. (Equality holds <em>only</em> if <span class="math inline">\(q = p\)</span>, since Jensen’s inequality is strict unless <span class="math inline">\(p(z)/q(z)\)</span> is constant.)</p>
+<p><strong>(c)</strong> <span class="math inline">\(\KL(q\,\|\,p) = 0.5\log\frac{0.5}{1} + 0.5\log\frac{0.5}{0} = \infty\)</span>, because <span class="math inline">\(q\)</span> puts mass where <span class="math inline">\(p\)</span> has none. <span class="math inline">\(\KL(p\,\|\,q) = 1\cdot\log\frac{1}{0.5} + 0 = \log 2 \approx 0.693\)</span> (using <span class="math inline">\(0\log 0 = 0\)</span>). Minimizing <span class="math inline">\(\KL(q\,\|\,p)\)</span> heavily penalizes any <span class="math inline">\(q\)</span> that puts probability where <span class="math inline">\(p\)</span> is (near) zero. The fitted <span class="math inline">\(q\)</span> therefore tends to be “zero-forcing” or mode-seeking: it concentrates on one region of high <span class="math inline">\(p\)</span> rather than spreading over all of <span class="math inline">\(p\)</span>’s modes. Minimizing <span class="math inline">\(\KL(p\,\|\,q)\)</span> instead tends to produce a <span class="math inline">\(q\)</span> that covers all of <span class="math inline">\(p\)</span>’s mass.</p>
+<p><strong>(d)</strong> <span class="math display">\[
+\KL(q\,\|\,p) = \sum_z q(z)\log q(z) - \sum_z q(z)\log p(z) = -H(q) + H(q, p).
+\]</span> If <span class="math inline">\(q\)</span> is fixed, <span class="math inline">\(H(q)\)</span> is a constant, so minimizing <span class="math inline">\(\KL(q\,\|\,p)\)</span> over <span class="math inline">\(p\)</span> is the same as minimizing <span class="math inline">\(H(q,p)\)</span>. This is why training a classifier with the cross-entropy loss is the same as minimizing the KL divergence between the (one-hot) label distribution and the predicted distribution.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3---kl-divergence-between-gaussians" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3---kl-divergence-between-gaussians">Exercise 3 - KL Divergence Between Gaussians</h2>
+<p><strong>(a)</strong> Show that for two univariate Gaussians <span class="math inline">\(p = \mathcal{N}(\mu_1, \sigma_1^2)\)</span> and <span class="math inline">\(q = \mathcal{N}(\mu_2, \sigma_2^2)\)</span>, <span class="math display">\[
+\KL(p\,\|\,q) = \log\frac{\sigma_2}{\sigma_1} + \frac{\sigma_1^2 + (\mu_1 - \mu_2)^2}{2\sigma_2^2} - \frac{1}{2}.
+\]</span> <em>Hint:</em> write <span class="math inline">\(\KL(p\,\|\,q) = \E_{p}[\log p(z) - \log q(z)]\)</span> and use <span class="math inline">\(\E_p[(z - \mu_1)^2] = \sigma_1^2\)</span> and <span class="math inline">\(\E_p[(z - \mu_2)^2] = \sigma_1^2 + (\mu_1 - \mu_2)^2\)</span>.</p>
+<p><strong>(b)</strong> In a VAE, the encoder outputs <span class="math inline">\(q_\phi(\mathbf{z}\mid\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}, \diag(\boldsymbol{\sigma}^2))\)</span> and the prior is <span class="math inline">\(p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span>. Use (a) to show that <span class="math display">\[
+\KL\left(q_\phi(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z})\right) = \frac{1}{2}\sum_{j=1}^{d}\left(\mu_j^2 + \sigma_j^2 - \log\sigma_j^2 - 1\right).
+\]</span></p>
+<p><strong>(c)</strong> Evaluate this KL term for a one-dimensional latent space with (i) <span class="math inline">\(\mu = 0, \sigma = 1\)</span>, (ii) <span class="math inline">\(\mu = 1, \sigma = 1\)</span>, (iii) <span class="math inline">\(\mu = 0, \sigma = 0.5\)</span>. What kind of encodings does this term discourage?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> Using <span class="math inline">\(\log p(z) = -\log\sqrt{2\pi\sigma_1^2} - \frac{(z-\mu_1)^2}{2\sigma_1^2}\)</span>, and similarly for <span class="math inline">\(q\)</span>: <span class="math display">\[
+\begin{aligned}
+\KL(p\,\|\,q) &amp;= \E_p\left[-\log\sigma_1 - \frac{(z-\mu_1)^2}{2\sigma_1^2} + \log\sigma_2 + \frac{(z-\mu_2)^2}{2\sigma_2^2}\right] \\
+&amp;= \log\frac{\sigma_2}{\sigma_1} - \frac{\sigma_1^2}{2\sigma_1^2} + \frac{\sigma_1^2 + (\mu_1 - \mu_2)^2}{2\sigma_2^2} \\
+&amp;= \log\frac{\sigma_2}{\sigma_1} + \frac{\sigma_1^2 + (\mu_1 - \mu_2)^2}{2\sigma_2^2} - \frac{1}{2}.
+\end{aligned}
+\]</span> (The <span class="math inline">\(\log\sqrt{2\pi}\)</span> terms cancel.) The identity in the hint follows from <span class="math inline">\(z - \mu_2 = (z - \mu_1) + (\mu_1 - \mu_2)\)</span> and <span class="math inline">\(\E_p[z - \mu_1] = 0\)</span>.</p>
+<p><strong>(b)</strong> Because both distributions factorize over the <span class="math inline">\(d\)</span> dimensions (diagonal covariance), the KL divergence is a sum of one-dimensional KL divergences. For each dimension, set <span class="math inline">\(\mu_1 = \mu_j\)</span>, <span class="math inline">\(\sigma_1 = \sigma_j\)</span>, <span class="math inline">\(\mu_2 = 0\)</span>, <span class="math inline">\(\sigma_2 = 1\)</span> in (a): <span class="math display">\[
+-\log\sigma_j + \frac{\sigma_j^2 + \mu_j^2}{2} - \frac{1}{2} = \frac{1}{2}\left(\mu_j^2 + \sigma_j^2 - \log\sigma_j^2 - 1\right).
+\]</span></p>
+<p><strong>(c)</strong> (i) <span class="math inline">\(\frac{1}{2}(0 + 1 - 0 - 1) = 0\)</span>. (ii) <span class="math inline">\(\frac{1}{2}(1 + 1 - 0 - 1) = 0.5\)</span>. (iii) <span class="math inline">\(\frac{1}{2}(0 + 0.25 - \log 0.25 - 1) \approx \frac{1}{2}(0.25 + 1.386 - 1) \approx 0.318\)</span>. The KL term penalizes encodings whose means are far from <span class="math inline">\(0\)</span> and whose variances are far from <span class="math inline">\(1\)</span>, especially very small variances (as <span class="math inline">\(\sigma \to 0\)</span>, <span class="math inline">\(-\log\sigma^2 \to \infty\)</span>). This prevents the encoder from collapsing to the deterministic, spread-out codes of a plain autoencoder, and it keeps the codes of all inputs close to the prior so that sampling <span class="math inline">\(\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\)</span> produces meaningful images.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4---the-evidence-lower-bound" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4---the-evidence-lower-bound">Exercise 4 - The Evidence Lower Bound</h2>
+<p><strong>(a)</strong> Starting from the definition of <span class="math inline">\(\KL(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z}\mid\mathbf{x}))\)</span> and using <span class="math inline">\(p(\mathbf{z}\mid\mathbf{x}) = p(\mathbf{z}, \mathbf{x}) / p(\mathbf{x})\)</span>, show that <span class="math display">\[
+\log p(\mathbf{x}) - \KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z}\mid\mathbf{x})\right) = \text{ELBO}_q(\mathbf{x}) := \E_{q}\left[\log p(\mathbf{z}, \mathbf{x}) - \log q(\mathbf{z}\mid\mathbf{x})\right].
+\]</span> Why is the ELBO called a <em>lower bound</em>? When is the bound tight?</p>
+<p><strong>(b)</strong> Show that the ELBO can be rewritten as <span class="math display">\[
+\text{ELBO}_q(\mathbf{x}) = \underbrace{\E_{q}\left[\log p(\mathbf{x}\mid\mathbf{z})\right]}_{\text{decoding quality}} - \underbrace{\KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z})\right)}_{\text{encoding regularization}}.
+\]</span></p>
+<p><strong>(c)</strong> Suppose the decoder defines <span class="math inline">\(p_\theta(\mathbf{x}\mid\mathbf{z}) = \mathcal{N}(\mathbf{x};\, f_\theta(\mathbf{z}),\, \sigma^2\mathbf{I})\)</span> for a fixed <span class="math inline">\(\sigma\)</span>, where <span class="math inline">\(f_\theta\)</span> is the decoder network. Show that maximizing the decoding quality term is equivalent to minimizing the squared reconstruction error.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> <span class="math display">\[
+\begin{aligned}
+\KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z}\mid\mathbf{x})\right)
+&amp;= \E_q\left[\log q(\mathbf{z}\mid\mathbf{x}) - \log p(\mathbf{z}\mid\mathbf{x})\right] \\
+&amp;= \E_q\left[\log q(\mathbf{z}\mid\mathbf{x}) - \log p(\mathbf{z}, \mathbf{x}) + \log p(\mathbf{x})\right] \\
+&amp;= -\text{ELBO}_q(\mathbf{x}) + \log p(\mathbf{x}),
+\end{aligned}
+\]</span> since <span class="math inline">\(\log p(\mathbf{x})\)</span> does not depend on <span class="math inline">\(\mathbf{z}\)</span>. Rearranging gives the result. Because the KL divergence is non-negative (Exercise 2(b)), <span class="math inline">\(\text{ELBO}_q(\mathbf{x}) \leq \log p(\mathbf{x})\)</span>, i.e.&nbsp;the ELBO is a lower bound on the log-likelihood (“evidence”) of the data. The bound is tight if and only if <span class="math inline">\(q(\mathbf{z}\mid\mathbf{x}) = p(\mathbf{z}\mid\mathbf{x})\)</span>, i.e.&nbsp;when the encoder exactly matches the true posterior. Maximizing the ELBO therefore simultaneously increases the likelihood and makes the encoder a better approximation of the posterior.</p>
+<p><strong>(b)</strong> Using <span class="math inline">\(p(\mathbf{z}, \mathbf{x}) = p(\mathbf{x}\mid\mathbf{z})\,p(\mathbf{z})\)</span>: <span class="math display">\[
+\text{ELBO}_q(\mathbf{x}) = \E_q\left[\log p(\mathbf{x}\mid\mathbf{z})\right] + \E_q\left[\log p(\mathbf{z}) - \log q(\mathbf{z}\mid\mathbf{x})\right] = \E_q\left[\log p(\mathbf{x}\mid\mathbf{z})\right] - \KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z})\right).
+\]</span></p>
+<p><strong>(c)</strong> For a <span class="math inline">\(D\)</span>-dimensional Gaussian with covariance <span class="math inline">\(\sigma^2\mathbf{I}\)</span>, <span class="math display">\[
+\log p_\theta(\mathbf{x}\mid\mathbf{z}) = -\frac{1}{2\sigma^2}\|\mathbf{x} - f_\theta(\mathbf{z})\|^2 - \frac{D}{2}\log(2\pi\sigma^2).
+\]</span> The second term does not depend on <span class="math inline">\(\theta\)</span> or <span class="math inline">\(\mathbf{z}\)</span>, so maximizing <span class="math inline">\(\E_q[\log p_\theta(\mathbf{x}\mid\mathbf{z})]\)</span> is the same as minimizing <span class="math inline">\(\E_q\left[\|\mathbf{x} - f_\theta(\mathbf{z})\|^2\right]\)</span>, the expected squared reconstruction error. This is the same loss as in a regular autoencoder. The value of <span class="math inline">\(\sigma^2\)</span> controls the relative weight of the reconstruction and KL terms.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5---the-reparameterization-trick" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-5---the-reparameterization-trick">Exercise 5 - The Reparameterization Trick</h2>
+<p><strong>(a)</strong> Let <span class="math inline">\(\epsilon \sim \mathcal{N}(0, 1)\)</span> and <span class="math inline">\(z = \mu + \sigma\epsilon\)</span>. Show that <span class="math inline">\(z \sim \mathcal{N}(\mu, \sigma^2)\)</span>. What are <span class="math inline">\(\frac{\partial z}{\partial \mu}\)</span> and <span class="math inline">\(\frac{\partial z}{\partial \sigma}\)</span>?</p>
+<p><strong>(b)</strong> Why can’t we backpropagate through “sample <span class="math inline">\(z \sim \mathcal{N}(\mu, \sigma^2)\)</span>” directly, and how does the reparameterization trick solve this?</p>
+<p><strong>(c)</strong> Let <span class="math inline">\(f(z) = z^2\)</span>. Compute <span class="math inline">\(\frac{d}{d\mu}\E_{z\sim\mathcal{N}(\mu, 1)}[f(z)]\)</span> exactly. Then show that the reparameterized single-sample estimator <span class="math inline">\(\frac{d}{d\mu}f(\mu + \epsilon)\)</span> is an unbiased estimate of it.</p>
+<p><strong>(d)</strong> Write a PyTorch function <code>vae_loss(x, encoder, decoder)</code> that computes the negative ELBO for a mini-batch, assuming that <code>encoder(x)</code> returns the mean <code>mu</code> and the log-variance <code>logvar</code> of <span class="math inline">\(q_\phi(\mathbf{z}\mid\mathbf{x})\)</span> (each of shape <code>(B, d)</code>), and that the decoder is Gaussian as in Exercise 4(c), so the reconstruction term is a sum of squared errors.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> A linear function of a Gaussian random variable is Gaussian, with <span class="math inline">\(\E[z] = \mu + \sigma\E[\epsilon] = \mu\)</span> and <span class="math inline">\(\Var(z) = \sigma^2\Var(\epsilon) = \sigma^2\)</span>. The derivatives are <span class="math inline">\(\frac{\partial z}{\partial \mu} = 1\)</span> and <span class="math inline">\(\frac{\partial z}{\partial \sigma} = \epsilon\)</span>.</p>
+<p><strong>(b)</strong> Sampling is not a differentiable function of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>: the computation graph contains a random node whose output does not depend on <span class="math inline">\((\mu, \sigma)\)</span> in a way that the chain rule can handle. The reparameterization trick moves all randomness into an input <span class="math inline">\(\epsilon \sim \mathcal{N}(0, 1)\)</span> that does not depend on any parameters. Then <span class="math inline">\(z = \mu + \sigma\epsilon\)</span> is a deterministic, differentiable function of the encoder outputs, so gradients of the loss flow through <span class="math inline">\(z\)</span> into <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span>, and the encoder weights. The resulting gradient estimates also typically have much lower variance than generic Monte Carlo gradient estimators.</p>
+<p><strong>(c)</strong> <span class="math inline">\(\E[z^2] = \Var(z) + \E[z]^2 = 1 + \mu^2\)</span>, so the exact gradient is <span class="math inline">\(2\mu\)</span>. With the reparameterization, <span class="math inline">\(\frac{d}{d\mu}(\mu + \epsilon)^2 = 2(\mu + \epsilon)\)</span>, whose expectation over <span class="math inline">\(\epsilon\)</span> is <span class="math inline">\(2\mu + 2\E[\epsilon] = 2\mu\)</span>. So the estimator is unbiased. Averaging it over several samples of <span class="math inline">\(\epsilon\)</span> reduces its variance.</p>
+<p><strong>(d)</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vae_loss(x, encoder, decoder):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    mu, logvar <span class="op">=</span> encoder(x)                          <span class="co"># each (B, d)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    std <span class="op">=</span> torch.exp(<span class="fl">0.5</span> <span class="op">*</span> logvar)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> torch.randn_like(std)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> mu <span class="op">+</span> std <span class="op">*</span> eps                               <span class="co"># reparameterization trick</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    x_hat <span class="op">=</span> decoder(z)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    recon <span class="op">=</span> ((x <span class="op">-</span> x_hat) <span class="op">**</span> <span class="dv">2</span>).flatten(<span class="dv">1</span>).<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>)                  <span class="co"># (B,)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    kl <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> (mu <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> logvar.exp() <span class="op">-</span> logvar <span class="op">-</span> <span class="dv">1</span>).<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>)       <span class="co"># (B,), Exercise 3(b)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (recon <span class="op">+</span> kl).mean()                       <span class="co"># negative ELBO (up to constants)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Predicting the log-variance instead of <span class="math inline">\(\sigma\)</span> directly ensures <span class="math inline">\(\sigma &gt; 0\)</span> without constraints on the network output. Minimizing this loss with any optimizer trains the encoder and decoder jointly.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/utm-csc413\.github\.io\/2026F-website\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Florian Shkurti</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/utm-csc413/2026F-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️, <a href="https://quarto.org/">Quarto</a> and inspiration from <a href="https://sta210-s22.github.io/website/">STA210</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

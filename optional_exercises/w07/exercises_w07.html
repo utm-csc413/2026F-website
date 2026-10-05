@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Week 7 Optional Exercises: Interpreting Convolutional Neural Networks – CSC413 - Fall 2026, UTM</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-aa2e280f5f0f1c206e9e1b595e865951.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-40808b6f0c3085988c400b067a015837.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Week 7 Optional Exercises: Interpreting Convolutional Neural Networks – CSC413 - Fall 2026, UTM">
+<meta property="og:description" content="Homepage for CSC413 - Neural Networks and Deep Learning, Fall 2026, UTM.">
+<meta property="og:image" content="https://utm-csc413.github.io/2026F-website/optional_exercises/w07/images/neural_network.jpg">
+<meta property="og:site_name" content="CSC413 - Fall 2026, UTM">
+<meta name="twitter:title" content="Week 7 Optional Exercises: Interpreting Convolutional Neural Networks – CSC413 - Fall 2026, UTM">
+<meta name="twitter:description" content="Homepage for CSC413 - Neural Networks and Deep Learning, Fall 2026, UTM.">
+<meta name="twitter:image" content="https://utm-csc413.github.io/2026F-website/optional_exercises/w07/images/neural_network.jpg">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Exercises</h2>
+   
+  <ul class="collapse">
+  <li><a href="#exercise-1---convolution-by-hand-review" id="toc-exercise-1---convolution-by-hand-review" class="nav-link active" data-scroll-target="#exercise-1---convolution-by-hand-review">Exercise 1 - Convolution by Hand (Review)</a></li>
+  <li><a href="#exercise-2---design-choices-in-vgg" id="toc-exercise-2---design-choices-in-vgg" class="nav-link" data-scroll-target="#exercise-2---design-choices-in-vgg">Exercise 2 - Design Choices in VGG</a></li>
+  <li><a href="#exercise-3---transfer-learning" id="toc-exercise-3---transfer-learning" class="nav-link" data-scroll-target="#exercise-3---transfer-learning">Exercise 3 - Transfer Learning</a></li>
+  <li><a href="#exercise-4---input-gradients-and-adversarial-examples" id="toc-exercise-4---input-gradients-and-adversarial-examples" class="nav-link" data-scroll-target="#exercise-4---input-gradients-and-adversarial-examples">Exercise 4 - Input Gradients and Adversarial Examples</a></li>
+  <li><a href="#exercise-5---influence-functions" id="toc-exercise-5---influence-functions" class="nav-link" data-scroll-target="#exercise-5---influence-functions">Exercise 5 - Influence Functions</a></li>
+  </ul>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/utm-csc413/2026F-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 7 Optional Exercises: Interpreting Convolutional Neural Networks</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="hidden">
+<p><span class="math display">\[
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\]</span></p>
+</div>
+<p>These exercises are optional and are not graded. They are based on the material from <a href="../../lecs/w07/lec07.html">Lecture 7</a>. Try each exercise on your own first, then click on <strong>Solution</strong> to reveal a worked answer.</p>
+<section id="exercise-1---convolution-by-hand-review" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1---convolution-by-hand-review">Exercise 1 - Convolution by Hand (Review)</h2>
+<p>Consider the following <span class="math inline">\(4\times 4 \times 1\)</span> input <span class="math inline">\(X\)</span> and a <span class="math inline">\(2\times 2 \times 1\)</span> convolutional kernel <span class="math inline">\(K\)</span> with no bias term: <span class="math display">\[
+X =
+\begin{pmatrix}
+1 &amp; 2 &amp; -1 &amp; 1 \\
+1 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 2 \\
+2 &amp; 1 &amp; 0 &amp; -1
+\end{pmatrix}, \qquad
+K = \begin{pmatrix}
+1 &amp; 0 \\
+2 &amp; 1
+\end{pmatrix}.
+\]</span></p>
+<p><strong>(a)</strong> What is the output of the convolutional layer for the case of stride 1 and no padding?</p>
+<p><strong>(b)</strong> What if we have stride 2 and no padding?</p>
+<p><strong>(c)</strong> What if we have stride 2 and zero-padding of size 1?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> We apply the kernel to each of the 9 <span class="math inline">\(2\times 2\)</span> patches of the input: <span class="math display">\[
+Y = \begin{pmatrix}
+3 &amp;  3 &amp;  1 \\
+2 &amp;  2 &amp;  3 \\
+5 &amp;  3 &amp; -1
+\end{pmatrix}.
+\]</span></p>
+<p><strong>(b)</strong> Same idea, except that we skip every other patch, resulting in only 4 patches: <span class="math display">\[
+Y = \begin{pmatrix}
+3 &amp; 1 \\
+5 &amp; -1
+\end{pmatrix}.
+\]</span></p>
+<p><strong>(c)</strong> The <span class="math inline">\(6\times 6\)</span> padded input <span class="math inline">\(X_\mathrm{padded}\)</span> and corresponding output <span class="math inline">\(Y\)</span> are <span class="math display">\[
+X_\mathrm{padded} =
+\begin{pmatrix}
+0 &amp; 0 &amp; 0 &amp;  0 &amp;  0 &amp; 0 \\
+0 &amp; 1 &amp; 2 &amp; -1 &amp;  1 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp;  1 &amp;  0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp;  0 &amp;  2 &amp; 0 \\
+0 &amp; 2 &amp; 1 &amp;  0 &amp; -1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp;  0 &amp;  0 &amp; 0
+\end{pmatrix},
+\qquad
+Y = \begin{pmatrix}
+1 &amp; 3 &amp; 2 \\
+0 &amp; 2 &amp; 4 \\
+0 &amp; 1 &amp; -1
+\end{pmatrix}.
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2---design-choices-in-vgg" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2---design-choices-in-vgg">Exercise 2 - Design Choices in VGG</h2>
+<p><strong>(a)</strong> VGG uses stacks of <span class="math inline">\(3\times 3\)</span> convolutions instead of the large kernels used by AlexNet. What is the receptive field of a unit after three stacked <span class="math inline">\(3\times 3\)</span> convolutions (stride 1)? Compare the number of weights of this stack with a single <span class="math inline">\(7\times 7\)</span> convolution, assuming <span class="math inline">\(C\)</span> input and <span class="math inline">\(C\)</span> output channels in every layer (ignore biases). Besides the parameter count, what is another advantage of the stack?</p>
+<p><strong>(b)</strong> What does a <span class="math inline">\(1\times 1\)</span> convolution compute? How many parameters does a <span class="math inline">\(1\times 1\)</span> convolution from 512 to 64 channels have (including biases)? Why is it useful?</p>
+<p><strong>(c)</strong> Lecture mentioned that a fully connected layer can be expressed as a convolutional layer. Consider an FC layer with 4096 outputs applied to a flattened <span class="math inline">\(7\times 7\times 512\)</span> input. Describe the equivalent convolutional layer and check that both have the same number of parameters. What happens if you apply the convolutional version to a larger <span class="math inline">\(14 \times 14 \times 512\)</span> input?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> Each <span class="math inline">\(3\times 3\)</span> layer with stride 1 increases the receptive field by 2, so three layers give <span class="math inline">\(1 + 2 + 2 + 2 = 7\)</span>, the same as a single <span class="math inline">\(7\times 7\)</span> convolution. The stack has <span class="math inline">\(3 \cdot (3 \cdot 3 \cdot C \cdot C) = 27C^2\)</span> weights versus <span class="math inline">\(49C^2\)</span> for the single layer, i.e.&nbsp;about 45% fewer. The stack also applies three nonlinearities instead of one, which makes the function more expressive.</p>
+<p><strong>(b)</strong> A <span class="math inline">\(1\times 1\)</span> convolution computes, at every spatial location independently, a linear combination of the input channels (i.e.&nbsp;the same fully connected layer applied to every pixel’s channel vector). It has <span class="math inline">\(512 \cdot 64 + 64 = 32832\)</span> parameters. It is used to change the number of channels cheaply, e.g.&nbsp;to reduce the number of channels before an expensive <span class="math inline">\(3\times 3\)</span> convolution (a “bottleneck”), and it adds an extra nonlinearity without changing the receptive field.</p>
+<p><strong>(c)</strong> The equivalent layer is a convolution with kernel size <span class="math inline">\(7 \times 7\)</span>, 512 input channels, 4096 output channels, stride 1, and no padding. On a <span class="math inline">\(7\times 7\)</span> input there is exactly one valid kernel position, so the output is <span class="math inline">\(1 \times 1 \times 4096\)</span>. The number of parameters matches: <span class="math display">\[
+\underbrace{7 \cdot 7 \cdot 512 \cdot 4096 + 4096}_{\text{conv}} = \underbrace{25088 \cdot 4096 + 4096}_{\text{FC}} = 102{,}764{,}544.
+\]</span> On a <span class="math inline">\(14 \times 14 \times 512\)</span> input, the convolutional version produces an <span class="math inline">\(8 \times 8 \times 4096\)</span> output: it applies the “FC layer” to every <span class="math inline">\(7\times 7\)</span> window. This is how such networks can process images of different sizes (and produce spatial maps of predictions), which the FC version cannot.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3---transfer-learning" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3---transfer-learning">Exercise 3 - Transfer Learning</h2>
+<p>You want to classify images into 5 classes but have only a few hundred labelled images. You decide to start from a ResNet-18 pretrained on ImageNet, whose final layer is <code>fc = nn.Linear(512, 1000)</code>.</p>
+<p><strong>(a)</strong> Write PyTorch code that loads the pretrained model, freezes all of its weights, and replaces the final layer with a new, trainable layer for your 5 classes. How many trainable parameters does the resulting model have?</p>
+<p><strong>(b)</strong> Describe the difference between using the pretrained network as a fixed feature extractor (as in (a)) and fine-tuning it. When would you prefer each?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> torchvision.models.resnet18(weights<span class="op">=</span>torchvision.models.ResNet18_Weights.DEFAULT)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> model.parameters():</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    p.requires_grad <span class="op">=</span> <span class="va">False</span>          <span class="co"># freeze the pretrained weights</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>model.fc <span class="op">=</span> nn.Linear(<span class="dv">512</span>, <span class="dv">5</span>)         <span class="co"># new layer: trainable by default</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sum</span>(p.numel() <span class="cf">for</span> p <span class="kw">in</span> model.parameters() <span class="cf">if</span> p.requires_grad))   <span class="co"># 2565</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.Adam(model.fc.parameters(), lr<span class="op">=</span><span class="fl">1e-3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Only the new layer is trainable: <span class="math inline">\(512 \cdot 5 + 5 = 2565\)</span> parameters. (Remember to apply the same input normalization that was used for ImageNet pretraining.)</p>
+<p><strong>(b)</strong> As a fixed feature extractor, only the new head is trained. This is fast, needs little data, and is hard to overfit, but the features cannot adapt to the new task. When fine-tuning, all (or the later) layers are also updated, usually with a small learning rate so that the pretrained features are not destroyed early in training. Fine-tuning is preferable when you have more data, or when the new images differ substantially from ImageNet (e.g.&nbsp;medical images). With very little data that resembles ImageNet, a fixed feature extractor is often enough.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4---input-gradients-and-adversarial-examples" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-4---input-gradients-and-adversarial-examples">Exercise 4 - Input Gradients and Adversarial Examples</h2>
+<p>Consider a logistic regression classifier <span class="math inline">\(p(y=1 \mid \mathbf{x}) = \sigma(z)\)</span> with <span class="math inline">\(z = \mathbf{w}^\top\mathbf{x} + b\)</span>.</p>
+<p><strong>(a)</strong> Compute the input gradient <span class="math inline">\(\nabla_{\mathbf{x}} \log p(y=1 \mid \mathbf{x})\)</span>. What does it tell us about which input features matter most?</p>
+<p><strong>(b)</strong> Let <span class="math inline">\(\mathbf{w} = (2, -1, 0.5)^\top\)</span>, <span class="math inline">\(b = -1\)</span>, and <span class="math inline">\(\mathbf{x} = (1, 1, 1)^\top\)</span>. What is the predicted probability of class 1? An attacker is allowed to change each input feature by at most <span class="math inline">\(\epsilon = 0.3\)</span> (i.e.&nbsp;<span class="math inline">\(\|\boldsymbol{\delta}\|_\infty \leq \epsilon\)</span>). Which perturbation <span class="math inline">\(\boldsymbol{\delta}\)</span> decreases <span class="math inline">\(z\)</span> the most, and what is the new prediction?</p>
+<p><strong>(c)</strong> In general, show that the largest possible change in <span class="math inline">\(z\)</span> under the constraint <span class="math inline">\(\|\boldsymbol{\delta}\|_\infty \leq \epsilon\)</span> is <span class="math inline">\(\epsilon\|\mathbf{w}\|_1\)</span>. Use this to explain why high-dimensional inputs such as images (e.g.&nbsp;<span class="math inline">\(D = 150{,}528\)</span> for a <span class="math inline">\(224\times224\times3\)</span> image) are especially vulnerable to tiny, imperceptible perturbations.</p>
+<p><strong>(d)</strong> The fast gradient sign method (FGSM) generalizes (b) to any differentiable model: <span class="math inline">\(\mathbf{x}_{adv} = \mathbf{x} + \epsilon\,\text{sign}\left(\nabla_{\mathbf{x}} \mathcal{L}(f(\mathbf{x}), t)\right)\)</span>, where <span class="math inline">\(t\)</span> is the correct label. Implement FGSM in PyTorch for a classifier <code>model</code> that outputs logits. Is this a targeted or non-targeted attack? How would you modify it to make it targeted?</p>
+<p><strong>(e)</strong> Why are adversarial examples a security concern even if the attacker does not have access to the model’s weights?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> <span class="math inline">\(\log p(y=1\mid\mathbf{x}) = \log\sigma(z)\)</span>, and <span class="math inline">\(\frac{d}{dz}\log\sigma(z) = 1 - \sigma(z)\)</span>, so <span class="math display">\[\nabla_{\mathbf{x}} \log p(y=1 \mid \mathbf{x}) = (1 - \sigma(z))\,\mathbf{w}.\]</span> For a linear model, the input gradient is proportional to the weight vector: features with large <span class="math inline">\(|w_i|\)</span> have the most influence on the prediction (locally). For deep networks, the input gradient depends on <span class="math inline">\(\mathbf{x}\)</span>, and visualizing it gives a (noisy) saliency map.</p>
+<p><strong>(b)</strong> <span class="math inline">\(z = 2 - 1 + 0.5 - 1 = 0.5\)</span>, so <span class="math inline">\(p(y=1\mid\mathbf{x}) = \sigma(0.5) \approx 0.62\)</span>, and the input is classified as class 1. Since <span class="math inline">\(z\)</span> changes by <span class="math inline">\(\mathbf{w}^\top\boldsymbol{\delta}\)</span>, the best perturbation moves each feature by the maximum amount against the sign of its weight: <span class="math inline">\(\boldsymbol{\delta} = -\epsilon\,\text{sign}(\mathbf{w}) = (-0.3, 0.3, -0.3)^\top\)</span>. Then <span class="math inline">\(z' = 0.5 - 0.3(2 + 1 + 0.5) = -0.55\)</span> and <span class="math inline">\(p(y=1\mid\mathbf{x}+\boldsymbol{\delta}) = \sigma(-0.55) \approx 0.37\)</span>, so the input is now misclassified.</p>
+<p><strong>(c)</strong> <span class="math inline">\(|\mathbf{w}^\top\boldsymbol{\delta}| \leq \sum_i |w_i|\,|\delta_i| \leq \epsilon\sum_i|w_i| = \epsilon\|\mathbf{w}\|_1\)</span>, with equality for <span class="math inline">\(\boldsymbol{\delta} = \pm\epsilon\,\text{sign}(\mathbf{w})\)</span>. If the weights have average magnitude <span class="math inline">\(m\)</span>, then <span class="math inline">\(\|\mathbf{w}\|_1 = mD\)</span> grows linearly with the input dimension. A change of <span class="math inline">\(\epsilon\)</span> in every pixel may be imperceptible, but its effect on <span class="math inline">\(z\)</span> is <span class="math inline">\(\epsilon m D\)</span>, which is huge when <span class="math inline">\(D\)</span> is in the hundreds of thousands. Neural networks behave approximately linearly locally, so they inherit this vulnerability.</p>
+<p><strong>(d)</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fgsm(model, x, t, eps):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">eval</span>()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x.clone().requires_grad_(<span class="va">True</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> F.cross_entropy(model(x), t)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    loss.backward()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x_adv <span class="op">=</span> x <span class="op">+</span> eps <span class="op">*</span> x.grad.sign()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x_adv.clamp(<span class="dv">0</span>, <span class="dv">1</span>).detach()     <span class="co"># keep pixel values valid</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a non-targeted attack: it <em>increases</em> the loss of the correct class <span class="math inline">\(t\)</span>. For a targeted attack towards class <span class="math inline">\(t'\)</span>, <em>decrease</em> the loss of the target class instead: <code>x_adv = x - eps * grad.sign()</code>, where <code>grad</code> is the input gradient of <code>F.cross_entropy(model(x), t_target)</code>. Repeating small FGSM steps (and projecting back to the allowed <span class="math inline">\(\epsilon\)</span>-ball) gives a stronger iterative attack.</p>
+<p><strong>(e)</strong> Adversarial examples often <em>transfer</em>: perturbations crafted for one network also fool other networks trained on different data. An attacker can train a substitute model (e.g.&nbsp;on the predictions of the victim model obtained through a public API), craft adversarial examples for it in a white-box fashion, and use them against the victim. This is a black-box attack.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-5---influence-functions" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-5---influence-functions">Exercise 5 - Influence Functions</h2>
+<p>Recall from lecture that <span class="math inline">\(\hat{\theta} = \argmin_\theta R(\theta)\)</span> with <span class="math inline">\(R(\theta) = \frac{1}{N}\sum_{i=1}^N L(x_i, y_i; \theta)\)</span>, and that upweighting a training point <span class="math inline">\((x, y)\)</span> by <span class="math inline">\(\epsilon\)</span> gives <span class="math display">\[
+\hat{\theta}(\epsilon) = \argmin_{\theta}\; R(\theta) + \epsilon L(x,y; \theta).
+\]</span></p>
+<p><strong>(a)</strong> Show that the first-order Taylor expansion of <span class="math inline">\(\hat{\theta}(\epsilon)\)</span> around <span class="math inline">\(\epsilon=0\)</span> is given by the equation from lecture, i.e. <span class="math display">\[
+\hat{\theta}({\epsilon}) \approx \hat{\theta} + \epsilon\frac{d\hat{\theta}(\epsilon)}{d\epsilon} \Big|_{\epsilon=0}.
+\]</span></p>
+<p><strong>(b)</strong> Following the steps in lecture, show that the influence of <span class="math inline">\((x, y)\)</span> is <span class="math display">\[
+\mathcal{I}(x, y) = \frac{d\hat{\theta}(\epsilon)}{d\epsilon} \Big|_{\epsilon=0} \approx -\left[\nabla_\theta^2 R(\hat{\theta})\right]^{-1}\nabla_\theta L(x, y; \hat{\theta}).
+\]</span></p>
+<p><strong>(c)</strong> Consider the simplest possible “model”: estimating a scalar mean with <span class="math inline">\(L(x_i; \theta) = \frac{1}{2}(x_i - \theta)^2\)</span>. Compute <span class="math inline">\(\hat{\theta}\)</span>, the Hessian <span class="math inline">\(\nabla_\theta^2 R\)</span>, and the influence <span class="math inline">\(\mathcal{I}(x)\)</span> of a training point <span class="math inline">\(x\)</span>. Which training points are most influential?</p>
+<p><strong>(d)</strong> For the dataset <span class="math inline">\(\{1, 2, 3, 4, 10\}\)</span>, use the influence function to estimate the mean after removing the point <span class="math inline">\(10\)</span> (i.e.&nbsp;<span class="math inline">\(\epsilon = -1/N\)</span>). Compare with the exact answer. Why are they different?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>(a)</strong> The first-order Taylor expansion of any (differentiable) function <span class="math inline">\(g(\epsilon)\)</span> around <span class="math inline">\(\epsilon = 0\)</span> is <span class="math inline">\(g(\epsilon) \approx g(0) + \epsilon\, g'(0)\)</span>. Applying this to <span class="math inline">\(g(\epsilon) = \hat{\theta}(\epsilon)\)</span> gives <span class="math display">\[
+\hat{\theta}(\epsilon) \approx \hat{\theta}(0) + \epsilon\frac{d\hat{\theta}(\epsilon)}{d\epsilon}\Big|_{\epsilon=0}.
+\]</span> From the definitions, setting <span class="math inline">\(\epsilon = 0\)</span> recovers the original objective, so <span class="math inline">\(\hat{\theta}(0) = \hat{\theta}\)</span>, which completes the proof.</p>
+<p><strong>(b)</strong> Since <span class="math inline">\(\hat{\theta}(\epsilon)\)</span> minimizes <span class="math inline">\(R(\theta) + \epsilon L(x,y;\theta)\)</span>, the gradient vanishes there: <span class="math display">\[0 = \nabla_\theta R(\hat{\theta}(\epsilon)) + \epsilon\nabla_\theta L(x,y;\hat{\theta}(\epsilon)).\]</span> A first-order Taylor expansion of the right hand side around <span class="math inline">\(\hat{\theta}\)</span> gives <span class="math display">\[0 \approx \nabla_\theta R(\hat{\theta}) + \epsilon\nabla_\theta L(x,y;\hat{\theta}) + \left[\nabla_\theta^2 R(\hat{\theta}) + \epsilon\nabla_\theta^2 L(x,y;\hat{\theta})\right](\hat{\theta}(\epsilon) - \hat{\theta}).\]</span> Since <span class="math inline">\(\hat{\theta}\)</span> minimizes <span class="math inline">\(R\)</span>, <span class="math inline">\(\nabla_\theta R(\hat{\theta}) = 0\)</span>. Solving for <span class="math inline">\(\hat{\theta}(\epsilon) - \hat{\theta}\)</span>, dividing by <span class="math inline">\(\epsilon\)</span>, and letting <span class="math inline">\(\epsilon \to 0\)</span> (which removes the <span class="math inline">\(\epsilon\nabla_\theta^2 L\)</span> term) gives <span class="math display">\[\frac{d\hat{\theta}(\epsilon)}{d\epsilon}\Big|_{\epsilon=0} \approx -\left[\nabla_\theta^2 R(\hat{\theta})\right]^{-1}\nabla_\theta L(x,y;\hat{\theta}).\]</span></p>
+<p><strong>(c)</strong> Setting <span class="math inline">\(R'(\theta) = -\frac{1}{N}\sum_i(x_i - \theta) = 0\)</span> gives <span class="math inline">\(\hat{\theta} = \frac{1}{N}\sum_i x_i\)</span>, the sample mean. The Hessian is <span class="math inline">\(R''(\theta) = 1\)</span>, and <span class="math inline">\(\nabla_\theta L(x;\hat{\theta}) = \hat{\theta} - x\)</span>. So <span class="math display">\[\mathcal{I}(x) = -(1)^{-1}(\hat{\theta} - x) = x - \hat{\theta}.\]</span> Points far from the mean (outliers) have the largest influence on the estimate.</p>
+<p><strong>(d)</strong> <span class="math inline">\(N = 5\)</span> and <span class="math inline">\(\hat{\theta} = 4\)</span>, so <span class="math inline">\(\mathcal{I}(10) = 10 - 4 = 6\)</span>, and <span class="math display">\[\hat{\theta}(-1/5) \approx 4 - \tfrac{1}{5}\cdot 6 = 2.8.\]</span> The exact mean of <span class="math inline">\(\{1, 2, 3, 4\}\)</span> is <span class="math inline">\(2.5\)</span>. In this example, we can solve for <span class="math inline">\(\hat{\theta}(\epsilon)\)</span> exactly: <span class="math inline">\(\hat{\theta}(\epsilon) = \frac{\hat{\theta} + \epsilon x}{1 + \epsilon}\)</span>, which is not linear in <span class="math inline">\(\epsilon\)</span>. The influence function only uses the first-order (linear) term, and <span class="math inline">\(\epsilon = -1/5\)</span> is not very small. For large datasets, <span class="math inline">\(\epsilon = -1/N\)</span> is tiny, and the approximation becomes much more accurate.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/utm-csc413\.github\.io\/2026F-website\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Florian Shkurti</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/utm-csc413/2026F-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️, <a href="https://quarto.org/">Quarto</a> and inspiration from <a href="https://sta210-s22.github.io/website/">STA210</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
