@@ -1,0 +1,149 @@
+---
+title: "Week 11 Optional Exercises: Generative Adversarial Networks"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 11](/lecs/w11/lec11.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+Throughout, $D_\theta$ is the discriminator (outputting the probability that its input is real), $G_\phi$ is the generator, $z \sim \mathcal{N}(0, I)$ is a noise vector, and $x \sim \mathcal{D}$ is a real image. The GAN minimax problem from lecture is
+$$
+\min_\phi \max_\theta \; V(\theta, \phi) = \E_{x \sim \mathcal{D}}\left[\log D_\theta(x)\right] + \E_{z}\left[\log \left( 1 - D_\theta(G_\phi(z)) \right) \right].
+$$
+
+## Exercise 1 - The GAN Objective as a Classification Loss
+
+**(a)** Show that maximizing $V(\theta, \phi)$ over $\theta$ is equivalent to minimizing the binary cross-entropy loss of a classifier that labels real images as $1$ and generated images as $0$.
+
+**(b)** Write PyTorch code for one GAN training iteration on a mini-batch `x_real`: one discriminator update followed by one generator update. Assume that `D` outputs a *logit* (so that $D_\theta(x) = \sigma(\texttt{D(x)})$) and that the generator uses the modified (non-saturating) cost $-\log D_\theta(G_\phi(z))$ from lecture.
+
+**(c)** Why is `.detach()` used on the generated images in the discriminator update?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** For a prediction $y = D_\theta(x)$ and label $t$, the binary cross-entropy is $-t\log y - (1-t)\log(1-y)$. For real images ($t=1$) this is $-\log D_\theta(x)$, and for generated images ($t=0$) it is $-\log(1 - D_\theta(G_\phi(z)))$. The expected loss over real and generated images is therefore
+$$\E_{x}\left[-\log D_\theta(x)\right] + \E_{z}\left[-\log(1 - D_\theta(G_\phi(z)))\right] = -V(\theta, \phi),$$
+so minimizing the classification loss is the same as maximizing $V$.
+
+**(b)**
+
+```python
+import torch
+import torch.nn as nn
+
+bce = nn.BCEWithLogitsLoss()
+
+def train_step(x_real, G, D, opt_G, opt_D, latent_dim):
+    B = x_real.shape[0]
+
+    # Discriminator update: real -> 1, fake -> 0
+    z = torch.randn(B, latent_dim)
+    x_fake = G(z)
+    d_real = D(x_real)
+    d_fake = D(x_fake.detach())
+    loss_D = bce(d_real, torch.ones_like(d_real)) + bce(d_fake, torch.zeros_like(d_fake))
+    opt_D.zero_grad()
+    loss_D.backward()
+    opt_D.step()
+
+    # Generator update (non-saturating): make D label fakes as real
+    d_fake = D(x_fake)
+    loss_G = bce(d_fake, torch.ones_like(d_fake))     # = -log D(G(z))
+    opt_G.zero_grad()
+    loss_G.backward()
+    opt_G.step()
+
+    return loss_D.item(), loss_G.item()
+```
+
+**(c)** In the discriminator update, we only want to change the discriminator's parameters. Detaching `x_fake` cuts the computation graph between the discriminator and the generator, so `loss_D.backward()` does not compute (unneeded) gradients for the generator's parameters. In the generator update, we do *not* detach, because the gradient must flow through the discriminator back into the generator. (The generator update also produces gradients for the discriminator's parameters. They are discarded by `opt_D.zero_grad()` before the next discriminator update.)
+:::
+
+## Exercise 2 - The Optimal Discriminator
+
+Suppose the generator is fixed, and its samples have density $p_g(x)$, while the real data has density $p_{\text{data}}(x)$. Then
+$$
+V = \int \Big( p_{\text{data}}(x) \log D(x) + p_g(x) \log(1 - D(x)) \Big)\, dx.
+$$
+
+**(a)** Show that the discriminator that maximizes $V$ is
+$$D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}.$$
+*Hint:* maximize the integrand separately for each $x$.
+
+**(b)** What is $D^*(x)$ when the generator is perfect, i.e. $p_g = p_{\text{data}}$? What is the value of $V$ in that case?
+
+**(c)** Consider a toy problem where images can take only three values $\{a, b, c\}$, with $p_{\text{data}} = (0.5, 0.5, 0)$ and $p_g = (0.25, 0.25, 0.5)$. Compute $D^*$ for each value and the resulting value of $V$ (replace the integral by a sum). Compare with your answer to (b).
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** For a fixed $x$, write $a = p_{\text{data}}(x)$, $b = p_g(x)$, and $y = D(x) \in (0, 1)$. We maximize $f(y) = a\log y + b\log(1 - y)$. Setting $f'(y) = \frac{a}{y} - \frac{b}{1 - y} = 0$ gives $a(1-y) = by$, i.e. $y = \frac{a}{a + b}$. Since $f''(y) = -\frac{a}{y^2} - \frac{b}{(1-y)^2} < 0$, this is a maximum. Doing this for every $x$ gives $D^*$.
+
+**(b)** $D^*(x) = \frac{1}{2}$ everywhere: the discriminator cannot do better than guessing. Then
+$$V = \int p_{\text{data}}(x) \log\tfrac{1}{2}\, dx + \int p_g(x) \log\tfrac{1}{2}\, dx = -2\log 2 = -\log 4 \approx -1.386.$$
+One can show that this is the smallest value of $\max_\theta V$ that any generator can achieve. More precisely, $V(D^*, G) = -\log 4 + 2\,\text{JSD}(p_{\text{data}} \,\|\, p_g)$, where JSD is the Jensen-Shannon divergence, which is zero if and only if $p_g = p_{\text{data}}$. So, with an optimal discriminator, the generator is minimizing a divergence between the generated and real data distributions.
+
+**(c)** $D^*(a) = D^*(b) = \frac{0.5}{0.5 + 0.25} = \frac{2}{3}$, and $D^*(c) = \frac{0}{0 + 0.5} = 0$: the generator's samples at $c$ are certainly fake. Then
+$$
+V = \underbrace{0.5\log\tfrac{2}{3} + 0.5\log\tfrac{2}{3}}_{\text{real data}} + \underbrace{0.25\log\tfrac{1}{3} + 0.25\log\tfrac{1}{3} + 0.5\log 1}_{\text{generated data}} = \log\tfrac{2}{3} + 0.5\log\tfrac{1}{3} \approx -0.955.
+$$
+This is larger than $-\log 4 \approx -1.386$: since the generator is imperfect, the discriminator can do better than chance. The generator can lower $V$ by moving its probability mass from $c$ to $a$ and $b$.
+:::
+
+## Exercise 3 - Saturating vs. Non-Saturating Generator Cost
+
+Let $s$ be the discriminator's logit for a generated image, so that $D_\theta(G_\phi(z)) = \sigma(s)$.
+
+**(a)** Compute the derivative with respect to $s$ of the original minimax generator cost $\log(1 - \sigma(s))$ and of the modified cost $-\log\sigma(s)$.
+
+**(b)** Early in training, the generator is bad, and the discriminator confidently rejects its samples, e.g. $\sigma(s) = 0.01$. Evaluate both derivatives. Which cost provides a more useful learning signal?
+
+**(c)** Relate this to the comparison between the square loss and the cross-entropy loss for logistic regression in Week 1.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Using $\sigma'(s) = \sigma(s)(1 - \sigma(s))$:
+$$
+\frac{d}{ds}\log(1 - \sigma(s)) = \frac{-\sigma(s)(1-\sigma(s))}{1 - \sigma(s)} = -\sigma(s),
+\qquad
+\frac{d}{ds}\left(-\log\sigma(s)\right) = -\frac{\sigma(s)(1-\sigma(s))}{\sigma(s)} = -(1 - \sigma(s)).
+$$
+
+**(b)** With $\sigma(s) = 0.01$, the minimax cost has derivative $-0.01$, while the modified cost has derivative $-0.99$, about 100 times larger. Both point in the same direction (increase $s$, i.e. make the fake look more real), but the minimax cost *saturates*: its gradient is tiny exactly when the generator is doing badly and most needs to improve. The modified cost gives a strong signal in this regime.
+
+**(c)** It is the same phenomenon. With square loss on a sigmoid output, a very wrong prediction gives a gradient containing a factor $y(1-y) \approx 0$. Cross-entropy cancels this factor. Similarly, the modified generator cost is the cross-entropy loss with the "real" label for generated images, which avoids the vanishing gradient when $D_\theta(G_\phi(z)) \approx 0$.
+:::
+
+## Exercise 4 - GAN Training Difficulties
+
+**(a)** What is mode collapse? Describe what you would observe in the samples of a GAN trained on MNIST that suffers from mode collapse, and why the discriminator alone does not prevent it.
+
+**(b)** Why does a plot of the generator and discriminator losses over training not tell you much about whether the generated images are getting better (unlike the training curves of a classifier)?
+
+**(c)** What goes wrong if the discriminator becomes much stronger than the generator?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Mode collapse happens when the generator produces only a small variety of outputs (one or a few "modes" of the data distribution), e.g. only realistic-looking 1s regardless of $z$. Each individual sample may look real, and the discriminator judges samples one at a time, so it has no direct way to penalize a lack of diversity. When the discriminator eventually learns to reject that mode, the generator can simply jump to another one, rather than covering the whole distribution.
+
+**(b)** The two networks play a game, so each loss is measured against a moving opponent. A low generator loss can mean that the generator improved, or that the discriminator got worse. The losses often oscillate without a clear trend, even while sample quality improves. In practice, people inspect samples visually or use sample-based metrics (such as the FID score) instead.
+
+**(c)** If the discriminator can perfectly separate real from fake, $D_\theta(G_\phi(z)) \approx 0$ for all generated samples, and the discriminator's output barely changes when the generator's weights change slightly. The generator then receives (nearly) zero gradient and cannot improve. This is the saturation problem from Exercise 3, and it is one motivation for alternative losses such as the Wasserstein GAN.
+:::
+
+## Exercise 5 - CycleGAN
+
+CycleGAN learns to translate images between two styles $X$ (e.g. horses) and $Y$ (e.g. zebras) from *unpaired* data. It uses two generators $G: X \to Y$ and $F: Y \to X$ and two discriminators $D_Y$ and $D_X$.
+
+**(a)** Write down the cycle-consistency loss.
+
+**(b)** Why is the cycle-consistency loss needed? What could a generator $G$ trained only with the adversarial loss from $D_Y$ learn to do?
+
+**(c)** Name one potential misuse of GAN-generated images or audio, and one technical or social measure that could mitigate it.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Translating an image to the other style and back should recover the original image:
+$$
+\mathcal{L}_{\text{cyc}}(G, F) = \E_{x}\left[\|F(G(x)) - x\|_1\right] + \E_{y}\left[\|G(F(y)) - y\|_1\right].
+$$
+The full objective adds this (with a weight $\lambda$) to the two adversarial losses for $(G, D_Y)$ and $(F, D_X)$.
+
+**(b)** The adversarial loss only requires that $G(x)$ looks like *some* realistic image of style $Y$. It does not require any relationship between $x$ and $G(x)$. For example, $G$ could map every horse to the same convincing zebra image (an extreme form of mode collapse) and still fool $D_Y$. Requiring that $F$ can reconstruct $x$ from $G(x)$ forces $G(x)$ to preserve the content of $x$ (pose, background, etc.) and change only the style.
+
+**(c)** Examples of misuse include deepfake videos or voice clones used to impersonate real people (for fraud, harassment, or political disinformation), and fabricated evidence. Mitigations include detection models trained to recognize generated content, watermarking or provenance standards for generated media (e.g. cryptographically signed metadata), platform policies and legal consequences for malicious use, and media literacy, i.e. verifying sources before trusting audio or video.
+:::

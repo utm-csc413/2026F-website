@@ -1,0 +1,190 @@
+---
+title: "Week 9 Optional Exercises: Attention and Transformers"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 9](/lecs/w09/lec09.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+## Exercise 1 - Dot-Product Attention
+
+You are given a set of encoder annotation vectors
+$$
+\mathbf{h}_1 = (1,2,3)^\top,\quad
+\mathbf{h}_2 = (1,2,1)^\top,\quad
+\mathbf{h}_3 = (0,1,-1)^\top
+$$
+and a decoder state (the alignment source vector) $\mathbf{s}=(1,2,1)^\top$.
+
+**(a)** Compute the resulting dot-product attention weights $\alpha_i$ for $i=1,2,3$ and the resulting context vector $\mathbf{c} = \sum_i \alpha_i \mathbf{h}_i$.
+
+**(b)** Compare $\mathbf{c}$ with the context vector obtained by average pooling the $\mathbf{h}_i$. Why is attention called "content-based addressing"?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The scores are $\mathbf{s}^\top\mathbf{h}_1 = 1 + 4 + 3 = 8$, $\mathbf{s}^\top\mathbf{h}_2 = 1 + 4 + 1 = 6$, and $\mathbf{s}^\top\mathbf{h}_3 = 0 + 2 - 1 = 1$. Applying softmax:
+$$
+\boldsymbol{\alpha} = \text{softmax}\begin{pmatrix} 8 \\ 6 \\ 1 \end{pmatrix}
+\approx
+\begin{pmatrix} 0.880 \\ 0.119 \\ 0.001 \end{pmatrix}.
+$$
+The context vector is the weighted sum of the $\mathbf{h}_i$:
+$$
+\mathbf{c}
+  = \alpha_1 \mathbf{h}_1 + \alpha_2 \mathbf{h}_2 + \alpha_3 \mathbf{h}_3
+  \approx (1.00,\; 2.00,\; 2.76)^\top.
+$$
+A simple implementation:
+
+```python
+import torch
+h = torch.tensor([[1., 2., 3.], [1., 2., 1.], [0., 1., -1.]])   # rows are h_i
+s = torch.tensor([1., 2., 1.])
+alpha = torch.softmax(h @ s, dim=0)
+c = alpha @ h
+print(alpha, c)
+```
+
+**(b)** Average pooling gives $\frac{1}{3}(\mathbf{h}_1 + \mathbf{h}_2 + \mathbf{h}_3) = (0.67, 1.67, 1.00)^\top$, regardless of the decoder state. Attention instead weights each annotation by how well its *content* matches the query $\mathbf{s}$, so a different decoder state retrieves a different mixture of the annotations. Which annotations are retrieved depends on their content, not on their position in the sequence.
+:::
+
+## Exercise 2 - Scaled Dot-Product Attention in Transformers
+
+Transformers use a scaled dot-product attention mechanism given by
+$$
+C
+ = \text{attention}(Q, K, V)
+ = \text{softmax}\left(\frac{QK^\top}{\sqrt{d}}\right) V,
+$$
+where $Q\in\R^{n_q\times d_k}$, $K\in\R^{n_k\times d_k}$, $V\in\R^{n_k\times d_v}$.
+
+**(a)** Is the softmax function applied row-wise or column-wise? What is the shape of the result $C$?
+
+**(b)** What is the value of $d$? Why is it needed?
+
+**(c)** What is the computational complexity of this attention mechanism? How many additions and multiplications are required? Assume canonical matrix multiplication, and do not count $\exp(x)$ towards the computational cost.
+
+**(d)** In the masked (causal) variant used in decoders, a masking matrix is added before the softmax function is applied. What are its values and its shape? For simplicity, assume $n_q=n_k = n$.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $QK^\top$ has shape $n_q\times n_k$: row $i$ contains the scores of query $i$ against all keys. We need the attention weights of each query to sum to one over the keys, so the softmax is applied **row-wise**. The result $C$ has shape $n_q \times d_v$: one context vector per query.
+
+**(b)** $d = d_k$, the dimension of the queries and keys. Without the scaling, the dot products grow in magnitude with $d_k$ (see Exercise 4), which pushes the softmax into a saturated regime where one weight is close to 1 and the gradients with respect to the scores are close to 0.
+
+**(c)** Looking at each operation individually:
+
+- $QK^\top$ requires $n_q n_k d_k$ multiplications and $n_q n_k(d_k-1)$ additions.
+- Dividing by $\sqrt{d_k}$ requires $n_q n_k$ divisions.
+- The softmax requires $n_q n_k$ exponentials, $n_q(n_k-1)$ additions, and $n_q n_k$ divisions.
+- The final matrix multiplication requires $n_q n_k d_v$ multiplications and $n_q d_v (n_k-1)$ additions.
+
+Overall, the cost is $O(n_q n_k (d_k + d_v))$. For self-attention over a sequence of length $n$, this is quadratic in $n$.
+
+**(d)** The mask is an $n \times n$ matrix $M$ with $M_{ij} = 0$ for $j \leq i$ and $M_{ij} = -\infty$ for $j > i$ (i.e. $-\infty$ strictly above the diagonal). After adding it to the scores, $\exp(-\infty) = 0$, so query $i$ assigns zero weight to all future positions $j > i$. This prevents the decoder from "looking ahead" at tokens it is supposed to predict.
+:::
+
+## Exercise 3 - Scaled Dot-Product Attention by Hand
+
+Consider the matrices $Q$, $K$, $V$ given by
+$$
+Q = \begin{pmatrix}
+1 & 2\\
+3 & 1
+\end{pmatrix},\quad
+K = \begin{pmatrix}
+2 & 1\\
+1 & 1\\
+0 & 1
+\end{pmatrix},\quad
+V=\begin{pmatrix}
+1 & 2 & -2\\
+1 & 1 & 2 \\
+0 & 1 & -1
+\end{pmatrix}.
+$$
+Compute the context matrix $C$ using scaled dot-product attention.
+
+::: {.callout-tip collapse="true" title="Solution"}
+Here $d_k = 2$. The scores and attention weights are
+$$
+QK^\top = \begin{pmatrix} 4 & 3 & 2 \\ 7 & 4 & 1 \end{pmatrix}, \qquad
+\text{softmax}\left(\frac{QK^\top}{\sqrt{2}}\right) \approx \begin{pmatrix} 0.576 & 0.284 & 0.140 \\ 0.882 & 0.106 & 0.013 \end{pmatrix}.
+$$
+The resulting context matrix is
+$$
+C\approx
+\begin{pmatrix}
+0.86 & 1.58 & -0.72\\
+0.99 & 1.88 & -1.56
+\end{pmatrix}.
+$$
+A simple implementation:
+
+```python
+import torch
+Q = torch.tensor([[1, 2], [3, 1]]).float()
+K = torch.tensor([[2, 1], [1, 1], [0, 1]]).float()
+V = torch.tensor([[1, 2, -2], [1, 1, 2], [0, 1, -1]]).float()
+d_k = K.shape[1]
+S = torch.softmax(Q @ K.T / d_k ** 0.5, dim=1)
+print(S @ V)
+```
+
+PyTorch also provides a function for scaled dot-product attention:
+
+```python
+import torch.nn.functional as F
+F.scaled_dot_product_attention(Q, K, V)
+```
+:::
+
+## Exercise 4 - Why Scale by $\sqrt{d_k}$?
+
+Let $\mathbf{q}, \mathbf{k} \in \R^{d_k}$ be random vectors whose entries are all independent, with mean $0$ and variance $1$.
+
+**(a)** Compute the mean and variance of the dot product $\mathbf{q}^\top\mathbf{k}$.
+
+**(b)** What are the mean and variance of $\mathbf{q}^\top\mathbf{k} / \sqrt{d_k}$?
+
+**(c)** Explain what would happen to the softmax over scores with a large $d_k$ (e.g. $d_k = 512$) without the scaling.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $\mathbf{q}^\top\mathbf{k} = \sum_{i=1}^{d_k} q_i k_i$. Each term has mean $\E[q_i]\,\E[k_i] = 0$ and variance $\E[q_i^2 k_i^2] - 0 = \E[q_i^2]\,\E[k_i^2] = 1$. The terms are independent, so the sum has mean $0$ and variance $d_k$ (using Week 6, Exercise 1).
+
+**(b)** Dividing by $\sqrt{d_k}$ divides the variance by $d_k$, so the scaled score has mean $0$ and variance $1$, independent of $d_k$.
+
+**(c)** Without scaling, the scores have standard deviation $\sqrt{512} \approx 22.6$. Differences of tens between scores make the softmax essentially one-hot (e.g. $e^{20} \approx 5 \times 10^8$). In this regime, the softmax is saturated, and its derivatives with respect to the scores are nearly zero, so the attention weights barely learn.
+:::
+
+## Exercise 5 - Self-Attention Has No Notion of Order
+
+In self-attention, the queries, keys, and values are all computed from the same input sequence $X \in \R^{n \times d}$ (one row per token): $Q = XW_Q$, $K = XW_K$, $V = XW_V$.
+
+**(a)** Let $P$ be an $n\times n$ permutation matrix, so that $PX$ reorders the tokens. Show that $\text{attention}(PXW_Q, PXW_K, PXW_V) = P\cdot\text{attention}(XW_Q, XW_K, XW_V)$. *Hint:* $P^\top P = I$, and applying a row-wise softmax to $PAP^\top$ gives $P\,\text{softmax}(A)\,P^\top$.
+
+**(b)** What does this imply for a language model built only from self-attention layers, and how do Transformers fix this?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The scores become $(PXW_Q)(PXW_K)^\top = P\,(XW_QW_K^\top X^\top)\,P^\top = PAP^\top$, where $A$ is the original score matrix (including the $1/\sqrt{d_k}$ scaling). Permuting rows and columns in the same way commutes with the row-wise softmax, so the attention weights become $P\,\text{softmax}(A)\,P^\top$. Multiplying by the values $PXW_V$ gives
+$$P\,\text{softmax}(A)\,P^\top P\,XW_V = P\,\text{softmax}(A)\,XW_V = P \cdot \text{attention}(XW_Q, XW_K, XW_V).$$
+So permuting the input tokens simply permutes the outputs in the same way (self-attention is *permutation equivariant*).
+
+**(b)** Without additional information, the model cannot distinguish "dog bites man" from "man bites dog": each token's output depends on the *set* of other tokens, not their order. Transformers fix this by adding **positional encodings** (fixed sinusoidal vectors or learned position embeddings) to the token embeddings before the first layer, so that the representation of each token also encodes its position.
+:::
+
+## Exercise 6 - RNNs vs. Self-Attention
+
+Consider processing a sequence of length $t$ with hidden/embedding dimension $k$, either with a single-layer RNN or with a single self-attention layer.
+
+**(a)** For each, what is the number of *sequential* operations (operations that cannot be run in parallel)? What is the maximum path length between the first input and the last output?
+
+**(b)** Why does a shorter path length make learning long-range dependencies easier?
+
+**(c)** What is the main computational disadvantage of self-attention for very long sequences?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** An RNN must compute $h^{(1)}, h^{(2)}, \ldots, h^{(t)}$ one after the other, so it needs $O(t)$ sequential operations, and information from the first input must pass through $O(t)$ steps to reach the last output. Self-attention computes all outputs at once from all inputs: $O(1)$ sequential operations (a few matrix multiplications that parallelize well on GPUs) and a path length of $O(1)$, since every output attends directly to every input.
+
+**(b)** Gradients between two positions are products of Jacobians along the path connecting them. Long paths lead to vanishing or exploding gradients (Week 8). With a constant path length, the gradient signal from a distant token does not have to pass through many multiplications.
+
+**(c)** Self-attention compares every position with every other position, so its time and memory cost is $O(t^2 k)$, compared to $O(t k^2)$ for an RNN. For long sequences (large $t$), the quadratic dependence on $t$ becomes the bottleneck.
+:::

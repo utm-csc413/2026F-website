@@ -1,0 +1,297 @@
+---
+title: "Week 4 Optional Exercises: Convolutional Neural Networks"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 4](/lecs/w04/lec04.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+Throughout, "convolution" refers to the operation used in lecture and in PyTorch's `nn.Conv2d`: slide the kernel over the input and take the elementwise product-and-sum with each patch (without flipping the kernel).
+
+## Exercise 1 - Convolution by Hand
+
+Consider the following $4\times 4 \times 1$ input $X$ and a $2\times 2 \times 1$ convolutional kernel $K$ with no bias term:
+$$
+X =
+\begin{pmatrix}
+1 & 0 & -2 & 1 \\
+0 & 1 & 1 & 0 \\
+0 & 1 & 0 & 1 \\
+-3 & 4 & 0 & 0
+\end{pmatrix}, \qquad
+K = \begin{pmatrix}
+2 & 1 \\
+0 & 1
+\end{pmatrix}.
+$$
+
+**(a)** What is the output of the convolutional layer for the case of stride 1 and no padding?
+
+**(b)** What if we have stride 2 and no padding?
+
+**(c)** What if we have stride 2 and zero-padding of size 1?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** We apply the kernel to each $2\times 2$ patch of the input. There are 9 such patches. For example, the top-left output is $1\cdot 2 + 0 \cdot 1 + 0 \cdot 0 + 1 \cdot 1 = 3$. The output $Y$ is
+$$
+Y = \begin{pmatrix}
+ 3 & -1 & -3 \\
+ 2 & 3 &  3 \\
+ 5 & 2 &  1
+\end{pmatrix}.
+$$
+
+**(b)** Same idea, except that we skip every other patch, resulting in only 4 patches:
+$$
+Y = \begin{pmatrix}
+ 3 & -3 \\
+ 5 &  1
+\end{pmatrix}.
+$$
+
+**(c)** Now we add zeros on each side of the input. The resulting $6\times 6$ padded input $X_\mathrm{padded}$ and corresponding output $Y$ are
+$$
+X_\mathrm{padded} =
+\begin{pmatrix}
+ 0 & 0 & 0 & 0 & 0 & 0 \\
+ 0 & 1 & 0 & -2 & 1 & 0\\
+ 0 & 0 & 1 & 1 & 0 & 0\\
+ 0 & 0 & 1 & 0 & 1 & 0\\
+ 0 & -3 & 4 & 0 & 0 & 0\\
+ 0 & 0 & 0 & 0 & 0 & 0
+\end{pmatrix},
+\qquad
+Y = \begin{pmatrix}
+ 1 & -2 & 0 \\
+ 0 & 3  &  0 \\
+ -3 & 8 & 0
+\end{pmatrix}.
+$$
+You can check these answers with `torch.nn.functional.conv2d(X.view(1, 1, 4, 4), K.view(1, 1, 2, 2), stride=2, padding=1)` (using float tensors).
+:::
+
+## Exercise 2 - Output Sizes
+
+**(a)** Show that a convolution (or pooling) layer with kernel size $K$, stride $S$, and zero-padding $P$ applied to an input of height $H$ produces an output of height
+$$H_{out} = \left\lfloor \frac{H + 2P - K}{S} \right\rfloor + 1.$$
+
+**(b)** Use the formula to compute the output height for:
+
+1. $H = 32$, $K = 5$, $S = 1$, $P = 0$
+2. $H = 32$, $K = 3$, $S = 1$, $P = 1$
+3. $H = 32$, $K = 3$, $S = 2$, $P = 1$
+4. $H = 224$, $K = 11$, $S = 4$, $P = 2$ (the first layer of AlexNet)
+
+**(c)** For kernel size $K$ (odd) and stride $1$, what padding keeps the output the same size as the input?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** After padding, the input has height $H + 2P$. The first kernel position covers rows $1, \ldots, K$, and each subsequent position is shifted by $S$. The $n$-th position (counting from $0$) covers rows up to $nS + K$, and it fits as long as $nS + K \leq H + 2P$, i.e. $n \leq (H + 2P - K)/S$. The number of valid positions is therefore $\lfloor (H + 2P - K)/S \rfloor + 1$.
+
+**(b)**
+
+1. $(32 - 5)/1 + 1 = 28$
+2. $(32 + 2 - 3)/1 + 1 = 32$
+3. $\lfloor 31/2 \rfloor + 1 = 16$
+4. $\lfloor 217/4 \rfloor + 1 = 55$
+
+**(c)** We need $H + 2P - K + 1 = H$, i.e. $P = (K-1)/2$. For example, $P=1$ for a $3\times 3$ kernel and $P=2$ for a $5\times 5$ kernel. This is called "same" padding.
+:::
+
+## Exercise 3 - Sizes in CNNs
+
+You are given a neural network with the following architecture:
+
+```
+Input: 100 x 100 x 3 Image
+
+Layers:
+1. Conv(in_channels=3, out_channels=5, kernel_size=3, stride=1, padding=0)
+2. MaxPool2d(kernel_size=2, stride=2, padding=0)
+3. Conv(in_channels=5, out_channels=10, kernel_size=3, stride=1, padding=0)
+4. MaxPool2d(kernel_size=2, stride=2, padding=0)
+5. Conv(in_channels=10, out_channels=5, kernel_size=3, stride=1, padding=0)
+6. Flatten()
+7. Linear(out_features=20)
+8. Linear(out_features=10)
+```
+
+**(a)** What is the dimensionality of the activations after each layer?
+
+**(b)** How many parameters does each layer have, and how many parameters does the network have in total?
+
+**(c)** Which layer has the most parameters? What does that suggest about where most of the parameters of a CNN typically live?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Using the formula from Exercise 2:
+
+```
+1. 98 x 98 x 5
+2. 49 x 49 x 5
+3. 47 x 47 x 10
+4. 23 x 23 x 10
+5. 21 x 21 x 5
+6. 2205
+7. 20
+8. 10
+```
+
+**(b)** A convolutional layer has $C_{in} \cdot C_{out} \cdot K^2$ weights plus $C_{out}$ biases. Pooling and flattening have no parameters.
+
+```
+1. 3*5*9 + 5     = 140
+2. 0
+3. 5*10*9 + 10   = 460
+4. 0
+5. 10*5*9 + 5    = 455
+6. 0
+7. 2205*20 + 20  = 44120
+8. 20*10 + 10    = 210
+```
+
+In total, the network has $45385$ parameters.
+
+**(c)** The first fully connected layer (layer 7) has over $97\%$ of all parameters. In many classic CNNs (e.g. AlexNet and VGG), the fully connected layers at the end contain most of the parameters, while the convolutional layers contain most of the computation. This is one reason why modern architectures replace them with global average pooling.
+:::
+
+## Exercise 4 - Pooling
+
+Consider the input
+$$
+X = \begin{pmatrix}
+1 & 3 & 2 & 1 \\
+4 & 2 & 0 & 1 \\
+0 & 1 & 5 & 2 \\
+3 & 2 & 1 & 0
+\end{pmatrix}.
+$$
+
+**(a)** Compute the output of $2 \times 2$ max pooling with stride 2, and of $2 \times 2$ average pooling with stride 2.
+
+**(b)** How many trainable parameters does a pooling layer have?
+
+**(c)** Suppose the gradient of the loss with respect to the output of the max-pooling layer is $\overline{Y} = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$. Compute $\overline{X}$. Do the same for the average-pooling layer.
+
+**(d)** Lecture mentioned that many modern architectures replace pooling with strided convolutions. What is one advantage of a strided convolution over max pooling?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+$$
+\text{MaxPool}(X) = \begin{pmatrix} 4 & 2 \\ 3 & 5 \end{pmatrix}, \qquad
+\text{AvgPool}(X) = \begin{pmatrix} 2.5 & 1 \\ 1.5 & 2 \end{pmatrix}.
+$$
+
+**(b)** None. Pooling is a fixed operation.
+
+**(c)** For max pooling, each output is a copy of one input (the maximum in its window), so the gradient flows only to that input, and all other inputs get zero gradient:
+$$
+\overline{X}_{\text{max}} = \begin{pmatrix}
+0 & 0 & 2 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & 4 & 0 \\
+3 & 0 & 0 & 0
+\end{pmatrix}.
+$$
+For average pooling, each output is $\frac{1}{4}$ times the sum of its window, so each input receives $\frac{1}{4}$ of the gradient of its window:
+$$
+\overline{X}_{\text{avg}} = \begin{pmatrix}
+0.25 & 0.25 & 0.5 & 0.5 \\
+0.25 & 0.25 & 0.5 & 0.5 \\
+0.75 & 0.75 & 1 & 1 \\
+0.75 & 0.75 & 1 & 1
+\end{pmatrix}.
+$$
+
+**(d)** A strided convolution has learnable weights, so the network can learn *how* to downsample rather than using a fixed rule. It also performs downsampling and feature extraction in a single layer.
+:::
+
+## Exercise 5 - Receptive Fields
+
+The receptive field of a unit is the region of the input image that can influence its value.
+
+**(a)** What is the receptive field (in pixels, along one dimension) of a unit after one $3\times 3$ convolution with stride 1? After two? After $L$?
+
+**(b)** What is the receptive field of a unit after the sequence: $3\times 3$ conv (stride 1), $2\times 2$ max pool (stride 2), $3\times 3$ conv (stride 1)?
+
+**(c)** Explain why downsampling (pooling or striding) helps higher layers detect larger structures in an image.
+
+::: {.callout-tip collapse="true" title="Solution"}
+Track two numbers through the network: the receptive field $r$ and the "jump" $j$ (the distance in input pixels between two adjacent units in the current layer). Initially $r = 1$ and $j = 1$. A layer with kernel size $K$ and stride $S$ updates them as $r \leftarrow r + (K - 1)\, j$ and $j \leftarrow j \cdot S$.
+
+**(a)** One layer gives $r = 3$, two layers give $r = 5$, and $L$ layers give $r = 2L + 1$. The receptive field grows only linearly with depth when there is no downsampling.
+
+**(b)** After the first conv, $r = 3$, $j = 1$. After pooling, $r = 3 + 1 \cdot 1 = 4$ and $j = 2$. After the second conv, $r = 4 + 2 \cdot 2 = 8$.
+
+**(c)** After downsampling, neighbouring units in a layer correspond to input locations that are further apart (larger jump $j$), so the same small kernel in the next layer covers a larger region of the input. This allows deeper layers to respond to large structures (object parts, whole objects) using small kernels and few parameters.
+:::
+
+## Exercise 6 - Backpropagation Through a Convolution
+
+Consider a 1D convolution (no flipping, no padding, stride 1) of the input $\mathbf{x} = (x_0, x_1, x_2, x_3)$ with a kernel $\mathbf{w} = (w_0, w_1)$:
+$$y_i = w_0 x_i + w_1 x_{i+1}, \qquad i = 0, 1, 2.$$
+
+**(a)** Derive general expressions for $\overline{w_k} = \frac{\partial \mathcal{L}}{\partial w_k}$ and $\overline{x_j} = \frac{\partial \mathcal{L}}{\partial x_j}$ in terms of $\overline{y_i}$.
+
+**(b)** Let $\mathbf{x} = (1, 2, -1, 3)$, $\mathbf{w} = (1, -1)$ and $\overline{\mathbf{y}} = (1, 0, 2)$. Compute $\mathbf{y}$, $\overline{\mathbf{w}}$, and $\overline{\mathbf{x}}$.
+
+**(c)** Describe both $\overline{\mathbf{w}}$ and $\overline{\mathbf{x}}$ as convolutions. (This connection will come back when we discuss transpose convolutions in Week 10.)
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Weight sharing means that each weight is used at every output position, so by the multivariate chain rule its gradient is a sum over positions:
+$$
+\overline{w_k} = \sum_i \overline{y_i}\, \frac{\partial y_i}{\partial w_k} = \sum_i \overline{y_i}\, x_{i+k}.
+$$
+Each input $x_j$ contributes to $y_j$ (through $w_0$) and to $y_{j-1}$ (through $w_1$), whenever those outputs exist:
+$$
+\overline{x_j} = \sum_i \overline{y_i}\, \frac{\partial y_i}{\partial x_j} = \sum_{k} \overline{y_{j-k}}\, w_k.
+$$
+
+**(b)** $\mathbf{y} = (1 - 2,\; 2 + 1,\; -1 - 3) = (-1, 3, -4)$.
+$$
+\overline{w_0} = 1\cdot 1 + 0 \cdot 2 + 2 \cdot (-1) = -1, \qquad
+\overline{w_1} = 1 \cdot 2 + 0 \cdot (-1) + 2 \cdot 3 = 8,
+$$
+$$
+\overline{\mathbf{x}} = (\overline{y_0} w_0,\; \overline{y_0} w_1 + \overline{y_1} w_0,\; \overline{y_1} w_1 + \overline{y_2} w_0,\; \overline{y_2} w_1) = (1, -1, 2, -2).
+$$
+
+**(c)** $\overline{\mathbf{w}}$ is the (valid) convolution of the input $\mathbf{x}$ with the output gradient $\overline{\mathbf{y}}$ used as the kernel. $\overline{\mathbf{x}}$ is a "full" convolution: pad $\overline{\mathbf{y}}$ with $K-1$ zeros on each side and convolve it with the *flipped* kernel $(w_1, w_0)$. Equivalently, each $\overline{y_i}$ "paints" a scaled copy $\overline{y_i}\,\mathbf{w}$ onto the positions it was computed from. This is exactly the transpose convolution operation.
+:::
+
+## Exercise 7 - Computational Parameter Counting
+
+Use PyTorch to load the `vgg11` model and automatically compute its number of parameters. Output the number of parameters for each layer and the total number of parameters in the model. Which part of the network (convolutional backbone or fully connected classifier) contains more parameters?
+
+::: {.callout-tip collapse="true" title="Solution"}
+First, load the `vgg11` model, which is part of `torchvision` (we do not need the pretrained weights to count parameters):
+
+```python
+import torchvision
+vgg11 = torchvision.models.vgg11(weights=None)
+```
+
+The total number of parameters is the easier part. The `parameters()` iterator returns every parameter tensor of the model, and `numel()` counts the entries of a tensor:
+
+```python
+print(sum(p.numel() for p in vgg11.parameters()))   # 132863336
+```
+
+To get the number of parameters per layer, we can look at how the `VGG` class is structured. Its forward pass is
+
+```python
+x = self.features(x)
+x = self.avgpool(x)
+x = torch.flatten(x, 1)
+x = self.classifier(x)
+```
+
+Both `self.features` (the convolutional backbone) and `self.classifier` (the fully connected head) are `nn.Sequential` modules, so we can iterate over them. `self.avgpool` has no parameters.
+
+```python
+for name, part in [("features", vgg11.features), ("classifier", vgg11.classifier)]:
+    for layer in part:
+        print(name, layer, sum(p.numel() for p in layer.parameters()))
+    print(name, "total:", sum(p.numel() for p in part.parameters()))
+```
+
+The convolutional backbone has about $9.2$ million parameters, while the classifier has about $123.6$ million. The first fully connected layer alone (`Linear(25088, 4096)`) has $25088 \cdot 4096 + 4096 \approx 102.8$ million parameters. This is the same pattern as in Exercise 3(c).
+:::

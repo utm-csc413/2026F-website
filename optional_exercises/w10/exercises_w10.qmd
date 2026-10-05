@@ -1,0 +1,205 @@
+---
+title: "Week 10 Optional Exercises: Autoencoders and Transpose Convolutions"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 10](/lecs/w10/lec10.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+## Exercise 1 - Transposed Convolution Output Sizes
+
+What is the size of the output for the following input tensors and transposed convolutional layers (no padding)? Assume that the number of channels is given in the first dimension.
+
+**(a)** Input tensor size: $3\times 2\times 2$. Transposed convolution: $3\times 3$ kernel, stride 1, 2 output channels.
+
+**(b)** Input tensor size: $3\times 5\times 5$. Transposed convolution: $2\times 2$ kernel, stride 2, 4 output channels.
+
+**(c)** Input tensor size: $c_{in}\times h\times w$. Transposed convolution: $3\times 3$ kernel, stride 2, 2 output channels.
+
+**(d)** Input tensor size: $c_{in}\times h\times w$. Transposed convolution: $h_k\times w_k$ kernel, stride $s$, $c_{out}$ output channels.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $2\times 4\times 4$.
+
+**(b)** $4\times 10\times 10$.
+
+**(c)** The first dimension is always the number of *output* channels, here $2$. The first input value produces a $3\times 3$ block of the output. Every additional input value along a dimension shifts the block by the stride, adding $2$ more output values. Thus, the output height and width are
+$$
+h_{out} = 3 + (h-1)\cdot 2 = 2h+1, \qquad
+w_{out} = 3 + (w-1)\cdot 2 = 2w+1,
+$$
+so the output size is $2\times (2h+1) \times (2w+1)$.
+
+**(d)** The same reasoning gives an output of size $c_{out} \times h_{out} \times w_{out}$ with
+$$
+h_{out} = h_k + (h-1)\cdot s, \qquad
+w_{out} = w_k + (w-1)\cdot s.
+$$
+(With PyTorch's `padding` $p$ and `output_padding` $p_o$ arguments, this becomes $h_{out} = (h-1)s - 2p + h_k + p_o$.)
+:::
+
+## Exercise 2 - Transposed Convolution Parameter Counts
+
+What is the number of learnable parameters for each of the following transposed convolution layers defined in PyTorch? Try to calculate them by hand first, and then use PyTorch to verify your results.
+
+**(a)** `nn.ConvTranspose2d(in_channels=3, out_channels=2, kernel_size=3, stride=1)`
+
+**(b)** `nn.ConvTranspose2d(in_channels=3, out_channels=10, kernel_size=3, stride=2)`
+
+**(c)** `nn.ConvTranspose2d(in_channels=3, out_channels=2, kernel_size=4, stride=5)`
+
+**(d)** `nn.ConvTranspose2d(in_channels=3, out_channels=4, kernel_size=3, stride=23)`
+
+::: {.callout-tip collapse="true" title="Solution"}
+The number of weights is the product of the number of input channels, the number of output channels, and the kernel area. In addition, there is one bias parameter per output channel (if `bias=True`, which is the default in PyTorch). The stride does not affect the number of parameters.
+
+**(a)** $3\cdot 2 \cdot 9 + 2=56$
+
+**(b)** $3\cdot 10 \cdot 9 + 10=280$
+
+**(c)** $3\cdot 2 \cdot 16 + 2=98$
+
+**(d)** $3\cdot 4 \cdot 9 + 4=112$
+
+To verify, e.g. for (a):
+
+```python
+import torch.nn as nn
+tconv = nn.ConvTranspose2d(in_channels=3, out_channels=2, kernel_size=3, stride=1)
+print(sum(p.numel() for p in tconv.parameters()))   # 56
+```
+:::
+
+## Exercise 3 - Transposed Convolution by Hand
+
+You are given an input matrix $X$ (consisting of a single channel) and a kernel $K$:
+$$
+X = \begin{pmatrix}
+ 1 & 0 & 2 \\
+ 2 & 3 & 0 \\
+-1 & 0 & 3
+\end{pmatrix}, \quad
+K = \begin{pmatrix}
+ 1 & 0 \\
+ 1 & 2
+\end{pmatrix}.
+$$
+
+**(a)** Compute the transposed convolution by hand, assuming stride 2.
+
+**(b)** Compute the transposed convolution by hand, assuming stride 1.
+
+**(c)** Use PyTorch to verify your answers.
+
+**(d)** Implement the transposed convolution in PyTorch without using PyTorch's own implementation. You can assume no bias term, a square kernel, and no batch dimension. That is, implement the following function:
+
+```python
+def conv_transpose2d(inp, weight, stride=1):
+    # inp - input of shape (C_in, H, W)
+    # weight - kernel of shape (C_in, C_out, K, K)
+    # stride - stride of the transposed convolution
+    # RETURNS
+    # output - output of shape (C_out, H_out, W_out)
+    #
+    # YOUR CODE HERE
+    return output
+```
+
+::: {.callout-tip collapse="true" title="Solution"}
+In a transposed convolution, each input value $x_{ij}$ "paints" a copy of the kernel scaled by $x_{ij}$ onto the output, at position $(i\cdot s, j \cdot s)$. Overlapping contributions are summed.
+
+**(a)** With stride 2, the copies do not overlap. The output has shape $6 \times 6$:
+$$
+Y = \begin{pmatrix}
+ 1 &  0 &  0 &  0 &  2 &  0\\
+ 1 &  2 &  0 &  0 &  2 &  4\\
+ 2 &  0 &  3 &  0 &  0 &  0\\
+ 2 &  4 &  3 &  6 &  0 &  0\\
+-1 &  0 &  0 &  0 &  3 &  0\\
+-1 & -2 &  0 &  0 &  3 &  6
+\end{pmatrix}.
+$$
+
+**(b)** With stride 1, the copies overlap and are summed. The output has shape $4 \times 4$:
+$$
+Y = \begin{pmatrix}
+ 1 &  0 &  2 &  0 \\
+ 3 &  5 &  2 &  4 \\
+ 1 &  7 &  9 &  0 \\
+-1 & -2 &  3 &  6
+\end{pmatrix}.
+$$
+
+**(c)**
+
+```python
+import torch
+import torch.nn as nn
+
+X = torch.tensor([[1., 0., 2.], [2., 3., 0.], [-1., 0., 3.]]).view(1, 1, 3, 3)
+K = torch.tensor([[1., 0.], [1., 2.]]).view(1, 1, 2, 2)
+
+print(nn.functional.conv_transpose2d(X, K, stride=2))
+print(nn.functional.conv_transpose2d(X, K))
+```
+
+The input needs a batch dimension and a channel dimension, i.e. it must be a 4D tensor.
+
+**(d)** A straightforward (unoptimized) implementation:
+
+```python
+import torch
+
+def conv_transpose2d(inp, weight, stride=1):
+    c_in, h_in, w_in = inp.shape
+    c2_in, c_out, k, k2 = weight.shape
+    assert c_in == c2_in, "Number of input channels must match"
+    assert k == k2, "Kernel must be square"
+
+    h_out = (h_in - 1) * stride + k
+    w_out = (w_in - 1) * stride + k
+    output = torch.zeros((c_out, h_out, w_out))
+
+    for ci in range(c_in):
+        for co in range(c_out):
+            for h in range(h_in):
+                for w in range(w_in):
+                    output[co, h*stride:h*stride+k, w*stride:w*stride+k] += \
+                        weight[ci, co] * inp[ci, h, w]
+    return output
+```
+
+You can check it against `nn.functional.conv_transpose2d(inp.unsqueeze(0), weight, stride=stride)[0]` on random inputs.
+:::
+
+## Exercise 4 - Undoing the Shape of a Strided Convolution
+
+**(a)** A `Conv2d` layer with kernel size 5 and stride 2 (no padding) is applied to a $64\times 64$ input. What is the output size? What output size do you get if you then apply a `ConvTranspose2d` layer with kernel size 5 and stride 2 to it?
+
+**(b)** Explain why the transposed convolution cannot know the "right" output size, and how the `output_padding` argument resolves this.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The convolution gives $\lfloor (64 - 5)/2 \rfloor + 1 = 30$. The transposed convolution gives $(30 - 1)\cdot 2 + 5 = 63$, one less than the original size.
+
+**(b)** The strided convolution maps both a $63\times 63$ and a $64 \times 64$ input to a $30 \times 30$ output, because of the floor in the size formula. The transposed convolution receives only the $30\times30$ tensor, so it cannot tell which of the two sizes the input originally had. By default it produces the smaller one. Setting `output_padding=1` adds one extra row and column to the output, giving $64 \times 64$. (This only affects the output shape. It does not add zeros around the input.)
+:::
+
+## Exercise 5 - Autoencoders
+
+**(a)** Describe the two components of an autoencoder and the loss that is used to train it. Why do we need the embedding (bottleneck) to be lower-dimensional than the input?
+
+**(b)** Show that the constant prediction $\hat{y}$ that minimizes the expected squared error $\E[(Y - \hat{y})^2]$ for a random variable $Y$ is $\hat{y} = \E[Y]$. Use this to explain why autoencoders trained with the MSE loss tend to produce blurry reconstructions.
+
+**(c)** After training an autoencoder on MNIST, you pick two test images, encode them as $\mathbf{z}_1$ and $\mathbf{z}_2$, and decode $\mathbf{z}(\lambda) = (1-\lambda)\mathbf{z}_1 + \lambda\mathbf{z}_2$ for $\lambda \in [0, 1]$. What do you expect to see, and how does this differ from interpolating the pixels directly?
+
+**(d)** Why does decoding a randomly chosen embedding vector usually *not* produce a realistic new digit? (This motivates the generative models we discuss in the next two weeks.)
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The **encoder** maps an input image $\mathbf{x}$ to a low-dimensional embedding $\mathbf{z}$ (e.g. with convolutions and downsampling). The **decoder** maps $\mathbf{z}$ back to an image $\hat{\mathbf{x}}$ (e.g. with transposed convolutions). Both are trained jointly to minimize a reconstruction loss such as the mean squared error $\frac{1}{D}\|\mathbf{x} - \hat{\mathbf{x}}\|^2$. No labels are needed. If the embedding were as large as the input, the network could learn the identity function (or memorize the training images) without learning anything useful. The bottleneck forces it to capture the most important structure in the data, and similar images must be mapped to nearby embeddings.
+
+**(b)** $\E[(Y - \hat{y})^2] = \E[Y^2] - 2\hat{y}\,\E[Y] + \hat{y}^2$. Setting the derivative $-2\E[Y] + 2\hat{y}$ to zero gives $\hat{y} = \E[Y]$. When the embedding does not determine the exact image (e.g. the precise position of an edge is uncertain), the MSE-optimal reconstruction is the *average* of all images consistent with the embedding. Averaging slightly shifted edges produces a smeared, blurry edge.
+
+**(c)** Decoding the interpolated embeddings typically produces a sequence of plausible-looking digits that gradually morph from one image into the other, because nearby points in the embedding space decode to similar images. Interpolating the pixels directly instead produces a cross-fade, i.e. a semi-transparent overlay of the two images, which does not look like a single digit.
+
+**(d)** The autoencoder is only trained to decode embeddings of real training images, and nothing forces those embeddings to fill the embedding space in a regular way. A random vector is likely to land in a region far from any training embedding, where the decoder's output is meaningless. To generate new samples, we need a model whose latent space has a known distribution that we can sample from, which is what VAEs and GANs provide.
+:::

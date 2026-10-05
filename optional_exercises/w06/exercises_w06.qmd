@@ -1,0 +1,262 @@
+---
+title: "Week 6 Optional Exercises: Generalization"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 6](/lecs/w06/lec06.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+## Exercise 1 - Variance
+
+Show that for two independent random variables $X,Y$ and arbitrary $a,b\in\R$, the following equality holds:
+$$\Var(aX+bY) = a^2\Var(X) + b^2\Var(Y).$$
+
+::: {.callout-tip collapse="true" title="Solution"}
+First, we use the definition of variance and rewrite the left hand side as
+$$
+\Var(aX+bY) = \E\left[ (aX+bY)^2 \right] - \E[aX+bY]^2.
+$$
+Next, we expand the squares in each of the terms on the right hand side, using $\E[XY] = \E[X]\,\E[Y]$ for independent $X$ and $Y$:
+$$
+\begin{aligned}
+\E\left[ (aX+bY)^2 \right]
+  &= a^2\E\left[ X^2 \right] + 2ab\E[ XY ] + b^2\E\left[ Y^2 \right]
+   = a^2\E\left[ X^2 \right] + 2ab\E[ X]\,\E[Y] + b^2\E\left[ Y^2 \right] ,\\
+\E[aX+bY]^2
+  &= \left(a\E[X] + b\E[Y]\right)^2
+   = a^2\E[X]^2 + 2ab\E[X]\,\E[Y] + b^2\E[Y]^2.
+\end{aligned}
+$$
+Subtracting the two, the cross terms cancel:
+$$
+\Var(aX+bY)
+ = a^2\left(\E\left[ X^2 \right] - \E[X]^2\right) + b^2\left(\E\left[ Y^2 \right] - \E[Y]^2\right)
+ = a^2\Var(X) + b^2\Var(Y).
+$$
+:::
+
+## Exercise 2 - Bias-Variance Decomposition
+
+Let $D=\{ (x_i,y_i) \mid i=1, \ldots, n\}$ be a dataset drawn from the true underlying data distribution $P$, i.e. $D\sim P^n$, and let $h_D(\cdot)$ be a regressor trained on $D$. Show the bias-variance decomposition
+$$
+\underbrace{\E_{D,x,y} \left[ (h_D(x) - y)^2 \right]}_{\text{Expected test error}}
+  = \underbrace{\E_{D,x} \left[ (h_D(x) - \hat{h}(x))^2 \right]}_{\text{Variance}} +
+  \underbrace{\E_{x,y} \left[ (\hat{y}(x) - y)^2 \right]}_{\text{Noise}}  +  \underbrace{\E_{x} \left[ (\hat{h}(x) - \hat{y}(x))^2 \right]}_{\text{Bias}^2},
+$$
+where $\hat{h}(x) = \E_{D \sim P^n}[h_D(x)]$ is the expected regressor over possible training sets, and $\hat{y}(x) = \E_{y|x}[y]$ is the expected label given $x$. (As mentioned in lecture, labels might not be deterministic given $x$.) To carry out the proof, proceed in the following steps:
+
+**(a)** Show that the following identity holds:
+$$
+\E_{D,x,y}\left[\left(h_{D}(x) - y\right)^{2}\right]
+  = \E_{D, x}\left[\left(h_{D}(x) - \hat{h}(x)\right)^{2}\right] + \E_{x, y} \left[\left(\hat{h}(x) - y\right)^{2}\right]. \qquad (1)
+$$
+
+**(b)** Next, show
+$$
+\E_{x, y} \left[ \left(\hat{h}(x) - y \right)^{2}\right]
+  = \E_{x, y} \left[\left(\hat{y}(x) - y\right)^{2}\right] + \E_{x} \left[\left(\hat{h}(x) - \hat{y}(x)\right)^{2}\right], \qquad (2)
+$$
+which completes the proof by substituting (2) into (1).
+
+**(c)** Which of the three terms can be reduced by (i) training on more data, (ii) using a more flexible model, (iii) averaging an ensemble of models trained on different data?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Add and subtract $\hat{h}(x)$ and expand the square:
+$$
+\begin{aligned}
+\E_{D,x,y}\left[\left(h_{D}(x) - y\right)^{2}\right]
+  &= \E_{D,x,y}\left[\left(\left(h_{D}(x) - \hat{h}(x)\right) + \left(\hat{h}(x) - y\right)\right)^{2}\right] \\
+  &= \E_{D,x}\left[\left(h_{D}(x) - \hat{h}(x)\right)^{2}\right]
+   + 2\, \E_{D,x,y} \left[\left(h_{D}(x) - \hat{h}(x)\right)\left(\hat{h}(x) - y\right)\right]
+   + \E_{x,y} \left[\left(\hat{h}(x) - y\right)^{2}\right].
+\end{aligned}
+$$
+The middle term is zero. Since $D$ is drawn independently of the test point $(x, y)$, we can take the expectation over $D$ first:
+$$
+\begin{aligned}
+\E_{D,x,y} \left[\left(h_{D}(x) - \hat{h}(x)\right) \left(\hat{h}(x) - y\right)\right]
+  &= \E_{x,y} \left[\left(\E_{D} \left[ h_{D}(x)\right] - \hat{h}(x)\right) \left(\hat{h}(x) - y\right) \right] \\
+  &= \E_{x,y} \left[ \left(\hat{h}(x) - \hat{h}(x) \right) \left(\hat{h}(x) - y \right)\right]
+  = 0.
+\end{aligned}
+$$
+
+**(b)** Similarly, add and subtract $\hat{y}(x)$:
+$$
+\E_{x,y} \left[ \left(\hat{h}(x) - y \right)^{2}\right]
+  = \E_{x,y} \left[\left(\hat{y}(x) - y\right)^{2}\right] + \E_{x} \left[\left(\hat{h}(x) - \hat{y}(x)\right)^{2}\right] + 2\, \E_{x,y} \left[ \left(\hat{h}(x) - \hat{y}(x)\right)\left(\hat{y}(x) - y\right)\right].
+$$
+The third term is zero, which we show by conditioning on $x$:
+$$
+\begin{aligned}
+\E_{x,y} \left[\left(\hat{h}(x) - \hat{y}(x)\right)\left(\hat{y}(x) - y\right)\right]
+  &= \E_{x}\left[\left(\hat{h}(x) - \hat{y}(x) \right) \E_{y \mid x} \left[\hat{y}(x) - y \right]\right] \\
+  &= \E_{x} \left[ \left(\hat{h}(x) - \hat{y}(x)\right) \left( \hat{y}(x) - \E_{y \mid x} [ y ]\right)\right]
+  = \E_{x} \left[ \left(\hat{h}(x) - \hat{y}(x)\right) \cdot 0 \right]
+  = 0.
+\end{aligned}
+$$
+
+**(c)** (i) More data mainly reduces the **variance**, since $h_D$ depends less on the particular sample. (ii) A more flexible model reduces the **bias** (but typically increases the variance). (iii) Averaging models trained on different data (bagging) reduces the **variance**. Nothing we do to the model can reduce the **noise** term, which is a property of the data distribution.
+:::
+
+## Exercise 3 - Ensembles
+
+**(a)** Let $y_1, \ldots, y_K$ be the predictions of $K$ models for the same input with target $t$. Show directly (without quoting Jensen's inequality) that for the squared error,
+$$
+\left(\bar{y} - t\right)^2 \leq \frac{1}{K}\sum_{k=1}^K (y_k - t)^2, \qquad \text{where } \bar{y} = \frac{1}{K}\sum_{k=1}^K y_k.
+$$
+
+**(b)** Treat the predictions $y_1, \ldots, y_K$ of $K$ ensemble members as random variables (randomness from initialization and data), each with variance $\sigma^2$. What is the variance of the ensemble average $\bar{y}$ if the predictions are independent? What if each pair has correlation $\rho$? What does this say about why ensemble members should be diverse?
+
+**(c)** Write PyTorch code that trains an ensemble of 5 small MLPs on MNIST (each from a different random initialization) and evaluates the accuracy of each individual model as well as of the ensemble, whose prediction is the average of the members' predicted class probabilities.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Expanding $(y_k - t)^2 = ((y_k - \bar{y}) + (\bar{y} - t))^2$ and averaging over $k$:
+$$
+\frac{1}{K}\sum_k (y_k - t)^2 = \frac{1}{K}\sum_k (y_k - \bar{y})^2 + \frac{2}{K}(\bar{y} - t)\underbrace{\sum_k (y_k - \bar{y})}_{=0} + (\bar{y} - t)^2 \geq (\bar{y} - t)^2.
+$$
+The gap is exactly the spread (variance) of the individual predictions around their mean. The more the ensemble members disagree, the more averaging helps.
+
+**(b)** Using $\Var(\sum_k y_k) = \sum_k \Var(y_k) + \sum_{k \neq l} \text{Cov}(y_k, y_l)$:
+$$
+\Var(\bar{y}) = \frac{1}{K^2}\left(K\sigma^2 + K(K-1)\rho\sigma^2\right) = \rho\,\sigma^2 + \frac{1-\rho}{K}\,\sigma^2.
+$$
+For independent predictions ($\rho = 0$) this is $\sigma^2/K$. For correlated predictions, the first term $\rho\sigma^2$ does not shrink no matter how many models we add. Ensembles only help to the extent that their members make *different* errors, which is why we use different initializations, different data subsets (bagging), or different architectures.
+
+**(c)** A minimal implementation:
+
+```python
+import torch
+import torch.nn as nn
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+
+transform = transforms.Compose([transforms.ToTensor(),
+                                transforms.Normalize((0.5,), (0.5,))])
+train_set = datasets.MNIST("data", train=True, download=True, transform=transform)
+test_set = datasets.MNIST("data", train=False, download=True, transform=transform)
+train_loader = DataLoader(train_set, batch_size=64, shuffle=True)
+test_loader = DataLoader(test_set, batch_size=1000)
+
+def make_model():
+    return nn.Sequential(nn.Flatten(),
+                         nn.Linear(784, 128), nn.ReLU(),
+                         nn.Linear(128, 64), nn.ReLU(),
+                         nn.Linear(64, 10))
+
+def train(model, epochs=3):
+    opt = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+    loss_fn = nn.CrossEntropyLoss()
+    model.train()
+    for _ in range(epochs):
+        for xb, yb in train_loader:
+            loss = loss_fn(model(xb), yb)
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+    return model
+
+ensemble = [train(make_model()) for _ in range(5)]   # different random inits
+
+@torch.no_grad()
+def evaluate(models):
+    for m in models:
+        m.eval()
+    correct_single = torch.zeros(len(models))
+    correct_ens, total = 0, 0
+    for xb, yb in test_loader:
+        probs = torch.stack([torch.softmax(m(xb), dim=1) for m in models])  # (K, B, 10)
+        correct_single += (probs.argmax(dim=2) == yb).sum(dim=1)
+        correct_ens += (probs.mean(dim=0).argmax(dim=1) == yb).sum().item()
+        total += yb.shape[0]
+    print("individual accuracies:", (correct_single / total).tolist())
+    print("ensemble accuracy:", correct_ens / total)
+
+evaluate(ensemble)
+```
+
+You should find that the ensemble accuracy is higher than the accuracy of each individual model (typically by a few tenths of a percentage point on MNIST), at the cost of 5 times the training and inference compute.
+:::
+
+## Exercise 4 - Weight Decay
+
+Consider linear regression with $L^2$ weight decay, as in lecture:
+$$
+\mathcal{E}_{WD}(\mathbf{w}) = \frac{1}{2N}\|\mathbf{X}\mathbf{w} - \mathbf{t}\|^2 + \lambda \|\mathbf{w}\|^2,
+$$
+where (for simplicity) there is no bias term.
+
+**(a)** Show that the gradient descent update can be written as $\mathbf{w} \leftarrow (1 - 2\alpha\lambda)\,\mathbf{w} - \alpha \frac{\partial \mathcal{E}}{\partial \mathbf{w}}$, where $\mathcal{E}$ is the unregularized cost. Explain the name "weight decay".
+
+**(b)** Derive the closed-form minimizer of $\mathcal{E}_{WD}$. Why is the required matrix always invertible when $\lambda > 0$?
+
+**(c)** Consider a one-feature dataset with $N=2$ points: $x = (1, 2)$, $t = (1, 3)$. Compute the optimal weight for $\lambda = 0$ and for $\lambda = 0.5$.
+
+**(d)** $L^1$ regularization adds $\lambda\sum_j |w_j|$ instead. Compare the gradient of the $L^1$ and $L^2$ penalties for a weight that is already small (e.g. $w_j = 0.01$). Why does $L^1$ tend to produce weights that are exactly zero?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $\frac{\partial \mathcal{E}_{WD}}{\partial \mathbf{w}} = \frac{\partial \mathcal{E}}{\partial \mathbf{w}} + 2\lambda\mathbf{w}$, so
+$$
+\mathbf{w} \leftarrow \mathbf{w} - \alpha\left(\frac{\partial \mathcal{E}}{\partial \mathbf{w}} + 2\lambda\mathbf{w}\right) = (1 - 2\alpha\lambda)\,\mathbf{w} - \alpha \frac{\partial \mathcal{E}}{\partial \mathbf{w}}.
+$$
+Before taking the usual gradient step, every weight is multiplied by a factor slightly smaller than 1, i.e. it "decays" towards zero.
+
+**(b)** Setting the gradient to zero:
+$$
+\frac{1}{N}\mathbf{X}^\top(\mathbf{X}\mathbf{w} - \mathbf{t}) + 2\lambda\mathbf{w} = 0
+\quad\Rightarrow\quad
+\mathbf{w}^* = \left(\mathbf{X}^\top\mathbf{X} + 2N\lambda\,\mathbf{I}\right)^{-1}\mathbf{X}^\top\mathbf{t}.
+$$
+$\mathbf{X}^\top\mathbf{X}$ is positive semi-definite (its eigenvalues are $\geq 0$), so adding $2N\lambda\mathbf{I}$ makes all eigenvalues $\geq 2N\lambda > 0$, and the matrix is invertible even if $\mathbf{X}$ has linearly dependent columns or fewer rows than columns.
+
+**(c)** In one dimension, $w^* = \frac{\sum_i x_i t_i}{\sum_i x_i^2 + 2N\lambda} = \frac{7}{5 + 4\lambda}$. For $\lambda = 0$, $w^* = 1.4$. For $\lambda = 0.5$, $w^* = 7/7 = 1$. The regularized weight is pulled towards zero.
+
+**(d)** The gradient of $\lambda w_j^2$ is $2\lambda w_j = 0.02\lambda$, which vanishes as $w_j \to 0$, so $L^2$ shrinks small weights only very slowly and rarely makes them exactly zero. The (sub)gradient of $\lambda|w_j|$ is $\lambda\,\text{sign}(w_j) = \lambda$, regardless of how small $w_j$ is, so $L^1$ keeps pushing a weight with constant force until it reaches exactly zero. This makes $L^1$ useful for obtaining sparse models.
+:::
+
+## Exercise 5 - Dropout
+
+During training, dropout sets each activation $h_i$ to zero independently with probability $p$.
+
+**(a)** Let $m_i \sim \text{Bernoulli}(1-p)$ be the mask (1 = keep). If dropout computes $\tilde{h}_i = m_i h_i$ during training, what is $\E[\tilde{h}_i]$? How should we compute the activations at test time (with no dropout) so that the next layer sees inputs of the same expected magnitude?
+
+**(b)** PyTorch implements "inverted dropout": $\tilde{h}_i = \frac{m_i h_i}{1 - p}$ during training and $\tilde{h}_i = h_i$ at test time. Show that this gives the same expected activations. Why is this version more convenient?
+
+**(c)** Lecture described dropout as training an ensemble with shared weights. If dropout is applied to a layer of $D$ units, how many different sub-networks are there?
+
+**(d)** What goes wrong if you forget to call `model.eval()` before evaluating a model that uses dropout?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $\E[\tilde{h}_i] = (1-p)\, h_i$. At test time, we keep all units, so we should multiply the activations (or equivalently, the outgoing weights) by $(1-p)$ to match the expected input the next layer saw during training.
+
+**(b)** $\E\left[\frac{m_i h_i}{1-p}\right] = \frac{(1-p)\,h_i}{1-p} = h_i$, which matches the test-time activation $h_i$. The rescaling happens only during training, so the model at test time is just the plain network with no special handling. This is convenient for deployment and means that the same `forward` method works in both modes (switched by `model.train()` and `model.eval()`).
+
+**(c)** Each of the $D$ units can be kept or dropped, so there are $2^D$ sub-networks, all sharing the same weights.
+
+**(d)** Dropout stays active, so the predictions are random (they change from one evaluation to the next) and are made by a thinned network. This typically lowers the measured accuracy and makes results irreproducible.
+:::
+
+## Exercise 6 - Diagnosing Generalization
+
+**(a)** For each scenario below, say whether the model is likely underfitting, overfitting, or neither, and suggest one thing to try next.
+
+1. Training accuracy 62%, validation accuracy 60%, on a task where humans achieve 95%.
+2. Training accuracy 99.8%, validation accuracy 71%.
+3. The training loss keeps decreasing, but the validation loss reached its minimum at epoch 12 and has been increasing since.
+
+**(b)** A student tunes the learning rate, the number of layers, and the amount of weight decay by picking the combination with the best *test* accuracy, and reports that test accuracy. What is wrong with this, and what should they do instead?
+
+**(c)** Lecture described DP-SGD, which clips each example's gradient to a maximum norm and then adds Gaussian noise. Why is the clipping step necessary for the privacy guarantee?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+
+1. Underfitting: both accuracies are low and close together. Try a larger model, training longer, a better learning rate, or less regularization.
+2. Overfitting: there is a large gap between training and validation accuracy. Try data augmentation, weight decay, dropout, early stopping, a smaller model, or more data.
+3. Overfitting after epoch 12. Use early stopping, i.e. keep the weights from epoch 12 (the checkpoint with the lowest validation loss), and consider adding regularization.
+
+**(b)** Choosing hyperparameters based on the test set means that the test set has been used for training decisions, so the reported test accuracy is an optimistically biased estimate of performance on new data. They should split off a separate validation set (or use cross-validation), tune all hyperparameters on it, and evaluate on the test set only once at the very end.
+
+**(c)** The privacy guarantee requires that no single training example can change the update by more than a bounded amount (the *sensitivity*). Without clipping, one example could have an arbitrarily large gradient, and no finite amount of noise could hide its influence. Clipping bounds each example's contribution, so the added Gaussian noise (scaled to the clipping norm) can mask whether any single example was present.
+:::

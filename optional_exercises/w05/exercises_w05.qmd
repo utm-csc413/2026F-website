@@ -1,0 +1,266 @@
+---
+title: "Week 5 Optional Exercises: Optimization"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 5](/lecs/w05/lec05.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+## Exercise 1 - Taylor Series
+
+Compute the Taylor series expansion up to the second-order term for the following functions around the given point:
+
+**(a)** $f(x) = 5x^3$ around $x_0=1$.
+
+**(b)** $f(x,y) = x^2 y^3 + x^2$ around $(x_0, y_0) = (3, 2)$.
+
+**(c)** $f(\mathbf{x}) = x_1^3 x_2 \log(x_2)$ around $\mathbf{x}_0=(2,1)^\top$.
+
+**(d)** $f(\mathbf{x}) = \sin(x_1) + \cos(x_2)$ around $\mathbf{x}_0=(-\pi,\pi)^\top$.
+
+::: {.callout-tip collapse="true" title="Solution"}
+We use the following form of the second-order Taylor expansion of $f$ around a point $\mathbf{a}$:
+$$T(\mathbf{x}) = f(\mathbf{a}) + \nabla f(\mathbf{a})^\top (\mathbf{x}-\mathbf{a}) + \frac{1}{2}(\mathbf{x}-\mathbf{a})^\top \mathbf{H} (\mathbf{x}-\mathbf{a}),$$
+where $\nabla f(\mathbf{a})$ is the gradient and $\mathbf{H}$ is the Hessian (the matrix of second-order partial derivatives) of $f$ at $\mathbf{a}$. So for each function we evaluate $f(\mathbf{a})$, its gradient, and its Hessian.
+
+**(a)** $f(1) = 5$, $f'(x) = 15x^2$, $f''(x) = 30x$, so
+$$T(x) = 5 + 15 (x-1) + 15 (x-1)^2.$$
+
+**(b)** We can write $f(x,y) = x^2(y^3+1)$, so $f(3,2) = 81$, and
+$$
+\nabla f(x,y) = \begin{pmatrix} 2x (y^3+1) \\ 3x^2y^2 \end{pmatrix},\quad
+\mathbf{H}(x,y) = \begin{pmatrix} 2(y^3+1) & 6 xy^2 \\ 6xy^2 & 6x^2y \end{pmatrix}.
+$$
+At $(3, 2)$ we get $\nabla f = (54, 108)^\top$ and $\mathbf{H} = \begin{pmatrix} 18 & 72 \\ 72 & 108 \end{pmatrix}$, so
+$$T(x,y) = 81 + 54(x-3) + 108(y-2) + 9(x-3)^2 + 72(x-3)(y-2) + 54(y-2)^2.$$
+
+**(c)** We have $f(\mathbf{x}_0)=0$ because $\log(1)=0$. The gradient and Hessian are
+$$
+\nabla f(\mathbf{x}) = \begin{pmatrix}
+    3x_1^2 x_2 \log(x_2) \\ x_1^3 (1+\log(x_2))
+    \end{pmatrix},\quad
+\mathbf{H}(\mathbf{x}) = \begin{pmatrix}
+    6x_1 x_2 \log(x_2)   & 3x_1^2 (1+\log(x_2)) \\
+    3x_1^2 (1+\log(x_2)) & x_1^3 / x_2
+\end{pmatrix}.
+$$
+At $\mathbf{x}_0 = (2, 1)^\top$ we get $\nabla f = (0, 8)^\top$ and $\mathbf{H} = \begin{pmatrix} 0 & 12 \\ 12 & 8 \end{pmatrix}$, so
+$$T(\mathbf{x}) = 8(x_2-1) + 12(x_1-2)(x_2-1) + 4(x_2-1)^2.$$
+
+**(d)** The trigonometric functions are evaluated at $\pm\pi$, so $f(\mathbf{x}_0) = \sin(-\pi) + \cos(\pi) = -1$ and
+$$
+\nabla f(\mathbf{x}) = \begin{pmatrix} \cos(x_1) \\ -\sin(x_2) \end{pmatrix}, \quad
+\mathbf{H}(\mathbf{x}) = \begin{pmatrix} -\sin(x_1) & 0 \\ 0 & -\cos(x_2) \end{pmatrix}.
+$$
+At $\mathbf{x}_0$ we get $\nabla f = (-1, 0)^\top$ and $\mathbf{H} = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}$, so
+$$T(\mathbf{x}) = -1 - (x_1 + \pi) + \frac{1}{2}(x_2 - \pi)^2.$$
+:::
+
+## Exercise 2 - From Eigenvalues and Eigenvectors to Matrices
+
+You are given the eigenvalues and eigenvectors of a symmetric $2 \times 2$ matrix $\mathbf{A}$. Compute $\mathbf{A}$.
+
+**(a)** $\lambda_1 = 2$, $\lambda_2 = 3$, $\mathbf{v}_1 = (1,0)^\top$, $\mathbf{v}_2 = (0,1)^\top$.
+
+**(b)** $\lambda_1 = 2$, $\lambda_2 = 3$, $\mathbf{v}_1 = (1,1)^\top$, $\mathbf{v}_2 = (1,-1)^\top$.
+
+::: {.callout-tip collapse="true" title="Solution"}
+For a symmetric matrix, eigenvectors with distinct eigenvalues are orthogonal, and its spectral decomposition is $\mathbf{A} = \mathbf{Q} \Lambda \mathbf{Q}^\top$, where the columns of $\mathbf{Q}$ are *unit-length* eigenvectors and $\Lambda = \diag(\lambda_1, \lambda_2)$.
+
+**(a)** The eigenvectors are already orthonormal, so $\mathbf{Q} = \mathbf{I}$ and
+$$
+\mathbf{A} = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}.
+$$
+
+**(b)** Here we have to normalize the eigenvectors first. Each has length $\sqrt{2}$, so $\mathbf{Q} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$ and
+$$
+\mathbf{A} = \mathbf{Q}\Lambda\mathbf{Q}^\top
+ = 2 \cdot \frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} + 3 \cdot \frac{1}{2}\begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix}
+ = \begin{pmatrix} 2.5 & -0.5 \\ -0.5 & 2.5 \end{pmatrix}.
+$$
+You can check that $\mathbf{A}\mathbf{v}_1 = 2\mathbf{v}_1$ and $\mathbf{A}\mathbf{v}_2 = 3\mathbf{v}_2$. Forgetting to normalize would give a matrix that is off by a factor of 2.
+:::
+
+## Exercise 3 - Curvature, Critical Points, and Ravines
+
+**(a)** For each function, find the critical point(s), compute the Hessian, and classify each critical point as a local minimum, local maximum, or saddle point using the eigenvalues of the Hessian.
+
+1. $f(x, y) = x^2 + 3y^2$
+2. $f(x, y) = x^2 - y^2$
+3. $f(x, y) = x^2 + 4xy + y^2$
+
+**(b)** Consider gradient descent with learning rate $\alpha$ on the quadratic $f(x, y) = \frac{1}{2}(x^2 + 10y^2)$. Write the update for each coordinate separately. For which values of $\alpha$ does gradient descent converge to the minimum?
+
+**(c)** Describe the trajectory of gradient descent from (b) with $\alpha = 0.15$. Relate your answer to the "ravine" picture from lecture and to the ratio of the Hessian's largest and smallest eigenvalues.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** In all three cases the only critical point is $(0, 0)$, since the gradient is linear in $(x, y)$ with an invertible matrix.
+
+1. $\mathbf{H} = \begin{pmatrix} 2 & 0 \\ 0 & 6 \end{pmatrix}$, eigenvalues $2, 6 > 0$: local (and global) minimum.
+2. $\mathbf{H} = \begin{pmatrix} 2 & 0 \\ 0 & -2 \end{pmatrix}$, eigenvalues $2, -2$: saddle point.
+3. $\mathbf{H} = \begin{pmatrix} 2 & 4 \\ 4 & 2 \end{pmatrix}$, eigenvalues $6$ and $-2$ (with eigenvectors $(1,1)$ and $(1,-1)$): saddle point. Note that both diagonal entries are positive, so you cannot read off the type of critical point from the diagonal alone.
+
+**(b)** The gradient is $(x, 10y)$, so
+$$
+x \leftarrow (1 - \alpha)\, x, \qquad y \leftarrow (1 - 10\alpha)\, y.
+$$
+Each coordinate converges to $0$ if and only if its factor has absolute value less than $1$: $0 < \alpha < 2$ for $x$ and $0 < \alpha < 0.2$ for $y$. So gradient descent converges if and only if $0 < \alpha < 0.2 = 2/\lambda_{\max}$.
+
+**(c)** With $\alpha = 0.15$, $y$ is multiplied by $-0.5$ at every step, so it flips sign and oscillates across the valley (while still shrinking). Meanwhile, $x$ is multiplied by $0.85$, so it decreases slowly along the valley floor. The learning rate is limited by the high-curvature direction ($\lambda_{\max} = 10$), but progress is limited by the low-curvature direction ($\lambda_{\min} = 1$). The larger the ratio $\lambda_{\max}/\lambda_{\min}$ (the condition number), the narrower the ravine and the slower gradient descent becomes. Momentum, RMSProp, and Adam (below) are designed to mitigate this.
+:::
+
+## Exercise 4 - SGD with Momentum
+
+Recall the momentum update from lecture:
+$$
+\mathbf{p} \leftarrow \mu\, \mathbf{p} - \alpha \frac{\partial \mathcal{E}}{\partial \theta}, \qquad
+\theta \leftarrow \theta + \mathbf{p}.
+$$
+
+**(a)** Suppose the gradient is constant, $\frac{\partial \mathcal{E}}{\partial \theta} = \mathbf{g}$. Show that the velocity $\mathbf{p}$ converges to the "terminal velocity" $-\frac{\alpha}{1 - \mu}\mathbf{g}$ (for $0 \leq \mu < 1$). What does this suggest about how to choose $\alpha$ when you increase $\mu$?
+
+**(b)** Implement (stochastic) gradient descent with momentum and apply it to optimize some elementary functions in 1D and 2D. In particular, compare plain gradient descent and gradient descent with momentum on the ravine $f(x, y) = \frac{1}{2}(x^2 + 10y^2)$ from Exercise 3.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Starting from $\mathbf{p}_0 = \mathbf{0}$, unrolling the recursion gives
+$$
+\mathbf{p}_t = -\alpha\,\mathbf{g}\,(1 + \mu + \mu^2 + \cdots + \mu^{t-1}) = -\alpha\,\mathbf{g}\,\frac{1 - \mu^t}{1 - \mu} \;\xrightarrow{t \to \infty}\; -\frac{\alpha}{1-\mu}\,\mathbf{g}.
+$$
+Alternatively, at a fixed point, $\mathbf{p} = \mu\mathbf{p} - \alpha\mathbf{g}$, so $\mathbf{p} = -\frac{\alpha}{1-\mu}\mathbf{g}$. The effective step size is $\frac{\alpha}{1-\mu}$, e.g. $10\alpha$ for $\mu = 0.9$ and $100\alpha$ for $\mu = 0.99$. If you increase $\mu$, you should decrease $\alpha$ to compensate.
+
+**(b)** An example implementation:
+
+```python
+import numpy as np
+
+def sgd_with_momentum(grad, x_init, learning_rate, momentum, max_iter):
+    x = np.array(x_init, dtype=float)
+    p = np.zeros_like(x)
+    trajectory = [x.copy()]
+    for _ in range(max_iter):
+        p = momentum * p - learning_rate * grad(x)
+        x = x + p
+        trajectory.append(x.copy())
+    return np.array(trajectory)
+
+# 1D: f(x) = x^2
+traj_1d = sgd_with_momentum(lambda x: 2 * x, [3.0],
+                            learning_rate=0.1, momentum=0.5, max_iter=20)
+
+# 2D ravine: f(x, y) = 0.5 * (x^2 + 10 y^2)
+grad_ravine = lambda v: np.array([v[0], 10 * v[1]])
+plain = sgd_with_momentum(grad_ravine, [10.0, 1.0],
+                          learning_rate=0.15, momentum=0.0, max_iter=50)
+mom = sgd_with_momentum(grad_ravine, [10.0, 1.0],
+                        learning_rate=0.15, momentum=0.5, max_iter=50)
+print(plain[-1], mom[-1])
+```
+
+Setting `momentum=0.0` recovers plain gradient descent. On the ravine, plain gradient descent zig-zags in $y$ and creeps along $x$ (after 50 steps, $x \approx 0.003$). With momentum, the oscillations in $y$ partially cancel out while the consistent gradients in $x$ accumulate, so it gets much closer to the minimum in the same number of steps (after 50 steps, $|x|$ is on the order of $10^{-7}$). Plot the trajectories with `matplotlib` on top of a contour plot of $f$ to see the difference.
+:::
+
+## Exercise 5 - RMSProp and Adam
+
+Recall the RMSProp update, applied to each coordinate $j$ independently:
+$$
+s_j \leftarrow  (1-\gamma)s_j + \gamma \left(\frac{\partial \mathcal{J}}{\partial \theta_j}\right)^2, \qquad
+\theta_j \leftarrow \theta_j - \frac{\alpha}{\sqrt{s_j + \epsilon}} \frac{\partial \mathcal{J}}{\partial \theta_j}.
+$$
+
+**(a)** Suppose we multiply the loss by a constant $c > 0$, i.e. we use $c \mathcal{J}$ instead of $\mathcal{J}$. How does the plain gradient descent update change? How does the RMSProp update change (ignoring $\epsilon$)?
+
+**(b)** Apply the reasoning from (a) to the ravine $f(x, y) = \frac{1}{2}(x^2 + 10y^2)$. Why can RMSProp help here? Why does this argument rely on the ravine being axis-aligned?
+
+**(c)** Lecture described Adam as "RMSProp + momentum". Write down an update rule that combines the two.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The gradient is multiplied by $c$, so the gradient descent step is multiplied by $c$ as well. For RMSProp, $s_j$ becomes $c^2$ times as large (once the moving average has adapted), so $\sqrt{s_j}$ is multiplied by $c$, and the factor of $c$ in the numerator cancels. The RMSProp update is (approximately) invariant to the scale of the gradient in each coordinate.
+
+**(b)** The two coordinates have gradients of very different scales ($x$ versus $10y$). RMSProp divides each coordinate's gradient by its own running RMS, so both coordinates take steps of similar size, which effectively equalizes the curvature in the two directions. This only works if the directions of high and low curvature are aligned with the coordinate axes, because RMSProp rescales each coordinate independently. If the ravine is rotated (e.g. the Hessian has eigenvectors $(1,1)$ and $(1,-1)$), per-coordinate rescaling cannot undo it.
+
+**(c)** One version (omitting Adam's bias correction terms, which matter only in the first few iterations):
+$$
+\begin{aligned}
+m_j &\leftarrow \beta_1 m_j + (1 - \beta_1)\frac{\partial \mathcal{J}}{\partial \theta_j} && \text{(momentum: running average of gradients)} \\
+s_j &\leftarrow \beta_2 s_j + (1 - \beta_2)\left(\frac{\partial \mathcal{J}}{\partial \theta_j}\right)^2 && \text{(RMSProp: running average of squared gradients)} \\
+\theta_j &\leftarrow \theta_j - \frac{\alpha}{\sqrt{s_j} + \epsilon}\, m_j.
+\end{aligned}
+$$
+Typical defaults are $\alpha = 10^{-3}$, $\beta_1 = 0.9$, $\beta_2 = 0.999$. In PyTorch: `torch.optim.Adam(model.parameters(), lr=1e-3)`.
+:::
+
+## Exercise 6 - Initialization and Symmetry
+
+Consider an MLP with one hidden layer, and suppose we initialize *all* weights and biases to the same constant value $c$.
+
+**(a)** Show that all hidden units compute the same value for every input, and that they receive the same gradient.
+
+**(b)** What happens to the hidden units after many steps of gradient descent? Why do we initialize weights randomly?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Every hidden unit computes $h_i = \phi(c\sum_j x_j + c)$, which does not depend on $i$. In the backward pass, $\overline{h_i} = \sum_k \overline{y_k}\, w_{ki}^{(2)} = c\sum_k \overline{y_k}$, which also does not depend on $i$, so $\overline{z_i}$ and the gradients of every hidden unit's incoming weights $\overline{w_{ij}^{(1)}} = \overline{z_i}\, x_j$ are identical across units. Similarly, the outgoing weights from each hidden unit receive identical gradients.
+
+**(b)** Since all hidden units start identical and receive identical updates, they remain identical forever. The network effectively has a single hidden unit, no matter how wide it is. Random initialization breaks this symmetry so that different units can learn different features. (The scale of the random initialization also matters: it should be chosen so that activations and gradients neither explode nor vanish as they pass through many layers.)
+:::
+
+## Exercise 7 - Batch Normalization
+
+You are an ML engineer at Googlezon, working on an internal ML framework called TorchsorFlow. You are tasked with implementing a new layer known as BatchNormalization. The idea of this layer is as follows:
+
+During training, consider the outputs of the previous layer $\mathbf{a}_i=(a_i^{(1)}, \ldots, a_i^{(N)})$ for each element $i\in \{1, \ldots, M\}$ of the mini-batch. Compute the mean $\mu_j$ and variance $\sigma_j^2$ over the batch for each dimension $j$. Use the resulting statistics to normalize the output of the previous layer. Finally, rescale the result with a learned constant $\gamma$ and shift it by another learned constant $\beta$.
+
+**(a)** Write down the mathematical expression for the BatchNormalization layer. What are its learnable parameters?
+
+**(b)** Compute the gradient of the loss $\mathcal{L}$ with respect to the input $\mathbf{a}_i$ of the BatchNormalization layer.
+
+**(c)** At test time, we may want to make a prediction for a single example. It is then not meaningful (or even possible) to compute the batch mean and variance. How would you implement the layer at test time?
+
+::: {.callout-tip collapse="true" title="Solution"}
+For batch normalization, we can consider each dimension $j$ separately. We simplify notation and write $a_i$, $\hat{a}_i$, $y_i$ instead of $a_i^{(j)}$, $\hat{a}_i^{(j)}$, $y_i^{(j)}$.
+
+**(a)** The forward pass is given by
+$$
+\begin{aligned}
+\mu_B
+  &= \frac{1}{M}\sum_{i=1}^M a_i
+  &&\text{(mini-batch mean)}  \\
+\sigma_B^2
+  &=\frac{1}{M}\sum_{i=1}^M (a_i-\mu_B)^2
+  &&\text{(mini-batch variance)}\\
+\hat{a}_i
+  &= \frac{a_i-\mu_B}{\sqrt{\sigma_B^2+\epsilon}}
+  &&\text{(normalize)}\\
+y_i
+  &= \gamma\hat{a}_i + \beta
+  &&\text{(scale and shift)}
+\end{aligned}
+$$
+Here $\epsilon$ is a small constant added for numerical stability (to avoid division by zero). The learnable parameters are one $\gamma^{(j)}$ and one $\beta^{(j)}$ per dimension, i.e. $2N$ parameters in total.
+
+**(b)** We obtain $\mu_B$, $\sigma_B^2$, $\hat{a}_i$, and $y_i$ during the forward pass, and $\partial \mathcal{L}/\partial y_i$ from the later layers during the backward pass. Note that $a_i$ influences $\mathcal{L}$ through three paths: directly through $\hat{a}_i$, through $\mu_B$, and through $\sigma_B^2$. Applying the chain rule:
+$$
+\begin{aligned}
+\frac{\partial\mathcal{L}}{\partial \hat{a}_i} &= \frac{\partial \mathcal{L}}{\partial y_i}\cdot \gamma, \\
+\frac{\partial\mathcal{L}}{\partial \sigma_B^2}
+  &= \sum_{i=1}^M \frac{\partial\mathcal{L}}{\partial\hat{a}_i}\cdot(a_i-\mu_B)\cdot
+  \frac{-1}{2}(\sigma_B^2+\epsilon)^{-3/2}, \\
+\frac{\partial\mathcal{L}}{\partial\mu_B}
+  &= \sum_{i=1}^M \frac{\partial\mathcal{L}}{\partial\hat{a}_i}
+  \cdot\frac{-1}{\sqrt{\sigma_B^2+\epsilon}}
+  +\frac{\partial\mathcal{L}}{ \partial \sigma_B^2}
+  \cdot\frac{1}{M}\sum_{i=1}^M  -2(a_i-\mu_B),\\
+\frac{\partial\mathcal{L}}{\partial a_i}
+  &= \frac{\partial\mathcal{L}}{\partial\hat{a}_i}
+  \cdot \frac{1}{\sqrt{\sigma_B^2+\epsilon}}  + \frac{\partial \mathcal{L}}{\partial \sigma_B^2} \cdot \frac{2(a_i-\mu_B)}{M} + \frac{\partial \mathcal{L}}{\partial \mu_B}\cdot \frac{1}{M}.
+\end{aligned}
+$$
+(The second term of $\frac{\partial\mathcal{L}}{\partial\mu_B}$ is actually zero, since $\sum_i (a_i - \mu_B) = 0$.) The gradients for the learnable parameters are
+$$
+\frac{\partial\mathcal{L}}{\partial\gamma} = \sum_{i=1}^M \frac{\partial\mathcal{L}}{\partial y_i} \cdot \hat{a}_i, \qquad
+\frac{\partial\mathcal{L}}{\partial\beta} = \sum_{i=1}^M \frac{\partial\mathcal{L}}{\partial y_i}.
+$$
+
+**(c)** During training, keep running (exponential moving) averages of the batch means and variances, e.g. $\mu_{\text{run}} \leftarrow (1 - m)\,\mu_{\text{run}} + m\,\mu_B$, and similarly for $\sigma^2_{\text{run}}$. At test time, use these fixed statistics instead of the batch statistics:
+$$y = \gamma\,\frac{a - \mu_{\text{run}}}{\sqrt{\sigma^2_{\text{run}} + \epsilon}} + \beta,$$
+which is just a fixed affine function of $a$ and works for any batch size, including 1. This is what PyTorch's `nn.BatchNorm1d` does, and it is why you must call `model.eval()` before evaluation.
+:::

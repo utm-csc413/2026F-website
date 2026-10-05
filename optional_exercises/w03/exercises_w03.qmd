@@ -1,0 +1,228 @@
+---
+title: "Week 3 Optional Exercises: Automatic Differentiation and Distributed Representations"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 3](/lecs/w03/lec03.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+## Exercise 1 - Autodiff Modes
+
+Consider the function $F(x) = f_3(f_2(f_1(x)))$ and assume you also know the derivatives $f_i'$ for all $f_i$.
+
+**(a)** Apply the chain rule to express $F'(x)$ in terms of the $f_i'$ and $f_i$.
+
+**(b)** Write down pseudocode for computing $F'(x)$ using forward mode and reverse mode respectively. Assume all functions are scalar functions of a scalar variable, i.e. $f_i: \R \rightarrow \R$.
+
+**(c)** If you simply ask your interpreter or compiler to evaluate the expression in (a), will the computation be in forward mode, reverse mode, or neither? Why? You can assume that your interpreter does not do any caching or optimization and simply evaluates the expression from left to right. Does anything change if you assume that your interpreter caches results that have been computed before?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** For better readability we write $(g\circ h)(x)$ for $g(h(x))$. Applying the chain rule twice gives
+$$
+\begin{aligned}
+F'(x)
+ &= (f_3 \circ f_2 \circ f_1)' (x) \\
+ &= (f_2 \circ f_1)'(x) \cdot (f_3' \circ f_2 \circ f_1)(x)\\
+ &= f_1'(x) \cdot (f_2' \circ f_1)(x) \cdot (f_3' \circ f_2 \circ f_1)(x).
+\end{aligned}
+$$
+
+**(b)** In forward mode, we carry the value `v` and the derivative `d` of the value with respect to `x` *together* through the computation, from the input to the output:
+
+```
+v = x
+d = 1
+d = f1'(v) * d;  v = f1(v)
+d = f2'(v) * d;  v = f2(v)
+d = f3'(v) * d;  v = f3(v)
+return d
+```
+
+In reverse mode, we first do a forward pass that stores the intermediate values, and then propagate the derivative of the output backwards, from the output to the input:
+
+```
+v1 = f1(x)
+v2 = f2(v1)
+d = f3'(v2)
+d = d * f2'(v1)
+d = d * f1'(x)
+return d
+```
+
+**(c)** Evaluating $f_1'(x) \cdot f_2'(f_1(x)) \cdot f_3'(f_2(f_1(x)))$ from left to right multiplies the local derivatives in the same order as forward mode (starting from the input side). However, it is not an efficient forward-mode computation, because $f_1(x)$ is computed twice and $f_2(f_1(x))$ is computed separately from the derivative product. With caching, these repeated computations disappear and the evaluation order coincides with forward-mode automatic differentiation. This is specific to our example and the order in which we wrote the product. It is not true in general.
+:::
+
+## Exercise 2 - Jacobians and Vector-Jacobian Products
+
+Recall that reverse-mode autodiff never builds the full Jacobian $J$ of a primitive operation $\mathbf{z} = f(\mathbf{x})$. Instead, it only needs the vector-Jacobian product (VJP) $\overline{\mathbf{x}}^\top = \overline{\mathbf{z}}^\top J$, i.e. $\overline{\mathbf{x}} = J^\top \overline{\mathbf{z}}$.
+
+For each of the following operations with $\mathbf{x} \in \R^n$, write down the Jacobian $J = \frac{\partial \mathbf{z}}{\partial \mathbf{x}}$ and a formula for the VJP $\overline{\mathbf{x}}$ that can be computed without forming $J$ explicitly.
+
+**(a)** Matrix-vector product: $\mathbf{z} = \mathbf{W}\mathbf{x}$, with $\mathbf{W} \in \R^{m \times n}$.
+
+**(b)** Elementwise ReLU: $z_i = \max(0, x_i)$.
+
+**(c)** Softmax: $z_i = \frac{e^{x_i}}{\sum_k e^{x_k}}$. *Hint:* use the result from Week 1, Exercise 3(b).
+
+**(d)** Suppose a function $f: \R^n \to \R^m$ is a composition of many primitive operations. Roughly how many forward-mode passes are needed to compute the full Jacobian of $f$? How many reverse-mode passes? Which mode is better suited to training a neural network with $n = 10^6$ parameters and a scalar loss?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $J = \mathbf{W}$ (an $m \times n$ matrix), so $\overline{\mathbf{x}} = \mathbf{W}^\top \overline{\mathbf{z}}$. This is the same expression as $\overline{\mathbf{h}} = {\mathbf{W}^{(2)}}^\top \overline{\mathbf{y}}$ in the backprop equations for an MLP.
+
+**(b)** Each $z_i$ depends only on $x_i$, so the Jacobian is diagonal: $J = \diag(\mathbb{I}[x_1 > 0], \ldots, \mathbb{I}[x_n > 0])$. The VJP is the elementwise product $\overline{\mathbf{x}} = \mathbb{I}[\mathbf{x} > 0] \odot \overline{\mathbf{z}}$, which costs $O(n)$.
+
+**(c)** From $\frac{\partial z_i}{\partial x_j} = z_i(\delta_{ij} - z_j)$ we get $J = \diag(\mathbf{z}) - \mathbf{z}\mathbf{z}^\top$, which is a dense $n \times n$ matrix. It is symmetric, so
+$$
+\overline{\mathbf{x}} = J^\top \overline{\mathbf{z}} = \mathbf{z} \odot \overline{\mathbf{z}} - \mathbf{z}\,(\mathbf{z}^\top \overline{\mathbf{z}})
+  = \mathbf{z} \odot \left(\overline{\mathbf{z}} - (\mathbf{z}^\top \overline{\mathbf{z}})\mathbf{1}\right).
+$$
+In code: `x_bar = z * (z_bar - (z * z_bar).sum())`. This costs $O(n)$ instead of the $O(n^2)$ needed to build and multiply by $J$.
+
+**(d)** One forward-mode pass computes a Jacobian-vector product $J\mathbf{v}$, i.e. one *column* of $J$ (for $\mathbf{v}$ a standard basis vector). So $n$ passes are needed for the full Jacobian. One reverse-mode pass computes a VJP $\mathbf{u}^\top J$, i.e. one *row* of $J$, so $m$ passes are needed. In neural network training, $f$ maps $n = 10^6$ parameters to $m = 1$ scalar loss, so a single reverse-mode pass (backpropagation) yields the entire gradient, whereas forward mode would need $10^6$ passes.
+:::
+
+## Exercise 3 - Maximum Likelihood Estimation Refresher
+
+Assume you are given datapoints $(\mathbf{x}_i)_{i=1}^N$ with $\mathbf{x}_i\in\R^n$ coming from a Gaussian distribution. Derive the maximum likelihood estimator of its mean.
+
+::: {.callout-tip collapse="true" title="Solution"}
+First, recall that the maximum likelihood estimator (MLE) of a probability distribution from datapoints $\mathbf{x}_1, \ldots, \mathbf{x}_N$ is given by
+$$
+\hat{\theta}_{\mathrm{MLE}} = \argmax_{\theta \in \Theta} \prod_{i=1}^N f(\mathbf{x}_i | \theta),
+$$
+where $f$ is the probability density function of the considered family of distributions, $\theta$ are the parameters of the distribution, and $\Theta$ is the parameter space (the set of all possible parameters). The product on the right hand side is known as the likelihood function. In practice, we usually work with the log-likelihood instead. Because the logarithm is monotonically increasing, the resulting estimators are the same:
+$$
+\hat{\theta}_{\mathrm{MLE}}
+ = \argmax_{\theta \in \Theta} \prod_{i=1}^N f(\mathbf{x}_i | \theta)
+ = \argmax_{\theta \in \Theta} \sum_{i=1}^N \log f(\mathbf{x}_i | \theta).
+$$
+
+Second, the probability density function of a multivariate Gaussian distribution is
+$$
+f(\mathbf{x} | \boldsymbol{\mu}, \Sigma)
+ = \frac{1}{(2 \pi)^{n/2} |\Sigma|^{1/2}}
+   \exp \left(
+     - \frac{1}{2}
+     (\mathbf{x} - \boldsymbol{\mu})^\top
+     \Sigma^{-1}
+     (\mathbf{x} - \boldsymbol{\mu})
+   \right)
+$$
+with parameters $\theta=(\boldsymbol{\mu}, \Sigma)$, where $\boldsymbol{\mu}\in\R^n$ is the mean vector, $\Sigma\in\R^{n\times n}$ is the covariance matrix, and $|\Sigma|$ denotes the determinant of $\Sigma$.
+
+Our goal is to maximize the log-likelihood, which in this case is
+$$
+\ell(\boldsymbol{\mu}, \Sigma)
+  = \sum_{i=1}^N \left(
+    - \frac{n}{2} \log (2 \pi)
+    - \frac{1}{2} \log |\Sigma|
+    - \frac{1}{2}  (\mathbf{x}_i - \boldsymbol{\mu})^\top \Sigma^{-1} (\mathbf{x}_i - \boldsymbol{\mu})
+  \right).
+$$
+To obtain the MLE of $\boldsymbol{\mu}$, we take the gradient of $\ell$ with respect to $\boldsymbol{\mu}$ and set it to zero:
+$$
+\nabla_{\boldsymbol{\mu}}\, \ell(\boldsymbol{\mu}, \Sigma)
+ = \sum_{i=1}^N  \Sigma^{-1} ( \mathbf{x}_i - \boldsymbol{\mu} )
+ = 0.
+$$
+Since $\Sigma$ is a covariance matrix, it is positive definite and hence invertible. Multiplying both sides by $\Sigma$ gives
+$$
+0 = \sum_{i=1}^N  \mathbf{x}_i - N \boldsymbol{\mu}
+\quad\Rightarrow\quad
+\hat{\boldsymbol{\mu}}_{\mathrm{MLE}} =  \frac{1}{N} \sum_{i=1}^N \mathbf{x}_i .
+$$
+Conveniently, $\Sigma$ disappears, so the MLE of the mean does not depend on the covariance.
+:::
+
+## Exercise 4 - N-Gram Language Models
+
+Consider the following tiny training corpus (treat "." as a word):
+
+> the cat sat on the mat . the cat ate the rat .
+
+**(a)** Using the empirical distribution, estimate the bigram probabilities $p(\text{cat} \mid \text{the})$, $p(\text{rat} \mid \text{the})$, and $p(\text{sat} \mid \text{cat})$.
+
+**(b)** Using a bigram model, compute the probability of the sentence "the cat sat on the rat ." conditioned on the first word "the", i.e. $p(w_2, \ldots, w_7 \mid w_1 = \text{the})$.
+
+**(c)** Compute the same quantity for "the rat sat on the mat ." What is the problem?
+
+**(d)** Suppose the vocabulary has $V = 10{,}000$ words. How many entries does the conditional probability table of a 3-gram (trigram) model have? What does this imply?
+
+**(e)** Explain in a few sentences how a neural language model with distributed word representations (embeddings) addresses the problems from (c) and (d).
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** "the" appears 4 times and is followed by cat, mat, cat, rat. "cat" appears twice and is followed by sat and ate. So
+$$
+p(\text{cat} \mid \text{the}) = \tfrac{2}{4} = 0.5, \qquad
+p(\text{rat} \mid \text{the}) = \tfrac{1}{4} = 0.25, \qquad
+p(\text{sat} \mid \text{cat}) = \tfrac{1}{2} = 0.5.
+$$
+
+**(b)**
+$$
+p(\text{cat}\mid\text{the})\, p(\text{sat}\mid\text{cat})\, p(\text{on}\mid\text{sat})\, p(\text{the}\mid\text{on})\, p(\text{rat}\mid\text{the})\, p(\text{.}\mid\text{rat})
+= 0.5 \cdot 0.5 \cdot 1 \cdot 1 \cdot 0.25 \cdot 1 = 0.0625.
+$$
+
+**(c)** The bigram "rat sat" never appears in the corpus, so $p(\text{sat} \mid \text{rat}) = 0$ and the whole sentence gets probability $0$, even though it is a perfectly reasonable sentence. This is the **data sparsity** problem: most possible n-grams never appear in the training data.
+
+**(d)** There are $V^2$ possible contexts $(w_{t-2}, w_{t-1})$, and for each we need a distribution over $V$ next words, so the table has $V^3 = 10^{12}$ entries. The table size grows exponentially with the context length, and almost all entries would be estimated from zero counts.
+
+**(e)** A neural language model maps each word to a learned low-dimensional embedding vector and predicts the next word from the embeddings of the context words. Words that appear in similar contexts (e.g. "cat" and "rat") end up with similar embeddings, so what the model learns about "cat sat" transfers to "rat sat", and the model assigns it a reasonable probability. The number of parameters grows linearly in $V$ (one embedding per word plus the network weights) rather than exponentially in the context length.
+:::
+
+## Exercise 5 - Co-occurrence Matrix
+
+Write a co-occurrence matrix for the following sentence:
+
+> "A bird in the hand is worth two in the bush."
+
+Count each word only if it appears directly after the reference word. Is the co-occurrence matrix unique?
+
+::: {.callout-tip collapse="true" title="Solution"}
+Each row is a reference word and each column counts how often that word appears directly after it.
+
+| Reference | A   | bird | in  | the | hand | is  | worth | two | bush |
+|       --- | --- | ---  | --- | --- | ---- | --- | ---   | --- | ---  |
+| A         | 0   | 1    |   0 |   0 |    0 |   0 |     0 |   0 |    0 |
+| bird      | 0   | 0    |   1 |   0 |    0 |   0 |     0 |   0 |    0 |
+| in        | 0   | 0    |   0 |   2 |    0 |   0 |     0 |   0 |    0 |
+| the       | 0   | 0    |   0 |   0 |    1 |   0 |     0 |   0 |    1 |
+| hand      | 0   | 0    |   0 |   0 |    0 |   1 |     0 |   0 |    0 |
+| is        | 0   | 0    |   0 |   0 |    0 |   0 |     1 |   0 |    0 |
+| worth     | 0   | 0    |   0 |   0 |    0 |   0 |     0 |   1 |    0 |
+| two       | 0   | 0    |   1 |   0 |    0 |   0 |     0 |   0 |    0 |
+| bush      | 0   | 0    |   0 |   0 |    0 |   0 |     0 |   0 |    0 |
+
+The matrix is not unique: any consistent reordering of the words (permuting the rows and columns in the same way) gives an equally valid co-occurrence matrix. Here we used the order in which the words first appear in the sentence. Choices such as treating "A" and "a" as the same word, or including the period as a token, also change the matrix.
+:::
+
+## Exercise 6 - Word Embeddings and Analogies
+
+Suppose we have the following (made-up) 2-dimensional word embeddings:
+$$
+\text{king} = \begin{pmatrix} 3 \\ 1 \end{pmatrix}, \quad
+\text{queen} = \begin{pmatrix} 3 \\ 3 \end{pmatrix}, \quad
+\text{man} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \quad
+\text{woman} = \begin{pmatrix} 1 \\ 3 \end{pmatrix}, \quad
+\text{apple} = \begin{pmatrix} -2 \\ 0 \end{pmatrix}.
+$$
+
+**(a)** Compute the cosine similarity $\cos(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u}^\top \mathbf{v}}{\|\mathbf{u}\|\,\|\mathbf{v}\|}$ between king and queen, and between king and apple.
+
+**(b)** Compute $\text{king} - \text{man} + \text{woman}$. Which word's embedding is closest to the result in terms of cosine similarity?
+
+**(c)** What does each of the two embedding dimensions seem to encode in this toy example? Why might real embeddings trained on internet text also encode undesirable associations?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+$$
+\cos(\text{king}, \text{queen}) = \frac{9 + 3}{\sqrt{10}\,\sqrt{18}} = \frac{12}{\sqrt{180}} \approx 0.894,
+\qquad
+\cos(\text{king}, \text{apple}) = \frac{-6}{\sqrt{10}\cdot 2} \approx -0.949.
+$$
+
+**(b)** $\text{king} - \text{man} + \text{woman} = (3 - 1 + 1,\; 1 - 1 + 3)^\top = (3, 3)^\top$, which is exactly the embedding of queen (cosine similarity $1$).
+
+**(c)** The first dimension roughly encodes "royalty" (larger for king and queen) and the second encodes "gender" (larger for queen and woman). In real embeddings, such directions are not designed but learned from co-occurrence statistics. Because the training text reflects societal biases, the learned directions can encode associations like gender and occupation stereotypes (e.g. "man is to programmer as woman is to homemaker"), which then propagate into downstream models.
+:::

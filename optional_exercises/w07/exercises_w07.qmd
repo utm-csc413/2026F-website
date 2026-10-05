@@ -1,0 +1,208 @@
+---
+title: "Week 7 Optional Exercises: Interpreting Convolutional Neural Networks"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 7](/lecs/w07/lec07.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+## Exercise 1 - Convolution by Hand (Review)
+
+Consider the following $4\times 4 \times 1$ input $X$ and a $2\times 2 \times 1$ convolutional kernel $K$ with no bias term:
+$$
+X =
+\begin{pmatrix}
+1 & 2 & -1 & 1 \\
+1 & 0 & 1 & 0 \\
+0 & 1 & 0 & 2 \\
+2 & 1 & 0 & -1
+\end{pmatrix}, \qquad
+K = \begin{pmatrix}
+1 & 0 \\
+2 & 1
+\end{pmatrix}.
+$$
+
+**(a)** What is the output of the convolutional layer for the case of stride 1 and no padding?
+
+**(b)** What if we have stride 2 and no padding?
+
+**(c)** What if we have stride 2 and zero-padding of size 1?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** We apply the kernel to each of the 9 $2\times 2$ patches of the input:
+$$
+Y = \begin{pmatrix}
+3 &  3 &  1 \\
+2 &  2 &  3 \\
+5 &  3 & -1
+\end{pmatrix}.
+$$
+
+**(b)** Same idea, except that we skip every other patch, resulting in only 4 patches:
+$$
+Y = \begin{pmatrix}
+ 3 & 1 \\
+ 5 & -1
+\end{pmatrix}.
+$$
+
+**(c)** The $6\times 6$ padded input $X_\mathrm{padded}$ and corresponding output $Y$ are
+$$
+X_\mathrm{padded} =
+\begin{pmatrix}
+0 & 0 & 0 &  0 &  0 & 0 \\
+0 & 1 & 2 & -1 &  1 & 0 \\
+0 & 1 & 0 &  1 &  0 & 0 \\
+0 & 0 & 1 &  0 &  2 & 0 \\
+0 & 2 & 1 &  0 & -1 & 0 \\
+0 & 0 & 0 &  0 &  0 & 0
+\end{pmatrix},
+\qquad
+Y = \begin{pmatrix}
+ 1 & 3 & 2 \\
+ 0 & 2 & 4 \\
+ 0 & 1 & -1
+\end{pmatrix}.
+$$
+:::
+
+## Exercise 2 - Design Choices in VGG
+
+**(a)** VGG uses stacks of $3\times 3$ convolutions instead of the large kernels used by AlexNet. What is the receptive field of a unit after three stacked $3\times 3$ convolutions (stride 1)? Compare the number of weights of this stack with a single $7\times 7$ convolution, assuming $C$ input and $C$ output channels in every layer (ignore biases). Besides the parameter count, what is another advantage of the stack?
+
+**(b)** What does a $1\times 1$ convolution compute? How many parameters does a $1\times 1$ convolution from 512 to 64 channels have (including biases)? Why is it useful?
+
+**(c)** Lecture mentioned that a fully connected layer can be expressed as a convolutional layer. Consider an FC layer with 4096 outputs applied to a flattened $7\times 7\times 512$ input. Describe the equivalent convolutional layer and check that both have the same number of parameters. What happens if you apply the convolutional version to a larger $14 \times 14 \times 512$ input?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Each $3\times 3$ layer with stride 1 increases the receptive field by 2, so three layers give $1 + 2 + 2 + 2 = 7$, the same as a single $7\times 7$ convolution. The stack has $3 \cdot (3 \cdot 3 \cdot C \cdot C) = 27C^2$ weights versus $49C^2$ for the single layer, i.e. about 45% fewer. The stack also applies three nonlinearities instead of one, which makes the function more expressive.
+
+**(b)** A $1\times 1$ convolution computes, at every spatial location independently, a linear combination of the input channels (i.e. the same fully connected layer applied to every pixel's channel vector). It has $512 \cdot 64 + 64 = 32832$ parameters. It is used to change the number of channels cheaply, e.g. to reduce the number of channels before an expensive $3\times 3$ convolution (a "bottleneck"), and it adds an extra nonlinearity without changing the receptive field.
+
+**(c)** The equivalent layer is a convolution with kernel size $7 \times 7$, 512 input channels, 4096 output channels, stride 1, and no padding. On a $7\times 7$ input there is exactly one valid kernel position, so the output is $1 \times 1 \times 4096$. The number of parameters matches:
+$$
+\underbrace{7 \cdot 7 \cdot 512 \cdot 4096 + 4096}_{\text{conv}} = \underbrace{25088 \cdot 4096 + 4096}_{\text{FC}} = 102{,}764{,}544.
+$$
+On a $14 \times 14 \times 512$ input, the convolutional version produces an $8 \times 8 \times 4096$ output: it applies the "FC layer" to every $7\times 7$ window. This is how such networks can process images of different sizes (and produce spatial maps of predictions), which the FC version cannot.
+:::
+
+## Exercise 3 - Transfer Learning
+
+You want to classify images into 5 classes but have only a few hundred labelled images. You decide to start from a ResNet-18 pretrained on ImageNet, whose final layer is `fc = nn.Linear(512, 1000)`.
+
+**(a)** Write PyTorch code that loads the pretrained model, freezes all of its weights, and replaces the final layer with a new, trainable layer for your 5 classes. How many trainable parameters does the resulting model have?
+
+**(b)** Describe the difference between using the pretrained network as a fixed feature extractor (as in (a)) and fine-tuning it. When would you prefer each?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+
+```python
+import torch
+import torch.nn as nn
+import torchvision
+
+model = torchvision.models.resnet18(weights=torchvision.models.ResNet18_Weights.DEFAULT)
+
+for p in model.parameters():
+    p.requires_grad = False          # freeze the pretrained weights
+
+model.fc = nn.Linear(512, 5)         # new layer: trainable by default
+
+print(sum(p.numel() for p in model.parameters() if p.requires_grad))   # 2565
+
+optimizer = torch.optim.Adam(model.fc.parameters(), lr=1e-3)
+```
+
+Only the new layer is trainable: $512 \cdot 5 + 5 = 2565$ parameters. (Remember to apply the same input normalization that was used for ImageNet pretraining.)
+
+**(b)** As a fixed feature extractor, only the new head is trained. This is fast, needs little data, and is hard to overfit, but the features cannot adapt to the new task. When fine-tuning, all (or the later) layers are also updated, usually with a small learning rate so that the pretrained features are not destroyed early in training. Fine-tuning is preferable when you have more data, or when the new images differ substantially from ImageNet (e.g. medical images). With very little data that resembles ImageNet, a fixed feature extractor is often enough.
+:::
+
+## Exercise 4 - Input Gradients and Adversarial Examples
+
+Consider a logistic regression classifier $p(y=1 \mid \mathbf{x}) = \sigma(z)$ with $z = \mathbf{w}^\top\mathbf{x} + b$.
+
+**(a)** Compute the input gradient $\nabla_{\mathbf{x}} \log p(y=1 \mid \mathbf{x})$. What does it tell us about which input features matter most?
+
+**(b)** Let $\mathbf{w} = (2, -1, 0.5)^\top$, $b = -1$, and $\mathbf{x} = (1, 1, 1)^\top$. What is the predicted probability of class 1? An attacker is allowed to change each input feature by at most $\epsilon = 0.3$ (i.e. $\|\boldsymbol{\delta}\|_\infty \leq \epsilon$). Which perturbation $\boldsymbol{\delta}$ decreases $z$ the most, and what is the new prediction?
+
+**(c)** In general, show that the largest possible change in $z$ under the constraint $\|\boldsymbol{\delta}\|_\infty \leq \epsilon$ is $\epsilon\|\mathbf{w}\|_1$. Use this to explain why high-dimensional inputs such as images (e.g. $D = 150{,}528$ for a $224\times224\times3$ image) are especially vulnerable to tiny, imperceptible perturbations.
+
+**(d)** The fast gradient sign method (FGSM) generalizes (b) to any differentiable model: $\mathbf{x}_{adv} = \mathbf{x} + \epsilon\,\text{sign}\left(\nabla_{\mathbf{x}} \mathcal{L}(f(\mathbf{x}), t)\right)$, where $t$ is the correct label. Implement FGSM in PyTorch for a classifier `model` that outputs logits. Is this a targeted or non-targeted attack? How would you modify it to make it targeted?
+
+**(e)** Why are adversarial examples a security concern even if the attacker does not have access to the model's weights?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $\log p(y=1\mid\mathbf{x}) = \log\sigma(z)$, and $\frac{d}{dz}\log\sigma(z) = 1 - \sigma(z)$, so
+$$\nabla_{\mathbf{x}} \log p(y=1 \mid \mathbf{x}) = (1 - \sigma(z))\,\mathbf{w}.$$
+For a linear model, the input gradient is proportional to the weight vector: features with large $|w_i|$ have the most influence on the prediction (locally). For deep networks, the input gradient depends on $\mathbf{x}$, and visualizing it gives a (noisy) saliency map.
+
+**(b)** $z = 2 - 1 + 0.5 - 1 = 0.5$, so $p(y=1\mid\mathbf{x}) = \sigma(0.5) \approx 0.62$, and the input is classified as class 1. Since $z$ changes by $\mathbf{w}^\top\boldsymbol{\delta}$, the best perturbation moves each feature by the maximum amount against the sign of its weight: $\boldsymbol{\delta} = -\epsilon\,\text{sign}(\mathbf{w}) = (-0.3, 0.3, -0.3)^\top$. Then $z' = 0.5 - 0.3(2 + 1 + 0.5) = -0.55$ and $p(y=1\mid\mathbf{x}+\boldsymbol{\delta}) = \sigma(-0.55) \approx 0.37$, so the input is now misclassified.
+
+**(c)** $|\mathbf{w}^\top\boldsymbol{\delta}| \leq \sum_i |w_i|\,|\delta_i| \leq \epsilon\sum_i|w_i| = \epsilon\|\mathbf{w}\|_1$, with equality for $\boldsymbol{\delta} = \pm\epsilon\,\text{sign}(\mathbf{w})$. If the weights have average magnitude $m$, then $\|\mathbf{w}\|_1 = mD$ grows linearly with the input dimension. A change of $\epsilon$ in every pixel may be imperceptible, but its effect on $z$ is $\epsilon m D$, which is huge when $D$ is in the hundreds of thousands. Neural networks behave approximately linearly locally, so they inherit this vulnerability.
+
+**(d)**
+
+```python
+import torch
+import torch.nn.functional as F
+
+def fgsm(model, x, t, eps):
+    model.eval()
+    x = x.clone().requires_grad_(True)
+    loss = F.cross_entropy(model(x), t)
+    loss.backward()
+    x_adv = x + eps * x.grad.sign()
+    return x_adv.clamp(0, 1).detach()     # keep pixel values valid
+```
+
+This is a non-targeted attack: it *increases* the loss of the correct class $t$. For a targeted attack towards class $t'$, *decrease* the loss of the target class instead: `x_adv = x - eps * grad.sign()`, where `grad` is the input gradient of `F.cross_entropy(model(x), t_target)`. Repeating small FGSM steps (and projecting back to the allowed $\epsilon$-ball) gives a stronger iterative attack.
+
+**(e)** Adversarial examples often *transfer*: perturbations crafted for one network also fool other networks trained on different data. An attacker can train a substitute model (e.g. on the predictions of the victim model obtained through a public API), craft adversarial examples for it in a white-box fashion, and use them against the victim. This is a black-box attack.
+:::
+
+## Exercise 5 - Influence Functions
+
+Recall from lecture that $\hat{\theta} = \argmin_\theta R(\theta)$ with $R(\theta) = \frac{1}{N}\sum_{i=1}^N L(x_i, y_i; \theta)$, and that upweighting a training point $(x, y)$ by $\epsilon$ gives
+$$
+\hat{\theta}(\epsilon) = \argmin_{\theta}\; R(\theta) + \epsilon L(x,y; \theta).
+$$
+
+**(a)** Show that the first-order Taylor expansion of $\hat{\theta}(\epsilon)$ around $\epsilon=0$ is given by the equation from lecture, i.e.
+$$
+\hat{\theta}({\epsilon}) \approx \hat{\theta} + \epsilon\frac{d\hat{\theta}(\epsilon)}{d\epsilon} \Big|_{\epsilon=0}.
+$$
+
+**(b)** Following the steps in lecture, show that the influence of $(x, y)$ is
+$$
+\mathcal{I}(x, y) = \frac{d\hat{\theta}(\epsilon)}{d\epsilon} \Big|_{\epsilon=0} \approx -\left[\nabla_\theta^2 R(\hat{\theta})\right]^{-1}\nabla_\theta L(x, y; \hat{\theta}).
+$$
+
+**(c)** Consider the simplest possible "model": estimating a scalar mean with $L(x_i; \theta) = \frac{1}{2}(x_i - \theta)^2$. Compute $\hat{\theta}$, the Hessian $\nabla_\theta^2 R$, and the influence $\mathcal{I}(x)$ of a training point $x$. Which training points are most influential?
+
+**(d)** For the dataset $\{1, 2, 3, 4, 10\}$, use the influence function to estimate the mean after removing the point $10$ (i.e. $\epsilon = -1/N$). Compare with the exact answer. Why are they different?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The first-order Taylor expansion of any (differentiable) function $g(\epsilon)$ around $\epsilon = 0$ is $g(\epsilon) \approx g(0) + \epsilon\, g'(0)$. Applying this to $g(\epsilon) = \hat{\theta}(\epsilon)$ gives
+$$
+\hat{\theta}(\epsilon) \approx \hat{\theta}(0) + \epsilon\frac{d\hat{\theta}(\epsilon)}{d\epsilon}\Big|_{\epsilon=0}.
+$$
+From the definitions, setting $\epsilon = 0$ recovers the original objective, so $\hat{\theta}(0) = \hat{\theta}$, which completes the proof.
+
+**(b)** Since $\hat{\theta}(\epsilon)$ minimizes $R(\theta) + \epsilon L(x,y;\theta)$, the gradient vanishes there:
+$$0 = \nabla_\theta R(\hat{\theta}(\epsilon)) + \epsilon\nabla_\theta L(x,y;\hat{\theta}(\epsilon)).$$
+A first-order Taylor expansion of the right hand side around $\hat{\theta}$ gives
+$$0 \approx \nabla_\theta R(\hat{\theta}) + \epsilon\nabla_\theta L(x,y;\hat{\theta}) + \left[\nabla_\theta^2 R(\hat{\theta}) + \epsilon\nabla_\theta^2 L(x,y;\hat{\theta})\right](\hat{\theta}(\epsilon) - \hat{\theta}).$$
+Since $\hat{\theta}$ minimizes $R$, $\nabla_\theta R(\hat{\theta}) = 0$. Solving for $\hat{\theta}(\epsilon) - \hat{\theta}$, dividing by $\epsilon$, and letting $\epsilon \to 0$ (which removes the $\epsilon\nabla_\theta^2 L$ term) gives
+$$\frac{d\hat{\theta}(\epsilon)}{d\epsilon}\Big|_{\epsilon=0} \approx -\left[\nabla_\theta^2 R(\hat{\theta})\right]^{-1}\nabla_\theta L(x,y;\hat{\theta}).$$
+
+**(c)** Setting $R'(\theta) = -\frac{1}{N}\sum_i(x_i - \theta) = 0$ gives $\hat{\theta} = \frac{1}{N}\sum_i x_i$, the sample mean. The Hessian is $R''(\theta) = 1$, and $\nabla_\theta L(x;\hat{\theta}) = \hat{\theta} - x$. So
+$$\mathcal{I}(x) = -(1)^{-1}(\hat{\theta} - x) = x - \hat{\theta}.$$
+Points far from the mean (outliers) have the largest influence on the estimate.
+
+**(d)** $N = 5$ and $\hat{\theta} = 4$, so $\mathcal{I}(10) = 10 - 4 = 6$, and
+$$\hat{\theta}(-1/5) \approx 4 - \tfrac{1}{5}\cdot 6 = 2.8.$$
+The exact mean of $\{1, 2, 3, 4\}$ is $2.5$. In this example, we can solve for $\hat{\theta}(\epsilon)$ exactly: $\hat{\theta}(\epsilon) = \frac{\hat{\theta} + \epsilon x}{1 + \epsilon}$, which is not linear in $\epsilon$. The influence function only uses the first-order (linear) term, and $\epsilon = -1/5$ is not very small. For large datasets, $\epsilon = -1/N$ is tiny, and the approximation becomes much more accurate.
+:::

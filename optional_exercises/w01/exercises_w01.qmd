@@ -1,0 +1,461 @@
+---
+title: "Week 1 Optional Exercises: Linear Models"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 1](/lecs/w01/lec01.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+The second half of this page contains a set of PyTorch exercises. They introduce the basic PyTorch features that you will need throughout the first ten weeks of the course (tensors, autograd, modules, losses, optimizers, and the standard training loop). Come back to them whenever you get stuck in a lab or assignment.
+
+## Exercise 1 - Linear Regression
+
+**(a)** In the linear regression model with one feature, we have the following model/hypothesis:
+$$y = f(x) = w x + b$$
+with parameters $w$ and $b$, which we wish to find by minimizing the cost:
+$$\mathcal{E}(w, b) = \frac{1}{2N}\sum_{i=1}^N \left((w x^{(i)} + b) - t^{(i)}\right)^2$$
+What are the derivatives $\frac{\partial \mathcal{E}}{\partial w}$ and $\frac{\partial \mathcal{E}}{\partial b}$?
+
+**(b)** In the linear regression model with many features, we have the following model/hypothesis:
+$$y = f(\mathbf{x}) = \mathbf{w}^\top \mathbf{x} + b$$
+with parameters $\mathbf{w} = [w_1, w_2, \dots, w_d]^\top$ and $b$, which we wish to find by minimizing the cost:
+$$\mathcal{E}(\mathbf{w}, b) = \frac{1}{2N}\sum_{i=1}^N \left((\mathbf{w}^\top \mathbf{x}^{(i)}+b) - t^{(i)}\right)^2$$
+What is the derivative $\frac{\partial \mathcal{E}}{\partial w_j}$ for a weight $w_j$?
+
+**(c)** Stack the inputs into a matrix $\mathbf{X} \in \R^{N \times d}$ whose $i$-th row is $\mathbf{x}^{(i)\top}$, and the targets into a vector $\mathbf{t} \in \R^N$. Write the cost and the gradient $\frac{\partial \mathcal{E}}{\partial \mathbf{w}}$ in vectorized form. For simplicity, absorb the bias into $\mathbf{w}$ by appending a constant feature $1$ to every $\mathbf{x}^{(i)}$.
+
+**(d)** Set the vectorized gradient from (c) to zero and solve for $\mathbf{w}$ (the "direct solution" from lecture). What assumption do you need on $\mathbf{X}$? Why might we still prefer gradient descent in practice?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Applying the chain rule gives
+$$
+\frac{\partial \mathcal{E}}{\partial w}
+  = \frac{1}{N}\sum_i x^{(i)}\left((w x^{(i)} + b) - t^{(i)}\right),
+\qquad
+\frac{\partial \mathcal{E}}{\partial b}
+  = \frac{1}{N}\sum_i \left((w x^{(i)} + b) - t^{(i)}\right).
+$$
+
+**(b)** Similarly,
+$$
+\frac{\partial \mathcal{E}}{\partial w_j}
+  = \frac{1}{N}\sum_i x_j^{(i)}\left((\mathbf{w}^\top \mathbf{x}^{(i)}+b) - t^{(i)}\right).
+$$
+
+**(c)** With the bias absorbed, the predictions for all examples are $\mathbf{y} = \mathbf{X}\mathbf{w}$, so
+$$
+\mathcal{E}(\mathbf{w}) = \frac{1}{2N}\|\mathbf{X}\mathbf{w} - \mathbf{t}\|^2,
+\qquad
+\frac{\partial \mathcal{E}}{\partial \mathbf{w}} = \frac{1}{N}\mathbf{X}^\top(\mathbf{X}\mathbf{w} - \mathbf{t}).
+$$
+The $j$-th entry of this gradient is exactly the expression from (b).
+
+**(d)** Setting the gradient to zero gives the normal equations $\mathbf{X}^\top\mathbf{X}\mathbf{w} = \mathbf{X}^\top\mathbf{t}$, so
+$$
+\mathbf{w}^* = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{t}.
+$$
+This requires $\mathbf{X}^\top\mathbf{X}$ to be invertible, i.e. $\mathbf{X}$ must have linearly independent columns (in particular $N \geq d+1$). In practice, inverting a $(d+1)\times(d+1)$ matrix costs $O(d^3)$, which is expensive for many features, and for most models other than linear regression (e.g. neural networks) no closed-form solution exists at all. Gradient descent works in all of these cases.
+:::
+
+## Exercise 2 - Logistic Regression: Square Loss vs. Cross-Entropy
+
+Consider logistic regression with a single input feature:
+$$z = wx + b, \qquad y = \sigma(z) = \frac{1}{1+e^{-z}}.$$
+
+**(a)** Show that $\sigma'(z) = \sigma(z)\,(1 - \sigma(z))$.
+
+**(b)** Compute $\frac{\partial \mathcal{L}}{\partial w}$ for the square loss $\mathcal{L}_{SE}(y, t) = \frac{1}{2}(y-t)^2$.
+
+**(c)** Compute $\frac{\partial \mathcal{L}}{\partial w}$ for the cross-entropy loss $\mathcal{L}_{CE}(y, t) = -t\log(y) - (1-t)\log(1-y)$.
+
+**(d)** Consider a positive example ($t=1$, $x=1$) that the model gets very wrong, with $z = -5$. Evaluate both gradients numerically. Which loss gives a more useful learning signal, and why?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+$$
+\sigma'(z) = \frac{e^{-z}}{(1+e^{-z})^2}
+  = \frac{1}{1+e^{-z}} \cdot \frac{e^{-z}}{1+e^{-z}}
+  = \sigma(z)\,(1-\sigma(z)).
+$$
+
+**(b)** By the chain rule,
+$$
+\frac{\partial \mathcal{L}_{SE}}{\partial w}
+  = \frac{\partial \mathcal{L}_{SE}}{\partial y}\frac{dy}{dz}\frac{\partial z}{\partial w}
+  = (y-t)\, y(1-y)\, x.
+$$
+
+**(c)** We have $\frac{\partial \mathcal{L}_{CE}}{\partial y} = -\frac{t}{y} + \frac{1-t}{1-y}$, so
+$$
+\frac{\partial \mathcal{L}_{CE}}{\partial w}
+  = \left(-\frac{t}{y} + \frac{1-t}{1-y}\right) y(1-y)\, x
+  = \left(-t(1-y) + (1-t)y\right) x
+  = (y - t)\, x.
+$$
+
+**(d)** With $z=-5$ we get $y = \sigma(-5) \approx 0.0067$. Then
+$$
+\frac{\partial \mathcal{L}_{SE}}{\partial w} \approx (0.0067 - 1)(0.0067)(0.9933) \approx -0.0066,
+\qquad
+\frac{\partial \mathcal{L}_{CE}}{\partial w} \approx 0.0067 - 1 \approx -0.993.
+$$
+The cross-entropy gradient is about 150 times larger. With square loss, the factor $y(1-y)$ from the saturated sigmoid makes the gradient tiny exactly when the prediction is very wrong, so gradient descent barely moves $w$. With cross-entropy, that factor cancels and the gradient is proportional to the error $y - t$.
+:::
+
+## Exercise 3 - Softmax and Multi-class Cross-Entropy
+
+For multi-class classification with $K$ classes, the model is
+$$\mathbf{z} = \mathbf{W}^\top\mathbf{x} + \mathbf{b}, \qquad y_k = \text{softmax}(\mathbf{z})_k = \frac{e^{z_k}}{\sum_{m=1}^K e^{z_m}}, \qquad \mathcal{L}(\mathbf{y}, \mathbf{t}) = -\sum_{k=1}^K t_k \log y_k,$$
+where $\mathbf{t}$ is a one-hot target vector and $\mathbf{x} \in \R^D$.
+
+**(a)** What are the shapes of $\mathbf{z}$, $\mathbf{W}$, $\mathbf{x}$, and $\mathbf{b}$?
+
+**(b)** Show that $\frac{\partial y_k}{\partial z_j} = y_k(\delta_{kj} - y_j)$, where $\delta_{kj}$ is $1$ if $k=j$ and $0$ otherwise.
+
+**(c)** Use (b) to show that $\frac{\partial \mathcal{L}}{\partial z_j} = y_j - t_j$.
+
+**(d)** Show that $\text{softmax}(\mathbf{z} + c\mathbf{1}) = \text{softmax}(\mathbf{z})$ for any scalar $c$. Why is this property useful when implementing softmax on a computer?
+
+**(e)** Show that for $K=2$, softmax reduces to the logistic sigmoid applied to $z_1 - z_2$.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $\mathbf{x} \in \R^{D}$, $\mathbf{W} \in \R^{D \times K}$, $\mathbf{b} \in \R^{K}$, and $\mathbf{z} \in \R^{K}$.
+
+**(b)** Write $S = \sum_m e^{z_m}$. By the quotient rule,
+$$
+\frac{\partial y_k}{\partial z_j}
+  = \frac{\delta_{kj} e^{z_k} S - e^{z_k} e^{z_j}}{S^2}
+  = y_k \delta_{kj} - y_k y_j
+  = y_k(\delta_{kj} - y_j).
+$$
+
+**(c)** Using the multivariate chain rule,
+$$
+\frac{\partial \mathcal{L}}{\partial z_j}
+  = \sum_k \frac{\partial \mathcal{L}}{\partial y_k}\frac{\partial y_k}{\partial z_j}
+  = \sum_k \left(-\frac{t_k}{y_k}\right) y_k(\delta_{kj} - y_j)
+  = -t_j + y_j \sum_k t_k
+  = y_j - t_j,
+$$
+since $\sum_k t_k = 1$ for a one-hot target. In vector form, $\frac{\partial \mathcal{L}}{\partial \mathbf{z}} = \mathbf{y} - \mathbf{t}$. This has exactly the same form as the logistic regression gradient in Exercise 2.
+
+**(d)**
+$$
+\frac{e^{z_k + c}}{\sum_m e^{z_m + c}} = \frac{e^c e^{z_k}}{e^c\sum_m e^{z_m}} = \frac{e^{z_k}}{\sum_m e^{z_m}}.
+$$
+If some logits are large (e.g. $z_k = 1000$), $e^{z_k}$ overflows to infinity in floating point. Choosing $c = -\max_m z_m$ makes the largest exponent $e^0 = 1$, which avoids overflow without changing the result. Library implementations (and `torch.nn.CrossEntropyLoss`) use this trick.
+
+**(e)**
+$$
+y_1 = \frac{e^{z_1}}{e^{z_1} + e^{z_2}} = \frac{1}{1 + e^{-(z_1 - z_2)}} = \sigma(z_1 - z_2).
+$$
+:::
+
+## Exercise 4 - Expectation and Variance Refresher
+
+**(a)** Given a set of vectors $\{\mathbf{x}_i\}_{i=1}^N$, show that their empirical mean is equivalent to
+$$\hat{\boldsymbol{\mu}}=\argmin_{\boldsymbol{\mu}} \sum_i \|\mathbf{x}_i - \boldsymbol{\mu}\|^2.$$
+
+**(b)** There are two equivalent definitions of the variance of a random variable. The first one is $\Var(X) := \E[(X - \E[X])^2]$ and the second is $\Var(X) = \E[X^2] - \E[X]^2$. Show that these two definitions are equivalent.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The objective is a convex quadratic in $\boldsymbol{\mu}$, so we compute its gradient and set it to zero:
+$$0=\nabla_{\boldsymbol{\mu}} \sum_i \|\mathbf{x}_i - \boldsymbol{\mu}\|^2 = -2 \sum_i (\mathbf{x}_i - \boldsymbol{\mu}) .$$
+Solving for $\boldsymbol{\mu}$ gives
+$$\hat{\boldsymbol{\mu}} = \frac{1}{N} \sum_i \mathbf{x}_i .$$
+
+**(b)** Expand the square and use linearity of expectation (note that $\E[X]$ is a constant):
+$$
+\begin{aligned}
+\E[(X - \E[X])^2]
+  &= \E\left[X^2 - 2X\E[X]+\E[X]^2\right] \\
+  &= \E\left[X^2\right] - 2\E[X]\E[X]+\E[X]^2\\
+  &= \E\left[X^2\right] - \E[X]^2.
+\end{aligned}
+$$
+:::
+
+# PyTorch Basics
+
+The following exercises are meant to be done at a computer with PyTorch installed (for example on [Google Colab](https://colab.research.google.com/)). Try to predict the answer before running the code. Every snippet assumes
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+```
+
+## Exercise 5 - Tensors, Shapes, and Broadcasting
+
+**(a)** Predict the shape of each result, then check your answers.
+
+```python
+a = torch.zeros(4, 3)
+b = torch.arange(3)            # tensor([0, 1, 2])
+c = torch.randn(3, 5)
+d = torch.randn(10, 4, 3)
+
+r1 = a + b
+r2 = a @ c
+r3 = d @ c
+r4 = a.view(2, 6)
+r5 = a.T
+r6 = a.unsqueeze(0)
+r7 = d.sum(dim=1)
+r8 = d.mean(dim=(1, 2))
+r9 = d.reshape(10, -1)
+```
+
+**(b)** What is the dtype of `torch.arange(3)`, and what is the dtype of `torch.tensor([1.0, 2.0])`? What happens if you compute `torch.arange(3) @ torch.randn(3)`? How do you fix it?
+
+**(c)** Write the batched linear regression prediction $\mathbf{y} = \mathbf{X}\mathbf{w} + b$ from Exercise 1 for `X` of shape `(N, d)`, `w` of shape `(d,)`, and a scalar `b`, without any Python loops. What is the shape of `y`?
+
+**(d)** What is the difference between `x.view(...)` and `x.reshape(...)`? What do `x.item()`, `x.numpy()`, and `x.to("cuda")` do?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+
+| Expression | Shape | Reason |
+|---|---|---|
+| `r1 = a + b` | `(4, 3)` | `b` is broadcast across the 4 rows |
+| `r2 = a @ c` | `(4, 5)` | matrix product |
+| `r3 = d @ c` | `(10, 4, 5)` | batched matrix product: `c` is applied to each of the 10 matrices |
+| `r4 = a.view(2, 6)` | `(2, 6)` | same 12 elements, new shape |
+| `r5 = a.T` | `(3, 4)` | transpose |
+| `r6 = a.unsqueeze(0)` | `(1, 4, 3)` | new leading dimension of size 1 |
+| `r7 = d.sum(dim=1)` | `(10, 3)` | dimension 1 is summed out |
+| `r8 = d.mean(dim=(1, 2))` | `(10,)` | dimensions 1 and 2 are averaged out |
+| `r9 = d.reshape(10, -1)` | `(10, 12)` | `-1` is inferred as $4 \cdot 3 = 12$ |
+
+Broadcasting rule: shapes are aligned from the right, and two dimensions are compatible if they are equal or one of them is 1 (or missing).
+
+**(b)** `torch.arange(3)` is `torch.int64` and `torch.tensor([1.0, 2.0])` is `torch.float32`. Multiplying an integer tensor with a float tensor via `@` raises a `RuntimeError` about mismatched dtypes. Fix it by converting explicitly, e.g. `torch.arange(3).float() @ torch.randn(3)`, or create the tensor as float in the first place with `torch.arange(3, dtype=torch.float32)`. Model parameters are `float32` by default, so inputs should usually be `float32` too.
+
+**(c)**
+
+```python
+y = X @ w + b      # shape (N,)
+```
+
+**(d)** `view` never copies data. It only works if the tensor's memory layout is compatible with the new shape (otherwise it raises an error, e.g. after a transpose). `reshape` returns a view when possible and silently copies otherwise. `x.item()` converts a one-element tensor into a Python number (useful for logging a loss). `x.numpy()` converts a CPU tensor into a NumPy array that shares memory with it (call `x.detach().cpu().numpy()` if `x` requires grad or lives on the GPU). `x.to("cuda")` returns a copy of `x` on the GPU. The model and its inputs must live on the same device.
+:::
+
+## Exercise 6 - Autograd
+
+**(a)** Consider $f(w, b) = (\sigma(wx + b) - t)^2$ with $x = 2$, $t = 1$, $w = 0.5$, $b = -1$. Compute $\frac{\partial f}{\partial w}$ and $\frac{\partial f}{\partial b}$ by hand. Then use PyTorch autograd to check your answer.
+
+**(b)** What does the following code print, and why?
+
+```python
+w = torch.tensor(3.0, requires_grad=True)
+for _ in range(2):
+    loss = w ** 2
+    loss.backward()
+    print(w.grad)
+```
+
+**(c)** Explain what `with torch.no_grad():` and `x.detach()` do, and give one situation where each is needed.
+
+**(d)** In Week 7 we will compute the gradient of a model's output with respect to its *input image*. Write code that computes $\nabla_{\mathbf{x}}\, \text{model}(\mathbf{x})_c$ for a given input `x` of shape `(1, 3, 32, 32)`, a model `model` that outputs logits of shape `(1, 10)`, and a class index `c`.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** We have $z = wx + b = 0$, so $y = \sigma(0) = 0.5$. By the chain rule,
+$$
+\frac{\partial f}{\partial w} = 2(y-t)\, y(1-y)\, x = 2(-0.5)(0.25)(2) = -0.5,
+\qquad
+\frac{\partial f}{\partial b} = 2(y-t)\, y(1-y) = -0.25.
+$$
+
+```python
+x, t = torch.tensor(2.0), torch.tensor(1.0)
+w = torch.tensor(0.5, requires_grad=True)
+b = torch.tensor(-1.0, requires_grad=True)
+
+f = (torch.sigmoid(w * x + b) - t) ** 2
+f.backward()
+print(w.grad, b.grad)    # tensor(-0.5000) tensor(-0.2500)
+```
+
+**(b)** It prints `tensor(6.)` and then `tensor(12.)`. Calling `backward()` *accumulates* (adds) gradients into `.grad` rather than overwriting them. This is why a training loop must call `optimizer.zero_grad()` (or `w.grad.zero_()`) before every backward pass.
+
+**(c)** Inside `torch.no_grad()`, PyTorch does not record operations for autograd. Use it during evaluation or inference (it saves memory and time), and when manually updating parameters, e.g. `with torch.no_grad(): w -= lr * w.grad`. `x.detach()` returns a tensor with the same data but cut off from the computation graph, so no gradient flows back through it. Use it when you want to store or plot a value (e.g. `losses.append(loss.detach())` or `loss.item()`), or when a quantity should be treated as a constant, e.g. the generator's output when training a GAN discriminator.
+
+**(d)**
+
+```python
+model.eval()
+x = x.clone().requires_grad_(True)
+logits = model(x)
+logits[0, c].backward()
+saliency = x.grad          # shape (1, 3, 32, 32)
+```
+:::
+
+## Exercise 7 - Modules and Parameters
+
+**(a)** Implement multi-class logistic regression from Exercise 3 as an `nn.Module` for inputs with $D = 784$ features and $K = 10$ classes. How many trainable parameters does it have?
+
+**(b)** Implement an MLP with two hidden layers of 128 and 64 units, ReLU activations, $D=784$ inputs, and $K=10$ outputs, once by subclassing `nn.Module` and once with `nn.Sequential`. Count its parameters by hand and with code.
+
+**(c)** Your MLP's `forward` method returns logits. Should you apply `softmax` at the end of `forward` if you plan to train with `nn.CrossEntropyLoss`? Explain.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+
+```python
+class LogisticRegression(nn.Module):
+    def __init__(self, D=784, K=10):
+        super().__init__()
+        self.linear = nn.Linear(D, K)
+
+    def forward(self, x):
+        return self.linear(x)       # logits, shape (N, K)
+
+model = LogisticRegression()
+print(sum(p.numel() for p in model.parameters() if p.requires_grad))   # 7850
+```
+
+It has $784 \cdot 10$ weights and $10$ biases, i.e. $7850$ parameters. Note that `nn.Linear(D, K)` stores its weight with shape `(K, D)` and computes `x @ weight.T + bias`.
+
+**(b)**
+
+```python
+class MLP(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc1 = nn.Linear(784, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 10)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        return self.fc3(x)
+
+mlp_seq = nn.Sequential(
+    nn.Linear(784, 128), nn.ReLU(),
+    nn.Linear(128, 64), nn.ReLU(),
+    nn.Linear(64, 10),
+)
+```
+
+By hand: $(784 \cdot 128 + 128) + (128 \cdot 64 + 64) + (64 \cdot 10 + 10) = 100480 + 8256 + 650 = 109386$. The same `sum(p.numel() ...)` line from (a) confirms this. `model.named_parameters()` lists each parameter tensor with its name and shape.
+
+**(c)** No. `nn.CrossEntropyLoss` expects raw logits. Internally it applies `log_softmax` (with the numerically stable trick from Exercise 3(d)) and then the negative log-likelihood. Applying softmax yourself would apply it twice, which still runs but trains poorly. If you need probabilities for reporting, compute `torch.softmax(logits, dim=1)` outside the loss. For binary classification with a single output, the analogous loss is `nn.BCEWithLogitsLoss`, which also expects logits.
+:::
+
+## Exercise 8 - The Training Loop
+
+**(a)** Fill in the missing lines of this standard training loop for multi-class classification:
+
+```python
+model = MLP()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+loss_fn = nn.CrossEntropyLoss()
+
+for epoch in range(num_epochs):
+    model.train()
+    for xb, yb in train_loader:        # xb: (B, 784) float, yb: (B,) int64
+        # (1) forward pass
+        # (2) compute the loss
+        # (3) reset gradients
+        # (4) backward pass
+        # (5) update parameters
+        ...
+```
+
+**(b)** Write a function `accuracy(model, loader)` that returns the classification accuracy of `model` on the data in `loader`.
+
+**(c)** Given tensors `X` of shape `(N, 784)` and `y` of shape `(N,)`, create a `DataLoader` that yields shuffled mini-batches of size 64. If $N = 60000$, how many iterations are there per epoch? (Recall the definitions of *iteration*, *epoch*, and *batch size* from lecture.)
+
+**(d)** What do `model.train()` and `model.eval()` do? Which layers that we will see later in the course behave differently in the two modes?
+
+**(e)** How would you change the optimizer to use (i) SGD with momentum $0.9$, (ii) SGD with weight decay $10^{-4}$, (iii) Adam with learning rate $10^{-3}$? (We will discuss these methods in Weeks 5 and 6.)
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+
+```python
+        logits = model(xb)              # (1)
+        loss = loss_fn(logits, yb)      # (2)
+        optimizer.zero_grad()           # (3)
+        loss.backward()                 # (4)
+        optimizer.step()                # (5)
+```
+
+Note that the targets `yb` for `nn.CrossEntropyLoss` are integer class indices of shape `(B,)`, not one-hot vectors.
+
+**(b)**
+
+```python
+def accuracy(model, loader):
+    model.eval()
+    correct, total = 0, 0
+    with torch.no_grad():
+        for xb, yb in loader:
+            pred = model(xb).argmax(dim=1)
+            correct += (pred == yb).sum().item()
+            total += yb.shape[0]
+    return correct / total
+```
+
+**(c)**
+
+```python
+from torch.utils.data import TensorDataset, DataLoader
+
+train_loader = DataLoader(TensorDataset(X, y), batch_size=64, shuffle=True)
+```
+
+One iteration processes one mini-batch, and one epoch is a full pass over the training set, so there are $\lceil 60000 / 64 \rceil = 938$ iterations per epoch (the last batch has only 32 examples; pass `drop_last=True` to skip it).
+
+**(d)** They set a flag on the module and all its submodules that some layers use to switch behaviour. They do *not* turn off gradient tracking (that is what `torch.no_grad()` is for). Layers that behave differently are `nn.Dropout` (active during training, identity during evaluation; Week 6) and `nn.BatchNorm` (uses mini-batch statistics during training and running averages during evaluation; Week 5). Forgetting `model.eval()` before evaluation is a common source of bugs.
+
+**(e)**
+
+```python
+torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9)       # (i)
+torch.optim.SGD(model.parameters(), lr=0.1, weight_decay=1e-4)  # (ii)
+torch.optim.Adam(model.parameters(), lr=1e-3)                    # (iii)
+```
+:::
+
+## Exercise 9 - A Preview of Layers Used Later in the Course
+
+For each layer below, predict the shape of the output `y`. These layers will appear in Weeks 4 to 10. Use the PyTorch documentation to find the input and output conventions, then check your answers by running the code.
+
+```python
+# (a) Week 4: convolution and pooling. Images are (batch, channels, height, width).
+x = torch.randn(8, 3, 32, 32)
+y = nn.Conv2d(in_channels=3, out_channels=16, kernel_size=3, padding=1)(x)
+y = nn.MaxPool2d(kernel_size=2)(y)
+
+# (b) Weeks 5 and 6: batch normalization and dropout
+x = torch.randn(8, 100)
+y = nn.Dropout(p=0.5)(nn.BatchNorm1d(100)(x))
+
+# (c) Week 8: word embeddings followed by an LSTM
+tokens = torch.randint(0, 5000, (8, 20))       # 8 sentences, 20 tokens each
+emb = nn.Embedding(num_embeddings=5000, embedding_dim=50)(tokens)
+out, (h, c) = nn.LSTM(input_size=50, hidden_size=64, batch_first=True)(emb)
+
+# (d) Week 9: multi-head self-attention
+x = torch.randn(8, 20, 64)
+y, attn = nn.MultiheadAttention(embed_dim=64, num_heads=4, batch_first=True)(x, x, x)
+
+# (e) Week 10: transpose convolution
+x = torch.randn(8, 16, 8, 8)
+y = nn.ConvTranspose2d(in_channels=16, out_channels=3, kernel_size=2, stride=2)(x)
+```
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** The convolution keeps the spatial size (kernel 3, padding 1, stride 1), giving `(8, 16, 32, 32)`. Max pooling with kernel size 2 (and default stride equal to the kernel size) halves it, giving `(8, 16, 16, 16)`.
+
+**(b)** `(8, 100)`. Neither layer changes the shape. In training mode, dropout zeroes roughly half of the entries and scales the rest by $1/(1-p) = 2$.
+
+**(c)** `emb` has shape `(8, 20, 50)`: each token index is replaced by a 50-dimensional vector. With `batch_first=True`, `out` has shape `(8, 20, 64)` (the hidden state at every time step), while `h` and `c` have shape `(1, 8, 64)`: (number of layers $\times$ directions, batch, hidden size). They hold only the final time step.
+
+**(d)** `y` has shape `(8, 20, 64)`, the same as the input. `attn` has shape `(8, 20, 20)`: one attention weight for every (query position, key position) pair, averaged over the 4 heads by default.
+
+**(e)** `(8, 3, 16, 16)`. For a transpose convolution with no padding, the output size is $(H_{in} - 1)\cdot \text{stride} + \text{kernel size} = 7 \cdot 2 + 2 = 16$.
+:::

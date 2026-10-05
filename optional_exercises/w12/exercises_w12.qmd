@@ -1,0 +1,181 @@
+---
+title: "Week 12 Optional Exercises: Variational Autoencoders"
+---
+
+{{< include ../_macros.qmd >}}
+
+These exercises are optional and are not graded. They are based on the material from [Lecture 12](/lecs/w12/lec12.html). Try each exercise on your own first, then click on **Solution** to reveal a worked answer.
+
+Unless stated otherwise, $\log$ denotes the natural logarithm (so entropies and KL divergences are measured in *nats*). Use $\log_2$ to measure them in *bits*.
+
+## Exercise 1 - Entropy
+
+Recall the entropy of a discrete random variable, $H[X] = \sum_x p(x) \log \frac{1}{p(x)}$.
+
+**(a)** Consider a coin that comes up heads with probability $p$. Write down its entropy $H(p)$ as a function of $p$. Show that it is maximized at $p = 0.5$.
+
+**(b)** Compute $H(p)$ in bits for $p = 0.5$, $p = 0.9$, and $p = 1$. Interpret the results.
+
+**(c)** Show that the entropy of the uniform distribution over $K$ outcomes is $\log K$. What is the entropy of a fair six-sided die in bits?
+
+**(d)** Show that $H[X] \geq 0$ for any discrete random variable.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** $H(p) = -p\log p - (1-p)\log(1-p)$. Its derivative is
+$$H'(p) = -\log p - 1 + \log(1-p) + 1 = \log\frac{1-p}{p},$$
+which is zero if and only if $p = 1 - p$, i.e. $p = 0.5$. Since $H''(p) = -\frac{1}{p} - \frac{1}{1-p} < 0$, this is a maximum.
+
+**(b)** $H(0.5) = \log_2 2 = 1$ bit. $H(0.9) = -0.9\log_2 0.9 - 0.1\log_2 0.1 \approx 0.137 + 0.332 = 0.469$ bits. $H(1) = 0$ bits (using the convention $0 \log 0 = 0$). A fair coin is maximally unpredictable, a biased coin is less surprising on average, and a coin that always comes up heads carries no information at all.
+
+**(c)** $H = \sum_{k=1}^K \frac{1}{K}\log K = \log K$. For a fair die, $\log_2 6 \approx 2.585$ bits.
+
+**(d)** For every outcome, $0 < p(x) \leq 1$, so $\log\frac{1}{p(x)} \geq 0$. Every term of the sum is therefore non-negative.
+:::
+
+## Exercise 2 - KL Divergence
+
+Recall the KL divergence between two discrete distributions,
+$$\KL(q \,\|\, p) = \sum_z q(z) \log\frac{q(z)}{p(z)}.$$
+
+**(a)** Let $p$ be an unfair coin with $p(1) = 0.7$, $p(0) = 0.3$, and let $q$ be a fair coin. Compute $\KL(q\,\|\,p)$ and $\KL(p\,\|\,q)$ in nats. Is the KL divergence a distance (metric)?
+
+**(b)** Show that $\KL(q\,\|\,p) \geq 0$, with equality if $q = p$. *Hint:* use Jensen's inequality, $\E[\log Y] \leq \log \E[Y]$.
+
+**(c)** Let $q = (0.5, 0.5)$ and $p = (1, 0)$. Compute $\KL(q\,\|\,p)$ and $\KL(p\,\|\,q)$. What does this tell you about what happens when we fit an approximation $q$ to a target $p$ by minimizing $\KL(q\,\|\,p)$?
+
+**(d)** Show that $\KL(q\,\|\,p) = H(q, p) - H(q)$, where $H(q, p) = -\sum_z q(z)\log p(z)$ is the cross-entropy. When $q$ is fixed (e.g. the data distribution) and we optimize $p$, why is minimizing the KL divergence equivalent to minimizing the cross-entropy?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+$$
+\KL(q\,\|\,p) = 0.5\log\frac{0.5}{0.7} + 0.5\log\frac{0.5}{0.3} \approx 0.5(-0.336) + 0.5(0.511) \approx 0.087,
+$$
+$$
+\KL(p\,\|\,q) = 0.7\log\frac{0.7}{0.5} + 0.3\log\frac{0.3}{0.5} \approx 0.7(0.336) + 0.3(-0.511) \approx 0.082.
+$$
+The two values differ, so the KL divergence is not symmetric and therefore not a metric. (It also does not satisfy the triangle inequality.)
+
+**(b)** Since $\log$ is concave, Jensen's inequality gives
+$$
+-\KL(q\,\|\,p) = \sum_z q(z)\log\frac{p(z)}{q(z)} \leq \log\sum_z q(z)\frac{p(z)}{q(z)} = \log\sum_{z: q(z) > 0} p(z) \leq \log 1 = 0.
+$$
+If $q = p$, every term $\log\frac{q(z)}{p(z)}$ is $\log 1 = 0$. (Equality holds *only* if $q = p$, since Jensen's inequality is strict unless $p(z)/q(z)$ is constant.)
+
+**(c)** $\KL(q\,\|\,p) = 0.5\log\frac{0.5}{1} + 0.5\log\frac{0.5}{0} = \infty$, because $q$ puts mass where $p$ has none. $\KL(p\,\|\,q) = 1\cdot\log\frac{1}{0.5} + 0 = \log 2 \approx 0.693$ (using $0\log 0 = 0$). Minimizing $\KL(q\,\|\,p)$ heavily penalizes any $q$ that puts probability where $p$ is (near) zero. The fitted $q$ therefore tends to be "zero-forcing" or mode-seeking: it concentrates on one region of high $p$ rather than spreading over all of $p$'s modes. Minimizing $\KL(p\,\|\,q)$ instead tends to produce a $q$ that covers all of $p$'s mass.
+
+**(d)**
+$$
+\KL(q\,\|\,p) = \sum_z q(z)\log q(z) - \sum_z q(z)\log p(z) = -H(q) + H(q, p).
+$$
+If $q$ is fixed, $H(q)$ is a constant, so minimizing $\KL(q\,\|\,p)$ over $p$ is the same as minimizing $H(q,p)$. This is why training a classifier with the cross-entropy loss is the same as minimizing the KL divergence between the (one-hot) label distribution and the predicted distribution.
+:::
+
+## Exercise 3 - KL Divergence Between Gaussians
+
+**(a)** Show that for two univariate Gaussians $p = \mathcal{N}(\mu_1, \sigma_1^2)$ and $q = \mathcal{N}(\mu_2, \sigma_2^2)$,
+$$
+\KL(p\,\|\,q) = \log\frac{\sigma_2}{\sigma_1} + \frac{\sigma_1^2 + (\mu_1 - \mu_2)^2}{2\sigma_2^2} - \frac{1}{2}.
+$$
+*Hint:* write $\KL(p\,\|\,q) = \E_{p}[\log p(z) - \log q(z)]$ and use $\E_p[(z - \mu_1)^2] = \sigma_1^2$ and $\E_p[(z - \mu_2)^2] = \sigma_1^2 + (\mu_1 - \mu_2)^2$.
+
+**(b)** In a VAE, the encoder outputs $q_\phi(\mathbf{z}\mid\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}, \diag(\boldsymbol{\sigma}^2))$ and the prior is $p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})$. Use (a) to show that
+$$
+\KL\left(q_\phi(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z})\right) = \frac{1}{2}\sum_{j=1}^{d}\left(\mu_j^2 + \sigma_j^2 - \log\sigma_j^2 - 1\right).
+$$
+
+**(c)** Evaluate this KL term for a one-dimensional latent space with (i) $\mu = 0, \sigma = 1$, (ii) $\mu = 1, \sigma = 1$, (iii) $\mu = 0, \sigma = 0.5$. What kind of encodings does this term discourage?
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** Using $\log p(z) = -\log\sqrt{2\pi\sigma_1^2} - \frac{(z-\mu_1)^2}{2\sigma_1^2}$, and similarly for $q$:
+$$
+\begin{aligned}
+\KL(p\,\|\,q) &= \E_p\left[-\log\sigma_1 - \frac{(z-\mu_1)^2}{2\sigma_1^2} + \log\sigma_2 + \frac{(z-\mu_2)^2}{2\sigma_2^2}\right] \\
+&= \log\frac{\sigma_2}{\sigma_1} - \frac{\sigma_1^2}{2\sigma_1^2} + \frac{\sigma_1^2 + (\mu_1 - \mu_2)^2}{2\sigma_2^2} \\
+&= \log\frac{\sigma_2}{\sigma_1} + \frac{\sigma_1^2 + (\mu_1 - \mu_2)^2}{2\sigma_2^2} - \frac{1}{2}.
+\end{aligned}
+$$
+(The $\log\sqrt{2\pi}$ terms cancel.) The identity in the hint follows from $z - \mu_2 = (z - \mu_1) + (\mu_1 - \mu_2)$ and $\E_p[z - \mu_1] = 0$.
+
+**(b)** Because both distributions factorize over the $d$ dimensions (diagonal covariance), the KL divergence is a sum of one-dimensional KL divergences. For each dimension, set $\mu_1 = \mu_j$, $\sigma_1 = \sigma_j$, $\mu_2 = 0$, $\sigma_2 = 1$ in (a):
+$$
+-\log\sigma_j + \frac{\sigma_j^2 + \mu_j^2}{2} - \frac{1}{2} = \frac{1}{2}\left(\mu_j^2 + \sigma_j^2 - \log\sigma_j^2 - 1\right).
+$$
+
+**(c)** (i) $\frac{1}{2}(0 + 1 - 0 - 1) = 0$. (ii) $\frac{1}{2}(1 + 1 - 0 - 1) = 0.5$. (iii) $\frac{1}{2}(0 + 0.25 - \log 0.25 - 1) \approx \frac{1}{2}(0.25 + 1.386 - 1) \approx 0.318$. The KL term penalizes encodings whose means are far from $0$ and whose variances are far from $1$, especially very small variances (as $\sigma \to 0$, $-\log\sigma^2 \to \infty$). This prevents the encoder from collapsing to the deterministic, spread-out codes of a plain autoencoder, and it keeps the codes of all inputs close to the prior so that sampling $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ produces meaningful images.
+:::
+
+## Exercise 4 - The Evidence Lower Bound
+
+**(a)** Starting from the definition of $\KL(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z}\mid\mathbf{x}))$ and using $p(\mathbf{z}\mid\mathbf{x}) = p(\mathbf{z}, \mathbf{x}) / p(\mathbf{x})$, show that
+$$
+\log p(\mathbf{x}) - \KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z}\mid\mathbf{x})\right) = \text{ELBO}_q(\mathbf{x}) := \E_{q}\left[\log p(\mathbf{z}, \mathbf{x}) - \log q(\mathbf{z}\mid\mathbf{x})\right].
+$$
+Why is the ELBO called a *lower bound*? When is the bound tight?
+
+**(b)** Show that the ELBO can be rewritten as
+$$
+\text{ELBO}_q(\mathbf{x}) = \underbrace{\E_{q}\left[\log p(\mathbf{x}\mid\mathbf{z})\right]}_{\text{decoding quality}} - \underbrace{\KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z})\right)}_{\text{encoding regularization}}.
+$$
+
+**(c)** Suppose the decoder defines $p_\theta(\mathbf{x}\mid\mathbf{z}) = \mathcal{N}(\mathbf{x};\, f_\theta(\mathbf{z}),\, \sigma^2\mathbf{I})$ for a fixed $\sigma$, where $f_\theta$ is the decoder network. Show that maximizing the decoding quality term is equivalent to minimizing the squared reconstruction error.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)**
+$$
+\begin{aligned}
+\KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z}\mid\mathbf{x})\right)
+&= \E_q\left[\log q(\mathbf{z}\mid\mathbf{x}) - \log p(\mathbf{z}\mid\mathbf{x})\right] \\
+&= \E_q\left[\log q(\mathbf{z}\mid\mathbf{x}) - \log p(\mathbf{z}, \mathbf{x}) + \log p(\mathbf{x})\right] \\
+&= -\text{ELBO}_q(\mathbf{x}) + \log p(\mathbf{x}),
+\end{aligned}
+$$
+since $\log p(\mathbf{x})$ does not depend on $\mathbf{z}$. Rearranging gives the result. Because the KL divergence is non-negative (Exercise 2(b)), $\text{ELBO}_q(\mathbf{x}) \leq \log p(\mathbf{x})$, i.e. the ELBO is a lower bound on the log-likelihood ("evidence") of the data. The bound is tight if and only if $q(\mathbf{z}\mid\mathbf{x}) = p(\mathbf{z}\mid\mathbf{x})$, i.e. when the encoder exactly matches the true posterior. Maximizing the ELBO therefore simultaneously increases the likelihood and makes the encoder a better approximation of the posterior.
+
+**(b)** Using $p(\mathbf{z}, \mathbf{x}) = p(\mathbf{x}\mid\mathbf{z})\,p(\mathbf{z})$:
+$$
+\text{ELBO}_q(\mathbf{x}) = \E_q\left[\log p(\mathbf{x}\mid\mathbf{z})\right] + \E_q\left[\log p(\mathbf{z}) - \log q(\mathbf{z}\mid\mathbf{x})\right] = \E_q\left[\log p(\mathbf{x}\mid\mathbf{z})\right] - \KL\left(q(\mathbf{z}\mid\mathbf{x})\,\|\,p(\mathbf{z})\right).
+$$
+
+**(c)** For a $D$-dimensional Gaussian with covariance $\sigma^2\mathbf{I}$,
+$$
+\log p_\theta(\mathbf{x}\mid\mathbf{z}) = -\frac{1}{2\sigma^2}\|\mathbf{x} - f_\theta(\mathbf{z})\|^2 - \frac{D}{2}\log(2\pi\sigma^2).
+$$
+The second term does not depend on $\theta$ or $\mathbf{z}$, so maximizing $\E_q[\log p_\theta(\mathbf{x}\mid\mathbf{z})]$ is the same as minimizing $\E_q\left[\|\mathbf{x} - f_\theta(\mathbf{z})\|^2\right]$, the expected squared reconstruction error. This is the same loss as in a regular autoencoder. The value of $\sigma^2$ controls the relative weight of the reconstruction and KL terms.
+:::
+
+## Exercise 5 - The Reparameterization Trick
+
+**(a)** Let $\epsilon \sim \mathcal{N}(0, 1)$ and $z = \mu + \sigma\epsilon$. Show that $z \sim \mathcal{N}(\mu, \sigma^2)$. What are $\frac{\partial z}{\partial \mu}$ and $\frac{\partial z}{\partial \sigma}$?
+
+**(b)** Why can't we backpropagate through "sample $z \sim \mathcal{N}(\mu, \sigma^2)$" directly, and how does the reparameterization trick solve this?
+
+**(c)** Let $f(z) = z^2$. Compute $\frac{d}{d\mu}\E_{z\sim\mathcal{N}(\mu, 1)}[f(z)]$ exactly. Then show that the reparameterized single-sample estimator $\frac{d}{d\mu}f(\mu + \epsilon)$ is an unbiased estimate of it.
+
+**(d)** Write a PyTorch function `vae_loss(x, encoder, decoder)` that computes the negative ELBO for a mini-batch, assuming that `encoder(x)` returns the mean `mu` and the log-variance `logvar` of $q_\phi(\mathbf{z}\mid\mathbf{x})$ (each of shape `(B, d)`), and that the decoder is Gaussian as in Exercise 4(c), so the reconstruction term is a sum of squared errors.
+
+::: {.callout-tip collapse="true" title="Solution"}
+**(a)** A linear function of a Gaussian random variable is Gaussian, with $\E[z] = \mu + \sigma\E[\epsilon] = \mu$ and $\Var(z) = \sigma^2\Var(\epsilon) = \sigma^2$. The derivatives are $\frac{\partial z}{\partial \mu} = 1$ and $\frac{\partial z}{\partial \sigma} = \epsilon$.
+
+**(b)** Sampling is not a differentiable function of $\mu$ and $\sigma$: the computation graph contains a random node whose output does not depend on $(\mu, \sigma)$ in a way that the chain rule can handle. The reparameterization trick moves all randomness into an input $\epsilon \sim \mathcal{N}(0, 1)$ that does not depend on any parameters. Then $z = \mu + \sigma\epsilon$ is a deterministic, differentiable function of the encoder outputs, so gradients of the loss flow through $z$ into $\mu$, $\sigma$, and the encoder weights. The resulting gradient estimates also typically have much lower variance than generic Monte Carlo gradient estimators.
+
+**(c)** $\E[z^2] = \Var(z) + \E[z]^2 = 1 + \mu^2$, so the exact gradient is $2\mu$. With the reparameterization, $\frac{d}{d\mu}(\mu + \epsilon)^2 = 2(\mu + \epsilon)$, whose expectation over $\epsilon$ is $2\mu + 2\E[\epsilon] = 2\mu$. So the estimator is unbiased. Averaging it over several samples of $\epsilon$ reduces its variance.
+
+**(d)**
+
+```python
+import torch
+
+def vae_loss(x, encoder, decoder):
+    mu, logvar = encoder(x)                          # each (B, d)
+    std = torch.exp(0.5 * logvar)
+    eps = torch.randn_like(std)
+    z = mu + std * eps                               # reparameterization trick
+    x_hat = decoder(z)
+
+    recon = ((x - x_hat) ** 2).flatten(1).sum(dim=1)                  # (B,)
+    kl = 0.5 * (mu ** 2 + logvar.exp() - logvar - 1).sum(dim=1)       # (B,), Exercise 3(b)
+    return (recon + kl).mean()                       # negative ELBO (up to constants)
+```
+
+Predicting the log-variance instead of $\sigma$ directly ensures $\sigma > 0$ without constraints on the network output. Minimizing this loss with any optimizer trains the encoder and decoder jointly.
+:::

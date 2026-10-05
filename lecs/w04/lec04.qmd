@@ -306,7 +306,7 @@ Q: What is the *kernel size* of this convolution?
 -   Here, the kernel is of size $9\times 9$
 :::
 
-## Example:
+## Example: {.smaller}
 
 Greyscale input image: $7\times 7$
 
@@ -332,9 +332,9 @@ What if we want to compute *multiple* features?
 
 <!-- ![](imgs/vadar.jpg){ height=70% } -->
 
-## Convolution in RGB
+## Convolution in RGB {.smaller}
 
-![](imgs/conv_colour.png){height="70%"}
+<center>![](imgs/conv_colour.png){height="350"}</center>
 
 The kernel becomes a 3-dimensional tensor!
 
