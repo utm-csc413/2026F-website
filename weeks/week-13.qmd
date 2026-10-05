@@ -6,8 +6,10 @@ editor: visual
 
 [Slides](/lecs/w11/lec11.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-If you are interested in both groups' research, it is worth attending or watching both lectures this week.
+[Optional exercises with solutions](/optional_exercises/w12/exercises_w12.html "Optional Exercises"){aria-label="Week 12 optional exercises"}
 
-In-person lab session: text generation with transformers [lab11](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab11.ipynb "Lab instructions"){aria-label="Lab 11 instructions"}
+Dive into Deep Learning ([d2l.ai](https://d2l.ai)) sections (background for the variational autoencoder lecture):
+
+-   [22.11 Information Theory](https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/information-theory.html)
 
 <br><br>

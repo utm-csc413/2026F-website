@@ -6,16 +6,25 @@ editor: visual
 
 [Slides](/lecs/w06/lec06.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-[Ensembling code skeleton](https://q.utoronto.ca/courses/443734/files/32607111?wrap=1 "exercises06-ensembling.ipynb")
+Required reading (Prof. Roger Grosse's lecture notes):
+
+-   [Generalization](/documents/grosse_L06a_generalization.pdf)
+
+Suggested papers:
+
+-   [Dropout: A Simple Way to Prevent Neural Networks from Overfitting (Srivastava et al., 2014)](https://jmlr.org/papers/v15/srivastava14a.html)
+
+Dive into Deep Learning ([d2l.ai](https://d2l.ai)) sections:
+
+-   [3.6 Generalization](https://d2l.ai/chapter_linear-regression/generalization.html)
+-   [3.7 Weight Decay](https://d2l.ai/chapter_linear-regression/weight-decay.html)
+-   [5.5 Generalization in Deep Learning](https://d2l.ai/chapter_multilayer-perceptrons/generalization-deep.html)
+-   [5.6 Dropout](https://d2l.ai/chapter_multilayer-perceptrons/dropout.html)
+-   [14.1 Image Augmentation](https://d2l.ai/chapter_computer-vision/image-augmentation.html)
+
 
 [The definition of differential privacy](https://www.youtube.com/watch?v=lg-VhHlztqo)
 
-[In-class Exercise](/ex/w06/exercises06.html "Exercise"){aria-label="Exercise 6"} & [Solutions](/ex/w06/exercises06_solution.html "Exercise Solutions"){aria-label="Exercise 6 Solutions"}
-
-In-person lab session: optimization and differential privacy [lab05](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab05.ipynb "Lab instructions"){aria-label="Lab 5 instructions"}
-
-[Lecture 6 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/418108)
-
-Math assignment 1 due
+[Optional exercises with solutions](/optional_exercises/w06/exercises_w06.html "Optional Exercises"){aria-label="Week 6 optional exercises"}
 
 <br><br>

@@ -4,20 +4,28 @@ subtitle: "Optimization"
 editor: visual
 ---
 
-[Week 5 Overview](https://q.utoronto.ca/courses/443734/pages/week-6-overview?module_item_id=5872108)
-
 [Slides](/lecs/w05/lec05.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-[In-class Exercise](/ex/w05/exercises05.html "Exercise"){aria-label="Exercise 5"} & [Solutions](/ex/w05/exercises05_solution.html "Exercise Solutions"){aria-label="Exercise 5 Solutions"}
+Required reading (Prof. Roger Grosse's lecture notes):
 
-Taylor Series <https://www.youtube.com/watch?v=3d6DsjIBzJ4>
+-   [Optimization](/documents/grosse_L03c_optimization.pdf)
 
-Tutorial: how to implement SGD with momentum [neural network optimization](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/neural_network_optimization.ipynb)
+Suggested papers:
 
-[Lecture 5 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/417060)
+-   [Batch size scaling: Measuring the Effects of Data Parallelism on Neural Network Training (Shallue et al., 2019)](https://www.jmlr.org/papers/volume20/18-789/18-789.pdf)
 
-[Math Assignment 1](https://q.utoronto.ca/courses/443734/files/folder/A1) due
+Dive into Deep Learning ([d2l.ai](https://d2l.ai)) sections:
 
-In-person midterm #1 which covers weeks 1-5. Held during the tutorial / lab sessions
+-   [5.4 Numerical Stability and Initialization](https://d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html)
+-   [8.5 Batch Normalization](https://d2l.ai/chapter_convolutional-modern/batch-norm.html)
+-   [12.1 Optimization and Deep Learning](https://d2l.ai/chapter_optimization/optimization-intro.html)
+-   [12.4 Stochastic Gradient Descent](https://d2l.ai/chapter_optimization/sgd.html)
+-   [12.5 Minibatch Stochastic Gradient Descent](https://d2l.ai/chapter_optimization/minibatch-sgd.html)
+-   [12.6 Momentum](https://d2l.ai/chapter_optimization/momentum.html)
+-   [12.8 RMSProp](https://d2l.ai/chapter_optimization/rmsprop.html)
+-   [12.10 Adam](https://d2l.ai/chapter_optimization/adam.html)
+
+[Optional exercises with solutions](/optional_exercises/w05/exercises_w05.html "Optional Exercises"){aria-label="Week 5 optional exercises"}
+
 
 <br><br>

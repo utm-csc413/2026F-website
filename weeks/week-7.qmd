@@ -4,14 +4,22 @@ subtitle: "Interpreting Convolutional Neural Networks"
 editor: visual
 ---
 
-[Week 7 Overview](https://q.utoronto.ca/courses/443734/pages/week-7-overview?module_item_id=5872118)
-
 [Slides](/lecs/w07/lec07.html) & [Recordings](https://q.utoronto.ca/courses/443734)
+
+Suggested papers:
+
+-   [Sanity Checks for Saliency Maps (Adebayo et al., 2018)](http://papers.nips.cc/paper/8160-sanity-checks-for-saliency-maps.pdf)
+-   [SmoothGrad: Removing Noise by Adding Noise (Smilkov et al., 2017)](https://arxiv.org/pdf/1706.03825.pdf)
+-   [Towards a Rigorous Science of Interpretable Machine Learning (Doshi-Velez and Kim, 2017)](https://arxiv.org/pdf/1702.08608.pdf)
+
+Dive into Deep Learning ([d2l.ai](https://d2l.ai)) sections:
+
+-   [8.2 Networks Using Blocks (VGG)](https://d2l.ai/chapter_convolutional-modern/vgg.html)
+-   [14.2 Fine-Tuning](https://d2l.ai/chapter_computer-vision/fine-tuning.html)
 
 [Troubleshooting Deep Neural Networks](http://josh-tobin.com/assets/pdf/troubleshooting-deep-neural-networks-01-19.pdf)
 
-[In-class Exercise](/ex/w07/exercises07.html "Exercise"){aria-label="Exercise 7"} & [Solutions](/ex/w07/exercises07_solution.html "Exercise Solutions"){aria-label="Exercise 7 Solutions"}
+[Optional exercises with solutions](/optional_exercises/w07/exercises_w07.html "Optional Exercises"){aria-label="Week 7 optional exercises"}
 
-[Math assignment 2](https://q.utoronto.ca/courses/443734/files/folder/A2) posted
 
 <br><br>

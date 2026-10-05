@@ -60,7 +60,7 @@ Students who lack a pre/co-requisite can be removed at any time unless they have
 This page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.
 
 ::: {.column-screen-inset-right tbl-colwidths="[5,10,30,5,5,5,5,5,5,5]"}
-| Week | Date | Topic | Required Reading | Lecture Slides | Lecture Recordings | Lab Activities | Optional Exercises | Assignments | Midterm Tests | Project Deliverables |
+| Week | Date | Topic | Suggested Reading | Lecture Slides | Lecture Recordings | Lab Activities | Optional Exercises | Assignments | Midterm Tests | Project Deliverables |
 |:-----:|-------|-------|-------|:-----:|:-----:|-------|-------|:-----:|-------|:-----:|
 | [1](/weeks/week-1.html) | Sept 7-11 | Linear Models and Regression/Classification | [📖](/weeks/week-1.html){.no-style aria-label="Week 15 summary"} | [🖥️](/lecs/w01/lec01.html "Lecture Slides"){.no-style target="_blank" aria-label="Lec 1 slides"} | [🎥](https://q.utoronto.ca/courses/443734){.no-style} |  | [📋](/optional_exercises/w01/exercises_w01.html "Optional Exercises"){.no-style aria-label="Week 1 optional exercises"} |  |  |  |
 | [2](/weeks/week-2.html) | Sept 14-18 | Multi-Layer Perceptron, Backpropagation, Losses | [📖](/weeks/week-2.html){.no-style aria-label="Week 15 summary"} | [🖥️](/lecs/w02/lec02.html "Lecture Slides"){.no-style target="_blank" aria-label="Lec 2 slides"} | [🎥](https://q.utoronto.ca/courses/443734){.no-style} | [💻](https://q.utoronto.ca/courses/443734/){.no-style} | [📋](/optional_exercises/w02/exercises_w02.html "Optional Exercises"){.no-style aria-label="Week 2 optional exercises"} |  |  |  |

@@ -1,20 +1,30 @@
 ---
 title: "Week 1"
-subtitle: "Linear Model"
+subtitle: "Linear Models"
 editor: visual
 ---
 
-Read the [syllabus](/https://q.utoronto.ca/courses/443734/files/32969250?wrap=1)
-
-[Week 1 Overview](https://q.utoronto.ca/courses/443734/pages/week-1-overview?module_item_id=5872092)
-
-[Software Installations](https://q.utoronto.ca/courses/443734/pages/software-installations)
+Read the syllabus on Quercus homepage for the course.
 
 [Lecture 1](/lecs/w01/lec01.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-No tutorials/labs this week but please complete the [Pre-Requisite Math Problems](https://q.utoronto.ca/courses/443734/files/32607079?wrap=1 "prereq.pdf")
+Required reading (Prof. Roger Grosse's lecture notes):
 
-Suggested Review :
+-   [Linear Regression](/documents/grosse_L01a_linear_regression.pdf)
+-   [Linear Classifiers](/documents/grosse_L01b_linear_classifiers.pdf)
+-   [Training a Classifier](/documents/grosse_L01c_training_a_classifier.pdf)
+
+Dive into Deep Learning ([d2l.ai](https://d2l.ai)) sections:
+
+-   [2.1 Data Manipulation](https://d2l.ai/chapter_preliminaries/ndarray.html)
+-   [3.1 Linear Regression](https://d2l.ai/chapter_linear-regression/linear-regression.html)
+-   [3.4 Linear Regression Implementation from Scratch](https://d2l.ai/chapter_linear-regression/linear-regression-scratch.html)
+-   [4.1 Softmax Regression](https://d2l.ai/chapter_linear-classification/softmax-regression.html)
+
+No tutorials/labs this week but please complete the [optional exercises](/optional_exercises/w01/exercises_w01.html "Optional Exercises"){aria-label="Week 1 optional exercises"} for this week.
+
+
+Other Suggested Reviews:
 
 -   [Linear Algebra review](http://www.deeplearningbook.org/contents/linear_algebra.html) 
 -   [Probability review](https://www.deeplearningbook.org/contents/prob.html)

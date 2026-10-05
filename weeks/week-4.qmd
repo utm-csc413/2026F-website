@@ -4,18 +4,30 @@ subtitle: "Convolutional Neural Networks"
 editor: visual
 ---
 
-[Week 4 Overview](https://q.utoronto.ca/courses/443734/pages/week-4-overview?module_item_id=5872113)
-
 [Slides](/lecs/w04/lec04.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-Demo: [Colab Notebook](https://colab.research.google.com/drive/1AL2ocL6muULg4P2hzHBOLTPL6RGbQaB5?usp=sharing)
+[Optional exercises with solutions](/optional_exercises/w04/exercises_w04.html "Optional Exercises"){aria-label="Week 4 optional exercises"}
 
-[In-class Exercise](/ex/w04/exercises04.html "Exercise"){aria-label="Exercise 4"} & [Solutions](/ex/w04/exercises04_solution.html "Exercise Solutions"){aria-label="Exercise 4 Solutions"}
+Required reading (Prof. Roger Grosse's lecture notes):
 
-In-person lab session: classification and medical MNIST [lab03](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab03.ipynb "Lab instructions"){aria-label="Lab 3 instructions"}
+-   [Convolutional Neural Networks](/documents/grosse_L04a_convnets.pdf)
+-   [Image Classification](/documents/grosse_L04b_image_classification.pdf)
 
-[Lecture 4 pre-recorded videos and quizzes](https://q.utoronto.ca/courses/443734/quizzes/405061)
+Suggested papers:
 
-[Math Assignment 1](https://q.utoronto.ca/courses/443734/files/folder/A1) posted
+-   [LeNet: Gradient-Based Learning Applied to Document Recognition (LeCun et al., 1998)](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf)
+-   [AlexNet: ImageNet Classification with Deep Convolutional Neural Networks (Krizhevsky et al., 2012)](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
+-   [ResNet: Deep Residual Learning for Image Recognition (He et al., 2015)](https://arxiv.org/abs/1512.03385)
+
+Dive into Deep Learning ([d2l.ai](https://d2l.ai)) sections:
+
+-   [7.1 From Fully Connected Layers to Convolutions](https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html)
+-   [7.2 Convolutions for Images](https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html)
+-   [7.3 Padding and Stride](https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html)
+-   [7.4 Multiple Input and Multiple Output Channels](https://d2l.ai/chapter_convolutional-neural-networks/channels.html)
+-   [7.5 Pooling](https://d2l.ai/chapter_convolutional-neural-networks/pooling.html)
+-   [7.6 Convolutional Neural Networks (LeNet)](https://d2l.ai/chapter_convolutional-neural-networks/lenet.html)
+-   [8.1 Deep Convolutional Neural Networks (AlexNet)](https://d2l.ai/chapter_convolutional-modern/alexnet.html)
+-   [8.6 Residual Networks (ResNet) and ResNeXt](https://d2l.ai/chapter_convolutional-modern/resnet.html)
 
 <br><br>

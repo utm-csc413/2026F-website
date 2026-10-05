@@ -4,16 +4,21 @@ subtitle: "Multi-Layer Perceptron, Backpropagation, Losses"
 editor: visual
 ---
 
-[Week 2 Overview](https://q.utoronto.ca/courses/443734/modules/items/5872098 "Week 2 Overview")
-
 [Slides](/lecs/w02/lec02.html) & [Recordings](https://q.utoronto.ca/courses/443734)
 
-Prof. Roger Grosse's notes on [backpropagation](https://uoft-csc413.github.io/2023/assets/readings/L02b.pdf) (archived PDF from the 2023 course website).
+[Optional exercises with solutions](/optional_exercises/w02/exercises_w02.html "Optional Exercises"){aria-label="Week 2 optional exercises"}
 
-No exercises this week
+Required reading (Prof. Roger Grosse's lecture notes):
 
-In-person lab session: PyTorch basics with linear models [lab01](https://colab.research.google.com/github/UofTCSC413/2026F-website/blob/main/labs/lab01.ipynb "Lab instructions"){aria-label="Lab 1 instructions"}
+-   [Multilayer Perceptrons](/documents/grosse_L02a_multilayer_perceptrons.pdf)
+-   [Backpropagation](/documents/grosse_L02b_backpropagation.pdf)
 
-[Lec2 pre-recorded videos with quizzes](https://q.utoronto.ca/courses/443734/quizzes/404473)
+Dive into Deep Learning ([d2l.ai](https://d2l.ai)) sections:
+
+-   [5.1 Multilayer Perceptrons](https://d2l.ai/chapter_multilayer-perceptrons/mlp.html)
+-   [5.2 Implementation of Multilayer Perceptrons](https://d2l.ai/chapter_multilayer-perceptrons/mlp-implementation.html)
+-   [5.3 Forward Propagation, Backward Propagation, and Computational Graphs](https://d2l.ai/chapter_multilayer-perceptrons/backprop.html)
+
+
 
 <br><br>
