@@ -4330,42 +4330,42 @@
     "href": "weeks/week-9.html",
     "title": "Week 9",
     "section": "",
-    "text": "Slides\nMissing recording due to technical issue\nIn-class Exercise & Solutions\nIn-person lab session: transfer learning and double descent lab07\nLecture 8 pre-recorded videos and quizzes\nFinal Project - Deadline to form project groups on Markus, and submit a project proposal"
+    "text": "Slides\nRequired reading (Prof. Roger Grosse’s lecture notes):\n\nRecurrent Neural Nets\nLearning Long-Term Dependencies\n\nSuggested papers:\n\nLSTM: Long Short-Term Memory (Hochreiter and Schmidhuber, 1997)\n\nDive into Deep Learning (d2l.ai) sections:\n\n9.1 Working with Sequences\n9.4 Recurrent Neural Networks\n9.7 Backpropagation Through Time\n10.1 Long Short-Term Memory (LSTM)\n10.2 Gated Recurrent Units (GRU)\n10.6 The Encoder–Decoder Architecture\n10.7 Sequence-to-Sequence Learning for Machine Translation\n\nOptional exercises with solutions"
   },
   {
     "objectID": "weeks/week-13.html",
     "href": "weeks/week-13.html",
     "title": "Week 13",
     "section": "",
-    "text": "Slides & Recordings\nIf you are interested in both groups’ research, it is worth attending or watching both lectures this week.\nIn-person lab session: text generation with transformers lab11"
+    "text": "Slides & Recordings\nOptional exercises with solutions\nDive into Deep Learning (d2l.ai) sections (background for the variational autoencoder lecture):\n\n22.11 Information Theory"
   },
   {
     "objectID": "weeks/week-10.html",
     "href": "weeks/week-10.html",
     "title": "Week 10",
     "section": "",
-    "text": "Week 10 Overview\nSlides & Recordings\nTransformer video: https://www.youtube.com/watch?v=XSSTuhyAmnI\nhttps://nlp.seas.harvard.edu/2018/04/03/attention.html\nhttp://peterbloem.nl/blog/transformers\nLast year’s A3 (a seq2seq autoencoder) http://modelai.gettysburg.edu/2021/headlines/\nIn-class Exercise & Solutions\nIn-person lab session: gradcam and input gradients lab09\nMath Assignment 2 due"
+    "text": "Slides & Recordings\nSuggested papers:\n\nNeural Machine Translation by Jointly Learning to Align and Translate (Bahdanau et al., 2014)\nShow, Attend and Tell: Neural Image Caption Generation with Visual Attention (Xu et al., 2015)\nTransformers: Attention Is All You Need (Vaswani et al., 2017)\nBERT: Pre-training of Deep Bidirectional Transformers for Language Understanding (Devlin et al., 2018)\nModel scaling: Scaling Laws for Neural Language Models (Kaplan et al., 2020)\nPixelRNN: Pixel Recurrent Neural Networks (van den Oord et al., 2016)\nWaveNet: A Generative Model for Raw Audio (van den Oord et al., 2016)\nPixelCNN: Conditional Image Generation with PixelCNN Decoders (van den Oord et al., 2016)\n\nDive into Deep Learning (d2l.ai) sections:\n\n11.1 Queries, Keys, and Values\n11.3 Attention Scoring Functions\n11.4 The Bahdanau Attention Mechanism\n11.5 Multi-Head Attention\n11.6 Self-Attention and Positional Encoding\n11.7 The Transformer Architecture\n11.9 Large-Scale Pretraining with Transformers\n15.8 Bidirectional Encoder Representations from Transformers (BERT)\n\nTransformer video: https://www.youtube.com/watch?v=XSSTuhyAmnI\nhttps://nlp.seas.harvard.edu/2018/04/03/attention.html\nhttp://peterbloem.nl/blog/transformers\nLast year’s A3 (a seq2seq autoencoder) http://modelai.gettysburg.edu/2021/headlines/\nOptional exercises with solutions"
   },
   {
     "objectID": "weeks/week-3.html",
     "href": "weeks/week-3.html",
     "title": "Week 3",
     "section": "",
-    "text": "Week 3 Overview\nGloVe embedding demo \nVideo on autodiff\nSlides & Recordings\nIn-class Exercise & Solutions\nProf. Roger Grosse’s notes on autodiff and word embeddings (archived PDFs from the 2023 course website).\nNotes on Backpropagation https://cs231n.github.io/optimization-2/\nAutomatic Differentiation in Machine Learning: a Survey (2018) https://arxiv.org/pdf/1502.05767.pdf\nIn-person lab session: numerical gradients / word embeddings lab02\nLec3 pre-recorded videos with quizzes"
+    "text": "Slides & Recordings\nOptional exercises with solutions\nRequired reading (Prof. Roger Grosse’s lecture notes):\n\nAutomatic Differentiation\nDistributed Representations\n\nDive into Deep Learning (d2l.ai) sections:\n\n2.5 Automatic Differentiation\n9.3 Language Models\n15.1 Word Embedding (word2vec)\n15.5 Word Embedding with Global Vectors (GloVe)\n15.7 Word Similarity and Analogy\n\nNotes on Backpropagation https://cs231n.github.io/optimization-2/\nOptional: Automatic Differentiation in Machine Learning: a Survey (2018) https://arxiv.org/pdf/1502.05767.pdf"
   },
   {
     "objectID": "weeks/week-4.html",
     "href": "weeks/week-4.html",
     "title": "Week 4",
     "section": "",
-    "text": "Week 4 Overview\nSlides & Recordings\nDemo: Colab Notebook\nIn-class Exercise & Solutions\nIn-person lab session: classification and medical MNIST lab03\nLecture 4 pre-recorded videos and quizzes\nMath Assignment 1 posted"
+    "text": "Slides & Recordings\nOptional exercises with solutions\nRequired reading (Prof. Roger Grosse’s lecture notes):\n\nConvolutional Neural Networks\nImage Classification\n\nSuggested papers:\n\nLeNet: Gradient-Based Learning Applied to Document Recognition (LeCun et al., 1998)\nAlexNet: ImageNet Classification with Deep Convolutional Neural Networks (Krizhevsky et al., 2012)\nResNet: Deep Residual Learning for Image Recognition (He et al., 2015)\n\nDive into Deep Learning (d2l.ai) sections:\n\n7.1 From Fully Connected Layers to Convolutions\n7.2 Convolutions for Images\n7.3 Padding and Stride\n7.4 Multiple Input and Multiple Output Channels\n7.5 Pooling\n7.6 Convolutional Neural Networks (LeNet)\n8.1 Deep Convolutional Neural Networks (AlexNet)\n8.6 Residual Networks (ResNet) and ResNeXt"
   },
   {
     "objectID": "weeks/week-7.html",
     "href": "weeks/week-7.html",
     "title": "Week 7",
     "section": "",
-    "text": "Week 7 Overview\nSlides & Recordings\nTroubleshooting Deep Neural Networks\nIn-class Exercise & Solutions\nMath assignment 2 posted"
+    "text": "Slides & Recordings\nSuggested papers:\n\nSanity Checks for Saliency Maps (Adebayo et al., 2018)\nSmoothGrad: Removing Noise by Adding Noise (Smilkov et al., 2017)\nTowards a Rigorous Science of Interpretable Machine Learning (Doshi-Velez and Kim, 2017)\n\nDive into Deep Learning (d2l.ai) sections:\n\n8.2 Networks Using Blocks (VGG)\n14.2 Fine-Tuning\n\nTroubleshooting Deep Neural Networks\nOptional exercises with solutions"
   },
   {
     "objectID": "weekly-material.html",
@@ -4869,49 +4869,49 @@
     "href": "weeks/week-6.html",
     "title": "Week 6",
     "section": "",
-    "text": "Slides & Recordings\nEnsembling code skeleton\nThe definition of differential privacy\nIn-class Exercise & Solutions\nIn-person lab session: optimization and differential privacy lab05\nLecture 6 pre-recorded videos and quizzes\nMath assignment 1 due"
+    "text": "Slides & Recordings\nRequired reading (Prof. Roger Grosse’s lecture notes):\n\nGeneralization\n\nSuggested papers:\n\nDropout: A Simple Way to Prevent Neural Networks from Overfitting (Srivastava et al., 2014)\n\nDive into Deep Learning (d2l.ai) sections:\n\n3.6 Generalization\n3.7 Weight Decay\n5.5 Generalization in Deep Learning\n5.6 Dropout\n14.1 Image Augmentation\n\nThe definition of differential privacy\nOptional exercises with solutions"
   },
   {
     "objectID": "weeks/week-5.html",
     "href": "weeks/week-5.html",
     "title": "Week 5",
     "section": "",
-    "text": "Week 5 Overview\nSlides & Recordings\nIn-class Exercise & Solutions\nTaylor Series https://www.youtube.com/watch?v=3d6DsjIBzJ4\nTutorial: how to implement SGD with momentum neural network optimization\nLecture 5 pre-recorded videos and quizzes\nMath Assignment 1 due\nIn-person midterm #1 which covers weeks 1-5. Held during the tutorial / lab sessions"
+    "text": "Slides & Recordings\nRequired reading (Prof. Roger Grosse’s lecture notes):\n\nOptimization\n\nSuggested papers:\n\nBatch size scaling: Measuring the Effects of Data Parallelism on Neural Network Training (Shallue et al., 2019)\n\nDive into Deep Learning (d2l.ai) sections:\n\n5.4 Numerical Stability and Initialization\n8.5 Batch Normalization\n12.1 Optimization and Deep Learning\n12.4 Stochastic Gradient Descent\n12.5 Minibatch Stochastic Gradient Descent\n12.6 Momentum\n12.8 RMSProp\n12.10 Adam\n\nOptional exercises with solutions"
   },
   {
     "objectID": "weeks/week-1.html",
     "href": "weeks/week-1.html",
     "title": "Week 1",
     "section": "",
-    "text": "Read the syllabus\nWeek 1 Overview\nSoftware Installations\nLecture 1 & Recordings\nNo tutorials/labs this week but please complete the Pre-Requisite Math Problems\nSuggested Review :\n\nLinear Algebra review \nProbability review"
+    "text": "Read the syllabus on Quercus homepage for the course.\nLecture 1 & Recordings\nRequired reading (Prof. Roger Grosse’s lecture notes):\n\nLinear Regression\nLinear Classifiers\nTraining a Classifier\n\nDive into Deep Learning (d2l.ai) sections:\n\n2.1 Data Manipulation\n3.1 Linear Regression\n3.4 Linear Regression Implementation from Scratch\n4.1 Softmax Regression\n\nNo tutorials/labs this week but please complete the optional exercises for this week.\nOther Suggested Reviews:\n\nLinear Algebra review \nProbability review"
   },
   {
     "objectID": "weeks/week-2.html",
     "href": "weeks/week-2.html",
     "title": "Week 2",
     "section": "",
-    "text": "Week 2 Overview\nSlides & Recordings\nProf. Roger Grosse’s notes on backpropagation (archived PDF from the 2023 course website).\nNo exercises this week\nIn-person lab session: PyTorch basics with linear models lab01\nLec2 pre-recorded videos with quizzes"
+    "text": "Slides & Recordings\nOptional exercises with solutions\nRequired reading (Prof. Roger Grosse’s lecture notes):\n\nMultilayer Perceptrons\nBackpropagation\n\nDive into Deep Learning (d2l.ai) sections:\n\n5.1 Multilayer Perceptrons\n5.2 Implementation of Multilayer Perceptrons\n5.3 Forward Propagation, Backward Propagation, and Computational Graphs"
   },
   {
     "objectID": "weeks/week-11.html",
     "href": "weeks/week-11.html",
     "title": "Week 11",
     "section": "",
-    "text": "Slides & Recordings\nAutoencoder Notebook\nIn-class Exercise & Solutions\nIn-person midterm #2 which covers weeks 6-9. Held during the tutorial / lab sessions\nLecture 10 pre-recorded videos and quizzes\nFinal Project - Written feedback on project proposals sent by TAs and instructors"
+    "text": "Slides & Recordings\nDive into Deep Learning (d2l.ai) sections:\n\n14.10 Transposed Convolution\n\nAutoencoder Notebook\nOptional exercises with solutions"
   },
   {
     "objectID": "weeks/week-12.html",
     "href": "weeks/week-12.html",
     "title": "Week 12",
     "section": "",
-    "text": "Slides & Recordings\nIn-class Exercise & Solutions\nIn-person lab session: RNN text classification lab10"
+    "text": "Slides & Recordings\nDive into Deep Learning (d2l.ai) sections:\n\n20.1 Generative Adversarial Networks\n20.2 Deep Convolutional Generative Adversarial Networks\n\nOptional exercises with solutions"
   },
   {
     "objectID": "weeks/week-8.html",
     "href": "weeks/week-8.html",
     "title": "Week 8",
     "section": "",
-    "text": "Week 8 Overview\nFall reading week. No lecture.\nMath assignment 2 due."
+    "text": "Fall reading week. No lecture."
   },
   {
     "objectID": "hw/hw-5.html",
@@ -5964,7 +5964,7 @@
     "href": "index.html#schedule",
     "title": "Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning",
     "section": "Schedule",
-    "text": "Schedule\nThis page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nRequired Reading\nLecture Slides\nLecture Recordings\nLab Activities\nOptional Exercises\nAssignments\nMidterm Tests\nProject Deliverables\n\n\n\n\n1\nSept 7-11\nLinear Models and Regression/Classification\n📖\n🖥️\n🎥\n\n📋\n\n\n\n\n\n2\nSept 14-18\nMulti-Layer Perceptron, Backpropagation, Losses\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n3\nSept 21-25\nAutomatic Differentiation, Distributed Representation\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n4\nSept 28-Oct 2\nConvolutional Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n5\nOct 5-9\nOptimization\n📖\n🖥️\n🎥\n\n📋\n✍️\n✅\n\n\n\n6\nOct 12-16\nGeneralization\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n7\nOct 19-23\nInterpreting Convolutional Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n8\nOct 26-30\nFall Reading Week\n\n\n\n\n\n\n\n\n\n\n9\nNov 2-6\nRecurrent Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n📂\n\n\n10\nNov 9-13\nAttention and Transformers\n📖\n🖥️\n🎥\n💻\n📋\n✍️\n\n\n\n\n11\nNov 16-20\nAutoencoders and Transpose Convolutions\n📖\n🖥️\n🎥\n\n📋\n\n✅\n\n\n\n12\nNov 23-27\nGenerative Adversarial Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n13\nNov 30-Dec 4\nTBA\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n14\nDec 7-11\nTBA\n\n\n\n\n\n\n\n📂",
+    "text": "Schedule\nThis page contains an outline of the topics, content, and assignments for the semester. Note that this schedule will be updated as the semester progresses, with all changes documented here.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\nSuggested Reading\nLecture Slides\nLecture Recordings\nLab Activities\nOptional Exercises\nAssignments\nMidterm Tests\nProject Deliverables\n\n\n\n\n1\nSept 7-11\nLinear Models and Regression/Classification\n📖\n🖥️\n🎥\n\n📋\n\n\n\n\n\n2\nSept 14-18\nMulti-Layer Perceptron, Backpropagation, Losses\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n3\nSept 21-25\nAutomatic Differentiation, Distributed Representation\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n4\nSept 28-Oct 2\nConvolutional Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n5\nOct 5-9\nOptimization\n📖\n🖥️\n🎥\n\n📋\n✍️\n✅\n\n\n\n6\nOct 12-16\nGeneralization\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n7\nOct 19-23\nInterpreting Convolutional Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n8\nOct 26-30\nFall Reading Week\n\n\n\n\n\n\n\n\n\n\n9\nNov 2-6\nRecurrent Neural Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n📂\n\n\n10\nNov 9-13\nAttention and Transformers\n📖\n🖥️\n🎥\n💻\n📋\n✍️\n\n\n\n\n11\nNov 16-20\nAutoencoders and Transpose Convolutions\n📖\n🖥️\n🎥\n\n📋\n\n✅\n\n\n\n12\nNov 23-27\nGenerative Adversarial Networks\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n13\nNov 30-Dec 4\nTBA\n📖\n🖥️\n🎥\n💻\n📋\n\n\n\n\n\n14\nDec 7-11\nTBA\n\n\n\n\n\n\n\n📂",
     "crumbs": [
       "Overview"
     ]
