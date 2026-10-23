@@ -18,133 +18,133 @@
     "href": "lecs/w06/lec06.html#this-week",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "This week",
-    "text": "This week\n\n\nGeneralization\nDiagnosing Issues using Learning Curves\nBias-Variance Tradeoff\nDifferential Privacy"
+    "text": "This week\n\n\nGeneralization\nDiagnosing Issues using Learning Curves\nBias-Variance Tradeoff"
   },
   {
     "objectID": "lecs/w06/lec06.html#questions",
     "href": "lecs/w06/lec06.html#questions",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Questions",
-    "text": "Questions\n\n\nHow do we choose between different neural network models?\n\nFor example, different number of hidden units, hidden layers, …?\n\n\n\n\n\nHow do we know how well a model will perform on new data?"
+    "text": "Questions\n\nHow do we choose between different neural network models?\n\nFor example, different number of hidden units, hidden layers, …?\n\nHow do we know how well a model will perform on new data?"
   },
   {
     "objectID": "lecs/w06/lec06.html#the-training-set",
     "href": "lecs/w06/lec06.html#the-training-set",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "The Training Set",
-    "text": "The Training Set\nThe training set is used\n\n\nto determine the value of the parameters\n\n\n\nThe model’s prediction accuracy over the training set is called the training accuracy."
+    "text": "The Training Set\nThe training set is used\n\nto determine the value of the parameters\n\nThe model’s prediction accuracy over the training set is called the training accuracy."
   },
   {
-    "objectID": "lecs/w06/lec06.html#the-training-set-ii",
-    "href": "lecs/w06/lec06.html#the-training-set-ii",
+    "objectID": "lecs/w06/lec06.html#the-training-set-contd",
+    "href": "lecs/w06/lec06.html#the-training-set-contd",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Training Set II",
-    "text": "The Training Set II\nQ: Can we use the training accuracy to estimate how well a model will perform on new data?\n\n\nNo! It is possible for a model to fit well to the training set, but fail to generalize\n\n\n\n\nWe want to know how well the model performs on new data that we didn’t already use to optimize the model"
+    "section": "The Training Set (cont’d)",
+    "text": "The Training Set (cont’d)\nQ: Can we use the training accuracy to estimate how well a model will perform on new data?\n\n\nNo! It is possible for a model to fit well to the training set, but fail to generalize\nWe want to know how well the model performs on new data that we didn’t already use to optimize the model"
   },
   {
     "objectID": "lecs/w06/lec06.html#poor-generalization",
     "href": "lecs/w06/lec06.html#poor-generalization",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Poor Generalization",
-    "text": "Poor Generalization\n\n \n\n\nExample of poor generalization: - green: data generating process / red: fit. - Plot 1: datapoints fitted poorly. - Plot 2: datapoints fitted overly well."
+    "text": "Poor Generalization"
   },
   {
-    "objectID": "lecs/w06/lec06.html#underfitting",
-    "href": "lecs/w06/lec06.html#underfitting",
+    "objectID": "lecs/w06/lec06.html#overfitting-and-underfitting",
+    "href": "lecs/w06/lec06.html#overfitting-and-underfitting",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Underfitting",
-    "text": "Underfitting\n\nThe model is simple and doesn’t fit the data\n\n\n\nThe model does not capture discriminative features of the data"
+    "section": "Overfitting and Underfitting",
+    "text": "Overfitting and Underfitting\nUnderfitting:\n\nThe model is simple and doesn’t fit the data\nThe model does not capture discriminative features of the data\n\nOverfitting:\n\nThe model is too complex and does not generalize\nThe model captures information about patterns in training set that happened by chance"
   },
   {
-    "objectID": "lecs/w06/lec06.html#overfitting",
-    "href": "lecs/w06/lec06.html#overfitting",
+    "objectID": "lecs/w06/lec06.html#overfitting-and-underfitting-contd",
+    "href": "lecs/w06/lec06.html#overfitting-and-underfitting-contd",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Overfitting",
-    "text": "Overfitting\n\nThe model is too complex and does not generalize\n\n\n\nThe model captures information about patterns in training set that happened by chance\n\ne.g. Ringo happens to be always wearing a red shirt in the training set\nModel learns: high red pixel content =&gt; predict Ringo"
+    "section": "Overfitting and Underfitting (cont’d)",
+    "text": "Overfitting and Underfitting (cont’d)\nOverfitting:\n\nThe model is too complex and does not generalize\nThe model captures information about patterns in training set that happened by chance\n\ne.g. Ringo happens to be always wearing a red shirt in the training set\nModel learns: high red pixel content =&gt; predict Ringo"
   },
   {
     "objectID": "lecs/w06/lec06.html#the-test-set",
     "href": "lecs/w06/lec06.html#the-test-set",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "The Test Set",
-    "text": "The Test Set\nWe set aside a test set of labeled examples.\n\nThe model’s prediction accuracy over the test set is called the test accuracy.\n\n\nThe purpose of the test set is to give us a good estimate of how well a model will perform on new data.\n\n\nQ: In general, will the test accuracy be higher or lower than the training accuracy?\n\n\nThe test accuracy will be lower because the model can “memorize” the data."
+    "text": "The Test Set\nWe set aside a test set of labelled examples.\nThe model’s prediction accuracy over the test set is called the test accuracy.\nThe purpose of the test set is to give us a good estimate of how well a model will perform on new data.\nQ: In general, will the test accuracy be higher or lower than the training accuracy?"
   },
   {
     "objectID": "lecs/w06/lec06.html#model-choices",
     "href": "lecs/w06/lec06.html#model-choices",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Model Choices",
-    "text": "Model Choices\nBut what about decisions like:\n\n\nHow many layers?\n\n\n\n\nHow many units in each layer?\n\n\n\n\nWhat non-linear activation to use?"
+    "text": "Model Choices\nBut what about decisions like:\n\nHow many layers?\nHow many units in each layer?\nWhat non-linear activation to use?"
   },
   {
-    "objectID": "lecs/w06/lec06.html#model-choices-ii",
-    "href": "lecs/w06/lec06.html#model-choices-ii",
+    "objectID": "lecs/w06/lec06.html#model-choices-contd",
+    "href": "lecs/w06/lec06.html#model-choices-contd",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Model Choices II",
-    "text": "Model Choices II\nQ: Why can’t we use the test set to determine which model we should deploy?\n\n\nIf we use the test set to make modeling decisions, then we will overestimate how well our model will perform on new data!\n\n\n\n\nWe are “cheating” by “looking at the test”"
+    "section": "Model Choices (cont’d)",
+    "text": "Model Choices (cont’d)\nQ: Why can’t we use the test set to determine which model we should deploy?\n\n\nIf we use the test set to make modeling decisions, then we will overestimate how well our model will perform on new data!\nWe are “cheating” by “looking at the test”"
   },
   {
     "objectID": "lecs/w06/lec06.html#the-validation-set",
     "href": "lecs/w06/lec06.html#the-validation-set",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Validation Set",
-    "text": "The Validation Set\nWe therefore need a third set of labeled data called the validation set\nThe model’s prediction accuracy over the validation set is called the validation accuracy."
+    "section": "The Validation set",
+    "text": "The Validation set\nWe therefore need a third set of labeled data called the validation set\nThe model’s prediction accuracy over the validation set is called the validation accuracy.\nThis dataset is used to:\n\nMake decisions about models that is not continuous and can’t be optimized via gradient descent\nExample: choose \\(k\\), choose which features \\(x_j\\) to use, choose \\(\\alpha\\), …"
   },
   {
-    "objectID": "lecs/w06/lec06.html#the-validation-set-ii",
-    "href": "lecs/w06/lec06.html#the-validation-set-ii",
+    "objectID": "lecs/w06/lec06.html#the-validation-set-contd",
+    "href": "lecs/w06/lec06.html#the-validation-set-contd",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Validation Set II",
-    "text": "The Validation Set II\nThis dataset is used to:\n\n\nMake decisions about models that is not continuous and can’t be optimized via gradient descent\n\n\n\n\nExample: choose \\(k\\), choose which features \\(x_j\\) to use, choose \\(\\alpha\\), …\n\nThese model settings are called hyperparameters\n\n\n\n\n\nThe validation set is used to optimize hyperparameters"
+    "section": "The Validation set (cont’d)",
+    "text": "The Validation set (cont’d)\nThe model’s prediction accuracy over the validation set is called the validation accuracy.\nThis dataset is used to:\n\nMake decisions about models that is not continuous and can’t be optimized via gradient descent\nExample: choose \\(k\\), choose which features \\(x_j\\) to use, choose \\(\\alpha\\), …\n\nThese model settings are called hyperparameters\n\nThe validation set is used to optimize hyperparameters"
   },
   {
-    "objectID": "lecs/w06/lec06.html#splitting-the-dataset",
-    "href": "lecs/w06/lec06.html#splitting-the-dataset",
+    "objectID": "lecs/w06/lec06.html#splitting-the-data-set",
+    "href": "lecs/w06/lec06.html#splitting-the-data-set",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Splitting the Dataset",
-    "text": "Splitting the Dataset\nExample split:\n\n\n60% Training\n\n\n\n\n20% Validation\n\n\n\n\n20% Test\n\n\n\nThe actual split depends on the amount of data that you have.\nIf you have more data, you can get a way with a smaller % validation and set."
+    "section": "Splitting the data set",
+    "text": "Splitting the data set\nExample split:\n\n60% Training\n20% Validation\n20% Test\n\nThe actual split depends on the amount of data that you have.\nIf you have more data, you can get a way with a smaller % validation and set."
   },
   {
     "objectID": "lecs/w06/lec06.html#detecting-overfitting",
     "href": "lecs/w06/lec06.html#detecting-overfitting",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Detecting Overfitting",
-    "text": "Detecting Overfitting\nLearning curve:\n\n\n\n\n\nx-axis: epochs or iterations\ny-axis: cost, error, or accuracy\n\n\n\nQ: In which epochs is the model overfitting? Underfitting?\n\n\nQ: Why don’t we plot the test accuracy plot?\n\n\nUnderfitting: the first ~8 epochs and overfitting after that\nTest accuracy is only supposed to be used for the evaluation of the final trained model and not for any design decisions such as number of epochs."
+    "text": "Detecting Overfitting\nLearning curve:\n\n\n\n\n\nx-axis: epochs or iterations\ny-axis: cost, error, or accuracy\n\n\nQ: In which epochs is the model overfitting? Underfitting?\nQ: Why don’t we plot the test accuracy plot?"
   },
   {
     "objectID": "lecs/w06/lec06.html#strategies-to-prevent-overfitting",
     "href": "lecs/w06/lec06.html#strategies-to-prevent-overfitting",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Strategies to Prevent Overfitting",
-    "text": "Strategies to Prevent Overfitting\n\n\nData Augmentation\n\n\n\n\nReducing the number of parameters\n\n\n\n\nWeight decay\n\n\n\n\nEarly stopping\n\n\n\n\nEnsembles\n\n\n\n\nStochastic regularization (e.g. dropout)"
+    "text": "Strategies to Prevent Overfitting\n\nData Augmentation\nReducing the number of parameters\nWeight decay\nEarly stopping\nEnsembles\nStochastic regularization (e.g. dropout)"
   },
   {
     "objectID": "lecs/w06/lec06.html#data-augmentation",
     "href": "lecs/w06/lec06.html#data-augmentation",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Data Augmentation",
-    "text": "Data Augmentation\nThe best way to improve generalization is to collect more data!\n\nBut if we already have all the data we’re willing to collect. We can augment the training data by transforming the examples.\n\n\nThis is called data augmentation."
+    "text": "Data Augmentation\nThe best way to improve generalization is to collect more data!\nBut if we already have all the data we’re willing to collect. We can augment the training data by transforming the examples. This is called data augmentation."
   },
   {
-    "objectID": "lecs/w06/lec06.html#data-augmentation-ii",
-    "href": "lecs/w06/lec06.html#data-augmentation-ii",
+    "objectID": "lecs/w06/lec06.html#data-augmentation-contd",
+    "href": "lecs/w06/lec06.html#data-augmentation-contd",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Data Augmentation II",
-    "text": "Data Augmentation II\nExamples (for images, but depends on task):\n\n\ntranslation / rotation\n\n\n\n\nhorizontal or vertical flip\n\n\n\n\nsmooth warping\n\n\n\n\nnoise (e.g. flip random pixels)\n\nWe should only augment the training examples, not the validation or test examples (why?)"
+    "section": "Data Augmentation (cont’d)",
+    "text": "Data Augmentation (cont’d)\nExample (for images, but depends on task):\n\ntranslation\nhorizontal or vertical flip\nrotation\nsmooth warping\nnoise (e.g. flip random pixels)\n\nWe should only warp the training examples, not the validation or test examples (why?)"
   },
   {
     "objectID": "lecs/w06/lec06.html#reducing-the-number-of-parameters",
     "href": "lecs/w06/lec06.html#reducing-the-number-of-parameters",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Reducing the Number of Parameters",
-    "text": "Reducing the Number of Parameters\n\nNetworks with fewer trainable parameters are less likely to overfit.\n\n\n\nWe can reduce the number of layers, or the number of parameters per layer."
+    "text": "Reducing the Number of Parameters\nNetworks with fewer trainable parameters are less likely to overfit. We can reduce the number of layers, or the number of parameters per layer.\nAdding a bottleneck layer is another way to reduce the number of parameters"
   },
   {
-    "objectID": "lecs/w06/lec06.html#reducing-the-number-of-parameters-ii",
-    "href": "lecs/w06/lec06.html#reducing-the-number-of-parameters-ii",
+    "objectID": "lecs/w06/lec06.html#reducing-the-number-of-parameters-contd",
+    "href": "lecs/w06/lec06.html#reducing-the-number-of-parameters-contd",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Reducing the Number of Parameters II",
-    "text": "Reducing the Number of Parameters II\nAdding a bottleneck layer is another way to reduce the number of parameters\n\n\n\n\nIn practise, this isn’t a great idea (as too much informaiton may get lost)."
+    "section": "Reducing the Number of Parameters (cont’d)",
+    "text": "Reducing the Number of Parameters (cont’d)\nAdding a bottleneck layer is another way to reduce the number of parameters\n\n\n\nIn practise, this isn’t a great idea."
   },
   {
     "objectID": "lecs/w06/lec06.html#weight-decay-idea",
@@ -165,452 +165,53 @@
     "href": "lecs/w06/lec06.html#weight-decay",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Weight Decay",
-    "text": "Weight Decay\n\n\n\\(L^1\\) regularization: add a term \\(\\sum_{j=1}^D |w_j|\\) to the cost function\n\nMathematically, this term encourages weights to be exactly 0\n\n\n\n\n\n\\(L^2\\) regularization: add a term \\(\\sum_{j=1}^D w_j^2\\) to the cost function\n\nMathematically, in each iteration the weight is pushed towards 0\n\n\n\n\n\nCombination of both."
+    "text": "Weight Decay\n\n\\(L^1\\) regularization: add a term \\(\\sum_{j=1}^D |w_j|\\) to the cost function\n\nMathematically, this term encourages weights to be exactly 0\n\n\\(L^2\\) regularization: add a term \\(\\sum_{j=1}^D w_j^2\\) to the cost function\n\nMathematically, in each iteration the weight is pushed towards 0\n\nCombination of \\(L^1\\) and \\(L^2\\) regularization: add a term \\(\\sum_{j=1}^D |w_j| + w_j^2\\) to the cost function"
   },
   {
     "objectID": "lecs/w06/lec06.html#example-weight-decay-for-regression",
     "href": "lecs/w06/lec06.html#example-weight-decay-for-regression",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Example: Weight Decay for Regression",
-    "text": "Example: Weight Decay for Regression\nCost function:\n\\[\\mathcal{E}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2\\]\n\nCost function with weight decay:\n\\[\\mathcal{E}_{WD}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2 + \\lambda \\sum_j w_j^2\\]"
+    "text": "Example: Weight Decay for Regression\nCost function:\n\\[\\mathcal{E}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2\\]\nCost function with weight decay:\n\\[\\mathcal{E}_{WD}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2 + \\lambda \\sum_j w_j^2\\]"
   },
   {
     "objectID": "lecs/w06/lec06.html#weight-decay-nomanclature",
     "href": "lecs/w06/lec06.html#weight-decay-nomanclature",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Weight Decay Nomanclature",
-    "text": "Weight Decay Nomanclature\n\\[\\mathcal{E}_{WD}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2 + \\lambda \\sum_j w_j^2\\]\n\n\\[\\frac{\\partial \\mathcal{E}_{WD}}{\\partial w_j} = \\frac{\\partial \\mathcal{E}}{\\partial w_j} + \\lambda 2 w_j\\]\n\n\nSo the gradient descent update rule becomes:\n\\[w_j \\leftarrow w_j - \\alpha\\left(\\frac{\\partial \\mathcal{E}}{\\partial w_j} + 2 \\lambda w_j\\right)\\]"
+    "text": "Weight Decay Nomanclature\n\\[\\mathcal{E}_{WD}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2 + \\lambda \\sum_j w_j^2\\]\n\\[\\frac{\\partial \\mathcal{E}_{WD}}{\\partial w_j} = \\frac{\\partial \\mathcal{E}}{\\partial w_j} + \\lambda 2 w_j\\]\nSo the gradient descent update rule becomes:\n\\[w_j \\leftarrow w_j - \\alpha\\left(\\frac{\\partial \\mathcal{E}}{\\partial w_j} + 2 \\lambda w_j\\right)\\]"
   },
   {
     "objectID": "lecs/w06/lec06.html#early-stopping",
     "href": "lecs/w06/lec06.html#early-stopping",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Early Stopping",
-    "text": "Early Stopping\nIdea: Stop training when the validation error starts going up.\n\n\n\n\n\nIn practice, this is implemented by checkpointing (saving) the neural network weights every few iterations/epochs during training. \n\n\n\nWe choose the checkpoint with the best validation error to actually use. (And if there is a tie, use the earlier checkpoint)"
+    "text": "Early Stopping\nIdea: Stop training when the validation error starts going up.\n\n\n\n\nIn practice, this is implemented by checkpointing (saving) the neural network weights every few iterations/epochs during training. \n\n\n\nWe choose the checkpoint with the best validation error to actually use. (And if there is a tie, use the earlier checkpoint)"
   },
   {
     "objectID": "lecs/w06/lec06.html#why-does-early-stopping-work",
     "href": "lecs/w06/lec06.html#why-does-early-stopping-work",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Why does Early Stopping Work?",
-    "text": "Why does Early Stopping Work?\nWeights start off small, so it takes time for them to grow large.\n\nTherefore, stopping early has a similar effect to weight decay.\n\n\nIf you’re using sigmoid units, and the weights start out small, then the inputs to the activation functions take only a small range of values.\n\n\n\nThe neural network starts out approximately linear, and gradually becomes non-linear (and thus more powerful)"
+    "section": "Why does early stopping work?",
+    "text": "Why does early stopping work?\nWeights start off small, so it takes time for them to grow large.\nTherefore, stopping early has a similar effect to weight decay.\nIf you’re using sigmoid units, and the weights start out small, then the inputs to the activation functions take only a small range of values.\n\nThe neural network starts out approximately linear, and gradually becomes non-linear (and thus more powerful)"
   },
   {
     "objectID": "lecs/w06/lec06.html#ensembles",
     "href": "lecs/w06/lec06.html#ensembles",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Ensembles",
-    "text": "Ensembles\nIf a loss function is convex (with respect to the predictions), you have a bunch of predictions for an input, and you don’t know which one is best, you are always better off averaging them!\n\n\\[\\mathcal{L}(\\lambda_1 y_1 + \\dots \\lambda_N y_N, t) \\le \\lambda_1 \\mathcal{L}(y_1, t) + \\dots \\lambda_N\\mathcal{L}(y_N, t)\\]\nfor \\(\\lambda_i \\ge 0\\) and \\(\\sum_i \\lambda_i = 1\\)\n\n\nIdea: Build multiple candidate models, and average the predictions on the test data.\n\n\nThis set of models is called an ensemble."
+    "text": "Ensembles\nIf a loss function is convex (with respect to the predictions), you have a bunch of predictions for an input, and you don’t know which one is best, you are always better off averaging them!\n\\[\\mathcal{L}(\\lambda_1 y_1 + \\dots \\lambda_N y_N, t) \\le \\lambda_1 \\mathcal{L}(y_1, t) + \\dots \\lambda_N\\mathcal{L}(y_N, t)\\]\nfor \\(\\lambda_i \\ge 0\\) and \\(\\sum_i \\lambda_i = 1\\)\nIdea: Build multiple candidate models, and average the predictions on the test data.\nThis set of models is called an ensemble."
   },
   {
     "objectID": "lecs/w06/lec06.html#examples-of-ensembles",
     "href": "lecs/w06/lec06.html#examples-of-ensembles",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Examples of Ensembles",
-    "text": "Examples of Ensembles\n\n\nTrain neural networks starting from different random initialization (might not give enough diversity)\n\n\n\n\nTrain different network on different subset of the training data (called bagging)\n\n\n\n\nTrain networks with different architectures, hyperparameters, or use other machine learning models\n\n\n\nEnsembles can improve generalization substantially.\n\n\nHowever, ensembles are expensive.\n\n\nThe first strategy is most common in practice."
+    "text": "Examples of Ensembles\n\nTrain neural networks starting from different random initialization (might not give enough diversity)\nTrain different network on different subset of the training data (called bagging)\nTrain networks with different architectures, hyperparameters, or use other machine learning models\n\nEnsembles can improve generalization substantially.\nHowever, ensembles are expensive."
   },
   {
     "objectID": "lecs/w06/lec06.html#stochastic-regularization",
     "href": "lecs/w06/lec06.html#stochastic-regularization",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Stochastic Regularization",
-    "text": "Stochastic Regularization\nFor a network to overfit, its computations need to be really precise.\n\nThis suggests regularizing them by injecting noise into the computations, a strategy known as stochastic regularization.\n\n\nOne example is dropout: in each training iteration, random choose a portion of activations to set to 0."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#stochastic-regularization-ii",
-    "href": "lecs/w06/lec06.html#stochastic-regularization-ii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Stochastic Regularization II",
-    "text": "Stochastic Regularization II\nThe probability \\(p\\) that an activation is set to 0 is a hyperparameter."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#dropout",
-    "href": "lecs/w06/lec06.html#dropout",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Dropout",
-    "text": "Dropout\n\n\n\n\n\nCan be seen as training an ensemble of 2D different architectures with shared weights (where D is the number of units)\nAvoids co-adaptation\n\n\n\n\nco-adaptation refers to the phenomena where two neurons cancel each other out by learning essentially the same thing."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#dropout-at-test-time",
-    "href": "lecs/w06/lec06.html#dropout-at-test-time",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Dropout at Test Time",
-    "text": "Dropout at Test Time\nDon’t do dropout at test time (why not?)\n\nMultiply the weights by \\(1-p\\) (why?)\n\n\n\n\nDropout at test time would be like using one network of an ensemble.\nSince the weights are on \\(1-p\\) fraction of the time, multiplying the weights by \\(1-p\\) matches the expected value of the activation magnitude (e.g. going into the next layer)."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#summary-of-bag-of-tricks",
-    "href": "lecs/w06/lec06.html#summary-of-bag-of-tricks",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Summary of “Bag of Tricks”",
-    "text": "Summary of “Bag of Tricks”\n\n\nData Augmentation\n\n\n\n\nReducing the number of parameters\n\n\n\n\nWeight decay\n\n\n\n\nEarly stopping\n\n\n\n\nEnsembles\n\n\n\n\nStochastic regularization (e.g. dropout)"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-his",
-    "href": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-his",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Why does the Training Curve look like his?",
-    "text": "Why does the Training Curve look like his?\n\n\n\n\n\n\nThe learning rate is too high\nThe learning rate is too low\nThe number of iterations is too low\nThe weights are all initialized to zero\n\n\n\n\nLearning rate likely too high.\nLoss curve shows jumps and no consistent decrease"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-this",
-    "href": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-this",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Why does the Training Curve look like this?",
-    "text": "Why does the Training Curve look like this?\n\n\n\n\n\n\nThe batch size is too small\nBatch normalization was used\nThe number of parameters is too large\nThe learning rate is too small\n\n\n\n\nBatch size likely too small.\nLearning curve very noisy."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-this-1",
-    "href": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-this-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Why does the Training Curve look like this?",
-    "text": "Why does the Training Curve look like this?\n\n\n\n\n\nThe network probably has too few parameters\nThe network probably has too many parameters\nThe learning rate is probably too small\nIf weight decay is used, the lambda parameter is probably too large.\nEither (1) or (4) could be true\n\n\n\n\nToo few parameters as convergence stopped too early.\nToo much weight decay has similar effect."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-this-2",
-    "href": "lecs/w06/lec06.html#why-does-the-training-curve-look-like-this-2",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Why does the Training Curve look like this?",
-    "text": "Why does the Training Curve look like this?\n\n\n\n\n\nEvidence of overfitting\nEvidence of underfitting\nToo much momentum\nThe weights were all initialized to 0\n\n\n\n\nThis model did not fit yet and is so far underfitting the data."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#expected-test-error-for-regression",
-    "href": "lecs/w06/lec06.html#expected-test-error-for-regression",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Expected Test Error for Regression",
-    "text": "Expected Test Error for Regression\n\n\nTraining set \\(D = \\{(x_1, y_1), ..., (x_n, y_n)\\}\\) drawn i.i.d. from distribution \\(P(X,Y)\\). Let’s write this as \\(D \\sim P^n\\).\n\n\n\n\nAssume for simplicity this is a regression problem with \\(y \\in \\mathbb{R}\\) and \\(L_2\\) loss.\n\n\n\n\nWhat is the expected test error for a function \\(h_D(x)=y\\) trained on the training set \\(D \\sim P^n\\), assuming a learning algorithm \\(\\mathcal{A}\\)? It is:"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#method-rmsprop-contd",
-    "href": "lecs/w06/lec06.html#method-rmsprop-contd",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Method: RMSProp (cont’d)",
-    "text": "Method: RMSProp (cont’d)\nThe following update is applied to each coordinate j independently: \\[\\begin{align*}\n\\mathbb{E}_{D \\sim P^n, (x,y) \\sim P} \\left[ (h_D(x) - y)^2 \\right]\n\\end{align*}\\]"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#expected-test-error-for-regression-ii",
-    "href": "lecs/w06/lec06.html#expected-test-error-for-regression-ii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Expected Test Error for Regression II",
-    "text": "Expected Test Error for Regression II\n\\[\\begin{align*}\n\\mathbb{E}_{D \\sim P^n, (x,y) \\sim P} \\left[ (h_D(x) - y)^2 \\right]\n\\end{align*}\\]\n\n\nThe expectation is taken with respect to possible training sets \\(D \\sim P^n\\) and the test distribution P. Let’s write the expectation as \\(\\mathbb{E}_{D,x,y}\\) for notational simplicity.\n\n\n\n\nNote that this is the expected test error not the empirical test error that we report after training. How are they different?"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#decomposing-the-expected-test-error",
-    "href": "lecs/w06/lec06.html#decomposing-the-expected-test-error",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Decomposing the Expected Test Error",
-    "text": "Decomposing the Expected Test Error\nLet’s start by adding and subtracting the same quantity \\[\\begin{multline*}\n  \\mathbb{E}_{D,x,y} \\left[ \\left(h_D(x) - y\\right)^2 \\right] \\\\\n  = \\mathbb{E}_{D,x,y} \\left[ \\left(h_D(x) - \\hat{h}(x) + \\hat{h}(x) - y\\right)^2 \\right]\n\\end{multline*}\\]\n\n\\(\\hat{h}(x) = \\mathbb{E}_{D \\sim P^n}[h_D(x)]\\) is the expected regressor over possible training sets, given the learning algorithm \\(\\mathcal{A}\\)."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#decomposing-the-expected-test-error-1",
-    "href": "lecs/w06/lec06.html#decomposing-the-expected-test-error-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Decomposing the Expected Test Error",
-    "text": "Decomposing the Expected Test Error\nAfter some algebraic manipulation (proof), we can show that:\n\\[\\begin{multline*}\n  \\underbrace{\\mathbb{E}_{D,x,y} \\left[ (h_D(x) - y)^2 \\right]}_{\\text{Expected test error}}\n  = \\underbrace{\\mathbb{E}_{D,x} \\left[\\left(h_D(x) - \\hat{h}(x)\\right)^2 \\right]}_{\\text{Variance}} \\\\\n  + \\underbrace{\\mathbb{E}_{x,y} \\left[\\left(\\hat{y}(x) - y\\right)^2 \\right]}_{\\text{Noise}} +\n         \\underbrace{\\mathbb{E}_{x} \\left[\\left(\\hat{h}(x) - \\hat{y}(x)\\right)^2 \\right]}_{\\text{Bias}}\n\\end{multline*}\\]\n\n\\(\\hat{y}(x) = \\mathbb{E}_{y|x}[y]\\) is the expected label given \\(x\\). Labels might not be deterministic given x."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#what-is-differential-privacy-dp",
-    "href": "lecs/w06/lec06.html#what-is-differential-privacy-dp",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "What is Differential Privacy (DP)?",
-    "text": "What is Differential Privacy (DP)?\n\nDefinition: A mathematical framework for quantifying and controlling the privacy risks in data analysis.\n\n\n\nGoal: Ensures that the inclusion or exclusion of a single data point does not significantly affect the output of a model.\n\n\n\nWhy?\n\n\n\nProtects sensitive information in training data.\n\n\n\n\nPrevents models from overfitting to individual samples."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#definition-of-differential-privacy",
-    "href": "lecs/w06/lec06.html#definition-of-differential-privacy",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Definition of Differential Privacy",
-    "text": "Definition of Differential Privacy\n\nIntuitive definition An algorithm is differentially private if the addition or removal of a single data point does not significantly affect the output.\n\n\n\nFormal definition: An algorithm is \\(\\varepsilon\\)-differentially private if for all datasets ( D ) and ( D’ ) differing in one element, and for all outputs ( S ):\n\n\\[\\begin{align*}\n\\Pr[Model(D) = S] \\leq \\exp(\\varepsilon) \\cdot \\Pr[Model(D') = S]\n\\end{align*}\\]"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#dp-in-deep-learning",
-    "href": "lecs/w06/lec06.html#dp-in-deep-learning",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "DP in Deep Learning",
-    "text": "DP in Deep Learning\nApplying DP in Neural Networks: Introduce noise to gradients during training.\n\nMechanisms (DP-SGD)\n\nClips gradients to a maximum norm.\n\n\n\n\nAdds calibrated Gaussian noise to the gradients."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#example-healthcare-dataset",
-    "href": "lecs/w06/lec06.html#example-healthcare-dataset",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example – Healthcare Dataset",
-    "text": "Example – Healthcare Dataset\nScenario: Predicting Disease Risk\n\nTask: A neural network is trained to predict the risk of a disease based on patient health records.\n\n\nData: Sensitive medical information such as diagnosis history."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#example-healthcare-dataset-ii",
-    "href": "lecs/w06/lec06.html#example-healthcare-dataset-ii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example – Healthcare Dataset II",
-    "text": "Example – Healthcare Dataset II\nWhat Happens Without DP?\n\nOutcome: The model performs well but memorizes some specific details from training samples.\n\n\n\nRisk: If an attacker queries the model with information about a specific individual, the model could reveal their presence in the training set by giving a higher probability for that individual, leaking private information."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#example-healthcare-dataset-iii",
-    "href": "lecs/w06/lec06.html#example-healthcare-dataset-iii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example – Healthcare Dataset III",
-    "text": "Example – Healthcare Dataset III\nWith DP:\n\nOutcome: The model’s predictions are less influenced by any single training sample. The addition of noise prevents overfitting to specific patient data.\n\n\n\nBenefit: The model’s output is less likely to change noticeably even if a single patient’s record is added or removed, protecting patient privacy."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#example-e-commerce-recommendations",
-    "href": "lecs/w06/lec06.html#example-e-commerce-recommendations",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example – E-Commerce Recommendations",
-    "text": "Example – E-Commerce Recommendations\nScenario: Personalized Product Recommendations\n\nTask: A deep learning model recommends products based on customer browsing history and previous purchases.\n\n\nData: Includes user shopping patterns, age, and location."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#example-e-commerce-recommendations-ii",
-    "href": "lecs/w06/lec06.html#example-e-commerce-recommendations-ii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example – E-Commerce Recommendations II",
-    "text": "Example – E-Commerce Recommendations II\nWithout DP:\n\nOutcome: The model gives highly personalized recommendations.\n\n\n\nRisk: An attacker could infer specific details about individual users (e.g., based on specific product recommendations or similarities to other users’ behaviors), leading to a privacy breach."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#example-e-commerce-recommendations-iii",
-    "href": "lecs/w06/lec06.html#example-e-commerce-recommendations-iii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example – E-Commerce Recommendations III",
-    "text": "Example – E-Commerce Recommendations III\nWith DP:\n\nOutcome: Slightly less personalized recommendations but better generalization to unseen users.\n\n\n\nBenefit: An attacker would have a much harder time inferring personal details from the recommendations, thanks to the noise added during model training."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#summary",
-    "href": "lecs/w06/lec06.html#summary",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Summary",
-    "text": "Summary"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#learning-rate",
-    "href": "lecs/w06/lec06.html#learning-rate",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Learning Rate",
-    "text": "Learning Rate\nThe learning rate \\(\\alpha\\) is a hyperparameter we need to tune. Here are the things that can go wrong in batch mode:\n\n\n\n\n\n\n\n\n\n\\(\\alpha\\) too small:\n\\(\\alpha\\) too large:\n\\(\\alpha\\) much too large:\n\n\n\n\n\n\n\n\n\nslow progress\noscillations\ninstability"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#stochastic-gradient-descent",
-    "href": "lecs/w06/lec06.html#stochastic-gradient-descent",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Stochastic Gradient Descent",
-    "text": "Stochastic Gradient Descent\nBatch gradient descent moves directly downhill. SGD takes steps in a noisy direction, but moves downhill on average.\n\n\n\n\n\n\n\n\nbatch gradient descent:\nstochastic gradient descent:"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#sgd-learning-rate",
-    "href": "lecs/w06/lec06.html#sgd-learning-rate",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "SGD Learning Rate",
-    "text": "SGD Learning Rate\nIn stochastic training, the learning rate also influences the fluctuations due to the stochasticity of the gradients.\n\n\n\n\nUse a large learning rate early in training so you can get close to the optimum\nGradually decay the learning rate to reduce the fluctuations"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#sgd-batch-size",
-    "href": "lecs/w06/lec06.html#sgd-batch-size",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "SGD Batch Size",
-    "text": "SGD Batch Size\nThe tradeoff between smaller vs larger batch size\n\\[\\begin{align*}\n  \\text{Var}\\left[\\frac{1}{S} \\sum_{i=1}^S \\frac{\\partial \\mathcal{L}^{(i)}}{\\partial \\theta_j}\\right]\n  &=\n  \\frac{1}{S^2} \\text{Var} \\left[\\sum_{i=1}^S \\frac{\\partial \\mathcal{L}^{(i)}}{\\partial \\theta_j} \\right] \\\\\n  &=\n  \\frac{1}{S} \\text{Var} \\left[\\frac{\\partial \\mathcal{L}^{(i)}}{\\partial \\theta_j} \\right]\n\\end{align*}\\]\nLarger batch size implies smaller variance, but at what cost?"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#training-curve-or-learning-curve",
-    "href": "lecs/w06/lec06.html#training-curve-or-learning-curve",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Training Curve (or Learning Curve)",
-    "text": "Training Curve (or Learning Curve)\nTo diagnose optimization problems, it’s useful to look at learning curves: plot the training cost (or other metrics) as a function of iteration.\n\n\n\n\n\nNote: it’s very hard to tell from the training curves whether an optimizer has converged. They can reveal major problems, but they can’t guarantee convergence."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#visualizing-optimization-algorithms",
-    "href": "lecs/w06/lec06.html#visualizing-optimization-algorithms",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Visualizing Optimization Algorithms",
-    "text": "Visualizing Optimization Algorithms\nYou might want to check out these links:\n\nAn overview of gradient descent algorithms: https://ruder.io/optimizing-gradient-descent\nCS231n: https://cs231n.github.io/neural-networks-3/\nWhy momentum really works: https://distill.pub/2017/momentum/"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#questions-1",
-    "href": "lecs/w06/lec06.html#questions-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Questions",
-    "text": "Questions\n\nHow do we choose between different neural network models?\n\nFor example, different number of hidden units, hidden layers, …?\n\nHow do we know how well a model will perform on new data?"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#the-training-set-1",
-    "href": "lecs/w06/lec06.html#the-training-set-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Training Set",
-    "text": "The Training Set\nThe training set is used\n\nto determine the value of the parameters\n\nThe model’s prediction accuracy over the training set is called the training accuracy."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#the-training-set-contd",
-    "href": "lecs/w06/lec06.html#the-training-set-contd",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Training Set (cont’d)",
-    "text": "The Training Set (cont’d)\nQ: Can we use the training accuracy to estimate how well a model will perform on new data?\n\n\nNo! It is possible for a model to fit well to the training set, but fail to generalize\nWe want to know how well the model performs on new data that we didn’t already use to optimize the model"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#poor-generalization-1",
-    "href": "lecs/w06/lec06.html#poor-generalization-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Poor Generalization",
-    "text": "Poor Generalization"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#overfitting-and-underfitting",
-    "href": "lecs/w06/lec06.html#overfitting-and-underfitting",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Overfitting and Underfitting",
-    "text": "Overfitting and Underfitting\nUnderfitting:\n\nThe model is simple and doesn’t fit the data\nThe model does not capture discriminative features of the data\n\nOverfitting:\n\nThe model is too complex and does not generalize\nThe model captures information about patterns in training set that happened by chance"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#overfitting-and-underfitting-contd",
-    "href": "lecs/w06/lec06.html#overfitting-and-underfitting-contd",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Overfitting and Underfitting (cont’d)",
-    "text": "Overfitting and Underfitting (cont’d)\nOverfitting:\n\nThe model is too complex and does not generalize\nThe model captures information about patterns in training set that happened by chance\n\ne.g. Ringo happens to be always wearing a red shirt in the training set\nModel learns: high red pixel content =&gt; predict Ringo"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#the-test-set-1",
-    "href": "lecs/w06/lec06.html#the-test-set-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Test Set",
-    "text": "The Test Set\nWe set aside a test set of labelled examples.\nThe model’s prediction accuracy over the test set is called the test accuracy.\nThe purpose of the test set is to give us a good estimate of how well a model will perform on new data.\nQ: In general, will the test accuracy be higher or lower than the training accuracy?"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#model-choices-1",
-    "href": "lecs/w06/lec06.html#model-choices-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Model Choices",
-    "text": "Model Choices\nBut what about decisions like:\n\nHow many layers?\nHow many units in each layer?\nWhat non-linear activation to use?"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#model-choices-contd",
-    "href": "lecs/w06/lec06.html#model-choices-contd",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Model Choices (cont’d)",
-    "text": "Model Choices (cont’d)\nQ: Why can’t we use the test set to determine which model we should deploy?\n\n\nIf we use the test set to make modeling decisions, then we will overestimate how well our model will perform on new data!\nWe are “cheating” by “looking at the test”"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#the-validation-set-1",
-    "href": "lecs/w06/lec06.html#the-validation-set-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Validation set",
-    "text": "The Validation set\nWe therefore need a third set of labeled data called the validation set\nThe model’s prediction accuracy over the validation set is called the validation accuracy.\nThis dataset is used to:\n\nMake decisions about models that is not continuous and can’t be optimized via gradient descent\nExample: choose \\(k\\), choose which features \\(x_j\\) to use, choose \\(\\alpha\\), …"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#the-validation-set-contd",
-    "href": "lecs/w06/lec06.html#the-validation-set-contd",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Validation set (cont’d)",
-    "text": "The Validation set (cont’d)\nThe model’s prediction accuracy over the validation set is called the validation accuracy.\nThis dataset is used to:\n\nMake decisions about models that is not continuous and can’t be optimized via gradient descent\nExample: choose \\(k\\), choose which features \\(x_j\\) to use, choose \\(\\alpha\\), …\n\nThese model settings are called hyperparameters\n\nThe validation set is used to optimize hyperparameters"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#splitting-the-data-set",
-    "href": "lecs/w06/lec06.html#splitting-the-data-set",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Splitting the data set",
-    "text": "Splitting the data set\nExample split:\n\n60% Training\n20% Validation\n20% Test\n\nThe actual split depends on the amount of data that you have.\nIf you have more data, you can get a way with a smaller % validation and set."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#detecting-overfitting-1",
-    "href": "lecs/w06/lec06.html#detecting-overfitting-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Detecting Overfitting",
-    "text": "Detecting Overfitting\nLearning curve:\n\n\n\n\n\nx-axis: epochs or iterations\ny-axis: cost, error, or accuracy\n\n\nQ: In which epochs is the model overfitting? Underfitting?\nQ: Why don’t we plot the test accuracy plot?"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#strategies-to-prevent-overfitting-1",
-    "href": "lecs/w06/lec06.html#strategies-to-prevent-overfitting-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Strategies to Prevent Overfitting",
-    "text": "Strategies to Prevent Overfitting\n\nData Augmentation\nReducing the number of parameters\nWeight decay\nEarly stopping\nEnsembles\nStochastic regularization (e.g. dropout)"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#data-augmentation-1",
-    "href": "lecs/w06/lec06.html#data-augmentation-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Data Augmentation",
-    "text": "Data Augmentation\nThe best way to improve generalization is to collect more data!\nBut if we already have all the data we’re willing to collect. We can augment the training data by transforming the examples. This is called data augmentation."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#data-augmentation-contd",
-    "href": "lecs/w06/lec06.html#data-augmentation-contd",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Data Augmentation (cont’d)",
-    "text": "Data Augmentation (cont’d)\nExample (for images, but depends on task):\n\ntranslation\nhorizontal or vertical flip\nrotation\nsmooth warping\nnoise (e.g. flip random pixels)\n\nWe should only warp the training examples, not the validation or test examples (why?)"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#reducing-the-number-of-parameters-1",
-    "href": "lecs/w06/lec06.html#reducing-the-number-of-parameters-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Reducing the Number of Parameters",
-    "text": "Reducing the Number of Parameters\nNetworks with fewer trainable parameters are less likely to overfit. We can reduce the number of layers, or the number of parameters per layer.\nAdding a bottleneck layer is another way to reduce the number of parameters"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#reducing-the-number-of-parameters-contd",
-    "href": "lecs/w06/lec06.html#reducing-the-number-of-parameters-contd",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Reducing the Number of Parameters (cont’d)",
-    "text": "Reducing the Number of Parameters (cont’d)\nAdding a bottleneck layer is another way to reduce the number of parameters\n\n\n\nIn practise, this isn’t a great idea."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#weight-decay-idea-1",
-    "href": "lecs/w06/lec06.html#weight-decay-idea-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Weight Decay Idea",
-    "text": "Weight Decay Idea\nIdea: Penalize large weights, by adding a term (e.g. \\(\\sum_k w_k ^ 2\\)) to the cost function\nQ: Why is it not ideal to have large (absolute value) weights?\n\nBecause large weights mean that the prediction relies a lot on the content of one feature (e.g. one pixel)"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#small-vs-large-weights-1",
-    "href": "lecs/w06/lec06.html#small-vs-large-weights-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Small vs Large Weights",
-    "text": "Small vs Large Weights\nThe red polynomial overfits. Notice it has really large coefficients"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#weight-decay-1",
-    "href": "lecs/w06/lec06.html#weight-decay-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Weight Decay",
-    "text": "Weight Decay\n\n\\(L^1\\) regularization: add a term \\(\\sum_{j=1}^D |w_j|\\) to the cost function\n\nMathematically, this term encourages weights to be exactly 0\n\n\\(L^2\\) regularization: add a term \\(\\sum_{j=1}^D w_j^2\\) to the cost function\n\nMathematically, in each iteration the weight is pushed towards 0\n\nCombination of \\(L^1\\) and \\(L^2\\) regularization: add a term \\(\\sum_{j=1}^D |w_j| + w_j^2\\) to the cost function"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#example-weight-decay-for-regression-1",
-    "href": "lecs/w06/lec06.html#example-weight-decay-for-regression-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example: Weight Decay for Regression",
-    "text": "Example: Weight Decay for Regression\nCost function:\n\\[\\mathcal{E}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2\\]\nCost function with weight decay:\n\\[\\mathcal{E}_{WD}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2 + \\lambda \\sum_j w_j^2\\]"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#weight-decay-nomanclature-1",
-    "href": "lecs/w06/lec06.html#weight-decay-nomanclature-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Weight Decay Nomanclature",
-    "text": "Weight Decay Nomanclature\n\\[\\mathcal{E}_{WD}({\\bf w}, b) = \\frac{1}{2N}\\sum_i \\left(\\left({\\bf w} {\\bf x}^{(i)} + b\\right) - t^{(i)}\\right)^2 + \\lambda \\sum_j w_j^2\\]\n\\[\\frac{\\partial \\mathcal{E}_{WD}}{\\partial w_j} = \\frac{\\partial \\mathcal{E}}{\\partial w_j} + \\lambda 2 w_j\\]\nSo the gradient descent update rule becomes:\n\\[w_j \\leftarrow w_j - \\alpha\\left(\\frac{\\partial \\mathcal{E}}{\\partial w_j} + 2 \\lambda w_j\\right)\\]"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#early-stopping-1",
-    "href": "lecs/w06/lec06.html#early-stopping-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Early Stopping",
-    "text": "Early Stopping\nIdea: Stop training when the validation error starts going up.\n\n\n\n\nIn practice, this is implemented by checkpointing (saving) the neural network weights every few iterations/epochs during training. \n\n\n\nWe choose the checkpoint with the best validation error to actually use. (And if there is a tie, use the earlier checkpoint)"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#why-does-early-stopping-work-1",
-    "href": "lecs/w06/lec06.html#why-does-early-stopping-work-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Why does early stopping work?",
-    "text": "Why does early stopping work?\nWeights start off small, so it takes time for them to grow large.\nTherefore, stopping early has a similar effect to weight decay.\nIf you’re using sigmoid units, and the weights start out small, then the inputs to the activation functions take only a small range of values.\n\nThe neural network starts out approximately linear, and gradually becomes non-linear (and thus more powerful)"
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#ensembles-1",
-    "href": "lecs/w06/lec06.html#ensembles-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Ensembles",
-    "text": "Ensembles\nIf a loss function is convex (with respect to the predictions), you have a bunch of predictions for an input, and you don’t know which one is best, you are always better off averaging them!\n\\[\\mathcal{L}(\\lambda_1 y_1 + \\dots \\lambda_N y_N, t) \\le \\lambda_1 \\mathcal{L}(y_1, t) + \\dots \\lambda_N\\mathcal{L}(y_N, t)\\]\nfor \\(\\lambda_i \\ge 0\\) and \\(\\sum_i \\lambda_i = 1\\)\nIdea: Build multiple candidate models, and average the predictions on the test data.\nThis set of models is called an ensemble."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#examples-of-ensembles-1",
-    "href": "lecs/w06/lec06.html#examples-of-ensembles-1",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Examples of Ensembles",
-    "text": "Examples of Ensembles\n\nTrain neural networks starting from different random initialization (might not give enough diversity)\nTrain different network on different subset of the training data (called bagging)\nTrain networks with different architectures, hyperparameters, or use other machine learning models\n\nEnsembles can improve generalization substantially.\nHowever, ensembles are expensive."
-  },
-  {
-    "objectID": "lecs/w06/lec06.html#stochastic-regularization-1",
-    "href": "lecs/w06/lec06.html#stochastic-regularization-1",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Stochastic Regularization",
     "text": "Stochastic Regularization\nFor a network to overfit, its computations need to be really precise. This suggests regularizing them by injecting noise into the computations, a strategy known as stochastic regularization.\nOne example is dropout: in each training iteration, random choose a portion of activations to set to 0."
@@ -623,22 +224,22 @@
     "text": "Stochastic Regularization (cont’d)\nThe probability \\(p\\) that an activation is set to 0 is a hyperparameter."
   },
   {
-    "objectID": "lecs/w06/lec06.html#dropout-1",
-    "href": "lecs/w06/lec06.html#dropout-1",
+    "objectID": "lecs/w06/lec06.html#dropout",
+    "href": "lecs/w06/lec06.html#dropout",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Dropout",
     "text": "Dropout\n\n\n\n\nDropout can be seen as training an ensemble of 2D different architectures with shared weights (where D is the number of units)"
   },
   {
-    "objectID": "lecs/w06/lec06.html#dropout-at-test-time-1",
-    "href": "lecs/w06/lec06.html#dropout-at-test-time-1",
+    "objectID": "lecs/w06/lec06.html#dropout-at-test-time",
+    "href": "lecs/w06/lec06.html#dropout-at-test-time",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Dropout at Test Time",
-    "text": "Dropout at Test Time\nDon’t do dropout at test time (why not?)\nMultiply the weights by \\(1-p\\) (why?)\n\nSince the weights are on \\(1-p\\) fraction of the time, multiplying the weights by \\(1-p\\) matches the expected value of the activation magnitude (e.g. going into the next layer)."
+    "text": "Dropout at Test Time\nDon’t do dropout at test time (why not?)\nMultiply the weights by \\(1-p\\) (why?)\n\nEach activation is kept with probability \\(1-p\\), so the expected input to the next layer during training is \\((1-p)\\sum_j w_j h_j\\). Multiplying the outgoing weights by \\(1-p\\) at test time matches this expected value. This is exact for the next layer’s pre-activation, but only an approximation of the ensemble average after further non-linearities."
   },
   {
-    "objectID": "lecs/w06/lec06.html#summary-of-bag-of-tricks-1",
-    "href": "lecs/w06/lec06.html#summary-of-bag-of-tricks-1",
+    "objectID": "lecs/w06/lec06.html#summary-of-bag-of-tricks",
+    "href": "lecs/w06/lec06.html#summary-of-bag-of-tricks",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Summary of “Bag of Tricks”",
     "text": "Summary of “Bag of Tricks”\n\nData Augmentation\nReducing the number of parameters\nWeight decay\nEarly stopping\nEnsembles\nStochastic regularization (e.g. dropout)"
@@ -672,8 +273,8 @@
     "text": "Why does the training curve to look like this?\n\n\n\n\n\nEvidence of overfitting\nEvidence of underfitting\nToo much momentum\nThe weights were all initialized to 0"
   },
   {
-    "objectID": "lecs/w06/lec06.html#expected-test-error-for-regression-1",
-    "href": "lecs/w06/lec06.html#expected-test-error-for-regression-1",
+    "objectID": "lecs/w06/lec06.html#expected-test-error-for-regression",
+    "href": "lecs/w06/lec06.html#expected-test-error-for-regression",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Expected Test Error for Regression",
     "text": "Expected Test Error for Regression\n\nTraining set \\(D = \\{(x_1, y_1), ..., (x_n, y_n)\\}\\) drawn i.i.d. from distribution \\(P(X,Y)\\). Let’s write this as \\(D \\sim P^n\\).\nAssume for simplicity this is a regression problem with \\(y \\in \\mathbb{R}\\) and \\(L_2\\) loss.\nWhat is the expected test error for a function \\(h_D(x)=y\\) trained on the training set \\(D \\sim P^n\\), assuming a learning algorithm \\(\\mathcal{A}\\)? It is:\n\n\\[\\begin{align*}\n\\mathbb{E}_{D \\sim P^n, (x,y) \\sim P} \\left[ (h_D(x) - y)^2 \\right]\n\\end{align*}\\]"
@@ -686,15 +287,15 @@
     "text": "Expected Test Error for Regression (cont’d)\n\\[\\begin{align*}\n\\mathbb{E}_{D \\sim P^n, (x,y) \\sim P} \\left[ (h_D(x) - y)^2 \\right]\n\\end{align*}\\]\n\nThe expectation is taken with respect to possible training sets \\(D \\sim P^n\\) and the test distribution P. Let’s write the expectation as \\(\\mathbb{E}_{D,x,y}\\) for notational simplicity.\nNote that this is the expected test error not the empirical test error that we report after training. How are they different?"
   },
   {
-    "objectID": "lecs/w06/lec06.html#decomposing-the-expected-test-error-2",
-    "href": "lecs/w06/lec06.html#decomposing-the-expected-test-error-2",
+    "objectID": "lecs/w06/lec06.html#decomposing-the-expected-test-error",
+    "href": "lecs/w06/lec06.html#decomposing-the-expected-test-error",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Decomposing the Expected Test Error",
     "text": "Decomposing the Expected Test Error\nLet’s start by adding and subtracting the same quantity \\[\\begin{align*}\n  \\mathbb{E}_{D,x,y} \\left[ \\left(h_D(x) - y\\right)^2 \\right] = \\mathbb{E}_{D,x,y} \\left[ \\left(h_D(x) - \\hat{h}(x) + \\hat{h}(x) - y\\right)^2 \\right]\n\\end{align*}\\]\n\\(\\hat{h}(x) = \\mathbb{E}_{D \\sim P^n}[h_D(x)]\\) is the expected regressor over possible training sets, given the learning algorithm \\(\\mathcal{A}\\).\n\\(\\hat{y}(x) = \\mathbb{E}_{y|x}[y]\\) is the expected label given \\(x\\). Labels might not be deterministic given x."
   },
   {
-    "objectID": "lecs/w06/lec06.html#decomposing-the-expected-test-error-3",
-    "href": "lecs/w06/lec06.html#decomposing-the-expected-test-error-3",
+    "objectID": "lecs/w06/lec06.html#decomposing-the-expected-test-error-1",
+    "href": "lecs/w06/lec06.html#decomposing-the-expected-test-error-1",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Decomposing the Expected Test Error",
     "text": "Decomposing the Expected Test Error\nAfter some algebraic manipulation (proof), we can show that:\n\\[\\begin{align*}\n  \\underbrace{\\mathbb{E}_{D,x,y} \\left[ (h_D(x) - y)^2 \\right]}_{\\text{Expected test error}} =\\;& \\underbrace{\\mathbb{E}_{D,x} \\left[\\left(h_D(x) - \\hat{h}(x)\\right)^2 \\right]}_{\\text{Variance}} + \\\\\n    & \\underbrace{\\mathbb{E}_{x,y} \\left[\\left(\\hat{y}(x) - y\\right)^2 \\right]}_{\\text{Noise}} + \\\\\n        & \\underbrace{\\mathbb{E}_{x} \\left[\\left(\\hat{h}(x) - \\hat{y}(x)\\right)^2 \\right]}_{\\text{Bias}}\n\\end{align*}\\]"
