@@ -92,7 +92,7 @@ While this project has some structure, you will be required to deal with the amb
 
 Projects must be done in groups of 3-4. Please form groups on CrowdMark. Exceptions to this rule can be made only in rare cases provided there is good reason to do so. Email the instructors if this applies to you. If you do not know anyone in class feel free to post a message on Piazza. We will also set aside some time during the tutorial for students who are looking for collaborators to find each other and discuss forming a group.
 
-The project proposal is due by **November 2, 2026**. The proposal describes your problem domain choice, goals, data, and approach. It requires significant thinking, planning, research, and exploratory data analysis, and is to be written in the style of a condensed academic paper (1-2 pages) using the NeurIPS LaTeX template. Writing parts of the paper before conducting the research is a way to clarify your ideas in a concrete, visible, and understandable way, so that these ideas can be discussed meaningfully (see [Write the Paper First](https://www.cs.jhu.edu/~jason/advice/write-the-paper-first.html) and [How to Write a Great Research Paper](https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/), though the latter is not ML-focused). You will receive TA feedback on both your ideas/approach and your writing, and you are expected to apply that feedback in your final report.
+The project proposal is due by **November 2, 2026**. The proposal describes your problem domain choice, goals, data, and approach. It requires significant thinking, planning, research, and exploratory data analysis. It is to be written in the style of half of an academic paper (4-6 pages) using the NeurIPS LaTeX template. Writing parts of the paper before conducting the research is a way to clarify your ideas in a concrete, visible, and understandable way, so that these ideas can be discussed meaningfully (see [Write the Paper First](https://www.cs.jhu.edu/~jason/advice/write-the-paper-first.html) and [How to Write a Great Research Paper](https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/), though the latter is not ML-focused). You will receive TA feedback on both your ideas/approach and your writing, and you are expected to apply that feedback in your final report.
 
 ### Project Requirements
 
@@ -139,7 +139,7 @@ The table below describes the major sections in your project proposal and final 
 
 ### Project Proposal Rubric
 
-The project proposal document should be 1-2 pages and use the NeurIPS LaTeX template. It is graded out of 40 points.
+The project proposal document should be 4-6 pages and use the NeurIPS LaTeX template. It is graded out of 40 points.
 
 | Section | Points | Criteria for full credit |
 |-----------|:-----:|---------------------------|
