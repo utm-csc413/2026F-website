@@ -112,6 +112,13 @@ Here are some examples of possible projects:
 
 Before choosing a project, consider whether there is data available for you. Since the project deadline is about a month away, consider tailoring your project ideas to what data is available to you.
 
+There are many places to find public datasets for machine learning. Here are a few suggestions, but feel free to search for your own:
+
+-   <https://kaggle.com/datasets/>
+-   <https://www.openml.org/search?type=task&sort=runs>
+-   <https://archive.ics.uci.edu/datasets>
+-   <https://data.ontario.ca/> and other government open data initiatives
+
 You are encouraged to use transfer learning and data augmentation ideas in your project.
 
 You can use deep learning packages (e.g. pytorch, huggingface). However, you should be able to explain the steps involved in the forward pass computation of your model.
@@ -254,7 +261,7 @@ The repository should contain:
 
 ### Paper and Section Length
 
-Your paper should be exactly 8 pages and use the NeurIPS LaTeX template. You may use additional pages only for references.
+Your paper should be **exactly 8 pages** and use the NeurIPS LaTeX template. You may use additional pages only for references.
 
 The abstract and introduction should take about 1.5 pages. The background and related work section should be no more than 1 page. The data section should be about 1-1.5 pages. The model architecture should also be about 1 page, including the figure. The results and discussion should take about 2-3 pages. The limitations and ethical considerations are about half a page, and the conclusion should be at most half a page.
 
@@ -278,3 +285,7 @@ Here is the marking scheme that we will use. The final report is graded out of 4
 | Ethical Considerations | 2 | Same criteria as the proposal, with feedback from the proposal addressed. |
 | Conclusion | 2 | Clear summary of the results achieved in relation to the problem. The description is consistent with the rest of the paper. |
 | Writing Revision | 4 | Substantial revision of the writing issues identified by the TAs in the project proposal. To earn full credit, correct the majority of instances of each issue identified (for example, if the TA noted that many terms are not defined, adding definitions for just the ones the TA explicitly highlighted is not sufficient; find all instances of the issue in your work). |
+
+### Publishing Your Work
+
+Beyond the course, strong final reports are encouraged to go one step further: the Department of Mathematical and Computational Sciences runs a student research journal, the [MCS Journal](https://jps.library.utoronto.ca/index.php/mcsjournal), hosted on the University of Toronto's journal platform. By submitting your project you will have your written work peer-reviewed and published. You will also gain experience of the whole process of academic research. As your final report is already formatted in the NeurIPS style and received some feedback from your TAs, it makes a great starting point. This is completely optional and not related to the course assessment. However, it would be a great way for you to take your work further.
