@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Fall 2026 - UTM - CSC 413: Neural Networks and Deep Learning – CSC413 - Fall 2026, UTM</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -30,17 +36,20 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./index.qmd#instructors" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-aa2e280f5f0f1c206e9e1b595e865951.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-40808b6f0c3085988c400b067a015837.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f46391e6004ccff5444146f5c75e1122.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-419f4dea9d75e15a59071e77c657a98a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f46391e6004ccff5444146f5c75e1122.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -80,7 +89,169 @@ ul.task-list li input[type="checkbox"] {
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-sidebar docked">
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -104,7 +275,8 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/neural_network.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./images/neural_network.jpg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./images/neural_network.jpg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">UTM - CSC413 Neural Networks and Deep Learning</a> 
@@ -191,19 +363,23 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#logistics" id="toc-logistics" class="nav-link" data-scroll-target="#logistics">Logistics</a></li>
   <li><a href="#project-requirements" id="toc-project-requirements" class="nav-link" data-scroll-target="#project-requirements">Project Requirements</a></li>
-  <li><a href="#project-proposal-1" id="toc-project-proposal-1" class="nav-link" data-scroll-target="#project-proposal-1">Project Proposal</a></li>
+  <li><a href="#paper-sections-and-formatting" id="toc-paper-sections-and-formatting" class="nav-link" data-scroll-target="#paper-sections-and-formatting">Paper Sections and Formatting</a></li>
+  <li><a href="#project-proposal-rubric" id="toc-project-proposal-rubric" class="nav-link" data-scroll-target="#project-proposal-rubric">Project Proposal Rubric</a></li>
+  <li><a href="#advice" id="toc-advice" class="nav-link" data-scroll-target="#advice">Advice</a></li>
   </ul></li>
   <li><a href="#final-project" id="toc-final-project" class="nav-link" data-scroll-target="#final-project">Final Project</a>
   <ul class="collapse">
   <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
   <li><a href="#repository-content" id="toc-repository-content" class="nav-link" data-scroll-target="#repository-content">Repository Content</a></li>
-  <li><a href="#marking-scheme" id="toc-marking-scheme" class="nav-link" data-scroll-target="#marking-scheme">Marking Scheme</a></li>
+  <li><a href="#paper-and-section-length" id="toc-paper-and-section-length" class="nav-link" data-scroll-target="#paper-and-section-length">Paper and Section Length</a></li>
+  <li><a href="#final-report-rubric" id="toc-final-report-rubric" class="nav-link" data-scroll-target="#final-report-rubric">Final Report Rubric</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/utm-csc413/2026F-website/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -603,14 +779,13 @@ Distribution Requirement: SCI</p>
 <h2 class="anchored" data-anchor-id="project-proposal">Project Proposal</h2>
 <section id="logistics" class="level3">
 <h3 class="anchored" data-anchor-id="logistics">Logistics</h3>
-<p>Projects must be done in groups of 3-4. Please form groups on CrowdMark by [date TBA] . Exceptions to this rule can be made only in rare cases provided there is good reason to do so. Email the instructors if this applies to you. If you do not know anyone in class feel free to post a message on Piazza. We will also set aside some time during the tutorial for students who are looking for collaborators to find each other and discuss forming a group.</p>
-<p>A 1-2 page project proposal is due by [date TBA]. You will also be asked to summarize the data set that you are using for this proposal.</p>
-<p>Each team will submit a github repository page that describes the deep learning model built in the project. The repository should also contain the code that you wrote.</p>
+<p>Projects must be done in groups of 3-4. Please form groups on CrowdMark. Exceptions to this rule can be made only in rare cases provided there is good reason to do so. Email the instructors if this applies to you. If you do not know anyone in class feel free to post a message on Piazza. We will also set aside some time during the tutorial for students who are looking for collaborators to find each other and discuss forming a group.</p>
+<p>The project proposal is due by <strong>November 2, 2026</strong>. The proposal describes your problem domain choice, goals, data, and approach. It requires significant thinking, planning, research, and exploratory data analysis, and is to be written in the style of a condensed academic paper (1-2 pages) using the NeurIPS LaTeX template. Writing parts of the paper before conducting the research is a way to clarify your ideas in a concrete, visible, and understandable way, so that these ideas can be discussed meaningfully (see <a href="https://www.cs.jhu.edu/~jason/advice/write-the-paper-first.html">Write the Paper First</a> and <a href="https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/">How to Write a Great Research Paper</a>, though the latter is not ML-focused). You will receive TA feedback on both your ideas/approach and your writing, and you are expected to apply that feedback in your final report.</p>
 </section>
 <section id="project-requirements" class="level3">
 <h3 class="anchored" data-anchor-id="project-requirements">Project Requirements</h3>
 <p>By default, your project must either take a sequence (of variable length) as an input, or produce a sequence as an output, or both. If you have a project proposal that does not involve sequences, please contact the instructors.</p>
-<p>Your model should thus involve an RNN or a Transformer component. Students who want to use methods that we have not covered in the course (e.g.&nbsp;diffusion models, neural ODEs) are free to do so, as long as they confirm their methodology with the instructors before they submit this project proposal. There is also flexibility for students to pursue an open research problem. If any groups want to attempt this, they need to discuss this with one of the instructors before the prject proposal deadline.</p>
+<p>Your model should thus involve an RNN or a Transformer component. Students who want to use methods that we have not covered in the course (e.g.&nbsp;diffusion models, neural ODEs) are free to do so, as long as they confirm their methodology with the instructors before they submit this project proposal. There is also flexibility for students to pursue an open research problem. If any groups want to attempt this, they need to discuss this with one of the instructors before the project proposal deadline.</p>
 <p>Here are some examples of possible projects:</p>
 <ul>
 <li>Using an RNN (or transformer) to classify sequences (e.g.&nbsp;whether a restaurant review is positive or negative)</li>
@@ -625,56 +800,229 @@ Distribution Requirement: SCI</p>
 <p>You are encouraged to use transfer learning and data augmentation ideas in your project.</p>
 <p>You can use deep learning packages (e.g.&nbsp;pytorch, huggingface). However, you should be able to explain the steps involved in the forward pass computation of your model.</p>
 </section>
-<section id="project-proposal-1" class="level3">
-<h3 class="anchored" data-anchor-id="project-proposal-1">Project Proposal</h3>
-<p>A 1-2 page project proposal is due by [date TBA]. Please use 12-point font and standard margins. You will also be asked to summarize the data set that you are using for this proposal.</p>
-<p>The proposal should:</p>
+<section id="paper-sections-and-formatting" class="level3">
+<h3 class="anchored" data-anchor-id="paper-sections-and-formatting">Paper Sections and Formatting</h3>
+<p>Both the proposal and the final report must use the NeurIPS 2026 LaTeX template, available on Overleaf: <a href="https://www.overleaf.com/latex/templates/formatting-instructions-for-neurips-2026/bjdwqfdkyftc">Formatting Instructions for NeurIPS 2026</a>.</p>
+<p>The table below describes the major sections in your project proposal and final report. Your exact section headings may differ depending on your topic, but the information described should be easy to find.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Description</th>
+<th style="text-align: center;">Proposal</th>
+<th style="text-align: center;">Final Report</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abstract</td>
+<td>A short description of your goals, task, model, and (for the final report) results. The abstract should make the motivations and the scope of your project clear so that readers can decide whether they are interested in reading your work.</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Introduction</td>
+<td>A description of the motivation behind your work, why the task you chose is interesting/important, and a summary of your (proposed) approach. The problem that you want to solve should be clearly stated: especially the input and output of your model and their format. This section should also make it clear why your deep learning approach is reasonable for this problem.</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Background and Related Work</td>
+<td>A summary of the background material that students of CSC413 would not already be familiar with. A description of related work done in the area, and how your approach compares with theirs. If your project builds on previous work, clearly distinguish what they did from what your new contribution is. Also include a 1-2 sentence summary of other closely related papers. You might not know about all related papers (or have time to carefully read them all), and that’s OK for this project. Using BibTeX is annoying at first, but Google Scholar can give you the BibTeX entries.</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Data</td>
+<td>The dataset used in your model. Include any key exploratory figures that will help readers evaluate the difficulty of your problem and interpret the performance of your model.</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Model Architecture</td>
+<td>A description of your (proposed) model architecture. Please propose an architecture during the proposal phase, but it’s okay to change your architecture. In the final report, this section should have enough detail to reproduce the work, including all hyperparameters and training settings that you used.</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Model Architecture Figure</td>
+<td>A figure that helps show the overall model or idea, to make your paper more accessible, especially to readers who start by skimming. You must create a new figure, not just use someone else’s, even with attribution. All figure text must be legible and approximately the same size as the main text.</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Results</td>
+<td>Describe the performance of your model, either quantitatively or (for generative models) qualitatively. To help interpret the model, compare it with a baseline model. Qualitative evaluation is OK.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Discussion</td>
+<td>Interpret the results of your model. If appropriate, compare the model performance with the baseline. Discuss other features that you notice about the model.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Limitations</td>
+<td>Describe some settings in which we’d expect your approach to perform poorly, or where all existing models fail. Try to guess or explain why these limitations are the way they are. Give some examples of possible extensions, ways to address these limitations, or open problems.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Ethical Considerations</td>
+<td>Potential ethical issues posed by the use or misuse of your model. Your report should transparently communicate the known or anticipated consequences of building and using machine learning models on this task. See the <a href="https://neurips.cc/public/EthicsGuidelines">NeurIPS Ethics Guidelines</a>.</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Work Division</td>
+<td>A description of how the work will be divided between the team members, and how the team members will be working together (e.g.&nbsp;meet every week Tuesday 4-5 pm).</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Conclusion</td>
+<td>State the results achieved in relation to the problem described in the introduction. Repeat the main takeaways from your paper.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="project-proposal-rubric" class="level3">
+<h3 class="anchored" data-anchor-id="project-proposal-rubric">Project Proposal Rubric</h3>
+<p>The project proposal document should be 1-2 pages and use the NeurIPS LaTeX template. It is graded out of 40 points.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 15%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th style="text-align: center;">Points</th>
+<th>Criteria for full credit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abstract</td>
+<td style="text-align: center;">4</td>
+<td>Concise summary that describes your goals, task and model. The abstract length is appropriate (about half a page), and provides enough information about your data, task and approach for a potential reader TA to decide whether they have the expertise to review your work. The abstract is often used to assign reviewers in real conferences, and we may do the same to assign TAs.</td>
+</tr>
+<tr class="even">
+<td>Introduction</td>
+<td style="text-align: center;">4</td>
+<td>Clear explanation of the “what”, “why”, and “so what” of your project: what is your project about? Why is it important? Why is that meaningful? This section should make your general approach clear, as well as convince the reader that your deep learning approach is reasonable (worth trying out) for this problem.</td>
+</tr>
+<tr class="odd">
+<td>Background and Related Work</td>
+<td style="text-align: center;">4</td>
+<td>Provides TAs and other CSC413 students with enough information to understand the rest of your paper, and describes at least 1-2 prior works related to your project to put it into context. The work chosen should be relevant to your particular domain, not just the general method: if you are using transformers to generate video game music, citing the paper that introduces transformers is not sufficient. Instead, cite papers that work on similar tasks. Likewise, if you are using a type of model not discussed in class, or domain ideas (e.g.&nbsp;music theory) that a CSC413 TA would not be familiar with, briefly describe them and cite a source. Claims are supported by relevant citations, and the models you reference are cited.</td>
+</tr>
+<tr class="even">
+<td>Data</td>
+<td style="text-align: center;">4</td>
+<td>A clear description of the data and reproducible steps to clean and format it. The description should give the reader a sense of the difficulty of the problem, and help them understand whether your model architecture is appropriate given the nature of your data. Your description should convince the TA that your group thoroughly explored the features, and can identify and communicate key information to the reader.</td>
+</tr>
+<tr class="odd">
+<td>Model Architecture</td>
+<td style="text-align: center;">4</td>
+<td>Rough description of the type(s) of neural network model(s) that you will use, and the relevant components. For full credit, the TAs should be able to understand why you chose this architecture.</td>
+</tr>
+<tr class="even">
+<td>Model Architecture Figure</td>
+<td style="text-align: center;">2</td>
+<td>A well-thought-out figure that communicates the core idea of your project and architecture immediately. Text is legible and approximately the same size as the main text. Clarity and communicative power are key: an overly complex figure may lack clarity, and an overly simple figure might not communicate much.</td>
+</tr>
+<tr class="odd">
+<td>Ethical Considerations</td>
+<td style="text-align: center;">2</td>
+<td>Thoughtful consideration of ethical issues in data collection, and the impact of using or misusing the model. We are looking for depth of thought beyond what may be “obvious”.</td>
+</tr>
+<tr class="even">
+<td>Work Division</td>
+<td style="text-align: center;">4</td>
+<td>The division of work is well thought out and fair. There should be enough detail that if a new person were to replace a member of your team, they could understand their responsibilities, estimate their time commitment during each week, and identify conflicts.</td>
+</tr>
+<tr class="odd">
+<td>Writing: Structure &amp; Organization</td>
+<td style="text-align: center;">4</td>
+<td>Sections and subsections are ordered appropriately. Content in each section matches the header. Similar content is grouped under a single section, and section sizes are appropriate. Within each section, information is ordered coherently. Paragraphs have topic sentences and are easy to skim. Figures and tables are labeled with appropriate captions and referenced in the main text. Figures and tables are readable, with font sizes similar to the body. Follows the NeurIPS structure, including spacing and formatting guides.</td>
+</tr>
+<tr class="even">
+<td>Writing: Writing Mechanics</td>
+<td style="text-align: center;">4</td>
+<td>Sentences are clear and concise, complete, and not too long or complex. Verbs are descriptive and precise rather than generic. Symbols are annotated with the type of entity they represent. Punctuation is correct, and there are no large amounts of distracting typos and/or grammatical issues.</td>
+</tr>
+<tr class="odd">
+<td>Writing: Audience Expectations</td>
+<td style="text-align: center;">4</td>
+<td>Academic language is used, without slang, impersonal language (“we” is fine, but “I” and “you” are not), or gendered language. Assumed technical knowledge is appropriate for the reader. Acronyms, and terms and concepts unfamiliar to a typical CSC413 student, are defined/explained when first used. Figures that contain text are accessible: images with text are avoided, and captions are descriptive and can be understood by readers with visual impairment.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="advice" class="level3">
+<h3 class="anchored" data-anchor-id="advice">Advice</h3>
+<section id="getting-started" class="level4">
+<h4 class="anchored" data-anchor-id="getting-started">Getting Started</h4>
+<p>One major misconception about academic writing is that papers are written in the same order that they are read. In fact, the introduction and abstract are often some of the last sections that a researcher will write. We suggest that you work on your project proposal in the following order:</p>
+<ol type="1">
+<li>Start by exploring the various datasets available and choose one that matches your interests. Since finding and collecting data can be time-consuming, choose your project based on what datasets are available. As you decide on the dataset, perform exploratory analysis and write the Data section of your proposal. (See “Iterative Writing Process” below; do not aim to write full sentences at this point, jot notes are perfectly fine.)</li>
+<li>Once you have a clear idea of the data, search for related work that uses that dataset, or a similar dataset. Use this research to write the Background and Related Work section.</li>
+<li>Based on your research, propose a model architecture. Write the Model Architecture section and draw your figure. This is also a great time to revise the Related Work section with a description of how your model differs from existing work.</li>
+<li>Consider the work that must be done to build this model, and a baseline model to compare with. What work is required? Use this information to write the Work Division section.</li>
+<li>Consider the limitations and potential ethical issues arising from your approach. Write the Ethical Considerations section.</li>
+<li>Now that you have an idea of what the project will be about, write the Introduction. Although you are now familiar with your project, the introduction is one of the first sections that your reader will see. Clearly explain why your task is important, and what that task really is. The motivation piece is extremely important!</li>
+<li>Finally, write your Abstract. You might start by piecing together key sentences from your introduction, data, and model architecture sections, then refine them so that they flow well.</li>
+</ol>
+<p>As you write each section, you may wish to go back and revise previous sections. This is a great sign, but be careful that you are also making progress: starting a new section is hard and revising is typically easier. When first writing, start by getting all of the information on the page. Once it is there, think more carefully about structure: what are your paragraphs going to be? Are all your terms defined? Are your sentences clear? What other assumptions are you making about the reader?</p>
+</section>
+<section id="iterative-writing-process" class="level4">
+<h4 class="anchored" data-anchor-id="iterative-writing-process">Iterative Writing Process</h4>
+<p>Before starting to write, read several NeurIPS papers to get a feel for the writing style. Ideally, your paper should have a similar sentence structure, level of graphics polish, and reading flow. Trying to achieve all of this by writing from scratch is very hard.</p>
+<p>Counterintuitively, it is faster to create an initial rough draft and iterate over it multiple times than to try to get it right from the beginning. One helpful approach is to first create bullet points, and put all the equations and empty placeholders for tables and figures into the paper. Each bullet point represents a one-sentence summary of a full paragraph. Next, enrich the bullet points with the content that goes into each paragraph. This leaves the worry of finding the best formulation until the end, making text creation much easier since all content is already there.</p>
+<p>Similarly, for figures, create a pen &amp; paper / tablet draft and only create a polished figure once the draft conveys the content you want it to convey. Editing a drawing is much faster than editing a diagram in your paper.</p>
+</section>
+<section id="details-for-reproducibility" class="level4">
+<h4 class="anchored" data-anchor-id="details-for-reproducibility">Details for Reproducibility</h4>
+<p>Your paper should have enough detail for reproducibility: another CSC413 student should be able to read your paper and take the same steps you did to achieve similar results (and produce similar figures). Important information includes:</p>
 <ul>
-<li>Clearly describe the task that your model will perform. (2pt)
-<ul>
-<li>2/2 for clearly describing the task using standard deep learning terminology</li>
-<li>1.5/2 for describing the task in a way that is understandable to the grader, but that uses non-standard terminology</li>
-<li>1/2 for describing the task generally (e.g.&nbsp;“sequence classification” without stating the exact classes)</li>
-<li>0/2 for a proposal that does not align with the project requirements</li>
-</ul></li>
-<li>Clearly describe the model that you intend to use (2pt)
-<ul>
-<li>2/2 for clearly describing the model using standard deep learning terminology; the grader can picture exactly how the model could be used.</li>
-<li>1.5/2 for describing the task in a way that is understandable to the grader, but that uses non-standard terminology</li>
-<li>1/2 for describing the models generally (e.g.&nbsp;sequence-to-sequence model, without describing which ones)</li>
-<li>0/2 for a model that does not align with the project requirements</li>
-</ul></li>
-<li>Outline the data set that you intend to use, and provide some statistics about the amount/type of data that is available (4pt)
-<ul>
-<li>1 point for convincing the grader that you are able to acquire the data that you need (with the appropriate license/permission for educational use)</li>
-<li>1 point for convincing the grader that the type and amount of data is sufficient (e.g.&nbsp;via summary statistics, examples data set)</li>
-<li>2 points for convincing the grader that you have explored the data, and considered information about your data relevant to your model (like in A1 Q1)</li>
-</ul></li>
-<li>Discuss any ethical implications of your model—how might the use (or misuse) of this model help or hurt people? (2pt)
-<ul>
-<li>2/2 For a thoughtful discussion that considers the ethical implications across many groups of people (that different groups may be impacted differently).</li>
-<li>1/2 For a discussion that is generic, or considers the ethical implications for only one group of people.</li>
-</ul></li>
-<li>Describe how work will be divided amongst the team members. We recommend pair-coding for parts of the project, but consider the work that it might take to load/format your data, write a first model, “overfit” to a single data point, etc… (2pt)
-<ul>
-<li>2/2 The description provides enough detail so that if a team member is replaced, they know exactly what their responsibilities will be.</li>
-<li>1/2 There is clearly an attempt to describe the division of tasks, but the communication is unclear and/or only the tasks listed above are assigned.</li>
-<li>0/2 Only vague assertions are made (e.g.&nbsp;“we will divide the work equally”, “everyone will work on everything”, or “we will determine who will work on what as the project progresses).</li>
-</ul></li>
-<li>Proper formatting (2pt)
-<ul>
-<li>2/2 Proposal is 1-2 pages. The proposal is formatted so that readers can find specific information quickly (e.g.&nbsp;via the use of paragraphs and topic sentences)</li>
-<li>1/2 Proposal is slightly over the length limit. There was clearly an attempt to format the proposal, but information is still scattered in various places.</li>
-<li>0/2 Proposal runs extremely long. It is difficult to understand the structure of the proposal.</li>
-</ul></li>
+<li>How did you format your data? For example, did you use one-hot embeddings or treat a variable as a numeric value? Did you normalize your features?</li>
+<li>What data did you include/exclude?</li>
+<li>What is your model architecture?</li>
+<li>What hyperparameters did you use?</li>
+<li>What were your other model settings? Why did you choose these?</li>
 </ul>
+<p>However, your paper should not contain excessive details that are not required for reproducibility. If someone else could have used a different approach to reproduce your work, that description is likely not useful (e.g.&nbsp;the variable names you used, or the specific piece of code you used to visualize results). The exception is that researchers typically report the tools they used (e.g.&nbsp;PyTorch, pandas, NumPy), both to give credit to the developers and to acknowledge that implementation differences may affect model outcomes.</p>
+</section>
+<section id="captioning-and-referencing-figures-and-tables" class="level4">
+<h4 class="anchored" data-anchor-id="captioning-and-referencing-figures-and-tables">Captioning and Referencing Figures and Tables</h4>
+<p>All figures and tables should be captioned, and should additionally be referenced in the main text. For more on writing captions, see <a href="https://www.internationalscienceediting.com/how-to-write-a-figure-caption/">How to Write a Figure Caption</a>. Remember that images are less accessible than text: captions are important for people with visual impairments or who otherwise use a screen reader.</p>
+<p>Referencing figures and tables does not need to be onerous. For example: “The overall model architecture is illustrated in Figure 1.” or “Table 1 presents the results on the visual quality of the generated videos.” These references typically appear at the beginning or end of a sentence.</p>
+<p>In NeurIPS and other ML conferences, figures and tables float at the top of the page. Use <code>\begin{figure}[t]</code> and <code>\begin{table}[t]</code> in LaTeX rather than <code>[h]</code>. Your figure or table will not appear exactly where you reference it in the text, and that’s okay.</p>
+</section>
+<section id="citing-related-work" class="level4">
+<h4 class="anchored" data-anchor-id="citing-related-work">Citing Related Work</h4>
+<p>Claims that you make in your paper should be supported by evidence, either produced in your work or by citing external sources. Please use BibTeX or natbib to track your citations; you will need an in-text citation for every item you wish to appear in the references. For more on when and why to cite, see the <a href="https://guides.library.utoronto.ca/citing">U of T Library citing guide</a>.</p>
+<p>There are two types of in-text citations:</p>
+<ul>
+<li><strong>Narrative citations</strong> (<code>\citet{...}</code>) highlight work that is especially relevant, using the cited work as a noun in your sentence, e.g.&nbsp;“ uses language models to formulate robot-executing plans from natural language instruction.”</li>
+<li><strong>Parenthetical citations</strong> (<code>\cite{...}</code>) provide evidence for a claim without using much space, and are the more common form in ML papers. You can cite multiple works at once, e.g.&nbsp;<code>\cite{yoshikawa2024, wu2023}</code>. It is typical to put a <code>~</code> before the citation so LaTeX does not insert a line break, e.g.&nbsp;“Machine learning is useful~”.</li>
+</ul>
+<p>For an example of how citations are used in practice, look at the Introduction and Methods sections of <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/9fa03b16dbd6cabc7601fe98c6ec291e-Abstract-Conference.html">SlotDiffusion: Object-Centric Generative Modeling with Diffusion Models</a>. Parenthetical citations are placed after the information being cited, and the first time a new model is mentioned (e.g.&nbsp;“U-Net”) its citation is provided; later mentions do not need to repeat it.</p>
+<p>Related work should not be discussed in a disparaging manner. It is okay to discuss differences between methods, but do so respectfully.</p>
+</section>
 </section>
 </section>
 <section id="final-project" class="level2">
 <h2 class="anchored" data-anchor-id="final-project">Final Project</h2>
 <section id="submission" class="level3">
 <h3 class="anchored" data-anchor-id="submission">Submission</h3>
-<p>Please submit a file called <code>github.txt</code> containing a link to the github repository. If your repository will be private, please email the instructors by [date TBA] so that TAs and instructors can be added—even if you use tokens.</p>
+<p>The Final Project Report is due by <strong>December 8, 2026</strong>. The report is written in the style of an academic paper, following the format used at NeurIPS. It has many of the same sections as your proposal, but also describes your final model and an assessment of its performance. Since you will receive detailed writing feedback on your project proposal, you are expected to apply that feedback when writing your final report.</p>
+<p>Please submit a file called <code>github.txt</code> containing a link to the github repository. If your repository will be private, please email the instructors by <strong>December 1, 2026</strong> so that TAs and instructors can be added, even if you use tokens.</p>
 </section>
 <section id="repository-content" class="level3">
 <h3 class="anchored" data-anchor-id="repository-content">Repository Content</h3>
@@ -720,34 +1068,91 @@ Distribution Requirement: SCI</p>
 </ul></li>
 </ul>
 </section>
-<section id="marking-scheme" class="level3">
-<h3 class="anchored" data-anchor-id="marking-scheme">Marking Scheme</h3>
-<p>Here is the marking scheme that we will use. Note that you model must be able to make reasonable predictions for your project to receive a passing project grade. In particular, without a reasonable model, you won’t be able to earn credit for Model Examples, Training Curve, Hyperparameter Tuning, Qualitative/Quantitative Results, etc.</p>
-<p><strong>README/Writeup (70 points)</strong></p>
-<ul>
-<li><strong>Introduction (4 points)</strong>: What deep learning model are you building? We are looking for a clear and concise description that uses standard deep learning terminology. Clearly describe the type of task that you are solving, and what your input/outputs are.</li>
-<li><strong>Model Figure (4 points)</strong>: A figure/diagram of the model architecture that demonstrates understanding of the steps involved in computing the forward pass. We are looking to see if you understand the steps involved in the model computation (i.e.&nbsp;are you treating the model as a black box or do you understand what it’s doing?)</li>
-<li><strong>Model Parameters(4 points)</strong>: Count the number of parameters in the model, and a description of where the parameters come from. Again, we are looking to see if you understand what the model is doing, and what parameters are being tuned.</li>
-<li><strong>Model Examples (4 points)</strong>: Examples of how the model performs on two actual examples from the test set: one successful and one unsuccessful.</li>
-<li><strong>Data Source (1 point)</strong>: Describe the source of your data.</li>
-<li><strong>Data Summary (4 points)</strong>: Provide summary statistics of your data to help interpret your results, similar to in the proposal. Please review the feedback provided in the proposal for some guidance on what information is helpful for interpreting your model behaviour.</li>
-<li><strong>Data Transformation (3 points)</strong>: Describe how you transformed the data, i.e.&nbsp;the steps you took to turn the data from what you downloaded, to something that a neural network can use as input. We are looking for a concise description that has just enough information for another person to replicate your process.</li>
-<li><strong>Data Split (2 points)</strong>: If appropriate to your project, describe how the train/validation/test set was split. Note that splitting strategy is not always straightforward, so we are looking to see a split that can be justified.</li>
-<li><strong>Training Curve (4 points)</strong>: The training curve of your final model. We are looking for a curve that shows both training and validation performance (if applicable). Your training curve should look reasonable for the problem that you are solving.</li>
-<li><strong>Hyperparamter Tuning (4 points)</strong>: A description how you tuned hyper-parameters. We are looking for hyperparameter choices that makes sense.</li>
-<li><strong>Quantitative Measures (2 points)</strong>: A description and justification of the quantitative measure that you are using to evaluate your results. For some problems this will be straightforward. For others, please justify the measure that you chose.</li>
-<li><strong>Quantitative and Qualitative Results (8 points)</strong>: Describe the quantitative and qualitative results. You may choose to use a table or figure to aid in your description. We are looking for both a clear presentation, and a result that makes sense given your data summary. (As an extreme example, you should not have a result that performs worse than a model that, say, predicts the most common class.)</li>
-<li><strong>Justification of Results (20 points)</strong>: A justification that your implemented method performed reasonably, given the difficulty of the problem—or a hypothesis for why it doesn’t. This is extremely important. We are looking for an interpretation of the result. You may want to refer to your data summary and hyperparameter choices to make your argument.</li>
-<li><strong>Ethical Consideration (4 points)</strong>: Description of a use of the system that could give rise to ethical issues. Are there limitations of your model? Your training data? Please review the feedback provided in the proposal for some guidance on how to think deeply about these issues.</li>
-<li><strong>Authors (2 points)</strong>: A description of how the work was split—i.e.&nbsp;who did what in this project. If there are significant issues with the way that work is split, we may follow up with individual teams, and not award equal points to all team members.</li>
-</ul>
-<p><strong>Code/Documentation (20 points)</strong> We are looking for whether TAs can generally understand what your code does, how it is organized, and the steps that needs to be taken to replicate your model and results. Your code must be in working order (otherwise the TA will not be able to replicate your results)</p>
-<p><strong>Advanced Concept (10 points)</strong>. Your project involves at least one of the following:</p>
-<ul>
-<li>Data Augmentation <em>applied in a way that makes sense for your domain</em></li>
-<li>Transformer</li>
-<li>Generative Model, Sequence-to-Sequence Architecture (e.g.&nbsp;that uses teacher-forcing)</li>
-</ul>
+<section id="paper-and-section-length" class="level3">
+<h3 class="anchored" data-anchor-id="paper-and-section-length">Paper and Section Length</h3>
+<p>Your paper should be exactly 8 pages and use the NeurIPS LaTeX template. You may use additional pages only for references.</p>
+<p>The abstract and introduction should take about 1.5 pages. The background and related work section should be no more than 1 page. The data section should be about 1-1.5 pages. The model architecture should also be about 1 page, including the figure. The results and discussion should take about 2-3 pages. The limitations and ethical considerations are about half a page, and the conclusion should be at most half a page.</p>
+<p>Deviation from this is certainly possible: for example, if your data is particularly complex, it may require more explanation than the 1-1.5 page guideline. You shouldn’t see these guidelines as rules: good writing practices may mean that some sections are longer or shorter, and you may receive writing feedback in that regard. However, a large deviation without good reason is usually a sign that a part of the report is weak or lacks sufficient detail for reproduction.</p>
+</section>
+<section id="final-report-rubric" class="level3">
+<h3 class="anchored" data-anchor-id="final-report-rubric">Final Report Rubric</h3>
+<p>Here is the marking scheme that we will use. The final report is graded out of 40 points. Note that your model must be able to make reasonable predictions for your project to receive a passing project grade. In particular, without a reasonable model, you won’t be able to earn credit for Model Examples, Training Curve, Hyperparameter Tuning, Qualitative/Quantitative Results, etc.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 15%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th style="text-align: center;">Points</th>
+<th>Criteria for full credit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Abstract</td>
+<td style="text-align: center;">4</td>
+<td>Same criteria as the proposal, with feedback from the proposal addressed.</td>
+</tr>
+<tr class="even">
+<td>Introduction</td>
+<td style="text-align: center;">4</td>
+<td>Same criteria as the proposal, with feedback from the proposal addressed.</td>
+</tr>
+<tr class="odd">
+<td>Background and Related Work</td>
+<td style="text-align: center;">4</td>
+<td>Same criteria as the proposal, with feedback from the proposal addressed. Additionally, any related work that the TA suggested should be added to this section and cited. Readers are given the background context they need, particularly context related to your domain, and the models you reference are cited.</td>
+</tr>
+<tr class="even">
+<td>Data</td>
+<td style="text-align: center;">4</td>
+<td>Same criteria as the proposal, with feedback from the proposal addressed.</td>
+</tr>
+<tr class="odd">
+<td>Model Architecture</td>
+<td style="text-align: center;">4</td>
+<td>Clear description of your model architecture. There should be enough detail to reproduce your work, including all hyperparameters and training settings that you used. If you are presenting results for multiple models, describe their architectures and clearly state their differences.</td>
+</tr>
+<tr class="even">
+<td>Model Architecture Figure</td>
+<td style="text-align: center;">2</td>
+<td>Same criteria as the proposal, with feedback from the proposal addressed. Your model may have changed since the proposal, so update your figure accordingly.</td>
+</tr>
+<tr class="odd">
+<td>Results</td>
+<td style="text-align: center;">4</td>
+<td>Clear description of the performance of your model, either quantitatively or (for generative models) qualitatively, with all figures and tables captioned and referenced in the main text. The choice of performance metric should be justified and appropriate for your task. There should be enough information for readers to independently interpret the model results. To help interpret the model, compare it with a reasonable baseline model, defined clearly and justified convincingly.</td>
+</tr>
+<tr class="even">
+<td>Discussion</td>
+<td style="text-align: center;">4</td>
+<td>Sound interpretation of your model performance. The comparison with the baseline and other comparisons should be thoughtful and convincing. Discuss what you notice about the model. We are looking for a thoughtful reflection on the model and its performance along various dimensions.</td>
+</tr>
+<tr class="odd">
+<td>Limitations</td>
+<td style="text-align: center;">2</td>
+<td>Describe settings in which we’d expect your approach to perform poorly, or where all existing models fail. Try to explain why these limitations exist, and give examples of possible extensions or ways to address them.</td>
+</tr>
+<tr class="even">
+<td>Ethical Considerations</td>
+<td style="text-align: center;">2</td>
+<td>Same criteria as the proposal, with feedback from the proposal addressed.</td>
+</tr>
+<tr class="odd">
+<td>Conclusion</td>
+<td style="text-align: center;">2</td>
+<td>Clear summary of the results achieved in relation to the problem. The description is consistent with the rest of the paper.</td>
+</tr>
+<tr class="even">
+<td>Writing Revision</td>
+<td style="text-align: center;">4</td>
+<td>Substantial revision of the writing issues identified by the TAs in the project proposal. To earn full credit, correct the majority of instances of each issue identified (for example, if the TA noted that many terms are not defined, adding definitions for just the ones the TA explicitly highlighted is not sufficient; find all instances of the issue in your work).</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
@@ -755,380 +1160,256 @@ Distribution Requirement: SCI</p>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
       return false;
     }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
     }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/utm-csc413\.github\.io\/2026F-website\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/utm-csc413\.github\.io\/2026F-website\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        return container.innerHTML
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1136,185 +1417,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
   </div>

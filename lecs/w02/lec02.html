@@ -6,8 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.42">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.19">
 
   <title>CSC413 - Fall 2026, UTM – CSC413 Neural Networks and Deep Learning</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,10 +16,16 @@
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
   <style>
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -28,7 +34,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-2f366650f320edcfcf53d73c80250a32.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
   <link rel="stylesheet" href="style.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -146,7 +152,6 @@
 </section>
 <section id="last-week" class="slide level2">
 <h2>Last Week</h2>
-<div>
 <ul>
 <li class="fragment">Review of linear models
 <ul>
@@ -155,18 +160,15 @@
 </ul></li>
 <li class="fragment">Gradient descent to train these models</li>
 </ul>
-</div>
 </section>
 <section id="this-week" class="slide level2">
 <h2>This Week</h2>
-<div>
 <ul>
 <li class="fragment">Biological and Artifical Neurons</li>
 <li class="fragment">Limitations of Linear Models for Classification</li>
 <li class="fragment">Multilayer Perceptrons</li>
 <li class="fragment">Backpropagation</li>
 </ul>
-</div>
 <!-- 01neuron -->
 </section>
 <section>
@@ -195,14 +197,12 @@
 </section>
 <section id="neuron-anatomy" class="slide level2">
 <h2>Neuron Anatomy</h2>
-<div>
 <ul>
 <li class="fragment">The <strong>dendrites</strong>, which are connected to other cells that provide information.</li>
 <li class="fragment">The <strong>cell body</strong>, which consolidates information from the dendrites.</li>
 <li class="fragment">The <strong>axon</strong>, which is an extension from the cell body that passes information to other cells.</li>
 <li class="fragment">The <strong>synapse</strong>, which is the area where the axon of one neuron and the dendrite of another connect.</li>
 </ul>
-</div>
 </section>
 <section id="what-does-a-neuron-do" class="slide level2">
 <h2>What does a neuron do?</h2>
@@ -210,12 +210,10 @@
 <!-- ![](imgs/synapse.png){ height=30%} -->
 <p><img data-src="imgs/synapse.png" height="250"></p>
 </center>
-<div>
 <ul>
 <li class="fragment">Consolidates “information” (voltage difference) from its dendrites</li>
 <li class="fragment">If the total activity in a neuron’s dendrite lowers the voltage difference enough, the entire cell <em>depolarizes</em> and the neuron <em>fires</em></li>
 </ul>
-</div>
 </section>
 <section id="what-does-a-neuron-do-1" class="slide level2">
 <h2>What does a neuron do?</h2>
@@ -223,12 +221,10 @@
 <!-- ![](imgs/synapse.png){ height=30%} -->
 <p><img data-src="imgs/synapse.png" height="250"></p>
 </center>
-<div>
 <ul>
 <li class="fragment">The voltage signal spreads along the axon and to the synapse, then to the next neurons</li>
 <li class="fragment">Neuron sends information to the next cell</li>
 </ul>
-</div>
 </section>
 <section id="what-makes-a-neuron-fire" class="slide level2">
 <h2>What makes a neuron fire?</h2>
@@ -264,13 +260,11 @@
 <center>
 <img data-src="imgs/neuron_model.jpeg" height="300">
 </center>
-<div>
 <ul>
 <li class="fragment"><span class="math inline">\(x_{i}\)</span> are <strong>inputs</strong> to the neuron</li>
 <li class="fragment"><span class="math inline">\(w_{i}\)</span> are the neuron’s <strong>weights</strong></li>
 <li class="fragment"><span class="math inline">\(b\)</span> is the neuron’s <strong>bias</strong></li>
 </ul>
-</div>
 <aside class="notes">
 <ul>
 <li>In Learning with Artifical Neural Networks, we want to create a simplified model of neurons in the brain.</li>
@@ -292,12 +286,10 @@
 <center>
 <img data-src="imgs/neuron_model.jpeg" height="300">
 </center>
-<div>
 <ul>
 <li class="fragment"><span class="math inline">\(f\)</span> is an <strong>activation function</strong></li>
 <li class="fragment"><span class="math inline">\(f(\sum_i x_i w_i + b)\)</span> is the neuron’s <strong>activation</strong> (output)</li>
 </ul>
-</div>
 </section>
 <section id="linear-models-as-a-single-neuron" class="slide level2">
 <h2>Linear Models as a Single Neuron</h2>
@@ -360,7 +352,6 @@
 <section id="logistic-regression-models-for-multi-class-classification-as-a-neural-network" class="slide level2">
 <h2>Logistic Regression Models (for Multi-Class Classification) as a Neural Network</h2>
 <p>We use <span class="math inline">\(K\)</span> neurons (one for each class):</p>
-<div>
 <ul>
 <li class="fragment"><span class="math inline">\(x_{i}\)</span> are the inputs</li>
 <li class="fragment"><span class="math inline">\(w_{j,i}\)</span> are components of the <strong>weight matrix</strong> <span class="math inline">\(W\in \mathbb{R}^{K\times N}\)</span></li>
@@ -368,7 +359,6 @@
 <li class="fragment"><span class="math inline">\(f = \text{softmax}\)</span> : applied to the entire vector of values</li>
 <li class="fragment"><span class="math inline">\({\bf y} = \text{softmax}(W{\bf x} + {\bf b})\)</span> : outputs of <span class="math inline">\(K\)</span> neurons</li>
 </ul>
-</div>
 <aside class="notes">
 <ul>
 <li>Now we have an entire weight matrix <span class="math inline">\(W\)</span> with <span class="math inline">\(K\)</span> rows and a <span class="math inline">\(K\)</span>-dimensional bias vector. One for each class.</li>
@@ -431,23 +421,19 @@
 <section id="xor-not-linearly-separable" class="slide level2">
 <h2>XOR not linearly separable</h2>
 <p><strong>Initial Observations</strong></p>
-<div>
 <ul>
 <li class="fragment">A binary linear classifier divides the euclidean space into two half-spaces</li>
 <li class="fragment">Half-spaces are convex</li>
 </ul>
-</div>
 </section>
 <section id="xor-not-linearly-separable-ii" class="slide level2">
 <h2>XOR not linearly separable II</h2>
 <div class="column" style="width:75%;">
-<div>
 <ul>
 <li class="fragment">Suppose there were some feasible hypothesis. If the positive examples are in the positive half-space, then the green line segment must be as well.</li>
 <li class="fragment">Similarly, red line segment must lie within the negative half-space.</li>
 <li class="fragment">But the intersection can’t lie in both half-spaces. Contradiction!</li>
 </ul>
-</div>
 </div><div class="column" style="width:25%;">
 <center>
 <img data-src="imgs/xor2.png">
@@ -456,12 +442,10 @@
 <section id="history-of-the-xor-example" class="slide level2">
 <h2>History of the XOR Example</h2>
 <div class="column" style="width:75%;">
-<div>
 <ul>
 <li class="fragment">Minsky and Papert shown in their work <em>Perceptrons</em> that XOR cannot be learned by a Neuron.</li>
 <li class="fragment">Its pessimistic outlook on perceptrons is assumed as one of the causes for the AI winter of the 70s / early 80s.</li>
 </ul>
-</div>
 </div><div class="column" style="width:25%;">
 <center>
 <img data-src="imgs/perceptrons_book.jpg">
@@ -580,25 +564,21 @@
 <img data-src="imgs/neural_net.jpeg" height="270">
 </center>
 <p><strong>Idea</strong></p>
-<div>
 <ul>
 <li class="fragment">Use a simplified (mathematical) model of a neuron as building blocks</li>
 <li class="fragment">Connect the neurons together accross multiple layers.</li>
 </ul>
-</div>
 </section>
 <section id="an-artificial-neural-network-multilayer-perceptron-ii" class="slide level2">
 <h2>An Artificial Neural Network (Multilayer Perceptron) II</h2>
 <center>
 <img data-src="imgs/neural_net.jpeg" height="270">
 </center>
-<div>
 <ul>
 <li class="fragment">An <strong>input layer</strong>: feed in input features (e.g.&nbsp;like retinal cells in your eyes)</li>
 <li class="fragment">A number of <strong>hidden layers</strong>: don’t have specific meaning</li>
 <li class="fragment">An <strong>output layer</strong>: interpret output like a “grandmother cell”</li>
 </ul>
-</div>
 </section>
 <section id="but-what-do-these-neurons-mean" class="slide level2">
 <h2>But what do these neurons mean?</h2>
@@ -696,13 +676,11 @@
 <center>
 <img data-src="imgs/neural_net2.jpeg" height="250">
 </center>
-<div>
 <ul>
 <li class="fragment">Input size: 784 (number of features)</li>
 <li class="fragment">Hidden size: 50 (we choose this number)</li>
 <li class="fragment">Output size: 10 (number of classes)</li>
 </ul>
-</div>
 <aside class="notes">
 <ul>
 <li>All the numbers that we can choose such as the number of hidden units are known as <em>Hyperparameters</em>.</li>
@@ -821,14 +799,12 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 <center>
 <img data-src="imgs/relu.jpeg" height="300">
 </center>
-<div>
 <ul>
 <li class="fragment">most often used nowadays</li>
 <li class="fragment">all activations are positive</li>
 <li class="fragment">easy to compute gradients</li>
 <li class="fragment">can be problematic if the bias is too large and negative, so the activations are always 0</li>
 </ul>
-</div>
 <aside class="notes">
 <ul>
 <li>The last point is known as the dying ReLU phenomenon if a neuron becomes inactive and never recovers.</li>
@@ -876,12 +852,10 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 </section>
 <section id="expressive-power-linear-layers-no-activation-function" class="slide level2">
 <h2>Expressive Power: Linear Layers (No Activation Function)</h2>
-<div>
 <ul>
 <li class="fragment">We’ve seen that there are some functions that linear classifiers can’t represent. Are deep networks any better?</li>
 <li class="fragment">Any sequence of layers (with no activation function) can be equivalently represented with a single linear layer.</li>
 </ul>
-</div>
 <div class="fragment">
 <p><span class="math display">\[\begin{align*}
 {\bf y} &amp;= \left(W^{(3)} W^{(2)} W^{(1)}\right) {\bf x} \\
@@ -904,7 +878,6 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 </section>
 <section id="expressive-power-mlp-nonlinear-activation" class="slide level2">
 <h2>Expressive Power: MLP (nonlinear activation)</h2>
-<div>
 <ul>
 <li class="fragment">Multilayer feed-forward neural nets with <em>nonlinear</em> activation functions are <strong>universal approximators</strong>: they can approximate any function arbitrarily well.</li>
 <li class="fragment">This has been shown for various activation functions (thresholds, logistic, ReLU, etc.)
@@ -912,11 +885,9 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 <li class="fragment">Even though ReLU is “almost” linear, it’s nonlinear enough!</li>
 </ul></li>
 </ul>
-</div>
 </section>
 <section id="universality-for-binary-inputs-and-targets" class="slide level2">
 <h2>Universality for binary inputs and targets</h2>
-<div>
 <ul>
 <li class="fragment">Hard threshold hidden units, linear output</li>
 <li class="fragment">Strategy: <span class="math inline">\(2^D\)</span> hidden units, each of which responds to one particular input configuration
@@ -924,7 +895,6 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 <li class="fragment">Only requires one hidden layer, though it needs to be extremely wide!</li>
 </ul></li>
 </ul>
-</div>
 <div class="fragment">
 <p>Limits of universality</p>
 <ul>
@@ -956,7 +926,6 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 </section>
 <section id="training-neural-networks" class="slide level2">
 <h2>Training Neural Networks</h2>
-<div>
 <ul>
 <li class="fragment">How do we find good weights for the neural network?</li>
 <li class="fragment">We can continue to use the loss functions:
@@ -966,7 +935,6 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 </ul></li>
 <li class="fragment">The neural network operations we used (weights, etc) are (almost everywhere) differentiable</li>
 </ul>
-</div>
 <div class="fragment">
 <p><strong>We can use gradient descent!</strong></p>
 </div>
@@ -974,18 +942,15 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 <section id="gradient-descent-recap" class="slide level2">
 <h2>Gradient Descent Recap</h2>
 <p><strong>Goal</strong>: Compute the minimum of a function <span class="math inline">\(\mathcal{E}({\bf a})\)</span></p>
-<div>
 <ul>
 <li class="fragment">Start with a set of parameters <span class="math inline">\(\mathbf{a}_0\)</span> (initialize to some value)</li>
 <li class="fragment">Compute the gradient <span class="math inline">\(\frac{\partial \mathcal{E}}{\partial \mathbf{a}}\)</span>.</li>
 <li class="fragment">Update the parameters towards the negative direction of the gradient</li>
 </ul>
-</div>
 </section>
 <section id="gradient-descent-for-neural-networks" class="slide level2">
 <h2>Gradient Descent for Neural Networks</h2>
 <p><strong>Idea:</strong> Use gradient descent for “learning” neural networks.</p>
-<div>
 <ul>
 <li class="fragment">We have a lot of parameters
 <ul>
@@ -995,7 +960,6 @@ z_2 &amp;=  \sum_{j=1}^{50} w^{(2)}_{2,j} h_j + b^{(2)}_2  \\
 </ul></li>
 <li class="fragment">In Deep Learning <span class="math inline">\(\frac{\partial \mathcal{E}}{\partial w}\)</span> is the average of <span class="math inline">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> over multiple training examples</li>
 </ul>
-</div>
 <div class="fragment">
 <p><strong>Challenge:</strong> How to compute <span class="math inline">\(\frac{\partial \mathcal{L}}{\partial w}\)</span> effectively.</p>
 </div>
@@ -1086,12 +1050,10 @@ y &amp;= \sigma(z) \\
 <h2>Computation Graph</h2>
 <p>We can diagram out the computations using a <em>computation graph</em>.</p>
 <div class="column" style="width:50%;">
-<div>
 <ul>
 <li class="fragment">The <em>nodes</em> represent all the inputs and computed quantities.</li>
 <li class="fragment">The <em>edges</em> represent which nodes are computed directly as a function of which other nodes.</li>
 </ul>
-</div>
 </div><div class="column" style="width:50%;">
 <center>
 <img data-src="imgs/unreg_computation_graph.png" height="400">
@@ -1099,7 +1061,6 @@ y &amp;= \sigma(z) \\
 </div></section>
 <section id="chain-rule-error-signal-notation" class="slide level2">
 <h2>Chain Rule (Error Signal) Notation</h2>
-<div>
 <ul>
 <li class="fragment">Use <span class="math inline">\(\overline{y}\)</span> to denote the derivative <span class="math inline">\(\frac{d \mathcal{L}}{d y}\)</span>
 <ul>
@@ -1108,7 +1069,6 @@ y &amp;= \sigma(z) \\
 <li class="fragment">This notation emphasizes that the error signals are just values our program is computing (rather than a mathematical operation).</li>
 <li class="fragment">This is notation introduced by Prof.&nbsp;Roger Grosse, and not standard notation</li>
 </ul>
-</div>
 </section>
 <section id="chain-rule-error-signal-notation-ii" class="slide level2">
 <h2>Chain Rule (Error Signal) Notation II</h2>
@@ -1331,7 +1291,6 @@ optimizer.zero_grad()    # a clean up step
 </section>
 <section id="backpropagation-in-practice-ii" class="slide level2">
 <h2>Backpropagation in practice II</h2>
-<div>
 <ul>
 <li class="fragment">Despite its practical success, backprop is believed to be neurally (biologically) implausible.
 <ul>
@@ -1339,7 +1298,6 @@ optimizer.zero_grad()    # a clean up step
 <li class="fragment">All the biologically plausible alternatives we know about learn much more slowly (on computers).</li>
 </ul></li>
 </ul>
-</div>
 <!-- Wrap-Up -->
 </section></section>
 <section>
@@ -1349,18 +1307,15 @@ optimizer.zero_grad()    # a clean up step
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
-<div>
 <ul>
 <li class="fragment">Artificial neurons draw inspiration from nerve cells / neurons in the brain</li>
 <li class="fragment">On its own, the expresiveness of a single neuron is limited</li>
 <li class="fragment">Stacking neurons and nonlinear activation functions allows for learning more complex functions</li>
 <li class="fragment">Backpropagation can be used for this learning task</li>
 </ul>
-</div>
 </section>
 <section id="what-to-do-this-week" class="slide level2">
 <h2>What to do this week?</h2>
-<div>
 <ul>
 <li class="fragment">You can already complete Assignment 1
 <ul>
@@ -1370,7 +1325,6 @@ optimizer.zero_grad()    # a clean up step
 <li class="fragment">Complete the readings for this week.</li>
 <li class="fragment">Preview next week’s materials</li>
 </ul>
-</div>
 
 
 </section></section>
@@ -1760,190 +1714,173 @@ optimizer.zero_grad()    # a clean up step
     }
     </style>
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
           }
+          return false;
         }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
           }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
           for (const childEl of codeEl.children) {
             if (isCodeAnnotation(childEl)) {
               childEl.remove();
             }
           }
           return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/utm-csc413\.github\.io\/2026F-website\/");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/utm-csc413\.github\.io\/2026F-website\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
             }
           }
-        }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
           }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
           }
-        } else {
-          return undefined;
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
         }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
-              }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>
