@@ -158,7 +158,7 @@ The project proposal document should be 4-6 pages and use the NeurIPS LaTeX temp
 | Model Architecture Figure | 2 | A well-thought-out figure that communicates the core idea of your project and architecture immediately. Text is legible and approximately the same size as the main text. Clarity and communicative power are key: an overly complex figure may lack clarity, and an overly simple figure might not communicate much. |
 | Ethical Considerations | 2 | Thoughtful consideration of ethical issues in data collection, and the impact of using or misusing the model. We are looking for depth of thought beyond what may be "obvious". |
 | Work Division | 4 | The division of work is well thought out and fair. There should be enough detail that if a new person were to replace a member of your team, they could understand their responsibilities, estimate their time commitment during each week, and identify conflicts. |
-| Writing: Structure & Organization | 4 | Sections and subsections are ordered appropriately. Content in each section matches the header. Similar content is grouped under a single section, and section sizes are appropriate. Within each section, information is ordered coherently. Paragraphs have topic sentences and are easy to skim. Figures and tables are labeled with appropriate captions and referenced in the main text. Figures and tables are readable, with font sizes similar to the body. Follows the NeurIPS structure, including spacing and formatting guides. |
+| Writing: Structure & Organization | 4 | Sections and subsections are ordered appropriately. Content in each section matches the header. Similar content is grouped under a single section, and section sizes are appropriate. Within each section, information is ordered coherently. Paragraphs have topic sentences and are easy to skim. Figures and tables are labeled with appropriate captions and referenced in the main text. Figures and tables are readable, with font sizes similar to the body. Follows the template's spacing and formatting guidelines. |
 | Writing: Writing Mechanics | 4 | Sentences are clear and concise, complete, and not too long or complex. Verbs are descriptive and precise rather than generic. Symbols are annotated with the type of entity they represent. Punctuation is correct, and there are no large amounts of distracting typos and/or grammatical issues. |
 | Writing: Audience Expectations | 4 | Academic language is used, without slang, impersonal language ("we" is fine, but "I" and "you" are not), or gendered language. Assumed technical knowledge is appropriate for the reader. Acronyms, and terms and concepts unfamiliar to a typical CSC413 student, are defined/explained when first used. Figures that contain text are accessible: images with text are avoided, and captions are descriptive and can be understood by readers with visual impairment. |
 
@@ -180,7 +180,7 @@ As you write each section, you may wish to go back and revise previous sections.
 
 #### Iterative Writing Process
 
-Before starting to write, read several NeurIPS papers to get a feel for the writing style. Ideally, your paper should have a similar sentence structure, level of graphics polish, and reading flow. Trying to achieve all of this by writing from scratch is very hard.
+Ideally, your paper should have a clear sentence structure, polished graphics, and a good reading flow. Trying to achieve all of this by writing from scratch is very hard.
 
 Counterintuitively, it is faster to create an initial rough draft and iterate over it multiple times than to try to get it right from the beginning. One helpful approach is to first create bullet points, and put all the equations and empty placeholders for tables and figures into the paper. Each bullet point represents a one-sentence summary of a full paragraph. Next, enrich the bullet points with the content that goes into each paragraph. This leaves the worry of finding the best formulation until the end, making text creation much easier since all content is already there.
 
@@ -204,7 +204,7 @@ All figures and tables should be captioned, and should additionally be reference
 
 Referencing figures and tables does not need to be onerous. For example: "The overall model architecture is illustrated in Figure 1." or "Table 1 presents the results on the visual quality of the generated videos." These references typically appear at the beginning or end of a sentence.
 
-In NeurIPS and other ML conferences, figures and tables float at the top of the page. Use `\begin{figure}[t]` and `\begin{table}[t]` in LaTeX rather than `[h]`. Your figure or table will not appear exactly where you reference it in the text, and that's okay.
+In LaTeX papers, figures and tables typically float at the top of the page. Use `\begin{figure}[t]` and `\begin{table}[t]` in LaTeX rather than `[h]`. Your figure or table will not appear exactly where you reference it in the text, and that's okay.
 
 #### Citing Related Work
 
@@ -223,7 +223,7 @@ Related work should not be discussed in a disparaging manner. It is okay to disc
 
 ### Submission
 
-The Final Project Report is due by **December 8, 2026**. The report is written in the style of an academic paper, following the format used at NeurIPS. It has many of the same sections as your proposal, but also describes your final model and an assessment of its performance. Since you will receive detailed writing feedback on your project proposal, you are expected to apply that feedback when writing your final report.
+The Final Project Report is due by **December 8, 2026**. The report is written in the style of an academic paper. It has many of the same sections as your proposal, but also describes your final model and an assessment of its performance. Since you will receive detailed writing feedback on your project proposal, you are expected to apply that feedback when writing your final report.
 
 Please submit a file called `github.txt` containing a link to the github repository. If your repository will be private, please email the instructors by **December 1, 2026** so that TAs and instructors can be added, even if you use tokens.
 
@@ -288,4 +288,4 @@ Here is the marking scheme that we will use. The final report is graded out of 4
 
 ### Publishing Your Work
 
-Beyond the course, strong final reports are encouraged to go one step further: the Department of Mathematical and Computational Sciences runs a student research journal, the [MCS Journal](https://jps.library.utoronto.ca/index.php/mcsjournal), hosted on the University of Toronto's journal platform. By submitting your project you will have your written work peer-reviewed and published. You will also gain experience of the whole process of academic research. As your final report is already formatted in the NeurIPS style and received some feedback from your TAs, it makes a great starting point. This is completely optional and not related to the course assessment. However, it would be a great way for you to take your work further.
+Beyond the course, strong final reports are encouraged to go one step further: the Department of Mathematical and Computational Sciences runs a student research journal, the [MCS Journal](https://jps.library.utoronto.ca/index.php/mcsjournal), hosted on the University of Toronto's journal platform. By submitting your project you will have your written work peer-reviewed and published. You will also gain experience of the whole process of academic research. As your final report is already formatted as an academic paper and received some feedback from your TAs, it makes a great starting point. This is completely optional and not related to the course assessment. However, it would be a great way for you to take your work further.
