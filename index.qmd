@@ -180,7 +180,7 @@ As you write each section, you may wish to go back and revise previous sections.
 
 #### Iterative Writing Process
 
-Ideally, your paper should have a clear sentence structure, polished graphics, and a good reading flow. Trying to achieve all of this by writing from scratch is very hard.
+Ideally, your paper should have a clear sentence structure, polished graphics, and a good reading flow.
 
 Counterintuitively, it is faster to create an initial rough draft and iterate over it multiple times than to try to get it right from the beginning. One helpful approach is to first create bullet points, and put all the equations and empty placeholders for tables and figures into the paper. Each bullet point represents a one-sentence summary of a full paragraph. Next, enrich the bullet points with the content that goes into each paragraph. This leaves the worry of finding the best formulation until the end, making text creation much easier since all content is already there.
 
@@ -214,8 +214,6 @@ There are two types of in-text citations:
 
 -   **Narrative citations** (`\citet{...}`) highlight work that is especially relevant, using the cited work as a noun in your sentence, e.g. "\citet{yoshikawa2024} uses language models to formulate robot-executing plans from natural language instruction."
 -   **Parenthetical citations** (`\cite{...}`) provide evidence for a claim without using much space, and are the more common form in ML papers. You can cite multiple works at once, e.g. `\cite{yoshikawa2024, wu2023}`. It is typical to put a `~` before the citation so LaTeX does not insert a line break, e.g. "Machine learning is useful~\cite{yoshikawa2024, wu2023}".
-
-For an example of how citations are used in practice, look at the Introduction and Methods sections of [SlotDiffusion: Object-Centric Generative Modeling with Diffusion Models](https://proceedings.neurips.cc/paper_files/paper/2023/hash/9fa03b16dbd6cabc7601fe98c6ec291e-Abstract-Conference.html). Parenthetical citations are placed after the information being cited, and the first time a new model is mentioned (e.g. "U-Net") its citation is provided; later mentions do not need to repeat it.
 
 Related work should not be discussed in a disparaging manner. It is okay to discuss differences between methods, but do so respectfully.
 
