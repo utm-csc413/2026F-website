@@ -94,6 +94,10 @@ Projects must be done in groups of 3-4. Please form groups on CrowdMark. Excepti
 
 The project proposal is due by **November 2, 2026**. The proposal describes your problem domain choice, goals, data, and approach. It requires significant thinking, planning, research, and exploratory data analysis. It is to be written in the style of half of an academic paper (4-6 pages) using the NeurIPS LaTeX template. Writing parts of the paper before conducting the research is a way to clarify your ideas in a concrete, visible, and understandable way, so that these ideas can be discussed meaningfully (see [Write the Paper First](https://www.cs.jhu.edu/~jason/advice/write-the-paper-first.html) and [How to Write a Great Research Paper](https://www.microsoft.com/en-us/research/academic-program/write-great-research-paper/), though the latter is not ML-focused). You will receive TA feedback on both your ideas/approach and your writing, and you are expected to apply that feedback in your final report.
 
+### On the Use of Generative AI
+
+Using generative AI for the project deliverables, the project proposal and the final project report, is prohibited. Using generative AI to debug code is allowed. Instructors are allowed to take measures to detect the use of generative AI in project deliverables, and to apply grading penalties as they deem appropriate. Instructors also have the option to probe and perform further verification of a student's understanding of submitted project deliverables if they see that the student cannot explain the work that they submitted, either individually or as a group.
+
 ### Project Requirements
 
 By default, your project must either take a sequence (of variable length) as an input, or produce a sequence as an output, or both. If you have a project proposal that does not involve sequences, please contact the instructors.
