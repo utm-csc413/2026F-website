@@ -339,30 +339,26 @@ Lots of sloshing around the walls, only a small derivative along the slope of th
 -   Gradient component $\frac{\partial \mathcal{E}}{\partial w_1}$ is large
 -   Gradient component $\frac{\partial \mathcal{E}}{\partial w_2}$ is small
 
-## Ravines Example
+## Ravines Example {.smaller}
 
 Suppose we have the following dataset for linear regression.
 
-\begin{columns}
-\begin{column}{0.4 \textwidth}
-  \begin{small}
-  \begin{tabular}{rr|r}
-    $x_1$ & $x_2$ & $t$ \\
-    \hline
-    114.8 & 0.00323 & 5.1 \\
-    338.1 & 0.00183 & 3.2 \\
-    98.8 & 0.00279 & 4.1 \\
-    \vdots \hspace{1em} & \vdots \hspace{1.5em} & \vdots \hspace{0.5em}
-  \end{tabular}
-  \end{small}
-\end{column}
-\begin{column}{0.1 \textwidth}
-  \[ \overline{w_i} = \overline{y} \, x_i \]
-\end{column}
-\begin{column}{0.4 \textwidth}
-  \includegraphics[width=\linewidth]{imgs/scale_problem.png}
-\end{column}
-\end{columns}
+::::: columns
+::: {.column width="40%"}
+| $x_1$ | $x_2$   | $t$ |
+|-------|---------|-----|
+| 114.8 | 0.00323 | 5.1 |
+| 338.1 | 0.00183 | 3.2 |
+| 98.8  | 0.00279 | 4.1 |
+| ...   | ...     | ... |
+
+$$\overline{w_i} = \overline{y} \, x_i$$
+:::
+
+::: {.column width="60%"}
+![](imgs/scale_problem.png){height="300"}
+:::
+:::::
 
 -   Which weight, $w_1$ or $w_2$, will receive a larger gradient descent update?
 -   Which one do you want to receive a larger update?
