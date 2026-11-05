@@ -221,6 +221,36 @@ Several methods modify these gradients:
 
 From: <https://proceedings.neurips.cc/paper/2018/file/294a8ed24b1ad22ec2e7efea049b8737-Paper.pdf>
 
+## Sanity Checks for Saliency Maps {.smaller}
+
+Adebayo et al. (NeurIPS 2018) ask: does a saliency map actually depend on what the model has learned?
+
+Two randomization tests:
+
+-   **Model parameter randomization**: re-initialize the weights, layer by layer from the top down. If the saliency map barely changes, it cannot be explaining the trained model.
+-   **Data randomization**: train the same network on randomly permuted labels, so it can only memorize. If the map looks the same as for the real model, it is not reflecting the relationship between inputs and labels.
+
+Maps are compared visually and with similarity metrics (rank correlation, SSIM).
+
+::: notes
+-   The tests are cheap and can be applied to any saliency method.
+-   A method that "passes" is not guaranteed to be faithful, but a method that fails cannot be used to debug a model or explain its predictions.
+:::
+
+## Sanity Checks: Findings {.smaller}
+
+-   **Plain input gradients** and **Grad-CAM** pass: their maps change substantially when the weights or labels are randomized.
+-   **Guided Backprop** (and Guided Grad-CAM) fail: the maps stay nearly identical even after the top layers are randomized.
+-   Methods that multiply by the input (Gradient $\odot$ Input, Integrated Gradients) still look like the input image after randomization, so visual inspection is misleading.
+-   Analogy: an **edge detector** produces convincing "saliency maps" with no model and no training data.
+
+**Lesson**: a visually appealing map is not necessarily a faithful explanation. Run sanity checks before using saliency maps to debug a model or find outliers in the data.
+
+::: notes
+-   This is why the sharp Guided Backprop maps from the previous slides should be treated with care: much of their structure comes from the input image, not the model.
+-   The paper backs this up with theory for a linear model and a single-layer conv net.
+:::
+
 ## Optimizing an Image to Maximize Activations
 
 Can we use gradient ascent on an image to maximize the activation of a given neuron?
