@@ -432,9 +432,46 @@ f(\theta) \approx f(\theta_0) + f'(\theta_0)^T(\theta - \theta_0) + \frac{1}{2} 
 <li>Gradient component <span class="math inline">\(\frac{\partial \mathcal{E}}{\partial w_2}\)</span> is small</li>
 </ul>
 </section>
-<section id="ravines-example" class="slide level2">
+<section id="ravines-example" class="slide level2 smaller">
 <h2>Ravines Example</h2>
 <p>Suppose we have the following dataset for linear regression.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x_1\)</span></th>
+<th><span class="math inline">\(x_2\)</span></th>
+<th><span class="math inline">\(t\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>114.8</td>
+<td>0.00323</td>
+<td>5.1</td>
+</tr>
+<tr class="even">
+<td>338.1</td>
+<td>0.00183</td>
+<td>3.2</td>
+</tr>
+<tr class="odd">
+<td>98.8</td>
+<td>0.00279</td>
+<td>4.1</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[\overline{w_i} = \overline{y} \, x_i\]</span></p>
+</div><div class="column" style="width:60%;">
+<p><img data-src="imgs/scale_problem.png" height="300"></p>
+</div></div>
 <ul>
 <li>Which weight, <span class="math inline">\(w_1\)</span> or <span class="math inline">\(w_2\)</span>, will receive a larger gradient descent update?</li>
 <li>Which one do you want to receive a larger update?</li>

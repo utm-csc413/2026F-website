@@ -6739,7 +6739,7 @@
     "href": "lecs/w05/lec05.html#ravines-example",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Ravines Example",
-    "text": "Ravines Example\nSuppose we have the following dataset for linear regression.\n\nWhich weight, \\(w_1\\) or \\(w_2\\), will receive a larger gradient descent update?\nWhich one do you want to receive a larger update?\nNote: the figure vastly understates the narrowness of the ravine!"
+    "text": "Ravines Example\nSuppose we have the following dataset for linear regression.\n\n\n\n\n\n\\(x_1\\)\n\\(x_2\\)\n\\(t\\)\n\n\n\n\n114.8\n0.00323\n5.1\n\n\n338.1\n0.00183\n3.2\n\n\n98.8\n0.00279\n4.1\n\n\n…\n…\n…\n\n\n\n\\[\\overline{w_i} = \\overline{y} \\, x_i\\]\n\n\n\n\nWhich weight, \\(w_1\\) or \\(w_2\\), will receive a larger gradient descent update?\nWhich one do you want to receive a larger update?\nNote: the figure vastly understates the narrowness of the ravine!"
   },
   {
     "objectID": "lecs/w05/lec05.html#ravines-another-examples",
