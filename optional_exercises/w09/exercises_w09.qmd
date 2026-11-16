@@ -1,5 +1,7 @@
 ---
 title: "Week 9 Optional Exercises: Attention and Transformers"
+resources:
+  - "_notebooks/*.ipynb"
 ---
 
 {{< include ../_macros.qmd >}}
@@ -187,4 +189,408 @@ Consider processing a sequence of length $t$ with hidden/embedding dimension $k$
 **(b)** Gradients between two positions are products of Jacobians along the path connecting them. Long paths lead to vanishing or exploding gradients (Week 8). With a constant path length, the gradient signal from a distant token does not have to pass through many multiplications.
 
 **(c)** Self-attention compares every position with every other position, so its time and memory cost is $O(t^2 k)$, compared to $O(t k^2)$ for an RNN. For long sequences (large $t$), the quadratic dependence on $t$ becomes the bottleneck.
+:::
+
+## Exercise 7 - Coding a Decoder-Only Transformer
+
+In this exercise, you will implement a small GPT-style language model from scratch in PyTorch and train it to predict the next character of a short text. Exercises 8 and 9 reuse the building blocks you write here. Each training run takes a few seconds on a CPU.
+
+**(a)** Implement a module `MultiHeadAttention(d_model, n_heads)` whose `forward(x_q, x_kv, mask=None)` takes queries from `x_q` of shape `(B, n_q, d_model)` and keys and values from `x_kv` of shape `(B, n_k, d_model)`. It should:
+
+- compute $Q$, $K$, $V$ with three linear layers of size `d_model` $\times$ `d_model`;
+- split them into `n_heads` heads of dimension $d_k$ = `d_model // n_heads`;
+- apply scaled dot-product attention in each head, adding `mask` (shape `(n_q, n_k)`) to the scores before the softmax;
+- concatenate the heads and apply an output linear layer, returning a tensor of shape `(B, n_q, d_model)`.
+
+Self-attention is the special case `x_q = x_kv`. Having separate inputs lets you reuse the module for cross-attention in Exercise 9.
+
+**(b)** Implement `causal_mask(n)`, which returns the $n \times n$ mask from Exercise 2(d). Then implement a Transformer block `Block(d_model, n_heads, d_ff)` with `forward(x, mask=None)`, following the encoder layer from the lecture: self-attention, then Add & Norm, then the position-wise feed-forward network $\text{FFN}({\bf a}) = W_2\, \text{ReLU}(W_1 {\bf a} + {\bf b}_1) + {\bf b}_2$ with hidden size `d_ff`, then Add & Norm.
+
+**(c)** Implement `DecoderOnlyLM(vocab_size, max_len, d_model=64, n_heads=4, d_ff=128, n_layers=2)`. Its `forward(idx)` takes token indices of shape `(B, n)`, adds a token embedding and a learned position embedding (`nn.Embedding(max_len, d_model)`), applies `n_layers` blocks with the causal mask, and returns next-token logits of shape `(B, n, vocab_size)`.
+
+**(d)** Train the model on the character-level data below with the cross-entropy loss, using Adam with learning rate `1e-3`, batches of 32 windows, and 500 steps. Then write a function `generate(model, prompt, n_new)` that repeatedly appends the most likely next character (greedy decoding), and generate 60 characters from the prompt `"the quick"`.
+
+```python
+text = ("the quick brown fox jumps over the lazy dog. "
+        "a lazy dog sleeps all day while the quick fox runs. ")
+chars = sorted(set(text))
+stoi = {c: i for i, c in enumerate(chars)}
+data = torch.tensor([stoi[c] for c in text])
+block_size = 32
+
+def get_batch(batch_size=32):
+    starts = torch.randint(len(data) - block_size - 1, (batch_size,))
+    x = torch.stack([data[s:s + block_size] for s in starts])
+    y = torch.stack([data[s + 1:s + block_size + 1] for s in starts])   # x shifted by one
+    return x, y
+```
+
+**(e)** Retrain the model *without* the causal mask. How does the training loss compare to (d)? What happens when you generate text, and why?
+
+::: {.callout-tip collapse="true" title="Solution"}
+Full solution notebook: [download](_notebooks/ex7_decoder_only_transformer.ipynb){download=""} | [open in Colab](https://colab.research.google.com/github/utm-csc413/2026F-website/blob/main/optional_exercises/w09/_notebooks/ex7_decoder_only_transformer.ipynb)
+
+**(a)-(c)** One possible implementation:
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+torch.manual_seed(0)
+
+class MultiHeadAttention(nn.Module):
+    def __init__(self, d_model, n_heads):
+        super().__init__()
+        assert d_model % n_heads == 0
+        self.h, self.d_k = n_heads, d_model // n_heads
+        self.W_q = nn.Linear(d_model, d_model)
+        self.W_k = nn.Linear(d_model, d_model)
+        self.W_v = nn.Linear(d_model, d_model)
+        self.W_o = nn.Linear(d_model, d_model)
+
+    def split_heads(self, x):                       # (B, n, d_model) -> (B, h, n, d_k)
+        B, n, _ = x.shape
+        return x.view(B, n, self.h, self.d_k).transpose(1, 2)
+
+    def forward(self, x_q, x_kv, mask=None):
+        Q = self.split_heads(self.W_q(x_q))         # (B, h, n_q, d_k)
+        K = self.split_heads(self.W_k(x_kv))        # (B, h, n_k, d_k)
+        V = self.split_heads(self.W_v(x_kv))        # (B, h, n_k, d_k)
+        scores = Q @ K.transpose(-2, -1) / self.d_k ** 0.5   # (B, h, n_q, n_k)
+        if mask is not None:
+            scores = scores + mask                  # mask: (n_q, n_k), 0 or -inf
+        C = torch.softmax(scores, dim=-1) @ V       # (B, h, n_q, d_k)
+        B, _, n_q, _ = C.shape
+        C = C.transpose(1, 2).reshape(B, n_q, self.h * self.d_k)  # concatenate heads
+        return self.W_o(C)
+
+def causal_mask(n):
+    return torch.triu(torch.full((n, n), float("-inf")), diagonal=1)
+
+class Block(nn.Module):
+    def __init__(self, d_model, n_heads, d_ff):
+        super().__init__()
+        self.attn = MultiHeadAttention(d_model, n_heads)
+        self.ffn = nn.Sequential(nn.Linear(d_model, d_ff), nn.ReLU(), nn.Linear(d_ff, d_model))
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+
+    def forward(self, x, mask=None):
+        a = self.norm1(x + self.attn(x, x, mask))   # self-attention, Add & Norm
+        return self.norm2(a + self.ffn(a))          # FFN, Add & Norm
+
+class DecoderOnlyLM(nn.Module):
+    def __init__(self, vocab_size, max_len, d_model=64, n_heads=4, d_ff=128, n_layers=2):
+        super().__init__()
+        self.tok_emb = nn.Embedding(vocab_size, d_model)
+        self.pos_emb = nn.Embedding(max_len, d_model)
+        self.blocks = nn.ModuleList([Block(d_model, n_heads, d_ff) for _ in range(n_layers)])
+        self.out = nn.Linear(d_model, vocab_size)
+
+    def forward(self, idx, use_mask=True):          # idx: (B, n) token indices
+        n = idx.shape[1]
+        x = self.tok_emb(idx) + self.pos_emb(torch.arange(n))
+        mask = causal_mask(n) if use_mask else None
+        for block in self.blocks:
+            x = block(x, mask)
+        return self.out(x)                          # (B, n, vocab_size)
+```
+
+The `use_mask` argument is only there for part (e).
+
+**(d)** Every position in a window is trained to predict the next character at once. This is teacher forcing: the model always sees the true previous characters, never its own predictions.
+
+```python
+def train(use_mask=True, steps=500):
+    torch.manual_seed(0)
+    model = DecoderOnlyLM(len(chars), block_size)
+    opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+    for step in range(steps):
+        x, y = get_batch()
+        logits = model(x, use_mask)
+        loss = F.cross_entropy(logits.reshape(-1, len(chars)), y.reshape(-1))
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+        if step % 100 == 0 or step == steps - 1:
+            print(f"step {step:3d}  loss {loss.item():.4f}")
+    return model
+
+@torch.no_grad()
+def generate(model, prompt, n_new=60, use_mask=True):
+    idx = torch.tensor([[stoi[c] for c in prompt]])
+    for _ in range(n_new):
+        logits = model(idx[:, -block_size:], use_mask)   # at most block_size tokens of context
+        next_id = logits[0, -1].argmax()                 # most likely next character
+        idx = torch.cat([idx, next_id.view(1, 1)], dim=1)
+    return "".join(chars[i] for i in idx[0])
+
+model = train()
+print(generate(model, "the quick"))
+```
+
+The output should look approximately like this (your numbers may differ slightly across PyTorch versions and hardware):
+
+```
+step   0  loss 3.4381
+step 100  loss 0.3380
+...
+step 499  loss 0.0444
+the quick brown fox jumps over the lazy dog. a lazy dog sleeps all da
+```
+
+The training text is only about 100 characters long, so the model has essentially memorized it rather than learned English. Because greedy decoding is deterministic, it can also get stuck repeating the same phrase.
+
+**(e)**
+
+```python
+model_nomask = train(use_mask=False)
+print(generate(model_nomask, "the quick", use_mask=False))
+```
+
+```
+step   0  loss 3.4474
+...
+step 499  loss 0.0036
+the quick br quick r que ruick run rox r rox r qun fox r r a fov l fo
+```
+
+The training loss is even lower than with the mask, but generation produces garbage. Without the mask, position $i$ can attend to position $i+1$, which holds exactly the character it is supposed to predict, so the model learns to copy it from the input. At generation time, the next character is not in the input yet, so the copying strategy has nothing to copy. The causal mask makes training match generation: each position only sees the characters before it.
+:::
+
+## Exercise 8 - Coding an Encoder-Only Transformer
+
+Encoder-only Transformers such as BERT use unmasked self-attention, so that every token sees the whole sequence. To classify a sequence, they prepend a special `[CLS]` token and put a classifier on top of its final representation.
+
+Copy `MultiHeadAttention`, `causal_mask`, and `Block` from Exercise 7 into your notebook.
+
+**(a)** Implement `EncoderClassifier(vocab_size=10, max_len=8, d_model=64, n_heads=4, d_ff=128, n_layers=2, use_pos=True)`. Its `forward(idx)` should:
+
+- embed the tokens and prepend a learned `[CLS]` vector (an `nn.Parameter` of shape `(1, 1, d_model)`);
+- if `use_pos` is true, add learned position embeddings to all `n + 1` positions;
+- apply `n_layers` blocks without a mask;
+- return 2 logits computed by a linear layer from the final `[CLS]` vector.
+
+**(b)** Train the model to decide whether a sequence of 8 digits is sorted. Only about 0.02% of random digit sequences are sorted, so the function below builds a balanced dataset: each positive is a sorted random sequence, and each negative is a shuffle of random digits that is not sorted. Use Adam with learning rate `1e-3`, batches of 64, and 1000 steps, and report the accuracy on 2000 fresh test sequences.
+
+```python
+def make_batch(batch_size, n=8):
+    x = torch.randint(10, (batch_size, n))
+    y = torch.randint(2, (batch_size,))              # 1 = sorted, 0 = not sorted
+    for i in range(batch_size):
+        if y[i] == 1:
+            x[i] = x[i].sort().values
+        else:
+            while (x[i][1:] >= x[i][:-1]).all():     # redraw until not sorted
+                if (x[i] == x[i][0]).all():          # all digits equal: every order is sorted
+                    x[i] = torch.randint(10, (n,))
+                else:
+                    x[i] = x[i][torch.randperm(n)]
+    return x, y
+```
+
+**(c)** Retrain with `use_pos=False`. What test accuracy do you get, and why? *Hint:* Exercise 5.
+
+::: {.callout-tip collapse="true" title="Solution"}
+Full solution notebook: [download](_notebooks/ex8_encoder_only_transformer.ipynb){download=""} | [open in Colab](https://colab.research.google.com/github/utm-csc413/2026F-website/blob/main/optional_exercises/w09/_notebooks/ex8_encoder_only_transformer.ipynb)
+
+**(a)**
+
+```python
+class EncoderClassifier(nn.Module):
+    def __init__(self, vocab_size=10, max_len=8, d_model=64, n_heads=4, d_ff=128,
+                 n_layers=2, use_pos=True):
+        super().__init__()
+        self.tok_emb = nn.Embedding(vocab_size, d_model)
+        self.cls = nn.Parameter(torch.randn(1, 1, d_model))
+        self.pos_emb = nn.Embedding(max_len + 1, d_model) if use_pos else None
+        self.blocks = nn.ModuleList([Block(d_model, n_heads, d_ff) for _ in range(n_layers)])
+        self.head = nn.Linear(d_model, 2)
+
+    def forward(self, idx):                           # idx: (B, n)
+        B, n = idx.shape
+        x = torch.cat([self.cls.expand(B, 1, -1), self.tok_emb(idx)], dim=1)  # (B, n+1, d)
+        if self.pos_emb is not None:
+            x = x + self.pos_emb(torch.arange(n + 1))
+        for block in self.blocks:
+            x = block(x)                              # no mask: every token sees every token
+        return self.head(x[:, 0])                     # logits from the [CLS] position
+```
+
+**(b)**
+
+```python
+def train(use_pos=True, steps=1000):
+    torch.manual_seed(0)
+    model = EncoderClassifier(use_pos=use_pos)
+    opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+    for step in range(steps):
+        x, y = make_batch(64)
+        loss = F.cross_entropy(model(x), y)
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+    x_test, y_test = make_batch(2000)
+    with torch.no_grad():
+        acc = (model(x_test).argmax(dim=1) == y_test).float().mean()
+    print(f"use_pos={use_pos}: final loss {loss.item():.4f}, test accuracy {acc:.3f}")
+    return model
+
+train(use_pos=True)
+```
+
+The output should look approximately like this:
+
+```
+use_pos=True: final loss 0.0051, test accuracy 0.999
+```
+
+**(c)**
+
+```python
+train(use_pos=False)
+```
+
+```
+use_pos=False: final loss 0.6932, test accuracy 0.503
+```
+
+Without position embeddings, the model does no better than chance, and the loss stays at $\log 2 \approx 0.693$. By Exercise 5, unmasked self-attention without positional information is permutation equivariant, and the FFN, residual connections, and LayerNorm all act on each token separately. Shuffling the 8 digit tokens therefore only shuffles their outputs, and the `[CLS]` output (which attends to all of them) does not change at all. The model only sees the *multiset* of digits. Any multiset of digits can appear both sorted (as a positive) and shuffled (as a negative), so the multiset carries essentially no information about the label. With position embeddings, each token knows where it is, and the task becomes easy.
+:::
+
+## Exercise 9 - Coding a Sequence-to-Sequence Transformer
+
+The original Transformer of Vaswani et al. is an encoder-decoder model: the encoder reads the input sequence, and the decoder generates the output sequence while attending to the encoder outputs through *cross-attention*. In this exercise, you will train one to reverse a sequence of 8 digits, e.g. `3 9 1 6 4 1 2 5` $\to$ `5 2 1 4 6 1 9 3`.
+
+Copy `MultiHeadAttention`, `causal_mask`, and `Block` from Exercise 7 into your notebook.
+
+**(a)** Implement `DecoderBlock(d_model, n_heads, d_ff)` with `forward(s, z, mask)`, following the decoder layer from the lecture: masked self-attention over `s`, then Add & Norm, then cross-attention with queries from the result and keys and values from the encoder outputs `z`, then Add & Norm, then the FFN, then Add & Norm.
+
+**(b)** Implement `Seq2SeqTransformer(vocab_size, max_len, d_model=64, n_heads=4, d_ff=128, n_layers=2)` with three methods:
+
+- `encode(src)`: embed the source tokens (token plus position embeddings) and apply `n_layers` encoder `Block`s without a mask;
+- `decode(tgt_in, z)`: embed the decoder input tokens and apply `n_layers` `DecoderBlock`s with the causal mask, then a linear layer to logits of shape `(B, m, vocab_size)`;
+- `forward(src, tgt_in)`, which returns `decode(tgt_in, encode(src))`.
+
+You can share one token embedding and one position embedding between the encoder and the decoder.
+
+**(c)** Train the model on the data below, where the decoder input is the target shifted right (starting with `<BOS>`) and the decoder target ends with `<EOS>`. Use Adam with learning rate `1e-3`, batches of 64, and 1000 steps. Then implement greedy decoding: encode the source once, start the decoder input with `<BOS>`, and repeatedly append the most likely next token. Generate 9 tokens (8 digits and `<EOS>`), and report the exact-match accuracy on 1000 fresh test sequences.
+
+```python
+BOS, EOS = 10, 11                                    # digits are tokens 0-9
+vocab_size, n = 12, 8
+
+def make_batch(batch_size):
+    src = torch.randint(10, (batch_size, n))
+    tgt = src.flip(dims=[1])                         # the reversed sequence
+    bos = torch.full((batch_size, 1), BOS)
+    eos = torch.full((batch_size, 1), EOS)
+    tgt_in = torch.cat([bos, tgt], dim=1)            # <BOS> y1 ... yn   (shifted right)
+    tgt_out = torch.cat([tgt, eos], dim=1)           # y1 ... yn <EOS>
+    return src, tgt_in, tgt_out
+```
+
+All sequences here have the same length. Real seq2seq data has sequences of different lengths, which are padded to a common length; an extra *padding mask* then stops the attention from looking at the padding tokens, and decoding stops at `<EOS>`.
+
+**(d)** Why can the encoder use unmasked self-attention, while the self-attention in the decoder must be masked? In cross-attention, which tensor provides the queries, and which provides the keys and values?
+
+::: {.callout-tip collapse="true" title="Solution"}
+Full solution notebook: [download](_notebooks/ex9_seq2seq_transformer.ipynb){download=""} | [open in Colab](https://colab.research.google.com/github/utm-csc413/2026F-website/blob/main/optional_exercises/w09/_notebooks/ex9_seq2seq_transformer.ipynb)
+
+**(a)-(b)**
+
+```python
+class DecoderBlock(nn.Module):
+    def __init__(self, d_model, n_heads, d_ff):
+        super().__init__()
+        self.self_attn = MultiHeadAttention(d_model, n_heads)
+        self.cross_attn = MultiHeadAttention(d_model, n_heads)
+        self.ffn = nn.Sequential(nn.Linear(d_model, d_ff), nn.ReLU(), nn.Linear(d_ff, d_model))
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+        self.norm3 = nn.LayerNorm(d_model)
+
+    def forward(self, s, z, mask):
+        a = self.norm1(s + self.self_attn(s, s, mask))   # masked self-attention
+        b = self.norm2(a + self.cross_attn(a, z))        # queries from a, keys/values from z
+        return self.norm3(b + self.ffn(b))
+
+class Seq2SeqTransformer(nn.Module):
+    def __init__(self, vocab_size, max_len, d_model=64, n_heads=4, d_ff=128, n_layers=2):
+        super().__init__()
+        self.tok_emb = nn.Embedding(vocab_size, d_model)
+        self.pos_emb = nn.Embedding(max_len, d_model)
+        self.encoder = nn.ModuleList([Block(d_model, n_heads, d_ff) for _ in range(n_layers)])
+        self.decoder = nn.ModuleList([DecoderBlock(d_model, n_heads, d_ff) for _ in range(n_layers)])
+        self.out = nn.Linear(d_model, vocab_size)
+
+    def embed(self, idx):
+        return self.tok_emb(idx) + self.pos_emb(torch.arange(idx.shape[1]))
+
+    def encode(self, src):
+        z = self.embed(src)
+        for block in self.encoder:
+            z = block(z)                                 # no mask in the encoder
+        return z
+
+    def decode(self, tgt_in, z):
+        s = self.embed(tgt_in)
+        mask = causal_mask(tgt_in.shape[1])
+        for block in self.decoder:
+            s = block(s, z, mask)
+        return self.out(s)                               # (B, m, vocab_size)
+
+    def forward(self, src, tgt_in):
+        return self.decode(tgt_in, self.encode(src))
+```
+
+**(c)**
+
+```python
+torch.manual_seed(0)
+model = Seq2SeqTransformer(vocab_size, max_len=n + 1)
+opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+for step in range(1000):
+    src, tgt_in, tgt_out = make_batch(64)
+    logits = model(src, tgt_in)                          # teacher forcing
+    loss = F.cross_entropy(logits.reshape(-1, vocab_size), tgt_out.reshape(-1))
+    opt.zero_grad()
+    loss.backward()
+    opt.step()
+    if step % 250 == 0 or step == 999:
+        print(f"step {step:4d}  loss {loss.item():.4f}")
+
+@torch.no_grad()
+def greedy_decode(model, src, n_new=n + 1):
+    z = model.encode(src)                                # encode the source once
+    out = torch.full((src.shape[0], 1), BOS)
+    for _ in range(n_new):
+        next_tok = model.decode(out, z)[:, -1].argmax(dim=-1, keepdim=True)
+        out = torch.cat([out, next_tok], dim=1)
+    return out[:, 1:]                                    # drop <BOS>
+
+src, _, tgt_out = make_batch(1000)
+pred = greedy_decode(model, src)
+print("exact match:", (pred == tgt_out).all(dim=1).float().mean().item())
+print("input: ", src[0].tolist())
+print("output:", pred[0].tolist())
+```
+
+The output should look approximately like this:
+
+```
+step    0  loss 2.7431
+step  250  loss 0.0038
+step  500  loss 0.0013
+step  750  loss 0.0007
+step  999  loss 0.0004
+exact match: 1.0
+input:  [2, 9, 6, 8, 3, 5, 3, 8]
+output: [8, 3, 5, 3, 8, 6, 9, 2, 11]
+```
+
+The model reverses essentially every test sequence and ends each one with `<EOS>` (token 11).
+
+**(d)** The encoder reads an input sequence that is entirely known in advance, so every input token can use context from both sides. The decoder is trained with teacher forcing to predict token $i+1$ from tokens $1, \dots, i$. Without the mask, it could read the answer from position $i+1$ of its input (see Exercise 7(e)), and at generation time the future tokens don't exist yet. In cross-attention, the queries come from the decoder (the output of its masked self-attention sublayer), and the keys and values come from the final encoder outputs $Z$. This is how each output position looks up the relevant input tokens; for reversal, output position $i$ learns to attend to input position $n + 1 - i$.
 :::
