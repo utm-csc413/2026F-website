@@ -144,11 +144,8 @@
 </div>
 
 </section>
-<section id="announcements" class="slide level2">
-<h2>Announcements</h2>
-<ul>
-<li>The project plan is due early next week (March 21)</li>
-</ul>
+<section class="slide level2">
+
 <!-- 00game -->
 </section>
 <section>
@@ -163,15 +160,6 @@
 <li>When we want to make predictions about an image</li>
 <li>When we want to generate a sequence</li>
 <li>When we want to generate an image</li>
-</ol>
-</section>
-<section id="using-glove-embeddings-of-words-as-input-features-to-an-rnn-is-an-example-of" class="slide level2">
-<h2>Using GloVe Embeddings of Words as Input Features to an RNN is an Example of…</h2>
-<ol type="a">
-<li>LSTM</li>
-<li>GRU</li>
-<li>MLP</li>
-<li>Transfer Learning</li>
 </ol>
 </section>
 <section id="what-is-a-disadvantage-of-using-a-vanilla-rnn-without-gating" class="slide level2">
@@ -213,8 +201,8 @@
 </ul>
 </div>
 </section>
-<section id="text-generation-with-rnn-ii" class="slide level2">
-<h2>Text Generation with RNN II</h2>
+<section id="text-generation-with-rnn-1" class="slide level2">
+<h2>Text Generation with RNN</h2>
 <p>RNN For Generation:</p>
 <ul>
 <li>Generate tokens one at a time</li>
@@ -313,8 +301,8 @@
 </ul>
 </div>
 </section>
-<section id="text-generation-step-1-ii" class="slide level2">
-<h2>Text Generation: Step 1 II</h2>
+<section id="text-generation-step-1-1" class="slide level2">
+<h2>Text Generation: Step 1</h2>
 <center>
 <img data-src="imgs/rnn_gen_figure.png" height="200">
 </center>
@@ -341,8 +329,8 @@
 </ul></li>
 </ul>
 </section>
-<section id="text-generation-with-teacher-forcing-ii" class="slide level2">
-<h2>Text Generation with Teacher Forcing II</h2>
+<section id="text-generation-with-teacher-forcing-1" class="slide level2">
+<h2>Text Generation with Teacher Forcing</h2>
 <center>
 <img data-src="imgs/rnn_gen_figure.png" height="200">
 </center>
@@ -394,11 +382,6 @@
 <h1>Recurrent Neural Networks with Attention</h1>
 
 </section>
-<section id="recurrent-neural-networks" class="slide level2">
-<h2>Recurrent Neural Networks</h2>
-<p>In lecture 8, we showed a <strong>discriminative RNN</strong> that makes a <em>prediction</em> based on a sequence (sequence as an input).</p>
-<p>In the week 11 tutorial, we will build a <strong>generator RNN</strong> to generate sequences (sequence as an output)</p>
-</section>
 <section id="sequence-to-sequence-tasks" class="slide level2">
 <h2>Sequence-to-sequence Tasks</h2>
 <p>Another common example of a sequence-to-sequence task (seq2seq) is <strong>machine translation</strong>.</p>
@@ -411,8 +394,8 @@
 <p>The <strong>decoder network</strong> then generates the output sentence one word at a time.</p>
 <p><img data-src="imgs/ilya_lstm.png" style="height:35.0%"></p>
 </section>
-<section id="how-seq2seq-works-ii" class="slide level2">
-<h2>How Seq2Seq Works II</h2>
+<section id="how-seq2seq-works-1" class="slide level2">
+<h2>How Seq2Seq Works</h2>
 <p><img data-src="imgs/ilya_lstm.png" style="height:35.0%"></p>
 <p>But some sentences can be really long. Can we really store all the information in a vector of hidden units?</p>
 <p>Human translators <strong>refer back to the input</strong>.</p>
@@ -467,8 +450,8 @@
 <p>We would like to <em>refer back</em> to one (or a few) of the input words to help with the translation task (e.g.&nbsp;find the adjective)</p>
 <p>If you were programming a translator, you might…</p>
 </section>
-<section id="intuition-behind-aattending-to-the-input-ii" class="slide level2">
-<h2>Intuition Behind Aattending to the Input” II</h2>
+<section id="intuition-behind-attending-to-the-input-1" class="slide level2">
+<h2>Intuition Behind “Attending to the Input”</h2>
 <p>If you were programming a translator, you might</p>
 <ol type="1">
 <li>find an input word that is most likely an adjective (the attention function)</li>
@@ -485,11 +468,11 @@
 <p>The context vector is computed as a <strong>weighted average</strong> of the encoder’s annotations:</p>
 <p><span class="math display">\[{\bf c}^{(i)} = \sum_j \alpha_{ij} {\bf h}^{(j)}\]</span></p>
 </section>
-<section id="the-math-behind-attending-to-the-input-ii" class="slide level2">
-<h2>The Math Behind “Attending to the Input” II</h2>
+<section id="the-math-behind-attending-to-the-input-1" class="slide level2">
+<h2>The Math Behind “Attending to the Input”</h2>
 <p>The attention weights are computed as a softmax, where the input depends on the <em>annotation</em> <span class="math inline">\({\bf h}^{(j)}\)</span> and the <em>decoder states</em> <span class="math inline">\({\bf s}^{(t)}\)</span>:</p>
 <p><span class="math display">\[
-e_{ij} = a({\bf s}^{(i-1)}, {\bf h}^{(j)}), \qquad \alpha_{ij} = \frac{ \exp(e_{ij}) }{\sum_{j^\prime} exp(e_{ij^\prime})}
+e_{ij} = a({\bf s}^{(i-1)}, {\bf h}^{(j)}), \qquad \alpha_{ij} = \frac{ \exp(e_{ij}) }{\sum_{j^\prime} \exp(e_{ij^\prime})}
 \]</span></p>
 <p>The attention function depends on the <strong>annotation vector</strong>, rather than the <strong>position in the sentence</strong>. It is a form of content-based addressing.</p>
 </section>
@@ -511,7 +494,7 @@ e_{ij} = a({\bf s}^{(i-1)}, {\bf h}^{(j)}), \qquad \alpha_{ij} = \frac{ \exp(e_{
 {\bf h}^{(3)} &amp;= \begin{bmatrix}5 &amp; -1 &amp; 2\end{bmatrix}^\top \\
 \\
 {\bf c}^{(t)} &amp;= \text{average}({\bf h}^{(1)} , {\bf h}^{(2)}, {\bf h}^{(3)})\\
-&amp;= \begin{bmatrix}2 &amp; 0.6 &amp; 1\end{bmatrix}^\top \\
+&amp;= \begin{bmatrix}2 &amp; 0.67 &amp; 4\end{bmatrix}^\top \\
 \end{align*}\]</span></p>
 </section>
 <section id="example-attention" class="slide level2">
@@ -544,16 +527,16 @@ f({\bf s}^{(t-1)}, {\bf h}^{(3)}) \\
                \end{bmatrix}\right) = \begin{bmatrix}\alpha_{t1} \\ \alpha_{t2} \\ \alpha_{t3}\end{bmatrix}
 \end{align*}\]</span></p>
 </section>
-<section id="example-dot-product-attention-ii" class="slide level2">
-<h2>Example: Dot-Product Attention II</h2>
+<section id="example-dot-product-attention-1" class="slide level2">
+<h2>Example: Dot-Product Attention</h2>
 <p><span class="math display">\[\begin{align*}
 {\bf h}^{(1)} &amp;= \begin{bmatrix}1 &amp; 3 &amp; 9\end{bmatrix}^\top \\
 {\bf h}^{(2)} &amp;= \begin{bmatrix}0 &amp; 0 &amp; 1\end{bmatrix}^\top \qquad \quad {\bf s}^{(t-1)} = \begin{bmatrix}0 &amp; 1 &amp; 1\end{bmatrix}^\top \\
 {\bf h}^{(3)} &amp;= \begin{bmatrix}5 &amp; -1 &amp; 2\end{bmatrix}^\top \\
 \\
-\alpha_t &amp;= \text{softmax}\left(\begin{bmatrix}1 &amp; 0 &amp; 5 \\ 3 &amp; 0 &amp; -1 \\ 0 &amp; 1 &amp;2 \end{bmatrix}^\top
-                    \begin{bmatrix}0 \\ 1 \\ 1\end{bmatrix}\right) \\
-{\bf c}^{(t)} &amp;= \alpha_{t1} {\bf h}^{(1)} + \alpha_{t2} {\bf h}^{(2)} + \alpha_{t2} {\bf h}^{(3)}\\
+\alpha_t &amp;= \text{softmax}\left(\begin{bmatrix}1 &amp; 0 &amp; 5 \\ 3 &amp; 0 &amp; -1 \\ 9 &amp; 1 &amp; 2 \end{bmatrix}^\top
+                    \begin{bmatrix}0 \\ 1 \\ 1\end{bmatrix}\right) = \text{softmax}\left(\begin{bmatrix}12 \\ 1 \\ 1\end{bmatrix}\right) \\
+{\bf c}^{(t)} &amp;= \alpha_{t1} {\bf h}^{(1)} + \alpha_{t2} {\bf h}^{(2)} + \alpha_{t3} {\bf h}^{(3)}\\
 \end{align*}\]</span></p>
 </section>
 <section id="attention-demo-video" class="slide level2">
@@ -587,8 +570,8 @@ f({\bf s}^{(t-1)}, {\bf h}^{(3)}) \\
 </ul>
 </div>
 </section>
-<section id="attention-based-caption-generation-ii" class="slide level2">
-<h2>Attention-Based Caption Generation II</h2>
+<section id="attention-based-caption-generation-1" class="slide level2">
+<h2>Attention-Based Caption Generation</h2>
 <p>Attention can also be used to understand images.</p>
 <ul>
 <li>We humans can’t process a whole visual scene at once.</li>
@@ -604,8 +587,8 @@ f({\bf s}^{(t-1)}, {\bf h}^{(3)}) \\
 </ul>
 </div>
 </section>
-<section id="attention-based-caption-generation-iii" class="slide level2">
-<h2>Attention-Based Caption Generation III</h2>
+<section id="attention-based-caption-generation-2" class="slide level2">
+<h2>Attention-Based Caption Generation</h2>
 <p>The next few slides are based on this paper from the UofT machine learning group:</p>
 <blockquote>
 <p>Xu et al.&nbsp;Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention. ICML, 2015.</p>
@@ -618,8 +601,8 @@ f({\bf s}^{(t-1)}, {\bf h}^{(3)}) \\
 <li><strong>Encoder</strong>: a classification conv net like VGG. This computes a bunch of feature maps over the image.</li>
 </ul>
 </section>
-<section id="attention-for-caption-generation-ii" class="slide level2">
-<h2>Attention for Caption Generation II</h2>
+<section id="attention-for-caption-generation-1" class="slide level2">
+<h2>Attention for Caption Generation</h2>
 <ul>
 <li><strong>Decoder</strong>: an attention-based RNN, analogous to the decoder in the translation model
 <ul>
@@ -628,12 +611,12 @@ f({\bf s}^{(t-1)}, {\bf h}^{(3)}) \\
 </ul></li>
 </ul>
 </section>
-<section id="attention-for-caption-generation-iii" class="slide level2">
-<h2>Attention for Caption Generation III</h2>
+<section id="attention-for-caption-generation-2" class="slide level2">
+<h2>Attention for Caption Generation</h2>
 <p>Similar math as before: difference is that <span class="math inline">\(j\)</span> is a pixel location</p>
 <p><span class="math display">\[\begin{align*}
 e_{ij} &amp;= a({\bf s}^{(i-1)}, {\bf h}^{(j)}) \\
-\alpha_{ij} &amp;= \frac{ \exp(e_{ij}) }{\sum_{j^\prime} exp(e_{ij^\prime})}
+\alpha_{ij} &amp;= \frac{ \exp(e_{ij}) }{\sum_{j^\prime} \exp(e_{ij^\prime})}
 \end{align*}\]</span></p>
 </section>
 <section id="what-attention-tells-us" class="slide level2">
@@ -661,59 +644,7 @@ e_{ij} &amp;= a({\bf s}^{(i-1)}, {\bf h}^{(j)}) \\
 </section>
 <section id="rnn-disadvantage" class="slide level2">
 <h2>RNN Disadvantage</h2>
-<p>One disadvantage of RNNS (and especially multi-layer RNNs) is that they require a long time to train, and are more difficult to parallelize. (Need the previous hidden state <span class="math inline">\(h^{(t)}\)</span> to be able to compute <span class="math inline">\(h^{(t+1)}\)</span>)</p>
-<!--
-
-## Computational Cost and Parallelism
-
-There are a few things we should consider when designing an RNN.
-
-Computational cost:
-
-- Number of connections. How many add-multiply operations for the forward and backward pass.
-- Number of time steps. How many copies of hidden units to store for
-- Backpropgation Through Time.  Number of sequential operations. The computations cannot be parallelized. (The part of the model that requires a for loop).
-
-Maximum path length across time: the shortest path length
-between the first encoder input and the last decoder output.
-
-- It tells us how easy it is for the RNN to remember / retreive
-information from the input sequence.
-
-## Computational Cost Example
-
-If we have a $d$ layer RNN with $k$ hidden units, training on a sequence of length $t$...
-
-![](imgs/notation_rnn.png){ height=40% }
-
-- There are $k^2$ connections for each hidden-to-hidden connections: total $tk^2d$ connections
-- We need to store $tkd$ hidden units during training
-- Only $kd$ hidden units need  to be stored at test time
-
-## Parallelism
-
-![](imgs/rnn_parallel.png){ height=40% }
-
-- Both the input embeddings and outputs of an RNN can be computed in parallel
-- The blue hidden units are independent given the red
-- The number of sequential operations is still proportional to $t$
-
-## Backprop
-
-During backprop, in the standard encoder-decoder RNN, the maximum
-path length across time is the number of time steps.
-
-Attention-based RNNs have a constant path length between the
-encoder inputs and the decoder hidden states.
-(Learning becomes easier. Why?)
-
-![](imgs/bptt_atten.png){ height=40% }
-
-## Backprop
-
-Let's not get into this. I don't think our students will appreciate this...
-
--->
+<p>One disadvantage of RNNs (and especially multi-layer RNNs) is that they require a long time to train, and are more difficult to parallelize. (Need the previous hidden state <span class="math inline">\(h^{(t)}\)</span> to be able to compute <span class="math inline">\(h^{(t+1)}\)</span>)</p>
 <!-- 03transformer -->
 </section></section>
 <section>
@@ -732,16 +663,16 @@ Let's not get into this. I don't think our students will appreciate this...
 </div>
 </center>
 </section>
-<section id="chatgpt-ii" class="slide level2">
-<h2>ChatGPT II</h2>
+<section id="chatgpt-1" class="slide level2">
+<h2>ChatGPT</h2>
 <p>What is ChatGPT? We’ll let it speak for itself:</p>
 <blockquote>
 <p>I am ChatGPT, a large language model developed by OpenAI. I use machine learning algorithms to generate responses to questions and statements posed to me by users. I am designed to understand and generate natural language responses in a variety of domains and topics, from general knowledge to specific technical fields. My purpose is to assist users in generating accurate and informative responses to their queries and to provide helpful insights and suggestions.</p>
 </blockquote>
 </section>
-<section id="chatgpt-iii" class="slide level2">
-<h2>ChatGPT III</h2>
-<p>ChatGPT is based on OpenAI’s GPT-3, which itself is based on the <strong>transformer</strong> architecture.</p>
+<section id="chatgpt-2" class="slide level2">
+<h2>ChatGPT</h2>
+<p>ChatGPT is built on OpenAI’s GPT family of large language models (starting with GPT-3.5), all of which are based on the <strong>transformer</strong> architecture.</p>
 </section>
 <section id="transformer-1" class="slide level2">
 <h2>Transformer</h2>
@@ -750,8 +681,520 @@ Let's not get into this. I don't think our students will appreciate this...
 <img data-src="imgs/transformer_motivation.png" height="250">
 </center>
 <blockquote>
-<p>Vaswani, Ashish, et al.&nbsp;”Attention is all you need.” Advances in Neural Information Processing Systems. 2017.</p>
+<p>Vaswani, Ashish, et al.&nbsp;“Attention is all you need.” Advances in Neural Information Processing Systems. 2017.</p>
 </blockquote>
+</section>
+<section id="why-get-rid-of-recurrence" class="slide level2">
+<h2>Why Get Rid of Recurrence?</h2>
+<p>Two problems with RNNs, even with attention:</p>
+<ul>
+<li><strong>Sequential computation:</strong> we need <span class="math inline">\(h^{(t)}\)</span> to compute <span class="math inline">\(h^{(t+1)}\)</span>, so we cannot parallelize across time steps</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Long paths:</strong> information from token <span class="math inline">\(1\)</span> has to pass through <span class="math inline">\(t-1\)</span> hidden state updates to reach token <span class="math inline">\(t\)</span>, which makes long-range dependencies hard to learn</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Attention already gives the decoder a <em>direct</em> connection to every encoder state. The transformer uses attention <strong>everywhere</strong>, including inside the encoder and the decoder.</p>
+</div>
+</section>
+<section id="vaswani-ashish-et-al.-attention-is-all-you-need." class="slide level2">
+<h2>Vaswani, Ashish, et al.&nbsp;Attention is all you need.</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/attention.png" height="400"></p>
+<figcaption>typical encoder-decoder blocks of a transformer</figcaption>
+</figure>
+</div>
+</center>
+</div><div class="column" style="width:40%;">
+<p>Transformer has an encoder-decoder architecture similar to the previous sequence-to-sequence RNN models, except all the recurrent connections are replaced by attention modules.</p>
+</div></div>
+</section>
+<section id="attention-as-a-soft-dictionary-lookup" class="slide level2">
+<h2>Attention as a Soft Dictionary Lookup</h2>
+<p>A Python dictionary <code>d[query]</code>:</p>
+<ul>
+<li>compares the <strong>query</strong> with every <strong>key</strong>, looking for an exact match</li>
+<li>returns the <strong>value</strong> of the matching key</li>
+</ul>
+<div class="fragment">
+<p>Attention is a “soft” version of this:</p>
+<ul>
+<li>compares the query with every key using a similarity score (e.g.&nbsp;a dot product)</li>
+<li>returns a <strong>weighted average of all values</strong>, with weights given by a softmax over the scores</li>
+</ul>
+<p><span class="math display">\[
+\alpha_j = \frac{\exp({\bf q} \cdot {\bf k}_j)}{\sum_{j'} \exp({\bf q} \cdot {\bf k}_{j'})}, \qquad {\bf c} = \sum_j \alpha_j {\bf v}_j
+\]</span></p>
+</div>
+</section>
+<section id="bahdanau-attention-as-queries-keys-and-values" class="slide level2">
+<h2>Bahdanau Attention as Queries, Keys and Values</h2>
+<p>In the RNN decoder with attention:</p>
+<ul>
+<li><strong>Query:</strong> the decoder state <span class="math inline">\({\bf s}^{(t-1)}\)</span> (“what am I looking for?”)</li>
+<li><strong>Keys:</strong> the encoder annotations <span class="math inline">\({\bf h}^{(j)}\)</span> (“what does each input contain?”)</li>
+<li><strong>Values:</strong> also the annotations <span class="math inline">\({\bf h}^{(j)}\)</span> (“what do I return if this input is selected?”)</li>
+</ul>
+</section>
+<section id="bahdanau-attention-as-queries-keys-and-values-1" class="slide level2">
+<h2>Bahdanau Attention as Queries, Keys and Values</h2>
+<p>The transformer computes queries, keys and values with separate <strong>learned</strong> linear maps, so keys and values can differ:</p>
+<p><span class="math display">\[
+{\bf q} = W^Q {\bf s}^{(t-1)}, \qquad {\bf k}_j = W^K {\bf h}^{(j)}, \qquad {\bf v}_j = W^V {\bf h}^{(j)}
+\]</span></p>
+<p>In the transformer there is no RNN: <span class="math inline">\({\bf h}^{(j)}\)</span> and <span class="math inline">\({\bf s}^{(t-1)}\)</span> are replaced by the encoder outputs and the decoder’s own representations, introduced in the next slides.</p>
+</section>
+<section id="recall-dot-product-attention" class="slide level2">
+<h2>Recall: Dot-Product Attention</h2>
+<p><span class="math display">\[\begin{align*}
+{\bf h}^{(1)} &amp;= \begin{bmatrix}1 &amp; 3 &amp; 9\end{bmatrix}^\top \\
+{\bf h}^{(2)} &amp;= \begin{bmatrix}0 &amp; 0 &amp; 1\end{bmatrix}^\top \qquad \quad {\bf s}^{(t-1)} = \begin{bmatrix}0 &amp; 1 &amp; 1\end{bmatrix}^\top \\
+{\bf h}^{(3)} &amp;= \begin{bmatrix}5 &amp; -1 &amp; 2\end{bmatrix}^\top \\
+\\
+\alpha_t &amp;= \text{softmax}\left(\begin{bmatrix}1 &amp; 0 &amp; 5 \\ 3 &amp; 0 &amp; -1 \\ 9 &amp; 1 &amp; 2 \end{bmatrix}^\top
+                    \begin{bmatrix}0 \\ 1 \\ 1\end{bmatrix}\right) = \text{softmax}\left(\begin{bmatrix}12 \\ 1 \\ 1\end{bmatrix}\right) \\
+{\bf c}^{(t)} &amp;= \alpha_{t1} {\bf h}^{(1)} + \alpha_{t2} {\bf h}^{(2)} + \alpha_{t3} {\bf h}^{(3)}\\
+\end{align*}\]</span></p>
+</section>
+<section id="scaled-dot-product-attention" class="slide level2">
+<h2>Scaled Dot-Product Attention</h2>
+<p><span class="math display">\[\begin{align*}
+{\bf h}^{(1)} &amp;= \begin{bmatrix}1 &amp; 3 &amp; 9\end{bmatrix}^\top \qquad \quad {\bf h}^{(2)} = \begin{bmatrix}0 &amp; 0 &amp; 1\end{bmatrix}^\top \\
+{\bf h}^{(3)} &amp;= \begin{bmatrix}5 &amp; -1 &amp; 2\end{bmatrix}^\top \qquad \quad {\bf s}^{(t-1)} = \begin{bmatrix}0 &amp; 1 &amp; 1\end{bmatrix}^\top \\
+\alpha_t &amp;= \text{softmax}\left(\frac{1}{\sqrt{3}} \begin{bmatrix}1 &amp; 0 &amp; 5 \\ 3 &amp; 0 &amp; -1 \\ 9 &amp; 1 &amp; 2 \end{bmatrix}^\top
+                    \begin{bmatrix}0 \\ 1 \\ 1\end{bmatrix}\right) \\
+{\bf c}^{(t)} &amp;= \alpha_{t1} {\bf h}^{(1)} + \alpha_{t2} {\bf h}^{(2)} + \alpha_{t3} {\bf h}^{(3)}\\
+\end{align*}\]</span> Q: Which values represent the Q, K, and V?</p>
+</section>
+<section id="scaled-dot-product-attention-1" class="slide level2">
+<h2>Scaled Dot-Product Attention</h2>
+<ul>
+<li><strong>Query:</strong> the decoder state <span class="math inline">\({\bf s}^{(t-1)}\)</span></li>
+<li><strong>Keys:</strong> the annotations <span class="math inline">\({\bf h}^{(1)}, {\bf h}^{(2)}, {\bf h}^{(3)}\)</span> (dot-producted with the query), so <span class="math inline">\(d_K = 3\)</span></li>
+<li><strong>Values:</strong> the same annotations <span class="math inline">\({\bf h}^{(1)}, {\bf h}^{(2)}, {\bf h}^{(3)}\)</span> (averaged to get <span class="math inline">\({\bf c}^{(t)}\)</span>)</li>
+</ul>
+<p>Here <span class="math inline">\(W^Q = W^K = W^V = I\)</span>: keys and values are identical, as in Bahdanau attention.</p>
+<div class="fragment">
+<p><span class="math display">\[\begin{align*}
+\alpha_t &amp;= \text{softmax}\left(\begin{bmatrix}6.93 &amp; 0.58 &amp; 0.58\end{bmatrix}\right) \approx \begin{bmatrix}0.9965 &amp; 0.0017 &amp; 0.0017\end{bmatrix} \\
+{\bf c}^{(t)} &amp;\approx \begin{bmatrix}1.005 &amp; 2.988 &amp; 8.974\end{bmatrix}^\top \approx {\bf h}^{(1)}
+\end{align*}\]</span></p>
+</div>
+</section>
+<section id="scaled-dot-product-attention-in-matrix-form" class="slide level2 smaller small-title">
+<h2>Scaled Dot-Product Attention in Matrix Form</h2>
+<p>Stack <span class="math inline">\(n\)</span> queries as the rows of <span class="math inline">\(Q \in \mathbb{R}^{n \times d_K}\)</span>, <span class="math inline">\(m\)</span> keys as the rows of <span class="math inline">\(K \in \mathbb{R}^{m \times d_K}\)</span>, and <span class="math inline">\(m\)</span> values as the rows of <span class="math inline">\(V \in \mathbb{R}^{m \times d_V}\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\text{Attention}(Q, K, V) &amp;= \text{softmax}\left(\frac{QK^\top}{\sqrt{d_K}}\right) V
+= \begin{bmatrix} {{\bf c}^{(1)}}^\top \\ \vdots \\ {{\bf c}^{(n)}}^\top \end{bmatrix} \\
+\text{where} \quad {\bf c}^{(i)} &amp;= \sum_{j=1}^{m} \alpha_{ij} {\bf v}_j,
+\qquad
+\alpha_{ij} = \frac{\exp({\bf q}_i \cdot {\bf k}_j / \sqrt{d_K})}{\sum_{j'} \exp({\bf q}_i \cdot {\bf k}_{j'} / \sqrt{d_K})}
+\end{align*}\]</span></p>
+<ul>
+<li><span class="math inline">\(QK^\top\)</span> is an <span class="math inline">\(n \times m\)</span> matrix of scores; the softmax is applied to each row, giving the weights <span class="math inline">\(\alpha_{ij}\)</span></li>
+<li>Row <span class="math inline">\(i\)</span> of the <span class="math inline">\(n \times d_V\)</span> output is the context vector <span class="math inline">\({\bf c}^{(i)} \in \mathbb{R}^{d_V}\)</span> for query <span class="math inline">\({\bf q}_i\)</span>: the same weighted average as before, except the logits are scaled down by <span class="math inline">\(\sqrt{d_K}\)</span></li>
+</ul>
+</section>
+<section id="why-scale-by-sqrtd_k" class="slide level2 smaller">
+<h2>Why Scale by <span class="math inline">\(\sqrt{d_K}\)</span>?</h2>
+<p>If the entries of <span class="math inline">\({\bf q}\)</span> and <span class="math inline">\({\bf k}\)</span> are independent with mean 0 and variance 1, then <span class="math inline">\({\bf q} \cdot {\bf k} = \sum_{i=1}^{d_K} q_i k_i\)</span> has variance <span class="math inline">\(d_K\)</span>.</p>
+<ul>
+<li>Large <span class="math inline">\(d_K\)</span> means large logits, so the softmax is nearly one-hot</li>
+<li>A saturated softmax has gradients close to 0</li>
+<li>Dividing by <span class="math inline">\(\sqrt{d_K}\)</span> brings the variance back to 1</li>
+</ul>
+<div class="fragment">
+<p>In our example (<span class="math inline">\(d_K = 3\)</span>):</p>
+<p><span class="math display">\[\begin{align*}
+\text{unscaled:} \quad \text{softmax}\left(\begin{bmatrix}12 &amp; 1 &amp; 1\end{bmatrix}\right) &amp;\approx \begin{bmatrix}0.99997 &amp; 1.7 \times 10^{-5} &amp; 1.7 \times 10^{-5}\end{bmatrix} \\
+\text{scaled:} \quad \text{softmax}\left(\begin{bmatrix}6.93 &amp; 0.58 &amp; 0.58\end{bmatrix}\right) &amp;\approx \begin{bmatrix}0.9965 &amp; 0.0017 &amp; 0.0017\end{bmatrix}
+\end{align*}\]</span></p>
+<p>With only <span class="math inline">\(d_K = 3\)</span> the effect is small, but in practice <span class="math inline">\(d_K\)</span> is 64 or more, and the unscaled softmax becomes essentially one-hot.</p>
+</div>
+</section>
+<section id="self-attention" class="slide level2 smaller">
+<h2>Self-Attention</h2>
+<p>In the RNN, attention connected the decoder to the encoder. <strong>Self-attention</strong> lets a sequence attend to <em>itself</em>.</p>
+<p>Given the inputs <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> (one row per token):</p>
+<p><span class="math display">\[\begin{align*}
+Q = XW^Q, \qquad K = XW^K, \qquad V = XW^V, \qquad \text{SelfAttention}(X) = \text{Attention}(Q, K, V)
+\end{align*}\]</span></p>
+<ul>
+<li>Each token’s new representation is a weighted average of the (transformed) representations of <em>all</em> tokens</li>
+<li><span class="math inline">\(W^Q\)</span>, <span class="math inline">\(W^K\)</span>, <span class="math inline">\(W^V\)</span> are learned</li>
+<li>All <span class="math inline">\(n\)</span> outputs are computed in parallel: no recurrence!</li>
+<li>In the <strong>encoder</strong>, every token attends to every token (no mask); the decoder version comes next</li>
+</ul>
+</section>
+<section id="self-attention-in-the-decoder-causal-masking" class="slide level2 smaller small-title">
+<h2>Self-Attention in the Decoder: Causal Masking</h2>
+<p>The decoder generates one token at a time, so position <span class="math inline">\(i\)</span> must <strong>not</strong> see positions <span class="math inline">\(j &gt; i\)</span> (those are the tokens it is trying to predict!).</p>
+<p>We add a mask <span class="math inline">\(M\)</span> to the logits before the softmax:</p>
+<p><span class="math display">\[\begin{align*}
+\text{MaskedAttention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_K}} + M\right) V,
+\qquad
+M = \begin{bmatrix}
+0 &amp; -\infty &amp; -\infty &amp; -\infty \\
+0 &amp; 0 &amp; -\infty &amp; -\infty \\
+0 &amp; 0 &amp; 0 &amp; -\infty \\
+0 &amp; 0 &amp; 0 &amp; 0
+\end{bmatrix}
+\end{align*}\]</span></p>
+<p>Since <span class="math inline">\(\exp(-\infty) = 0\)</span>, future tokens get attention weight 0.</p>
+</section>
+<section id="causal-masking" class="slide level2 smaller">
+<h2>Causal Masking</h2>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/self_attn_h3.png" height="230"></p>
+<figcaption>each position attends only to itself and earlier positions, in the previous layer</figcaption>
+</figure>
+</div>
+<p><span style="font-size: 0.6em;">Attention block adapted from Figure 2 of Vaswani et al., “Attention is all you need,” NeurIPS 2017.</span></p>
+</center>
+<p>From the hidden vector <span class="math inline">\({\bf x}_i^{(d)}\)</span> of position <span class="math inline">\(i\)</span> in layer <span class="math inline">\(d\)</span>: <span class="math inline">\(Q_i = W^Q {\bf x}_i^{(d)}\)</span>, <span class="math inline">\(K_i = W^K {\bf x}_i^{(d)}\)</span>, <span class="math inline">\(V_i = W^V {\bf x}_i^{(d)}\)</span>, and</p>
+<p><span class="math display">\[
+{\bf c}^{(i)} = \sum_{j \le i} \alpha_{ij} V_j, \qquad \alpha_{ij} = \text{softmax}_{j \le i}\left(Q_i \cdot K_j / \sqrt{d_K}\right)
+\]</span></p>
+<p>Since position <span class="math inline">\(i\)</span> only attends to <span class="math inline">\(j \le i\)</span>, no information flows from future tokens.</p>
+</section>
+<section id="masking-and-teacher-forcing" class="slide level2 smaller small-title">
+<h2>Masking and Teacher Forcing</h2>
+<p>Recall <strong>teacher forcing</strong>: during training, we feed the ground-truth previous token as the next input.</p>
+<ul>
+<li><strong>RNN:</strong> even with teacher forcing, the hidden states must be computed one step at a time</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Transformer decoder:</strong> feed the whole ground-truth sequence (shifted right, starting with “&lt;BOS&gt;”) at once. The causal mask ensures the prediction at position <span class="math inline">\(t\)</span> only depends on tokens before it, so <em>all</em> the next-token losses are computed in one parallel forward pass</li>
+</ul>
+</div>
+<div class="fragment">
+<p>At test time, we still generate one token at a time: sample a token, append it to the input, and repeat.</p>
+</div>
+</section>
+<section id="cross-attention-attending-to-the-encoder" class="slide level2 smaller small-title">
+<h2>Cross-Attention: Attending to the Encoder</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/encoder_attn.png" height="350"></p>
+<figcaption>how the encoder contributes <span class="math inline">\(K\)</span> and <span class="math inline">\(V\)</span></figcaption>
+</figure>
+</div>
+<p><span style="font-size: 0.6em;">Attention block adapted from Figure 2 of Vaswani et al., “Attention is all you need,” NeurIPS 2017.</span></p>
+</center>
+</div><div class="column" style="width:45%;">
+<p>The decoder also attends to the encoder outputs (<strong>encoder-decoder attention</strong> or <strong>cross-attention</strong>):</p>
+<ul>
+<li>Queries come from the decoder</li>
+<li>Keys and values are linear transformations of the encoder outputs</li>
+</ul>
+<p>For each input word <span class="math inline">\(j\)</span>, the last encoder layer outputs a vector <span class="math inline">\({\bf z}_j\)</span>, which gives that word’s key <span class="math inline">\({\bf k}_j = W^K {\bf z}_j\)</span> and value <span class="math inline">\({\bf v}_j = W^V {\bf z}_j\)</span>. The same <span class="math inline">\(W^K\)</span> and <span class="math inline">\(W^V\)</span> are shared by all words.</p>
+<p>This is the transformer version of the Bahdanau attention we saw earlier.</p>
+</div></div>
+</section>
+<section id="three-kinds-of-attention-in-a-transformer" class="slide level2">
+<h2>Three Kinds of Attention in a Transformer</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 18%">
+<col style="width: 29%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Attention</th>
+<th>Queries from</th>
+<th>Keys and values from</th>
+<th>Mask</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Encoder self-attention</td>
+<td>encoder</td>
+<td>encoder</td>
+<td>none</td>
+</tr>
+<tr class="even">
+<td>Decoder self-attention</td>
+<td>decoder</td>
+<td>decoder</td>
+<td>causal</td>
+</tr>
+<tr class="odd">
+<td>Encoder-decoder attention</td>
+<td>decoder</td>
+<td>encoder outputs</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="multi-headed-attention" class="slide level2 smaller">
+<h2>Multi-Headed Attention</h2>
+<p>A single attention head produces one weighted average, so it tends to focus on one or a few positions (one kind of relationship).</p>
+<p>But we may want to attend to several things at once (e.g.&nbsp;the subject of a verb <em>and</em> its object).</p>
+<p><strong>Idea:</strong> run <span class="math inline">\(h\)</span> attention heads in parallel, each with its own learned projections:</p>
+<p><span class="math display">\[\begin{align*}
+\mathbf c_i &amp;= \text{Attention}\left(QW_i^Q, KW_i^K, VW_i^V\right), \qquad i = 1, \dots, h \\
+\text{MultiHead}(Q, K, V) &amp;= \text{concat}({\bf c_1}, \dots, {\mathbf c_h})W^O
+\end{align*}\]</span></p>
+<ul>
+<li>Each head typically uses dimension <span class="math inline">\(d_K = d_V = d_{model}/h\)</span>, so the total cost is similar to a single full-size head</li>
+<li>With <span class="math inline">\(n\)</span> queries, head <span class="math inline">\(i\)</span> outputs a matrix <span class="math inline">\(\mathbf c_i \in \mathbb{R}^{n \times d_V}\)</span> (one context vector per query, as rows), so the concatenation is <span class="math inline">\(n \times h d_V\)</span></li>
+<li><span class="math inline">\(W^O \in \mathbb{R}^{h d_V \times d_{model}}\)</span> is a learned output projection: it <strong>mixes</strong> the heads’ outputs (otherwise each head’s result would sit in its own separate block of coordinates) and maps the result back to <span class="math inline">\(d_{model}\)</span>, so it can be added to the residual connection and fed to the next layer</li>
+</ul>
+</section>
+<section id="input-sequence-order" class="slide level2 smaller">
+<h2>Input Sequence Order</h2>
+<p><span class="math display">\[\begin{align*}
+\mathbf c_i &amp;= \text{Attention}\left(QW_i^Q, KW_i^K, VW_i^V\right) \\
+\text{MultiHead}(Q, K, V) &amp;= \text{concat}({\bf c_1}, \dots, {\mathbf c_h})W^O
+\end{align*}\]</span></p>
+<p>Unlike RNNs and CNN encoders, self-attention has no notion of position: if we shuffle the input tokens, the outputs are shuffled in the same way (the layer is <em>permutation-equivariant</em>). Can you see why?</p>
+<div class="fragment">
+<p>“dog bites man” and “man bites dog” produce the same set of token representations. However, the order of the sequence conveys important information for machine translation, language modeling, and other tasks.</p>
+</div>
+</section>
+<section id="positional-encoding" class="slide level2 smaller">
+<h2>Positional Encoding</h2>
+<p><strong>Idea:</strong> Add positional information of each input token in the sequence into the input embedding vectors.</p>
+<p><span class="math display">\[\begin{align*}
+PE_{\text{pos}, 2i} &amp;= \sin\left(\text{pos}/10000^{2i/d_{emb}}\right) \\
+PE_{\text{pos}, 2i+1} &amp;= \cos\left(\text{pos}/10000^{2i/d_{emb}}\right)
+\end{align*}\]</span></p>
+<ul>
+<li><span class="math inline">\(\text{pos} = 0, 1, 2, \dots\)</span> is the position (index) of the token in the sequence</li>
+<li><span class="math inline">\(2i\)</span> and <span class="math inline">\(2i+1\)</span> index the dimensions of the encoding vector, <span class="math inline">\(i = 0, \dots, d_{emb}/2 - 1\)</span></li>
+</ul>
+<p>Each dimension is a sinusoid with a different wavelength, from <span class="math inline">\(2\pi\)</span> to <span class="math inline">\(10000 \cdot 2\pi\)</span>.</p>
+</section>
+<section id="positional-encoding-1" class="slide level2 smaller">
+<h2>Positional Encoding</h2>
+<p>The final input embedding is the <strong>sum</strong> of the learnable token embedding and the positional encoding (both have dimension <span class="math inline">\(d_{emb}\)</span>):</p>
+<p><span class="math display">\[
+{\bf x}^{(\text{pos})} = \text{Emb}(w^{(\text{pos})}) + PE_{\text{pos}}
+\]</span></p>
+<p>where <span class="math inline">\(w^{(\text{pos})}\)</span> is the token at position <span class="math inline">\(\text{pos}\)</span> and <span class="math inline">\(\text{Emb}\)</span> is the learned embedding lookup. <span class="math inline">\(\text{Emb}(w^{(\text{pos})})\)</span> plays the role of the RNN input <span class="math inline">\({\bf x}^{(t)}\)</span> (e.g.&nbsp;a GloVe embedding), <strong>not</strong> of the annotation <span class="math inline">\({\bf h}^{(j)}\)</span>, which is computed from all the inputs.</p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/sinoidual.png" height="220"></p>
+<figcaption>sinusoidal position encodings visualized</figcaption>
+</figure>
+</div>
+</center>
+</section>
+<section id="positional-encoding-2" class="slide level2">
+<h2>Positional Encoding</h2>
+<p>Other ways to encode position used in practice:</p>
+<ul>
+<li><strong>Learned positional embeddings:</strong> one learnable vector per position (e.g.&nbsp;GPT-2, BERT)</li>
+<li><strong>Rotary positional embeddings (RoPE):</strong> rotate each query and key by a position-dependent angle, so that <span class="math inline">\({\bf q} \cdot {\bf k}\)</span> depends only on the <em>relative</em> position of the two tokens (used by most modern LLMs, e.g.&nbsp;LLaMA)</li>
+</ul>
+</section>
+<section id="the-transformer-block-encoder-layer" class="slide level2 smaller small-title">
+<h2>The Transformer Block: Encoder Layer</h2>
+<p>Encoder layer <span class="math inline">\(d\)</span> maps the token vectors <span class="math inline">\({\bf x}_1^{(d)}, \dots, {\bf x}_n^{(d)}\)</span> (the rows of <span class="math inline">\(X^{(d)}\)</span>) to <span class="math inline">\({\bf x}_1^{(d+1)}, \dots, {\bf x}_n^{(d+1)}\)</span>. The first layer gets <span class="math inline">\({\bf x}_i^{(0)} = \text{Emb}(w^{(i)}) + PE_i\)</span>.</p>
+<ol type="1">
+<li>Multi-head self-attention gives one context vector per token: <span class="math inline">\([{\bf c}^{(1)}, \dots, {\bf c}^{(n)}] = \text{MultiHead}(X^{(d)}, X^{(d)}, X^{(d)})\)</span></li>
+<li><strong>Add &amp; Norm:</strong> <span class="math inline">\({\bf a}_i = \text{LayerNorm}({\bf x}_i^{(d)} + {\bf c}^{(i)})\)</span></li>
+<li>Position-wise feed-forward network, then <strong>Add &amp; Norm:</strong> <span class="math inline">\({\bf x}_i^{(d+1)} = \text{LayerNorm}({\bf a}_i + \text{FFN}({\bf a}_i))\)</span></li>
+</ol>
+<p>where <span class="math inline">\(\text{FFN}({\bf a}) = W_2\, \text{ReLU}(W_1 {\bf a} + {\bf b}_1) + {\bf b}_2\)</span> is applied to each token independently.</p>
+<ul>
+<li>Attention mixes information <em>across</em> tokens; the FFN processes each token <em>individually</em></li>
+<li>Residual (skip) connections (the “+” inside each Add &amp; Norm) help gradients flow through deep stacks and preserve the positional and identity information of the inputs</li>
+</ul>
+</section>
+<section id="the-transformer-block-decoder-layer" class="slide level2 smaller small-title">
+<h2>The Transformer Block: Decoder Layer</h2>
+<p>Decoder layer <span class="math inline">\(d\)</span> maps the output-token vectors <span class="math inline">\({\bf s}_1^{(d)}, \dots, {\bf s}_m^{(d)}\)</span> (the rows of <span class="math inline">\(S^{(d)}\)</span>) to <span class="math inline">\({\bf s}_1^{(d+1)}, \dots, {\bf s}_m^{(d+1)}\)</span>. The first layer gets the embeddings of the output tokens (shifted right, starting with “&lt;BOS&gt;”) plus positional encodings. Let <span class="math inline">\(Z\)</span> be the final encoder outputs (rows <span class="math inline">\({\bf z}_j\)</span>).</p>
+<ol type="1">
+<li><strong>Masked</strong> multi-head self-attention: <span class="math inline">\([{\bf c}_{\text{self}}^{(1)}, \dots, {\bf c}_{\text{self}}^{(m)}] = \text{MaskedMultiHead}(S^{(d)}, S^{(d)}, S^{(d)})\)</span>, then <span class="math inline">\({\bf a}_i = \text{LayerNorm}({\bf s}_i^{(d)} + {\bf c}_{\text{self}}^{(i)})\)</span></li>
+<li><strong>Cross-attention</strong> to the encoder (queries from the decoder, keys and values from <span class="math inline">\(Z\)</span>): <span class="math inline">\([{\bf c}_{\text{cross}}^{(1)}, \dots, {\bf c}_{\text{cross}}^{(m)}] = \text{MultiHead}(A, Z, Z)\)</span> (<span class="math inline">\(A\)</span> has rows <span class="math inline">\({\bf a}_i\)</span>), then <span class="math inline">\({\bf b}_i = \text{LayerNorm}({\bf a}_i + {\bf c}_{\text{cross}}^{(i)})\)</span></li>
+<li>Feed-forward network: <span class="math inline">\({\bf s}_i^{(d+1)} = \text{LayerNorm}({\bf b}_i + \text{FFN}({\bf b}_i))\)</span></li>
+</ol>
+<p>After the last decoder layer, a linear layer and softmax turn each <span class="math inline">\({\bf s}_i\)</span> into a distribution over the next token.</p>
+</section>
+<section id="transformer-machine-translation" class="slide level2">
+<h2>Transformer Machine Translation</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/tmt.png"></p>
+<figcaption>typical encoder-decoder blocks of a transformer</figcaption>
+</figure>
+</div>
+<p><span style="font-size: 0.6em;">Figure 1 of Vaswani et al., “Attention is all you need,” NeurIPS 2017.</span></p>
+</center>
+</div><div class="column" style="width:70%;">
+<ul>
+<li>Encoder-Decoder architecture like RNN, but use attention modules instead of recurrent modules.</li>
+<li>Use <span class="math inline">\(N\)</span> stacked transformer blocks in both the encoder and the decoder (<span class="math inline">\(N = 6\)</span> in the original paper).</li>
+<li>A final linear layer and softmax give the distribution over the next token.</li>
+</ul>
+</div></div>
+</section>
+<section id="visualizing-attention" class="slide level2">
+<h2>Visualizing Attention</h2>
+<p>Self-attention layer learns that “it” could refer to different entities in different contexts.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/transformer_it.png" style="height:40.0%"></p>
+<figcaption>visualized attention on a sentence</figcaption>
+</figure>
+</div>
+<p>See <a href="https://research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding/">research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding</a></p>
+</section>
+<section id="backprop" class="slide level2">
+<h2>Backprop</h2>
+<p>During backprop, in the standard encoder-decoder RNN, the maximum path length across time is the number of time steps.</p>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/bptt_atten.png" height="350"></p>
+<figcaption>backprop paths in RNNs vs transformers</figcaption>
+</figure>
+</div>
+</center>
+</section>
+<section id="backprop-1" class="slide level2">
+<h2>Backprop</h2>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/bptt_atten.png" height="350"></p>
+<figcaption>backprop paths in RNNs vs transformers</figcaption>
+</figure>
+</div>
+</center>
+<p>Self-attention connects every position directly to every other position, so the path length between any two positions is constant. (Learning becomes easier. Why?)</p>
+</section>
+<section id="from-rnn-attention-to-transformer" class="slide level2 smaller small-title">
+<h2>From RNN + Attention to Transformer</h2>
+<p>The transformer keeps the encoder-decoder structure and the decoder-to-encoder attention, but replaces the recurrence with self-attention:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 28%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>RNN + attention</th>
+<th>Transformer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Encoder representations</td>
+<td>Bidirectional RNN</td>
+<td>Stack of self-attention layers</td>
+</tr>
+<tr class="even">
+<td>Per-word encoder vector</td>
+<td>Annotation <span class="math inline">\({\bf h}^{(j)}\)</span></td>
+<td>Encoder output <span class="math inline">\({\bf z}_j\)</span></td>
+</tr>
+<tr class="odd">
+<td>Decoder representations</td>
+<td>Decoder RNN, state <span class="math inline">\({\bf s}^{(t)}\)</span></td>
+<td>Stack of masked self-attention layers, <span class="math inline">\({\bf s}_i^{(d)}\)</span></td>
+</tr>
+<tr class="even">
+<td>Decoder attends to encoder</td>
+<td>Bahdanau attention</td>
+<td>Cross-attention</td>
+</tr>
+<tr class="odd">
+<td>Word order</td>
+<td>Reading tokens in sequence</td>
+<td>Positional encoding</td>
+</tr>
+</tbody>
+</table>
+<p>Unchanged: teacher forcing during training, and generating one token at a time at test time.</p>
+</section>
+<section id="rnn-vs.-self-attention" class="slide level2">
+<h2>RNN vs.&nbsp;Self-Attention</h2>
+<p>For a sequence of length <span class="math inline">\(n\)</span> and representation dimension <span class="math inline">\(d\)</span>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 29%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer type</th>
+<th>Cost per layer</th>
+<th>Sequential operations</th>
+<th>Maximum path length</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Recurrent</td>
+<td><span class="math inline">\(O(n d^2)\)</span></td>
+<td><span class="math inline">\(O(n)\)</span></td>
+<td><span class="math inline">\(O(n)\)</span></td>
+</tr>
+<tr class="even">
+<td>Self-attention</td>
+<td><span class="math inline">\(O(n^2 d)\)</span></td>
+<td><span class="math inline">\(O(1)\)</span></td>
+<td><span class="math inline">\(O(1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Self-attention wins on parallelism and path length</li>
+<li>The price: the cost grows <strong>quadratically</strong> with the sequence length, which is why long context windows are expensive</li>
+</ul>
+</section>
+<section id="transformer-language-pre-training" class="slide level2">
+<h2>Transformer Language Pre-Training</h2>
+<p>Similar to pre-training computer vision models on ImageNet, we can pre-train a language model for NLP tasks.</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/gen_pretrain.png" height="250"></p>
+<figcaption>Radford, Alec, et al.&nbsp;“Improving Language Understanding by Generative Pre-Training.” 2018</figcaption>
+</figure>
+</div>
+</center>
+</div><div class="column" style="width:40%;">
+<p>The pre-trained model is then fine-tuned on textual entailment, question answering, semantic similarity assessment, and document classification</p>
+</div></div>
+</section>
+<section id="decoder-only-language-models" class="slide level2">
+<h2>Decoder-Only Language Models</h2>
+<p>GPT-style models drop the encoder and the cross-attention entirely:</p>
+<ul>
+<li>A stack of masked self-attention blocks</li>
+<li>Trained on next-token prediction (with teacher forcing and causal masking) over huge text corpora</li>
+<li>Generate text one token at a time, exactly like the generative RNN at the start of this lecture</li>
+</ul>
 </section>
 <section id="better-language-models" class="slide level2">
 <h2>Better Language Models</h2>
@@ -769,221 +1212,21 @@ Let's not get into this. I don't think our students will appreciate this...
 <h2>Transformer Tutorial</h2>
 <p><a href="https://www.youtube.com/watch?v=XSSTuhyAmnI&amp;ab_channel=AriSeff">www.youtube.com/watch?v=XSSTuhyAmnI&amp;ab_channel=AriSeff</a></p>
 </section>
-<section id="vaswani-ashish-et-al.-attention-is-all-you-need." class="slide level2">
-<h2>Vaswani, Ashish, et al.&nbsp;Attention is all you need.</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/attention.png" height="400"></p>
-<figcaption>typical encoder-decoder blocks of a transformer</figcaption>
-</figure>
-</div>
-</center>
-</div><div class="column" style="width:40%;">
-<p>Transformer has a encoder-decoder architecture similar to the previous sequence-to-sequence RNN models, except all the recurrent connections are replaced by the attention modules.</p>
-</div></div>
-</section>
-<section id="attention-mapping" class="slide level2">
-<h2>Attention Mapping</h2>
-<p>In general, attention mapping can be described as a function of a query and a set of key-value pairs. Transformer uses a “scaled dot-product attention” to obtain the context vector:</p>
-<p><span class="math display">\[\begin{align*}
-{\bf c}^{(t)} = \text{attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_K}}\right) V
-\end{align*}\]</span></p>
-<p>This is very similar to the attetion mechanism we saw eariler, but we scale the pre-softmax values (the logits) down by the square root of the key dimension <span class="math inline">\(d_K\)</span>.</p>
-</section>
-<section id="attention-mapping-in-the-decoder" class="slide level2">
-<h2>Attention Mapping in the Decoder</h2>
-<p>When training the decoder (e.g.&nbsp;to generate a sequence), we desired output so that have to be careful to <strong>mask out</strong> the desired output so that we preserve the autoregressive property.</p>
-<center>
-<img data-src="imgs/rnn_gen_figure.png" height="300">
-</center>
-</section>
-<section id="recall-dot-product-attention" class="slide level2">
-<h2>Recall: Dot-Product Attention</h2>
-<p><span class="math display">\[\begin{align*}
-{\bf h}^{(1)} &amp;= \begin{bmatrix}1 &amp; 3 &amp; 9\end{bmatrix}^\top \\
-{\bf h}^{(2)} &amp;= \begin{bmatrix}0 &amp; 0 &amp; 1\end{bmatrix}^\top \qquad \quad {\bf s}^{(t-1)} = \begin{bmatrix}0 &amp; 1 &amp; 1\end{bmatrix}^\top \\
-{\bf h}^{(3)} &amp;= \begin{bmatrix}5 &amp; -1 &amp; 2\end{bmatrix}^\top \\
-\\
-\alpha_t &amp;= \text{softmax}\left(\begin{bmatrix}1 &amp; 0 &amp; 5 \\ 3 &amp; 0 &amp; -1 \\ 0 &amp; 1 &amp;2 \end{bmatrix}^\top
-                    \begin{bmatrix}0 \\ 1 \\ 1\end{bmatrix}\right) \\
-{\bf c}^{(t)} &amp;= \alpha_{t1} {\bf h}^{(1)} + \alpha_{t2} {\bf h}^{(2)} + \alpha_{t2} {\bf h}^{(3)}\\
-\end{align*}\]</span></p>
-</section>
-<section id="scaled-dot-product-attention" class="slide level2">
-<h2>Scaled Dot-Product Attention</h2>
-<p><span class="math display">\[\begin{align*}
-{\bf h}^{(1)} &amp;= \begin{bmatrix}1 &amp; 3 &amp; 9\end{bmatrix}^\top \qquad \quad {\bf h}^{(2)} = \begin{bmatrix}0 &amp; 0 &amp; 1\end{bmatrix}^\top \\
-{\bf h}^{(3)} &amp;= \begin{bmatrix}5 &amp; -1 &amp; 2\end{bmatrix}^\top \qquad \quad {\bf s}^{(t-1)} = \begin{bmatrix}0 &amp; 1 &amp; 1\end{bmatrix}^\top \\
-\alpha_t &amp;= \text{softmax}\left(\frac{1}{\sqrt{3}} \begin{bmatrix}1 &amp; 0 &amp; 5 \\ 3 &amp; 0 &amp; -1 \\ 0 &amp; 1 &amp;2 \end{bmatrix}^\top
-                    \begin{bmatrix}0 \\ 1 \\ 1\end{bmatrix}\right) \\
-{\bf c}^{(t)} &amp;= \alpha_{t1} {\bf h}^{(1)} + \alpha_{t2} {\bf h}^{(2)} + \alpha_{t2} {\bf h}^{(3)}\\
-\end{align*}\]</span> Q: Which values represent the Q, K, and V?</p>
-</section>
-<section id="attending-to-the-input-encoder" class="slide level2">
-<h2>Attending to the Input (Encoder)</h2>
-<p>Transformer models attend to both the encoder annotations and its previous hidden layers.</p>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/encoder_attn.png" height="350"></p>
-<figcaption>how the encoder contributes <span class="math inline">\(K\)</span> and <span class="math inline">\(V\)</span></figcaption>
-</figure>
-</div>
-</center>
-</section>
-<section id="attending-to-the-input-encoder-ii" class="slide level2">
-<h2>Attending to the Input (Encoder) II</h2>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/encoder_attn.png" height="350"></p>
-<figcaption>how the encoder contributes <span class="math inline">\(K\)</span> and <span class="math inline">\(V\)</span></figcaption>
-</figure>
-</div>
-</center>
-<p>When attending to the encoder annotations, the model computes the key-value pairs using linearly transformed the encoder outputs.</p>
-</section>
-<section id="self-attention" class="slide level2">
-<h2>Self-attention</h2>
-<p>Transformer models also use “self-attention” on its previous hidden layers. When applying attention to the previous hidden layers, the causal structure is preserved:</p>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/self_attn.png" height="350"></p>
-<figcaption>feeding to deeper layers and future hidden states</figcaption>
-</figure>
-</div>
-</center>
-</section>
-<section id="multi-headed-attention" class="slide level2">
-<h2>Multi-headed Attention</h2>
-<p>The Scaled Dot-Product Attention attends to one or few entries in the input key-value pairs.</p>
-<p>But humans can attend to many things simultaneously</p>
-<p><strong>Idea:</strong> apply scaled dot-product attention <em>multiple times</em> on the linearly transformed inputs:</p>
-<p><span class="math display">\[\begin{align*}
-\mathbf c_i &amp;= \text{attention}\left(QW_i^Q, KW_i^K, VW_i^V\right) \\
-\text{MultiHead}(Q, K, V) &amp;= \text{concat}({\bf c_1}, \dots, {\mathbf c_h})W^O
-\end{align*}\]</span></p>
-</section>
-<section id="input-sequence-order" class="slide level2">
-<h2>Input Sequence Order</h2>
-<p><span class="math display">\[\begin{align*}
-\mathbf c_i &amp;= \text{attention}\left(QW_i^Q, KW_i^K, VW_i^V\right) \\
-\text{MultiHead}(Q, K, V) &amp;= \text{concat}({\bf c_1}, \dots, {\mathbf c_h})W^O
-\end{align*}\]</span></p>
-<p>Unlike RNNs and CNN encoders, the attention encoder output do <em>not</em> depend on the order of the inputs. Can you see why?</p>
-<p>However, the order of the sequence convey important information for the machine translation task, language modeling, and other tasks.</p>
-</section>
-<section id="positional-encoding" class="slide level2">
-<h2>Positional Encoding</h2>
-<p><strong>Idea:</strong> Add positional information of each input token in the sequence into the input embedding vectors.</p>
-<p><span class="math display">\[\begin{align*}
-PE_{\text{pos}, 2i} &amp;= \sin\left(\text{pos}/10000^{2i/d_{emb}}\right) \\
-PE_{\text{pos}, 2i+1} &amp;= \cos\left(\text{pos}/10000^{2i/d_{emb}}\right)
-\end{align*}\]</span></p>
-</section>
-<section id="positional-encoding-ii" class="slide level2">
-<h2>Positional Encoding II</h2>
-<p>The final input embeddings are the concatenation of the learnable embeddings and the positional encoding.</p>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/sinoidual.png"></p>
-<figcaption>sinusoidal position encodings visualized</figcaption>
-</figure>
-</div>
-</center>
-</section>
-<section id="transformer-machine-translation" class="slide level2">
-<h2>Transformer Machine Translation</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/tmt.png"></p>
-<figcaption>typical encoder-decoder blocks of a transformer</figcaption>
-</figure>
-</div>
-</center>
-</div><div class="column" style="width:70%;">
-<ul>
-<li>Encoder-Decoder architecture like RNN, but use attention modules instead of recurrent modules.</li>
-<li>Use N stacked self-attention layers.</li>
-<li>Skip-connections help preserve the positional and identity information from the input sequences.</li>
-</ul>
-</div></div>
-</section>
-<section id="visualizing-attention" class="slide level2">
-<h2>Visualizing Attention</h2>
-<p>Self-attention layer learns that “it” could refer to different entities in different contexts.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/transformer_it.png" style="height:40.0%"></p>
-<figcaption>visualized attention on a sentence</figcaption>
-</figure>
-</div>
-<p>See <a href="https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html">ai.googleblog.com/2017/08/transformer-novel-neural-network.html</a></p>
-</section>
-<section id="backprop" class="slide level2">
-<h2>Backprop</h2>
-<p>During backprop, in the standard encoder-decoder RNN, the maximum path length across time is the number of time steps.</p>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/bptt_atten.png" height="350"></p>
-<figcaption>backprop paths in RNNs vs transformers</figcaption>
-</figure>
-</div>
-</center>
-</section>
-<section id="backprop-ii" class="slide level2">
-<h2>Backprop II</h2>
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/bptt_atten.png" height="350"></p>
-<figcaption>backprop paths in RNNs vs transformers</figcaption>
-</figure>
-</div>
-</center>
-<p>Attention-based RNNs have a constant path length between the encoder inputs and the decoder hidden states. (Learning becomes easier. Why?)</p>
-</section>
-<section id="transformer-language-pre-training" class="slide level2">
-<h2>Transformer Language Pre-Training</h2>
-<p>Similar to pre-training computer vision models on ImageNet, we can pre-train a language model for NLP tasks.</p>
-<div class="columns">
-<div class="column" style="width:60%;">
-<center>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="imgs/gen_pretrain.png" height="250"></p>
-<figcaption>Radford, Alec, et al.&nbsp;”Improving Language Understanding by Generative Pre-Training.” 2018</figcaption>
-</figure>
-</div>
-</center>
-</div><div class="column" style="width:40%;">
-<p>The pre-trained model is then fine-tuned on textual entailment, question answering, semantic similarity assessment, and document classification</p>
-</div></div>
-</section>
 <section id="gpt-3-generating-an-article" class="slide level2">
 <h2>GPT-3: Generating an Article</h2>
 <p>Title: United Methodists Agree to Historic Split</p>
 <p>Subtitle: Those who oppose gay marriage will form their own denomination</p>
 </section>
-<section id="gpt-3-generating-an-article-ii" class="slide level2">
-<h2>GPT-3: Generating an Article II</h2>
+<section id="gpt-3-generating-an-article-1" class="slide level2">
+<h2>GPT-3: Generating an Article</h2>
 <p>Article: After two days of intense debate, the United Methodist Church has agreed to a historic split - one that is expected to end in the creation of a new denomination, one that will be “theologically and socially conservative,” according to The Washington Post. The majority of delegates attending the church’s annual General Conference in May voted to strengthen a ban on the ordination of LGBTQ clergy and to write new rules that will “discipline” clergy who officiate at same-sex weddings. But those who opposed these measures have a new plan: They say they will form a separate denomination by 2020, calling their church the Christian Methodist denomination.</p>
 </section>
-<section id="gpt-3-generating-an-article-iii" class="slide level2">
-<h2>GPT-3: Generating an Article III</h2>
+<section id="gpt-3-generating-an-article-2" class="slide level2">
+<h2>GPT-3: Generating an Article</h2>
 <p>The Post notes that the denomination, which claims 12.5 million members, was in the early 20th century the “largest Protestant denomination in the U.S.,” but that it has been shrinking in recent decades. The new split will be the second in the church’s history. The first occurred in 1968, when roughly 10 percent of the denomination left to form the Evangelical United Brethren Church.</p>
 </section>
-<section id="gpt-3-generating-an-article-iv" class="slide level2">
-<h2>GPT-3: Generating an Article IV</h2>
+<section id="gpt-3-generating-an-article-3" class="slide level2">
+<h2>GPT-3: Generating an Article</h2>
 <p>The Post notes that the proposed split “comes at a critical time for the church, which has been losing members for years,” which has been “pushed toward the brink of a schism over the role of LGBTQ people in the church.” Gay marriage is not the only issue that has divided the church. In 2016, the denomination was split over ordination of transgender clergy, with the North Pacific regional conference voting to ban the</p>
 <p><a href="https://arxiv.org/pdf/2005.14165.pdf">Brown et al.&nbsp;2020, Language Models are Few-Shot Learners</a></p>
 </section>
@@ -998,8 +1241,8 @@ PE_{\text{pos}, 2i+1} &amp;= \cos\left(\text{pos}/10000^{2i/d_{emb}}\right)
 <p>Poor English input: Mary arranged for, in St.&nbsp;Louis, John to rent a house cheap.</p>
 <p>Good English output: Mary arranged for John to rent a house in St.&nbsp;Louis.</p>
 </section>
-<section id="gpt-3-correcting-english-grammar-ii" class="slide level2">
-<h2>GPT-3: Correcting English Grammar II</h2>
+<section id="gpt-3-correcting-english-grammar-1" class="slide level2">
+<h2>GPT-3: Correcting English Grammar</h2>
 <p>Poor English input: Today I have went to the store to to buys some many bottle of water.</p>
 <p>Good English output: Today I went to the store to buy some bottles of water.</p>
 <p>Poor English input: I have tried to hit ball with bat, but my swing is has miss.</p>
@@ -1010,16 +1253,15 @@ PE_{\text{pos}, 2i+1} &amp;= \cos\left(\text{pos}/10000^{2i/d_{emb}}\right)
 <h2>Large Language Models (LLMs)</h2>
 <p>Many Transformer-based models have been developed since 2017.</p>
 <ul>
-<li>Generative Pre-Trained Transformer (GPT-1/2/3)
+<li>Generative Pre-Trained Transformer (GPT-1/2/3/4, …)
 <ul>
-<li>Decoder-only 12-layer/12-headed Transformer.</li>
-<li>Inspired GPT-Neo, GPT-J, GPT-NeoX, ChatGPT.</li>
-<li>GPT-4 coming out soon.</li>
+<li>Decoder-only Transformer: GPT-1 has 12 layers and 12 heads; GPT-3 (175B parameters) has 96 layers and 96 heads.</li>
+<li>Inspired GPT-Neo, GPT-J, GPT-NeoX, LLaMA, and many others.</li>
 </ul></li>
 </ul>
 </section>
-<section id="large-language-models-llms-ii" class="slide level2">
-<h2>Large Language Models (LLMs) II</h2>
+<section id="large-language-models-llms-1" class="slide level2">
+<h2>Large Language Models (LLMs)</h2>
 <ul>
 <li>Bidirectional Encoder Representations from Transformers (BERT)
 <ul>
@@ -1028,15 +1270,96 @@ PE_{\text{pos}, 2i+1} &amp;= \cos\left(\text{pos}/10000^{2i/d_{emb}}\right)
 </ul></li>
 </ul>
 </section>
-<section id="large-language-models-llms-iii" class="slide level2">
-<h2>Large Language Models (LLMs) III</h2>
+<section id="large-language-models-llms-2" class="slide level2">
+<h2>Large Language Models (LLMs)</h2>
 <ul>
 <li>And many, many more: <a href="https://en.wikipedia.org/wiki/Large_language_model">en.wikipedia.org/wiki/Large_language_model</a></li>
 </ul>
 <p>Many benchmarks have been developed such as GLUE and SQuAD.</p>
-<p>Big players in the LLM space include Google (Brain, DeepMind), Meta (formerly Facebook, FAIR), Microsoft, Amazon, EleutherAI, OpenAI, Cohere, Hugging Face.</p>
+<p>Big players in the LLM space include Google (Brain, DeepMind), Meta (formerly Facebook, FAIR), Microsoft, Amazon, Anthropic, Mistral, DeepSeek, EleutherAI, OpenAI, Cohere, Hugging Face.</p>
+</section>
+<section id="from-gpt-to-chatgpt" class="slide level2">
+<h2>From GPT to ChatGPT</h2>
+<p>A pre-trained language model only <em>continues</em> text. To turn it into an assistant:</p>
+<ol type="1">
+<li><strong>Instruction tuning:</strong> fine-tune on examples of prompts paired with good responses</li>
+<li><strong>Reinforcement learning from human feedback (RLHF):</strong> humans rank model responses, a reward model is trained on these rankings, and the language model is optimized with RL to get high reward</li>
+</ol>
+<blockquote>
+<p>Ouyang et al., <a href="https://arxiv.org/abs/2203.02155">Training language models to follow instructions with human feedback</a>. NeurIPS, 2022.</p>
+</blockquote>
+</section>
+<section id="instruction-tuning" class="slide level2 smaller">
+<h2>Instruction Tuning</h2>
+<p>Pre-training data is mostly web text. Given the prompt “Explain the moon landing to a 6 year old”, a pre-trained model may continue with more similar questions instead of answering.</p>
+<p><strong>Idea:</strong> collect <strong>demonstrations</strong> of the behaviour we want: a prompt <span class="math inline">\({\bf x}\)</span>, and a response <span class="math inline">\({\bf y} = (y_1, \dots, y_T)\)</span> written by a human labeler, showing what a helpful answer looks like.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Prompt <span class="math inline">\({\bf x}\)</span></th>
+<th>Response <span class="math inline">\({\bf y}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Explain the moon landing to a 6 year old.</td>
+<td>People went to the moon in a big rocket, walked around, and came back to tell everyone what they saw.</td>
+</tr>
+</tbody>
+</table>
+<p>Fine-tuning the pre-trained model on these pairs is called <strong>instruction tuning</strong> or <strong>supervised fine-tuning (SFT)</strong>.</p>
+</section>
+<section id="instruction-tuning-1" class="slide level2 smaller">
+<h2>Instruction Tuning</h2>
+<p>Concatenate the prompt and the response into one token sequence, and train with the <strong>same next-token cross-entropy</strong> as in pre-training (teacher forcing, causal mask), but only count the loss on the response tokens:</p>
+<p><span class="math display">\[
+\mathcal{L}(\theta) = -\sum_{t=1}^{T} \log p_\theta\left(y_t \mid {\bf x}, y_1, \dots, y_{t-1}\right)
+\]</span></p>
+<ul>
+<li>Start from the pre-trained weights. The dataset is tiny compared to pre-training (about 13k prompts for InstructGPT), so this is cheap</li>
+<li>The model mostly learns the <em>format and behaviour</em> of an assistant; its knowledge still comes from pre-training</li>
+</ul>
+<div class="fragment">
+<p><strong>Limitation:</strong> the model can only imitate the demonstrations, and they are slow and expensive to write. For many prompts it is much easier for a person to say which of two responses is better than to write the best response themselves. This is what RLHF uses.</p>
+</div>
+</section>
+<section id="rlhf-learning-a-reward-model" class="slide level2 smaller">
+<h2>RLHF: Learning a Reward Model</h2>
+<ol type="1">
+<li>For a prompt <span class="math inline">\({\bf x}\)</span>, sample several responses from the instruction-tuned model, and have labelers <strong>rank</strong> them from best to worst</li>
+<li>Train a <strong>reward model</strong> <span class="math inline">\(r_\phi({\bf x}, {\bf y}) \in \mathbb{R}\)</span> that scores how good a response is. It is a transformer too (e.g.&nbsp;initialized from the language model, with the final layer replaced by a linear layer that outputs a scalar)</li>
+</ol>
+<p>For every pair where labelers preferred <span class="math inline">\({\bf y}_w\)</span> over <span class="math inline">\({\bf y}_l\)</span>, minimize</p>
+<p><span class="math display">\[
+\mathcal{L}(\phi) = -\log \sigma\left(r_\phi({\bf x}, {\bf y}_w) - r_\phi({\bf x}, {\bf y}_l)\right)
+\]</span></p>
+<ul>
+<li>This is logistic regression on the difference of the scores: the model predicts <span class="math inline">\(p({\bf y}_w \text{ preferred}) = \sigma(r_w - r_l)\)</span></li>
+<li>Only differences of scores matter, which matches the data: humans give comparisons, not absolute scores</li>
+<li>Ranking <span class="math inline">\(K\)</span> responses gives <span class="math inline">\(\binom{K}{2}\)</span> comparisons from one labeling task</li>
+</ul>
+</section>
+<section id="rlhf-optimizing-the-language-model" class="slide level2 smaller">
+<h2>RLHF: Optimizing the Language Model</h2>
+<ol start="3" type="1">
+<li>Fine-tune the language model <span class="math inline">\(p_\theta\)</span> to produce responses with high reward. Starting from the instruction-tuned model <span class="math inline">\(p_{\text{SFT}}\)</span>, maximize</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{E}_{{\bf x},\; {\bf y} \sim p_\theta(\cdot \mid {\bf x})}\left[ r_\phi({\bf x}, {\bf y}) - \beta \log \frac{p_\theta({\bf y} \mid {\bf x})}{p_{\text{SFT}}({\bf y} \mid {\bf x})} \right]
+\]</span></p>
+<ul>
+<li>Sampling tokens is not differentiable, so we cannot backpropagate through it. An RL algorithm (PPO in InstructGPT) estimates the gradient from sampled responses and their rewards</li>
+<li>The second term keeps the model close to <span class="math inline">\(p_{\text{SFT}}\)</span> (on average it is a KL divergence, see a later lecture). Without it, the model exploits the reward model’s mistakes (<em>reward hacking</em>): text that scores high but is not actually good</li>
+</ul>
+<div class="fragment">
+<p><strong>Result:</strong> labelers preferred the outputs of the 1.3B-parameter InstructGPT over those of the 175B-parameter GPT-3 (<a href="https://arxiv.org/abs/2203.02155">Ouyang et al., 2022</a>).</p>
 
 
+</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

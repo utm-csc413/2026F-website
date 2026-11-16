@@ -7204,25 +7204,11 @@
     "text": "The dimensionality reduction means that there will be structure in the embedding space.\nIf the dimensionality of the embedding space is not too large, similar images should map to similar locations."
   },
   {
-    "objectID": "lecs/w09/lec09.html#announcements",
-    "href": "lecs/w09/lec09.html#announcements",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Announcements",
-    "text": "Announcements\n\nThe project plan is due early next week (March 21)"
-  },
-  {
     "objectID": "lecs/w09/lec09.html#in-what-situation-would-you-use-an-rnn",
     "href": "lecs/w09/lec09.html#in-what-situation-would-you-use-an-rnn",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "In what Situation would you use an RNN?",
     "text": "In what Situation would you use an RNN?\n\nWhen we want to make predictions about a sequence\nWhen we want to make predictions about an image\nWhen we want to generate a sequence\nWhen we want to generate an image"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#using-glove-embeddings-of-words-as-input-features-to-an-rnn-is-an-example-of",
-    "href": "lecs/w09/lec09.html#using-glove-embeddings-of-words-as-input-features-to-an-rnn-is-an-example-of",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Using GloVe Embeddings of Words as Input Features to an RNN is an Example of…",
-    "text": "Using GloVe Embeddings of Words as Input Features to an RNN is an Example of…\n\nLSTM\nGRU\nMLP\nTransfer Learning"
   },
   {
     "objectID": "lecs/w09/lec09.html#what-is-a-disadvantage-of-using-a-vanilla-rnn-without-gating",
@@ -7253,11 +7239,11 @@
     "text": "Text Generation with RNN\nRNN For Prediction:\n\nProcess tokens one at a time\n\n\n\nHidden state is a representation of all the tokens read thus far"
   },
   {
-    "objectID": "lecs/w09/lec09.html#text-generation-with-rnn-ii",
-    "href": "lecs/w09/lec09.html#text-generation-with-rnn-ii",
+    "objectID": "lecs/w09/lec09.html#text-generation-with-rnn-1",
+    "href": "lecs/w09/lec09.html#text-generation-with-rnn-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Text Generation with RNN II",
-    "text": "Text Generation with RNN II\nRNN For Generation:\n\nGenerate tokens one at a time\n\n\n\nHidden state is a representation of all the tokens to be generated"
+    "section": "Text Generation with RNN",
+    "text": "Text Generation with RNN\nRNN For Generation:\n\nGenerate tokens one at a time\n\n\n\nHidden state is a representation of all the tokens to be generated"
   },
   {
     "objectID": "lecs/w09/lec09.html#rnn-hidden-state-updates",
@@ -7295,11 +7281,11 @@
     "text": "Text Generation: Step 1\n\n\n\nFirst classification problem:\n\nStart with an initial hidden state\n\n\n\nUpdate the hidden state with a “&lt;BOS&gt;” (beginning of string) token, so that the hidden state becomes meaningful (not just zeros)"
   },
   {
-    "objectID": "lecs/w09/lec09.html#text-generation-step-1-ii",
-    "href": "lecs/w09/lec09.html#text-generation-step-1-ii",
+    "objectID": "lecs/w09/lec09.html#text-generation-step-1-1",
+    "href": "lecs/w09/lec09.html#text-generation-step-1-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Text Generation: Step 1 II",
-    "text": "Text Generation: Step 1 II\n\n\n\nFirst classification problem:\n\nGet the distribution over the first character\n\n\n\nCompute the cross-entropy loss against the ground truth (R)"
+    "section": "Text Generation: Step 1",
+    "text": "Text Generation: Step 1\n\n\n\nFirst classification problem:\n\nGet the distribution over the first character\n\n\n\nCompute the cross-entropy loss against the ground truth (R)"
   },
   {
     "objectID": "lecs/w09/lec09.html#text-generation-with-teacher-forcing",
@@ -7309,11 +7295,11 @@
     "text": "Text Generation with Teacher Forcing\n\n\n\nSecond classification problem:\n\nUpdate the hidden state with the ground truth token (R) regardless of the prediction from the previous step\n\nThis technique is called teacher forcing"
   },
   {
-    "objectID": "lecs/w09/lec09.html#text-generation-with-teacher-forcing-ii",
-    "href": "lecs/w09/lec09.html#text-generation-with-teacher-forcing-ii",
+    "objectID": "lecs/w09/lec09.html#text-generation-with-teacher-forcing-1",
+    "href": "lecs/w09/lec09.html#text-generation-with-teacher-forcing-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Text Generation with Teacher Forcing II",
-    "text": "Text Generation with Teacher Forcing II\n\n\n\nSecond classification problem:\n\nGet the distribution over the second character\n\n\n\nCompute the cross-entropy loss against the ground truth (I)"
+    "section": "Text Generation with Teacher Forcing",
+    "text": "Text Generation with Teacher Forcing\n\n\n\nSecond classification problem:\n\nGet the distribution over the second character\n\n\n\nCompute the cross-entropy loss against the ground truth (I)"
   },
   {
     "objectID": "lecs/w09/lec09.html#text-generation-later-steps",
@@ -7337,13 +7323,6 @@
     "text": "Character vs Word-level\nAnother approach is to model text one character at a time\nThis solves the problem of what to do about previously unseen words.\nNote that long-term memory is essential at the character level!"
   },
   {
-    "objectID": "lecs/w09/lec09.html#recurrent-neural-networks",
-    "href": "lecs/w09/lec09.html#recurrent-neural-networks",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Recurrent Neural Networks",
-    "text": "Recurrent Neural Networks\nIn lecture 8, we showed a discriminative RNN that makes a prediction based on a sequence (sequence as an input).\nIn the week 11 tutorial, we will build a generator RNN to generate sequences (sequence as an output)"
-  },
-  {
     "objectID": "lecs/w09/lec09.html#sequence-to-sequence-tasks",
     "href": "lecs/w09/lec09.html#sequence-to-sequence-tasks",
     "title": "CSC413 Neural Networks and Deep Learning",
@@ -7358,11 +7337,11 @@
     "text": "How Seq2Seq Works\nThe encoder network reads an input sentence and stores all the information in its hidden units.\nThe decoder network then generates the output sentence one word at a time."
   },
   {
-    "objectID": "lecs/w09/lec09.html#how-seq2seq-works-ii",
-    "href": "lecs/w09/lec09.html#how-seq2seq-works-ii",
+    "objectID": "lecs/w09/lec09.html#how-seq2seq-works-1",
+    "href": "lecs/w09/lec09.html#how-seq2seq-works-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "How Seq2Seq Works II",
-    "text": "How Seq2Seq Works II\n\nBut some sentences can be really long. Can we really store all the information in a vector of hidden units?\nHuman translators refer back to the input."
+    "section": "How Seq2Seq Works",
+    "text": "How Seq2Seq Works\n\nBut some sentences can be really long. Can we really store all the information in a vector of hidden units?\nHuman translators refer back to the input."
   },
   {
     "objectID": "lecs/w09/lec09.html#attention-based-machine-translation",
@@ -7400,11 +7379,11 @@
     "text": "Intuition Behind “Attending to the Input”\n\n“My language model tells me the next word should be an adjective. Find me an adjective in the input”\n\nWe would like to refer back to one (or a few) of the input words to help with the translation task (e.g. find the adjective)\nIf you were programming a translator, you might…"
   },
   {
-    "objectID": "lecs/w09/lec09.html#intuition-behind-aattending-to-the-input-ii",
-    "href": "lecs/w09/lec09.html#intuition-behind-aattending-to-the-input-ii",
+    "objectID": "lecs/w09/lec09.html#intuition-behind-attending-to-the-input-1",
+    "href": "lecs/w09/lec09.html#intuition-behind-attending-to-the-input-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Intuition Behind Aattending to the Input” II",
-    "text": "Intuition Behind Aattending to the Input” II\nIf you were programming a translator, you might\n\nfind an input word that is most likely an adjective (the attention function)\nlook up the input word that is the adjective (the weighted average)\ntranslate the input word, e.g. using the input word, and a dictionary (the projection MLP)\n\nAn attentional decoder is like a continuous form of these last three steps."
+    "section": "Intuition Behind “Attending to the Input”",
+    "text": "Intuition Behind “Attending to the Input”\nIf you were programming a translator, you might\n\nfind an input word that is most likely an adjective (the attention function)\nlook up the input word that is the adjective (the weighted average)\ntranslate the input word, e.g. using the input word, and a dictionary (the projection MLP)\n\nAn attentional decoder is like a continuous form of these last three steps."
   },
   {
     "objectID": "lecs/w09/lec09.html#the-math-behind-attending-to-the-input",
@@ -7414,11 +7393,11 @@
     "text": "The Math Behind “Attending to the Input”\n\n“My language model tells me the next word should be an adjective. Find me an adjective in the input”\n\nThe context vector is computed as a weighted average of the encoder’s annotations:\n\\[{\\bf c}^{(i)} = \\sum_j \\alpha_{ij} {\\bf h}^{(j)}\\]"
   },
   {
-    "objectID": "lecs/w09/lec09.html#the-math-behind-attending-to-the-input-ii",
-    "href": "lecs/w09/lec09.html#the-math-behind-attending-to-the-input-ii",
+    "objectID": "lecs/w09/lec09.html#the-math-behind-attending-to-the-input-1",
+    "href": "lecs/w09/lec09.html#the-math-behind-attending-to-the-input-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "The Math Behind “Attending to the Input” II",
-    "text": "The Math Behind “Attending to the Input” II\nThe attention weights are computed as a softmax, where the input depends on the annotation \\({\\bf h}^{(j)}\\) and the decoder states \\({\\bf s}^{(t)}\\):\n\\[\ne_{ij} = a({\\bf s}^{(i-1)}, {\\bf h}^{(j)}), \\qquad \\alpha_{ij} = \\frac{ \\exp(e_{ij}) }{\\sum_{j^\\prime} exp(e_{ij^\\prime})}\n\\]\nThe attention function depends on the annotation vector, rather than the position in the sentence. It is a form of content-based addressing."
+    "section": "The Math Behind “Attending to the Input”",
+    "text": "The Math Behind “Attending to the Input”\nThe attention weights are computed as a softmax, where the input depends on the annotation \\({\\bf h}^{(j)}\\) and the decoder states \\({\\bf s}^{(t)}\\):\n\\[\ne_{ij} = a({\\bf s}^{(i-1)}, {\\bf h}^{(j)}), \\qquad \\alpha_{ij} = \\frac{ \\exp(e_{ij}) }{\\sum_{j^\\prime} \\exp(e_{ij^\\prime})}\n\\]\nThe attention function depends on the annotation vector, rather than the position in the sentence. It is a form of content-based addressing."
   },
   {
     "objectID": "lecs/w09/lec09.html#example-how-to-obtain-a-context-vector",
@@ -7432,7 +7411,7 @@
     "href": "lecs/w09/lec09.html#example-average-pooling-is-context-independent",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Example: Average Pooling is Context Independent",
-    "text": "Example: Average Pooling is Context Independent\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(2)} &= \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\\\\n\\\\\n{\\bf c}^{(t)} &= \\text{average}({\\bf h}^{(1)} , {\\bf h}^{(2)}, {\\bf h}^{(3)})\\\\\n&= \\begin{bmatrix}2 & 0.6 & 1\\end{bmatrix}^\\top \\\\\n\\end{align*}\\]"
+    "text": "Example: Average Pooling is Context Independent\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(2)} &= \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\\\\n\\\\\n{\\bf c}^{(t)} &= \\text{average}({\\bf h}^{(1)} , {\\bf h}^{(2)}, {\\bf h}^{(3)})\\\\\n&= \\begin{bmatrix}2 & 0.67 & 4\\end{bmatrix}^\\top \\\\\n\\end{align*}\\]"
   },
   {
     "objectID": "lecs/w09/lec09.html#example-attention",
@@ -7449,11 +7428,11 @@
     "text": "Example: Dot-Product Attention\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(2)} &= \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\\\\n\\\\\n{\\bf s}^{(t-1)} &= \\begin{bmatrix}0 & 1 & 1\\end{bmatrix}^\\top \\\\\n\\alpha_t &= \\text{softmax}\\left(\\begin{bmatrix}\n               {\\bf s}^{(t-1)} \\cdot {\\bf h}^{(1)} \\\\\n               {\\bf s}^{(t-1)} \\cdot {\\bf h}^{(2)} \\\\\n               {\\bf s}^{(t-1)} \\cdot {\\bf h}^{(3)} \\\\\n               \\end{bmatrix}\\right) = \\begin{bmatrix}\\alpha_{t1} \\\\ \\alpha_{t2} \\\\ \\alpha_{t3}\\end{bmatrix}\n\\end{align*}\\]"
   },
   {
-    "objectID": "lecs/w09/lec09.html#example-dot-product-attention-ii",
-    "href": "lecs/w09/lec09.html#example-dot-product-attention-ii",
+    "objectID": "lecs/w09/lec09.html#example-dot-product-attention-1",
+    "href": "lecs/w09/lec09.html#example-dot-product-attention-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Example: Dot-Product Attention II",
-    "text": "Example: Dot-Product Attention II\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(2)} &= \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\qquad \\quad {\\bf s}^{(t-1)} = \\begin{bmatrix}0 & 1 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\\\\n\\\\\n\\alpha_t &= \\text{softmax}\\left(\\begin{bmatrix}1 & 0 & 5 \\\\ 3 & 0 & -1 \\\\ 0 & 1 &2 \\end{bmatrix}^\\top\n                    \\begin{bmatrix}0 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) \\\\\n{\\bf c}^{(t)} &= \\alpha_{t1} {\\bf h}^{(1)} + \\alpha_{t2} {\\bf h}^{(2)} + \\alpha_{t2} {\\bf h}^{(3)}\\\\\n\\end{align*}\\]"
+    "section": "Example: Dot-Product Attention",
+    "text": "Example: Dot-Product Attention\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(2)} &= \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\qquad \\quad {\\bf s}^{(t-1)} = \\begin{bmatrix}0 & 1 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\\\\n\\\\\n\\alpha_t &= \\text{softmax}\\left(\\begin{bmatrix}1 & 0 & 5 \\\\ 3 & 0 & -1 \\\\ 9 & 1 & 2 \\end{bmatrix}^\\top\n                    \\begin{bmatrix}0 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) = \\text{softmax}\\left(\\begin{bmatrix}12 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) \\\\\n{\\bf c}^{(t)} &= \\alpha_{t1} {\\bf h}^{(1)} + \\alpha_{t2} {\\bf h}^{(2)} + \\alpha_{t3} {\\bf h}^{(3)}\\\\\n\\end{align*}\\]"
   },
   {
     "objectID": "lecs/w09/lec09.html#attention-demo-video",
@@ -7484,18 +7463,18 @@
     "text": "Attention-Based Caption Generation\nCaption Generation Task:\n\nInput: Image\n\n\n\nOutput: Caption (sequence of words or characters)"
   },
   {
-    "objectID": "lecs/w09/lec09.html#attention-based-caption-generation-ii",
-    "href": "lecs/w09/lec09.html#attention-based-caption-generation-ii",
+    "objectID": "lecs/w09/lec09.html#attention-based-caption-generation-1",
+    "href": "lecs/w09/lec09.html#attention-based-caption-generation-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attention-Based Caption Generation II",
-    "text": "Attention-Based Caption Generation II\nAttention can also be used to understand images.\n\nWe humans can’t process a whole visual scene at once.\n\n\n\nThe fovea of the eye gives us high-acuity vision in only a tiny region of our field of view.\n\n\n\n\nInstead, we must integrate information from a series of glimpses."
+    "section": "Attention-Based Caption Generation",
+    "text": "Attention-Based Caption Generation\nAttention can also be used to understand images.\n\nWe humans can’t process a whole visual scene at once.\n\n\n\nThe fovea of the eye gives us high-acuity vision in only a tiny region of our field of view.\n\n\n\n\nInstead, we must integrate information from a series of glimpses."
   },
   {
-    "objectID": "lecs/w09/lec09.html#attention-based-caption-generation-iii",
-    "href": "lecs/w09/lec09.html#attention-based-caption-generation-iii",
+    "objectID": "lecs/w09/lec09.html#attention-based-caption-generation-2",
+    "href": "lecs/w09/lec09.html#attention-based-caption-generation-2",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attention-Based Caption Generation III",
-    "text": "Attention-Based Caption Generation III\nThe next few slides are based on this paper from the UofT machine learning group:\n\nXu et al. Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention. ICML, 2015."
+    "section": "Attention-Based Caption Generation",
+    "text": "Attention-Based Caption Generation\nThe next few slides are based on this paper from the UofT machine learning group:\n\nXu et al. Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention. ICML, 2015."
   },
   {
     "objectID": "lecs/w09/lec09.html#attention-for-caption-generation",
@@ -7505,18 +7484,18 @@
     "text": "Attention for Caption Generation\nThe caption generation task: take an image as input, and produce a sentence describing the image.\n\nEncoder: a classification conv net like VGG. This computes a bunch of feature maps over the image."
   },
   {
-    "objectID": "lecs/w09/lec09.html#attention-for-caption-generation-ii",
-    "href": "lecs/w09/lec09.html#attention-for-caption-generation-ii",
+    "objectID": "lecs/w09/lec09.html#attention-for-caption-generation-1",
+    "href": "lecs/w09/lec09.html#attention-for-caption-generation-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attention for Caption Generation II",
-    "text": "Attention for Caption Generation II\n\nDecoder: an attention-based RNN, analogous to the decoder in the translation model\n\nIn each time step, the decoder computes an attention map over the entire image, effectively deciding which regions to focus on.\nIt receives a context vector, which is the weighted average of the convnet features."
+    "section": "Attention for Caption Generation",
+    "text": "Attention for Caption Generation\n\nDecoder: an attention-based RNN, analogous to the decoder in the translation model\n\nIn each time step, the decoder computes an attention map over the entire image, effectively deciding which regions to focus on.\nIt receives a context vector, which is the weighted average of the convnet features."
   },
   {
-    "objectID": "lecs/w09/lec09.html#attention-for-caption-generation-iii",
-    "href": "lecs/w09/lec09.html#attention-for-caption-generation-iii",
+    "objectID": "lecs/w09/lec09.html#attention-for-caption-generation-2",
+    "href": "lecs/w09/lec09.html#attention-for-caption-generation-2",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attention for Caption Generation III",
-    "text": "Attention for Caption Generation III\nSimilar math as before: difference is that \\(j\\) is a pixel location\n\\[\\begin{align*}\ne_{ij} &= a({\\bf s}^{(i-1)}, {\\bf h}^{(j)}) \\\\\n\\alpha_{ij} &= \\frac{ \\exp(e_{ij}) }{\\sum_{j^\\prime} exp(e_{ij^\\prime})}\n\\end{align*}\\]"
+    "section": "Attention for Caption Generation",
+    "text": "Attention for Caption Generation\nSimilar math as before: difference is that \\(j\\) is a pixel location\n\\[\\begin{align*}\ne_{ij} &= a({\\bf s}^{(i-1)}, {\\bf h}^{(j)}) \\\\\n\\alpha_{ij} &= \\frac{ \\exp(e_{ij}) }{\\sum_{j^\\prime} \\exp(e_{ij^\\prime})}\n\\end{align*}\\]"
   },
   {
     "objectID": "lecs/w09/lec09.html#what-attention-tells-us",
@@ -7544,7 +7523,7 @@
     "href": "lecs/w09/lec09.html#rnn-disadvantage",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "RNN Disadvantage",
-    "text": "RNN Disadvantage\nOne disadvantage of RNNS (and especially multi-layer RNNs) is that they require a long time to train, and are more difficult to parallelize. (Need the previous hidden state \\(h^{(t)}\\) to be able to compute \\(h^{(t+1)}\\))"
+    "text": "RNN Disadvantage\nOne disadvantage of RNNs (and especially multi-layer RNNs) is that they require a long time to train, and are more difficult to parallelize. (Need the previous hidden state \\(h^{(t)}\\) to be able to compute \\(h^{(t+1)}\\))"
   },
   {
     "objectID": "lecs/w09/lec09.html#chatgpt",
@@ -7554,25 +7533,242 @@
     "text": "ChatGPT\n\n\n\n\nLogo of OpenAI’s ChatGPT"
   },
   {
-    "objectID": "lecs/w09/lec09.html#chatgpt-ii",
-    "href": "lecs/w09/lec09.html#chatgpt-ii",
+    "objectID": "lecs/w09/lec09.html#chatgpt-1",
+    "href": "lecs/w09/lec09.html#chatgpt-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "ChatGPT II",
-    "text": "ChatGPT II\nWhat is ChatGPT? We’ll let it speak for itself:\n\nI am ChatGPT, a large language model developed by OpenAI. I use machine learning algorithms to generate responses to questions and statements posed to me by users. I am designed to understand and generate natural language responses in a variety of domains and topics, from general knowledge to specific technical fields. My purpose is to assist users in generating accurate and informative responses to their queries and to provide helpful insights and suggestions."
+    "section": "ChatGPT",
+    "text": "ChatGPT\nWhat is ChatGPT? We’ll let it speak for itself:\n\nI am ChatGPT, a large language model developed by OpenAI. I use machine learning algorithms to generate responses to questions and statements posed to me by users. I am designed to understand and generate natural language responses in a variety of domains and topics, from general knowledge to specific technical fields. My purpose is to assist users in generating accurate and informative responses to their queries and to provide helpful insights and suggestions."
   },
   {
-    "objectID": "lecs/w09/lec09.html#chatgpt-iii",
-    "href": "lecs/w09/lec09.html#chatgpt-iii",
+    "objectID": "lecs/w09/lec09.html#chatgpt-2",
+    "href": "lecs/w09/lec09.html#chatgpt-2",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "ChatGPT III",
-    "text": "ChatGPT III\nChatGPT is based on OpenAI’s GPT-3, which itself is based on the transformer architecture."
+    "section": "ChatGPT",
+    "text": "ChatGPT\nChatGPT is built on OpenAI’s GPT family of large language models (starting with GPT-3.5), all of which are based on the transformer architecture."
   },
   {
     "objectID": "lecs/w09/lec09.html#transformer-1",
     "href": "lecs/w09/lec09.html#transformer-1",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Transformer",
-    "text": "Transformer\nIdea: Do away with recurrent networks altogether; instead exclusively use attention to obtain the history at the hidden layers\n\n\n\n\nVaswani, Ashish, et al. ”Attention is all you need.” Advances in Neural Information Processing Systems. 2017."
+    "text": "Transformer\nIdea: Do away with recurrent networks altogether; instead exclusively use attention to obtain the history at the hidden layers\n\n\n\n\nVaswani, Ashish, et al. “Attention is all you need.” Advances in Neural Information Processing Systems. 2017."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#why-get-rid-of-recurrence",
+    "href": "lecs/w09/lec09.html#why-get-rid-of-recurrence",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Why Get Rid of Recurrence?",
+    "text": "Why Get Rid of Recurrence?\nTwo problems with RNNs, even with attention:\n\nSequential computation: we need \\(h^{(t)}\\) to compute \\(h^{(t+1)}\\), so we cannot parallelize across time steps\n\n\n\nLong paths: information from token \\(1\\) has to pass through \\(t-1\\) hidden state updates to reach token \\(t\\), which makes long-range dependencies hard to learn\n\n\n\nAttention already gives the decoder a direct connection to every encoder state. The transformer uses attention everywhere, including inside the encoder and the decoder."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#vaswani-ashish-et-al.-attention-is-all-you-need.",
+    "href": "lecs/w09/lec09.html#vaswani-ashish-et-al.-attention-is-all-you-need.",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Vaswani, Ashish, et al. Attention is all you need.",
+    "text": "Vaswani, Ashish, et al. Attention is all you need.\n\n\n\n\n\n\ntypical encoder-decoder blocks of a transformer\n\n\n\n\nTransformer has an encoder-decoder architecture similar to the previous sequence-to-sequence RNN models, except all the recurrent connections are replaced by attention modules."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#attention-as-a-soft-dictionary-lookup",
+    "href": "lecs/w09/lec09.html#attention-as-a-soft-dictionary-lookup",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Attention as a Soft Dictionary Lookup",
+    "text": "Attention as a Soft Dictionary Lookup\nA Python dictionary d[query]:\n\ncompares the query with every key, looking for an exact match\nreturns the value of the matching key\n\n\nAttention is a “soft” version of this:\n\ncompares the query with every key using a similarity score (e.g. a dot product)\nreturns a weighted average of all values, with weights given by a softmax over the scores\n\n\\[\n\\alpha_j = \\frac{\\exp({\\bf q} \\cdot {\\bf k}_j)}{\\sum_{j'} \\exp({\\bf q} \\cdot {\\bf k}_{j'})}, \\qquad {\\bf c} = \\sum_j \\alpha_j {\\bf v}_j\n\\]"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#bahdanau-attention-as-queries-keys-and-values",
+    "href": "lecs/w09/lec09.html#bahdanau-attention-as-queries-keys-and-values",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Bahdanau Attention as Queries, Keys and Values",
+    "text": "Bahdanau Attention as Queries, Keys and Values\nIn the RNN decoder with attention:\n\nQuery: the decoder state \\({\\bf s}^{(t-1)}\\) (“what am I looking for?”)\nKeys: the encoder annotations \\({\\bf h}^{(j)}\\) (“what does each input contain?”)\nValues: also the annotations \\({\\bf h}^{(j)}\\) (“what do I return if this input is selected?”)"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#bahdanau-attention-as-queries-keys-and-values-1",
+    "href": "lecs/w09/lec09.html#bahdanau-attention-as-queries-keys-and-values-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Bahdanau Attention as Queries, Keys and Values",
+    "text": "Bahdanau Attention as Queries, Keys and Values\nThe transformer computes queries, keys and values with separate learned linear maps, so keys and values can differ:\n\\[\n{\\bf q} = W^Q {\\bf s}^{(t-1)}, \\qquad {\\bf k}_j = W^K {\\bf h}^{(j)}, \\qquad {\\bf v}_j = W^V {\\bf h}^{(j)}\n\\]\nIn the transformer there is no RNN: \\({\\bf h}^{(j)}\\) and \\({\\bf s}^{(t-1)}\\) are replaced by the encoder outputs and the decoder’s own representations, introduced in the next slides."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#recall-dot-product-attention",
+    "href": "lecs/w09/lec09.html#recall-dot-product-attention",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Recall: Dot-Product Attention",
+    "text": "Recall: Dot-Product Attention\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(2)} &= \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\qquad \\quad {\\bf s}^{(t-1)} = \\begin{bmatrix}0 & 1 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\\\\n\\\\\n\\alpha_t &= \\text{softmax}\\left(\\begin{bmatrix}1 & 0 & 5 \\\\ 3 & 0 & -1 \\\\ 9 & 1 & 2 \\end{bmatrix}^\\top\n                    \\begin{bmatrix}0 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) = \\text{softmax}\\left(\\begin{bmatrix}12 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) \\\\\n{\\bf c}^{(t)} &= \\alpha_{t1} {\\bf h}^{(1)} + \\alpha_{t2} {\\bf h}^{(2)} + \\alpha_{t3} {\\bf h}^{(3)}\\\\\n\\end{align*}\\]"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#scaled-dot-product-attention",
+    "href": "lecs/w09/lec09.html#scaled-dot-product-attention",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Scaled Dot-Product Attention",
+    "text": "Scaled Dot-Product Attention\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\qquad \\quad {\\bf h}^{(2)} = \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\qquad \\quad {\\bf s}^{(t-1)} = \\begin{bmatrix}0 & 1 & 1\\end{bmatrix}^\\top \\\\\n\\alpha_t &= \\text{softmax}\\left(\\frac{1}{\\sqrt{3}} \\begin{bmatrix}1 & 0 & 5 \\\\ 3 & 0 & -1 \\\\ 9 & 1 & 2 \\end{bmatrix}^\\top\n                    \\begin{bmatrix}0 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) \\\\\n{\\bf c}^{(t)} &= \\alpha_{t1} {\\bf h}^{(1)} + \\alpha_{t2} {\\bf h}^{(2)} + \\alpha_{t3} {\\bf h}^{(3)}\\\\\n\\end{align*}\\] Q: Which values represent the Q, K, and V?"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#scaled-dot-product-attention-1",
+    "href": "lecs/w09/lec09.html#scaled-dot-product-attention-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Scaled Dot-Product Attention",
+    "text": "Scaled Dot-Product Attention\n\nQuery: the decoder state \\({\\bf s}^{(t-1)}\\)\nKeys: the annotations \\({\\bf h}^{(1)}, {\\bf h}^{(2)}, {\\bf h}^{(3)}\\) (dot-producted with the query), so \\(d_K = 3\\)\nValues: the same annotations \\({\\bf h}^{(1)}, {\\bf h}^{(2)}, {\\bf h}^{(3)}\\) (averaged to get \\({\\bf c}^{(t)}\\))\n\nHere \\(W^Q = W^K = W^V = I\\): keys and values are identical, as in Bahdanau attention.\n\n\\[\\begin{align*}\n\\alpha_t &= \\text{softmax}\\left(\\begin{bmatrix}6.93 & 0.58 & 0.58\\end{bmatrix}\\right) \\approx \\begin{bmatrix}0.9965 & 0.0017 & 0.0017\\end{bmatrix} \\\\\n{\\bf c}^{(t)} &\\approx \\begin{bmatrix}1.005 & 2.988 & 8.974\\end{bmatrix}^\\top \\approx {\\bf h}^{(1)}\n\\end{align*}\\]"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#scaled-dot-product-attention-in-matrix-form",
+    "href": "lecs/w09/lec09.html#scaled-dot-product-attention-in-matrix-form",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Scaled Dot-Product Attention in Matrix Form",
+    "text": "Scaled Dot-Product Attention in Matrix Form\nStack \\(n\\) queries as the rows of \\(Q \\in \\mathbb{R}^{n \\times d_K}\\), \\(m\\) keys as the rows of \\(K \\in \\mathbb{R}^{m \\times d_K}\\), and \\(m\\) values as the rows of \\(V \\in \\mathbb{R}^{m \\times d_V}\\):\n\\[\\begin{align*}\n\\text{Attention}(Q, K, V) &= \\text{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_K}}\\right) V\n= \\begin{bmatrix} {{\\bf c}^{(1)}}^\\top \\\\ \\vdots \\\\ {{\\bf c}^{(n)}}^\\top \\end{bmatrix} \\\\\n\\text{where} \\quad {\\bf c}^{(i)} &= \\sum_{j=1}^{m} \\alpha_{ij} {\\bf v}_j,\n\\qquad\n\\alpha_{ij} = \\frac{\\exp({\\bf q}_i \\cdot {\\bf k}_j / \\sqrt{d_K})}{\\sum_{j'} \\exp({\\bf q}_i \\cdot {\\bf k}_{j'} / \\sqrt{d_K})}\n\\end{align*}\\]\n\n\\(QK^\\top\\) is an \\(n \\times m\\) matrix of scores; the softmax is applied to each row, giving the weights \\(\\alpha_{ij}\\)\nRow \\(i\\) of the \\(n \\times d_V\\) output is the context vector \\({\\bf c}^{(i)} \\in \\mathbb{R}^{d_V}\\) for query \\({\\bf q}_i\\): the same weighted average as before, except the logits are scaled down by \\(\\sqrt{d_K}\\)"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#why-scale-by-sqrtd_k",
+    "href": "lecs/w09/lec09.html#why-scale-by-sqrtd_k",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Why Scale by \\(\\sqrt{d_K}\\)?",
+    "text": "Why Scale by \\(\\sqrt{d_K}\\)?\nIf the entries of \\({\\bf q}\\) and \\({\\bf k}\\) are independent with mean 0 and variance 1, then \\({\\bf q} \\cdot {\\bf k} = \\sum_{i=1}^{d_K} q_i k_i\\) has variance \\(d_K\\).\n\nLarge \\(d_K\\) means large logits, so the softmax is nearly one-hot\nA saturated softmax has gradients close to 0\nDividing by \\(\\sqrt{d_K}\\) brings the variance back to 1\n\n\nIn our example (\\(d_K = 3\\)):\n\\[\\begin{align*}\n\\text{unscaled:} \\quad \\text{softmax}\\left(\\begin{bmatrix}12 & 1 & 1\\end{bmatrix}\\right) &\\approx \\begin{bmatrix}0.99997 & 1.7 \\times 10^{-5} & 1.7 \\times 10^{-5}\\end{bmatrix} \\\\\n\\text{scaled:} \\quad \\text{softmax}\\left(\\begin{bmatrix}6.93 & 0.58 & 0.58\\end{bmatrix}\\right) &\\approx \\begin{bmatrix}0.9965 & 0.0017 & 0.0017\\end{bmatrix}\n\\end{align*}\\]\nWith only \\(d_K = 3\\) the effect is small, but in practice \\(d_K\\) is 64 or more, and the unscaled softmax becomes essentially one-hot."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#self-attention",
+    "href": "lecs/w09/lec09.html#self-attention",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Self-Attention",
+    "text": "Self-Attention\nIn the RNN, attention connected the decoder to the encoder. Self-attention lets a sequence attend to itself.\nGiven the inputs \\(X \\in \\mathbb{R}^{n \\times d}\\) (one row per token):\n\\[\\begin{align*}\nQ = XW^Q, \\qquad K = XW^K, \\qquad V = XW^V, \\qquad \\text{SelfAttention}(X) = \\text{Attention}(Q, K, V)\n\\end{align*}\\]\n\nEach token’s new representation is a weighted average of the (transformed) representations of all tokens\n\\(W^Q\\), \\(W^K\\), \\(W^V\\) are learned\nAll \\(n\\) outputs are computed in parallel: no recurrence!\nIn the encoder, every token attends to every token (no mask); the decoder version comes next"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#self-attention-in-the-decoder-causal-masking",
+    "href": "lecs/w09/lec09.html#self-attention-in-the-decoder-causal-masking",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Self-Attention in the Decoder: Causal Masking",
+    "text": "Self-Attention in the Decoder: Causal Masking\nThe decoder generates one token at a time, so position \\(i\\) must not see positions \\(j &gt; i\\) (those are the tokens it is trying to predict!).\nWe add a mask \\(M\\) to the logits before the softmax:\n\\[\\begin{align*}\n\\text{MaskedAttention}(Q, K, V) = \\text{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_K}} + M\\right) V,\n\\qquad\nM = \\begin{bmatrix}\n0 & -\\infty & -\\infty & -\\infty \\\\\n0 & 0 & -\\infty & -\\infty \\\\\n0 & 0 & 0 & -\\infty \\\\\n0 & 0 & 0 & 0\n\\end{bmatrix}\n\\end{align*}\\]\nSince \\(\\exp(-\\infty) = 0\\), future tokens get attention weight 0."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#causal-masking",
+    "href": "lecs/w09/lec09.html#causal-masking",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Causal Masking",
+    "text": "Causal Masking\n\n\n\n\neach position attends only to itself and earlier positions, in the previous layer\n\n\nAttention block adapted from Figure 2 of Vaswani et al., “Attention is all you need,” NeurIPS 2017.\n\nFrom the hidden vector \\({\\bf x}_i^{(d)}\\) of position \\(i\\) in layer \\(d\\): \\(Q_i = W^Q {\\bf x}_i^{(d)}\\), \\(K_i = W^K {\\bf x}_i^{(d)}\\), \\(V_i = W^V {\\bf x}_i^{(d)}\\), and\n\\[\n{\\bf c}^{(i)} = \\sum_{j \\le i} \\alpha_{ij} V_j, \\qquad \\alpha_{ij} = \\text{softmax}_{j \\le i}\\left(Q_i \\cdot K_j / \\sqrt{d_K}\\right)\n\\]\nSince position \\(i\\) only attends to \\(j \\le i\\), no information flows from future tokens."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#masking-and-teacher-forcing",
+    "href": "lecs/w09/lec09.html#masking-and-teacher-forcing",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Masking and Teacher Forcing",
+    "text": "Masking and Teacher Forcing\nRecall teacher forcing: during training, we feed the ground-truth previous token as the next input.\n\nRNN: even with teacher forcing, the hidden states must be computed one step at a time\n\n\n\nTransformer decoder: feed the whole ground-truth sequence (shifted right, starting with “&lt;BOS&gt;”) at once. The causal mask ensures the prediction at position \\(t\\) only depends on tokens before it, so all the next-token losses are computed in one parallel forward pass\n\n\n\nAt test time, we still generate one token at a time: sample a token, append it to the input, and repeat."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#cross-attention-attending-to-the-encoder",
+    "href": "lecs/w09/lec09.html#cross-attention-attending-to-the-encoder",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Cross-Attention: Attending to the Encoder",
+    "text": "Cross-Attention: Attending to the Encoder\n\n\n\n\n\n\nhow the encoder contributes \\(K\\) and \\(V\\)\n\n\nAttention block adapted from Figure 2 of Vaswani et al., “Attention is all you need,” NeurIPS 2017.\n\n\nThe decoder also attends to the encoder outputs (encoder-decoder attention or cross-attention):\n\nQueries come from the decoder\nKeys and values are linear transformations of the encoder outputs\n\nFor each input word \\(j\\), the last encoder layer outputs a vector \\({\\bf z}_j\\), which gives that word’s key \\({\\bf k}_j = W^K {\\bf z}_j\\) and value \\({\\bf v}_j = W^V {\\bf z}_j\\). The same \\(W^K\\) and \\(W^V\\) are shared by all words.\nThis is the transformer version of the Bahdanau attention we saw earlier."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#three-kinds-of-attention-in-a-transformer",
+    "href": "lecs/w09/lec09.html#three-kinds-of-attention-in-a-transformer",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Three Kinds of Attention in a Transformer",
+    "text": "Three Kinds of Attention in a Transformer\n\n\n\n\n\n\n\n\n\nAttention\nQueries from\nKeys and values from\nMask\n\n\n\n\nEncoder self-attention\nencoder\nencoder\nnone\n\n\nDecoder self-attention\ndecoder\ndecoder\ncausal\n\n\nEncoder-decoder attention\ndecoder\nencoder outputs\nnone"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#multi-headed-attention",
+    "href": "lecs/w09/lec09.html#multi-headed-attention",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Multi-Headed Attention",
+    "text": "Multi-Headed Attention\nA single attention head produces one weighted average, so it tends to focus on one or a few positions (one kind of relationship).\nBut we may want to attend to several things at once (e.g. the subject of a verb and its object).\nIdea: run \\(h\\) attention heads in parallel, each with its own learned projections:\n\\[\\begin{align*}\n\\mathbf c_i &= \\text{Attention}\\left(QW_i^Q, KW_i^K, VW_i^V\\right), \\qquad i = 1, \\dots, h \\\\\n\\text{MultiHead}(Q, K, V) &= \\text{concat}({\\bf c_1}, \\dots, {\\mathbf c_h})W^O\n\\end{align*}\\]\n\nEach head typically uses dimension \\(d_K = d_V = d_{model}/h\\), so the total cost is similar to a single full-size head\nWith \\(n\\) queries, head \\(i\\) outputs a matrix \\(\\mathbf c_i \\in \\mathbb{R}^{n \\times d_V}\\) (one context vector per query, as rows), so the concatenation is \\(n \\times h d_V\\)\n\\(W^O \\in \\mathbb{R}^{h d_V \\times d_{model}}\\) is a learned output projection: it mixes the heads’ outputs (otherwise each head’s result would sit in its own separate block of coordinates) and maps the result back to \\(d_{model}\\), so it can be added to the residual connection and fed to the next layer"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#input-sequence-order",
+    "href": "lecs/w09/lec09.html#input-sequence-order",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Input Sequence Order",
+    "text": "Input Sequence Order\n\\[\\begin{align*}\n\\mathbf c_i &= \\text{Attention}\\left(QW_i^Q, KW_i^K, VW_i^V\\right) \\\\\n\\text{MultiHead}(Q, K, V) &= \\text{concat}({\\bf c_1}, \\dots, {\\mathbf c_h})W^O\n\\end{align*}\\]\nUnlike RNNs and CNN encoders, self-attention has no notion of position: if we shuffle the input tokens, the outputs are shuffled in the same way (the layer is permutation-equivariant). Can you see why?\n\n“dog bites man” and “man bites dog” produce the same set of token representations. However, the order of the sequence conveys important information for machine translation, language modeling, and other tasks."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#positional-encoding",
+    "href": "lecs/w09/lec09.html#positional-encoding",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Positional Encoding",
+    "text": "Positional Encoding\nIdea: Add positional information of each input token in the sequence into the input embedding vectors.\n\\[\\begin{align*}\nPE_{\\text{pos}, 2i} &= \\sin\\left(\\text{pos}/10000^{2i/d_{emb}}\\right) \\\\\nPE_{\\text{pos}, 2i+1} &= \\cos\\left(\\text{pos}/10000^{2i/d_{emb}}\\right)\n\\end{align*}\\]\n\n\\(\\text{pos} = 0, 1, 2, \\dots\\) is the position (index) of the token in the sequence\n\\(2i\\) and \\(2i+1\\) index the dimensions of the encoding vector, \\(i = 0, \\dots, d_{emb}/2 - 1\\)\n\nEach dimension is a sinusoid with a different wavelength, from \\(2\\pi\\) to \\(10000 \\cdot 2\\pi\\)."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#positional-encoding-1",
+    "href": "lecs/w09/lec09.html#positional-encoding-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Positional Encoding",
+    "text": "Positional Encoding\nThe final input embedding is the sum of the learnable token embedding and the positional encoding (both have dimension \\(d_{emb}\\)):\n\\[\n{\\bf x}^{(\\text{pos})} = \\text{Emb}(w^{(\\text{pos})}) + PE_{\\text{pos}}\n\\]\nwhere \\(w^{(\\text{pos})}\\) is the token at position \\(\\text{pos}\\) and \\(\\text{Emb}\\) is the learned embedding lookup. \\(\\text{Emb}(w^{(\\text{pos})})\\) plays the role of the RNN input \\({\\bf x}^{(t)}\\) (e.g. a GloVe embedding), not of the annotation \\({\\bf h}^{(j)}\\), which is computed from all the inputs.\n\n\n\n\nsinusoidal position encodings visualized"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#positional-encoding-2",
+    "href": "lecs/w09/lec09.html#positional-encoding-2",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Positional Encoding",
+    "text": "Positional Encoding\nOther ways to encode position used in practice:\n\nLearned positional embeddings: one learnable vector per position (e.g. GPT-2, BERT)\nRotary positional embeddings (RoPE): rotate each query and key by a position-dependent angle, so that \\({\\bf q} \\cdot {\\bf k}\\) depends only on the relative position of the two tokens (used by most modern LLMs, e.g. LLaMA)"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#the-transformer-block-encoder-layer",
+    "href": "lecs/w09/lec09.html#the-transformer-block-encoder-layer",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "The Transformer Block: Encoder Layer",
+    "text": "The Transformer Block: Encoder Layer\nEncoder layer \\(d\\) maps the token vectors \\({\\bf x}_1^{(d)}, \\dots, {\\bf x}_n^{(d)}\\) (the rows of \\(X^{(d)}\\)) to \\({\\bf x}_1^{(d+1)}, \\dots, {\\bf x}_n^{(d+1)}\\). The first layer gets \\({\\bf x}_i^{(0)} = \\text{Emb}(w^{(i)}) + PE_i\\).\n\nMulti-head self-attention gives one context vector per token: \\([{\\bf c}^{(1)}, \\dots, {\\bf c}^{(n)}] = \\text{MultiHead}(X^{(d)}, X^{(d)}, X^{(d)})\\)\nAdd & Norm: \\({\\bf a}_i = \\text{LayerNorm}({\\bf x}_i^{(d)} + {\\bf c}^{(i)})\\)\nPosition-wise feed-forward network, then Add & Norm: \\({\\bf x}_i^{(d+1)} = \\text{LayerNorm}({\\bf a}_i + \\text{FFN}({\\bf a}_i))\\)\n\nwhere \\(\\text{FFN}({\\bf a}) = W_2\\, \\text{ReLU}(W_1 {\\bf a} + {\\bf b}_1) + {\\bf b}_2\\) is applied to each token independently.\n\nAttention mixes information across tokens; the FFN processes each token individually\nResidual (skip) connections (the “+” inside each Add & Norm) help gradients flow through deep stacks and preserve the positional and identity information of the inputs"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#the-transformer-block-decoder-layer",
+    "href": "lecs/w09/lec09.html#the-transformer-block-decoder-layer",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "The Transformer Block: Decoder Layer",
+    "text": "The Transformer Block: Decoder Layer\nDecoder layer \\(d\\) maps the output-token vectors \\({\\bf s}_1^{(d)}, \\dots, {\\bf s}_m^{(d)}\\) (the rows of \\(S^{(d)}\\)) to \\({\\bf s}_1^{(d+1)}, \\dots, {\\bf s}_m^{(d+1)}\\). The first layer gets the embeddings of the output tokens (shifted right, starting with “&lt;BOS&gt;”) plus positional encodings. Let \\(Z\\) be the final encoder outputs (rows \\({\\bf z}_j\\)).\n\nMasked multi-head self-attention: \\([{\\bf c}_{\\text{self}}^{(1)}, \\dots, {\\bf c}_{\\text{self}}^{(m)}] = \\text{MaskedMultiHead}(S^{(d)}, S^{(d)}, S^{(d)})\\), then \\({\\bf a}_i = \\text{LayerNorm}({\\bf s}_i^{(d)} + {\\bf c}_{\\text{self}}^{(i)})\\)\nCross-attention to the encoder (queries from the decoder, keys and values from \\(Z\\)): \\([{\\bf c}_{\\text{cross}}^{(1)}, \\dots, {\\bf c}_{\\text{cross}}^{(m)}] = \\text{MultiHead}(A, Z, Z)\\) (\\(A\\) has rows \\({\\bf a}_i\\)), then \\({\\bf b}_i = \\text{LayerNorm}({\\bf a}_i + {\\bf c}_{\\text{cross}}^{(i)})\\)\nFeed-forward network: \\({\\bf s}_i^{(d+1)} = \\text{LayerNorm}({\\bf b}_i + \\text{FFN}({\\bf b}_i))\\)\n\nAfter the last decoder layer, a linear layer and softmax turn each \\({\\bf s}_i\\) into a distribution over the next token."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#transformer-machine-translation",
+    "href": "lecs/w09/lec09.html#transformer-machine-translation",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Transformer Machine Translation",
+    "text": "Transformer Machine Translation\n\n\n\n\n\n\ntypical encoder-decoder blocks of a transformer\n\n\nFigure 1 of Vaswani et al., “Attention is all you need,” NeurIPS 2017.\n\n\n\nEncoder-Decoder architecture like RNN, but use attention modules instead of recurrent modules.\nUse \\(N\\) stacked transformer blocks in both the encoder and the decoder (\\(N = 6\\) in the original paper).\nA final linear layer and softmax give the distribution over the next token."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#visualizing-attention",
+    "href": "lecs/w09/lec09.html#visualizing-attention",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Visualizing Attention",
+    "text": "Visualizing Attention\nSelf-attention layer learns that “it” could refer to different entities in different contexts.\n\n\n\nvisualized attention on a sentence\n\n\nSee research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#backprop",
+    "href": "lecs/w09/lec09.html#backprop",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Backprop",
+    "text": "Backprop\nDuring backprop, in the standard encoder-decoder RNN, the maximum path length across time is the number of time steps.\n\n\n\n\nbackprop paths in RNNs vs transformers"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#backprop-1",
+    "href": "lecs/w09/lec09.html#backprop-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Backprop",
+    "text": "Backprop\n\n\n\n\nbackprop paths in RNNs vs transformers\n\n\n\nSelf-attention connects every position directly to every other position, so the path length between any two positions is constant. (Learning becomes easier. Why?)"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#from-rnn-attention-to-transformer",
+    "href": "lecs/w09/lec09.html#from-rnn-attention-to-transformer",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "From RNN + Attention to Transformer",
+    "text": "From RNN + Attention to Transformer\nThe transformer keeps the encoder-decoder structure and the decoder-to-encoder attention, but replaces the recurrence with self-attention:\n\n\n\n\n\n\n\n\nRole\nRNN + attention\nTransformer\n\n\n\n\nEncoder representations\nBidirectional RNN\nStack of self-attention layers\n\n\nPer-word encoder vector\nAnnotation \\({\\bf h}^{(j)}\\)\nEncoder output \\({\\bf z}_j\\)\n\n\nDecoder representations\nDecoder RNN, state \\({\\bf s}^{(t)}\\)\nStack of masked self-attention layers, \\({\\bf s}_i^{(d)}\\)\n\n\nDecoder attends to encoder\nBahdanau attention\nCross-attention\n\n\nWord order\nReading tokens in sequence\nPositional encoding\n\n\n\nUnchanged: teacher forcing during training, and generating one token at a time at test time."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#rnn-vs.-self-attention",
+    "href": "lecs/w09/lec09.html#rnn-vs.-self-attention",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "RNN vs. Self-Attention",
+    "text": "RNN vs. Self-Attention\nFor a sequence of length \\(n\\) and representation dimension \\(d\\):\n\n\n\n\n\n\n\n\n\nLayer type\nCost per layer\nSequential operations\nMaximum path length\n\n\n\n\nRecurrent\n\\(O(n d^2)\\)\n\\(O(n)\\)\n\\(O(n)\\)\n\n\nSelf-attention\n\\(O(n^2 d)\\)\n\\(O(1)\\)\n\\(O(1)\\)\n\n\n\n\nSelf-attention wins on parallelism and path length\nThe price: the cost grows quadratically with the sequence length, which is why long context windows are expensive"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#transformer-language-pre-training",
+    "href": "lecs/w09/lec09.html#transformer-language-pre-training",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Transformer Language Pre-Training",
+    "text": "Transformer Language Pre-Training\nSimilar to pre-training computer vision models on ImageNet, we can pre-train a language model for NLP tasks.\n\n\n\n\n\n\nRadford, Alec, et al. “Improving Language Understanding by Generative Pre-Training.” 2018\n\n\n\n\nThe pre-trained model is then fine-tuned on textual entailment, question answering, semantic similarity assessment, and document classification"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#decoder-only-language-models",
+    "href": "lecs/w09/lec09.html#decoder-only-language-models",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Decoder-Only Language Models",
+    "text": "Decoder-Only Language Models\nGPT-style models drop the encoder and the cross-attention entirely:\n\nA stack of masked self-attention blocks\nTrained on next-token prediction (with teacher forcing and causal masking) over huge text corpora\nGenerate text one token at a time, exactly like the generative RNN at the start of this lecture"
   },
   {
     "objectID": "lecs/w09/lec09.html#better-language-models",
@@ -7589,125 +7785,6 @@
     "text": "Transformer Tutorial\nwww.youtube.com/watch?v=XSSTuhyAmnI&ab_channel=AriSeff"
   },
   {
-    "objectID": "lecs/w09/lec09.html#vaswani-ashish-et-al.-attention-is-all-you-need.",
-    "href": "lecs/w09/lec09.html#vaswani-ashish-et-al.-attention-is-all-you-need.",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Vaswani, Ashish, et al. Attention is all you need.",
-    "text": "Vaswani, Ashish, et al. Attention is all you need.\n\n\n\n\n\n\ntypical encoder-decoder blocks of a transformer\n\n\n\n\nTransformer has a encoder-decoder architecture similar to the previous sequence-to-sequence RNN models, except all the recurrent connections are replaced by the attention modules."
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#attention-mapping",
-    "href": "lecs/w09/lec09.html#attention-mapping",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attention Mapping",
-    "text": "Attention Mapping\nIn general, attention mapping can be described as a function of a query and a set of key-value pairs. Transformer uses a “scaled dot-product attention” to obtain the context vector:\n\\[\\begin{align*}\n{\\bf c}^{(t)} = \\text{attention}(Q, K, V) = \\text{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_K}}\\right) V\n\\end{align*}\\]\nThis is very similar to the attetion mechanism we saw eariler, but we scale the pre-softmax values (the logits) down by the square root of the key dimension \\(d_K\\)."
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#attention-mapping-in-the-decoder",
-    "href": "lecs/w09/lec09.html#attention-mapping-in-the-decoder",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attention Mapping in the Decoder",
-    "text": "Attention Mapping in the Decoder\nWhen training the decoder (e.g. to generate a sequence), we desired output so that have to be careful to mask out the desired output so that we preserve the autoregressive property."
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#recall-dot-product-attention",
-    "href": "lecs/w09/lec09.html#recall-dot-product-attention",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Recall: Dot-Product Attention",
-    "text": "Recall: Dot-Product Attention\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(2)} &= \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\qquad \\quad {\\bf s}^{(t-1)} = \\begin{bmatrix}0 & 1 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\\\\n\\\\\n\\alpha_t &= \\text{softmax}\\left(\\begin{bmatrix}1 & 0 & 5 \\\\ 3 & 0 & -1 \\\\ 0 & 1 &2 \\end{bmatrix}^\\top\n                    \\begin{bmatrix}0 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) \\\\\n{\\bf c}^{(t)} &= \\alpha_{t1} {\\bf h}^{(1)} + \\alpha_{t2} {\\bf h}^{(2)} + \\alpha_{t2} {\\bf h}^{(3)}\\\\\n\\end{align*}\\]"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#scaled-dot-product-attention",
-    "href": "lecs/w09/lec09.html#scaled-dot-product-attention",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Scaled Dot-Product Attention",
-    "text": "Scaled Dot-Product Attention\n\\[\\begin{align*}\n{\\bf h}^{(1)} &= \\begin{bmatrix}1 & 3 & 9\\end{bmatrix}^\\top \\qquad \\quad {\\bf h}^{(2)} = \\begin{bmatrix}0 & 0 & 1\\end{bmatrix}^\\top \\\\\n{\\bf h}^{(3)} &= \\begin{bmatrix}5 & -1 & 2\\end{bmatrix}^\\top \\qquad \\quad {\\bf s}^{(t-1)} = \\begin{bmatrix}0 & 1 & 1\\end{bmatrix}^\\top \\\\\n\\alpha_t &= \\text{softmax}\\left(\\frac{1}{\\sqrt{3}} \\begin{bmatrix}1 & 0 & 5 \\\\ 3 & 0 & -1 \\\\ 0 & 1 &2 \\end{bmatrix}^\\top\n                    \\begin{bmatrix}0 \\\\ 1 \\\\ 1\\end{bmatrix}\\right) \\\\\n{\\bf c}^{(t)} &= \\alpha_{t1} {\\bf h}^{(1)} + \\alpha_{t2} {\\bf h}^{(2)} + \\alpha_{t2} {\\bf h}^{(3)}\\\\\n\\end{align*}\\] Q: Which values represent the Q, K, and V?"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#attending-to-the-input-encoder",
-    "href": "lecs/w09/lec09.html#attending-to-the-input-encoder",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attending to the Input (Encoder)",
-    "text": "Attending to the Input (Encoder)\nTransformer models attend to both the encoder annotations and its previous hidden layers.\n\n\n\n\nhow the encoder contributes \\(K\\) and \\(V\\)"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#attending-to-the-input-encoder-ii",
-    "href": "lecs/w09/lec09.html#attending-to-the-input-encoder-ii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Attending to the Input (Encoder) II",
-    "text": "Attending to the Input (Encoder) II\n\n\n\n\nhow the encoder contributes \\(K\\) and \\(V\\)\n\n\n\nWhen attending to the encoder annotations, the model computes the key-value pairs using linearly transformed the encoder outputs."
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#self-attention",
-    "href": "lecs/w09/lec09.html#self-attention",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Self-attention",
-    "text": "Self-attention\nTransformer models also use “self-attention” on its previous hidden layers. When applying attention to the previous hidden layers, the causal structure is preserved:\n\n\n\n\nfeeding to deeper layers and future hidden states"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#multi-headed-attention",
-    "href": "lecs/w09/lec09.html#multi-headed-attention",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Multi-headed Attention",
-    "text": "Multi-headed Attention\nThe Scaled Dot-Product Attention attends to one or few entries in the input key-value pairs.\nBut humans can attend to many things simultaneously\nIdea: apply scaled dot-product attention multiple times on the linearly transformed inputs:\n\\[\\begin{align*}\n\\mathbf c_i &= \\text{attention}\\left(QW_i^Q, KW_i^K, VW_i^V\\right) \\\\\n\\text{MultiHead}(Q, K, V) &= \\text{concat}({\\bf c_1}, \\dots, {\\mathbf c_h})W^O\n\\end{align*}\\]"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#input-sequence-order",
-    "href": "lecs/w09/lec09.html#input-sequence-order",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Input Sequence Order",
-    "text": "Input Sequence Order\n\\[\\begin{align*}\n\\mathbf c_i &= \\text{attention}\\left(QW_i^Q, KW_i^K, VW_i^V\\right) \\\\\n\\text{MultiHead}(Q, K, V) &= \\text{concat}({\\bf c_1}, \\dots, {\\mathbf c_h})W^O\n\\end{align*}\\]\nUnlike RNNs and CNN encoders, the attention encoder output do not depend on the order of the inputs. Can you see why?\nHowever, the order of the sequence convey important information for the machine translation task, language modeling, and other tasks."
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#positional-encoding",
-    "href": "lecs/w09/lec09.html#positional-encoding",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Positional Encoding",
-    "text": "Positional Encoding\nIdea: Add positional information of each input token in the sequence into the input embedding vectors.\n\\[\\begin{align*}\nPE_{\\text{pos}, 2i} &= \\sin\\left(\\text{pos}/10000^{2i/d_{emb}}\\right) \\\\\nPE_{\\text{pos}, 2i+1} &= \\cos\\left(\\text{pos}/10000^{2i/d_{emb}}\\right)\n\\end{align*}\\]"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#positional-encoding-ii",
-    "href": "lecs/w09/lec09.html#positional-encoding-ii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Positional Encoding II",
-    "text": "Positional Encoding II\nThe final input embeddings are the concatenation of the learnable embeddings and the positional encoding.\n\n\n\n\nsinusoidal position encodings visualized"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#transformer-machine-translation",
-    "href": "lecs/w09/lec09.html#transformer-machine-translation",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Transformer Machine Translation",
-    "text": "Transformer Machine Translation\n\n\n\n\n\n\ntypical encoder-decoder blocks of a transformer\n\n\n\n\n\nEncoder-Decoder architecture like RNN, but use attention modules instead of recurrent modules.\nUse N stacked self-attention layers.\nSkip-connections help preserve the positional and identity information from the input sequences."
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#visualizing-attention",
-    "href": "lecs/w09/lec09.html#visualizing-attention",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Visualizing Attention",
-    "text": "Visualizing Attention\nSelf-attention layer learns that “it” could refer to different entities in different contexts.\n\n\n\nvisualized attention on a sentence\n\n\nSee ai.googleblog.com/2017/08/transformer-novel-neural-network.html"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#backprop",
-    "href": "lecs/w09/lec09.html#backprop",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Backprop",
-    "text": "Backprop\nDuring backprop, in the standard encoder-decoder RNN, the maximum path length across time is the number of time steps.\n\n\n\n\nbackprop paths in RNNs vs transformers"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#backprop-ii",
-    "href": "lecs/w09/lec09.html#backprop-ii",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Backprop II",
-    "text": "Backprop II\n\n\n\n\nbackprop paths in RNNs vs transformers\n\n\n\nAttention-based RNNs have a constant path length between the encoder inputs and the decoder hidden states. (Learning becomes easier. Why?)"
-  },
-  {
-    "objectID": "lecs/w09/lec09.html#transformer-language-pre-training",
-    "href": "lecs/w09/lec09.html#transformer-language-pre-training",
-    "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Transformer Language Pre-Training",
-    "text": "Transformer Language Pre-Training\nSimilar to pre-training computer vision models on ImageNet, we can pre-train a language model for NLP tasks.\n\n\n\n\n\n\nRadford, Alec, et al. ”Improving Language Understanding by Generative Pre-Training.” 2018\n\n\n\n\nThe pre-trained model is then fine-tuned on textual entailment, question answering, semantic similarity assessment, and document classification"
-  },
-  {
     "objectID": "lecs/w09/lec09.html#gpt-3-generating-an-article",
     "href": "lecs/w09/lec09.html#gpt-3-generating-an-article",
     "title": "CSC413 Neural Networks and Deep Learning",
@@ -7715,25 +7792,25 @@
     "text": "GPT-3: Generating an Article\nTitle: United Methodists Agree to Historic Split\nSubtitle: Those who oppose gay marriage will form their own denomination"
   },
   {
-    "objectID": "lecs/w09/lec09.html#gpt-3-generating-an-article-ii",
-    "href": "lecs/w09/lec09.html#gpt-3-generating-an-article-ii",
+    "objectID": "lecs/w09/lec09.html#gpt-3-generating-an-article-1",
+    "href": "lecs/w09/lec09.html#gpt-3-generating-an-article-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "GPT-3: Generating an Article II",
-    "text": "GPT-3: Generating an Article II\nArticle: After two days of intense debate, the United Methodist Church has agreed to a historic split - one that is expected to end in the creation of a new denomination, one that will be “theologically and socially conservative,” according to The Washington Post. The majority of delegates attending the church’s annual General Conference in May voted to strengthen a ban on the ordination of LGBTQ clergy and to write new rules that will “discipline” clergy who officiate at same-sex weddings. But those who opposed these measures have a new plan: They say they will form a separate denomination by 2020, calling their church the Christian Methodist denomination."
+    "section": "GPT-3: Generating an Article",
+    "text": "GPT-3: Generating an Article\nArticle: After two days of intense debate, the United Methodist Church has agreed to a historic split - one that is expected to end in the creation of a new denomination, one that will be “theologically and socially conservative,” according to The Washington Post. The majority of delegates attending the church’s annual General Conference in May voted to strengthen a ban on the ordination of LGBTQ clergy and to write new rules that will “discipline” clergy who officiate at same-sex weddings. But those who opposed these measures have a new plan: They say they will form a separate denomination by 2020, calling their church the Christian Methodist denomination."
   },
   {
-    "objectID": "lecs/w09/lec09.html#gpt-3-generating-an-article-iii",
-    "href": "lecs/w09/lec09.html#gpt-3-generating-an-article-iii",
+    "objectID": "lecs/w09/lec09.html#gpt-3-generating-an-article-2",
+    "href": "lecs/w09/lec09.html#gpt-3-generating-an-article-2",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "GPT-3: Generating an Article III",
-    "text": "GPT-3: Generating an Article III\nThe Post notes that the denomination, which claims 12.5 million members, was in the early 20th century the “largest Protestant denomination in the U.S.,” but that it has been shrinking in recent decades. The new split will be the second in the church’s history. The first occurred in 1968, when roughly 10 percent of the denomination left to form the Evangelical United Brethren Church."
+    "section": "GPT-3: Generating an Article",
+    "text": "GPT-3: Generating an Article\nThe Post notes that the denomination, which claims 12.5 million members, was in the early 20th century the “largest Protestant denomination in the U.S.,” but that it has been shrinking in recent decades. The new split will be the second in the church’s history. The first occurred in 1968, when roughly 10 percent of the denomination left to form the Evangelical United Brethren Church."
   },
   {
-    "objectID": "lecs/w09/lec09.html#gpt-3-generating-an-article-iv",
-    "href": "lecs/w09/lec09.html#gpt-3-generating-an-article-iv",
+    "objectID": "lecs/w09/lec09.html#gpt-3-generating-an-article-3",
+    "href": "lecs/w09/lec09.html#gpt-3-generating-an-article-3",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "GPT-3: Generating an Article IV",
-    "text": "GPT-3: Generating an Article IV\nThe Post notes that the proposed split “comes at a critical time for the church, which has been losing members for years,” which has been “pushed toward the brink of a schism over the role of LGBTQ people in the church.” Gay marriage is not the only issue that has divided the church. In 2016, the denomination was split over ordination of transgender clergy, with the North Pacific regional conference voting to ban the\nBrown et al. 2020, Language Models are Few-Shot Learners"
+    "section": "GPT-3: Generating an Article",
+    "text": "GPT-3: Generating an Article\nThe Post notes that the proposed split “comes at a critical time for the church, which has been losing members for years,” which has been “pushed toward the brink of a schism over the role of LGBTQ people in the church.” Gay marriage is not the only issue that has divided the church. In 2016, the denomination was split over ordination of transgender clergy, with the North Pacific regional conference voting to ban the\nBrown et al. 2020, Language Models are Few-Shot Learners"
   },
   {
     "objectID": "lecs/w09/lec09.html#gpt-3-correcting-english-grammar",
@@ -7743,32 +7820,67 @@
     "text": "GPT-3: Correcting English Grammar\nPoor English input: The patient was died.\nGood English output: The patient died.\nPoor English input: We think that Leslie likes ourselves.\nGood English output: We think that Leslie likes us.\nPoor English input: Janet broke Bill on the finger.\nGood English output: Janet broke Bill’s finger.\nPoor English input: Mary arranged for, in St. Louis, John to rent a house cheap.\nGood English output: Mary arranged for John to rent a house in St. Louis."
   },
   {
-    "objectID": "lecs/w09/lec09.html#gpt-3-correcting-english-grammar-ii",
-    "href": "lecs/w09/lec09.html#gpt-3-correcting-english-grammar-ii",
+    "objectID": "lecs/w09/lec09.html#gpt-3-correcting-english-grammar-1",
+    "href": "lecs/w09/lec09.html#gpt-3-correcting-english-grammar-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "GPT-3: Correcting English Grammar II",
-    "text": "GPT-3: Correcting English Grammar II\nPoor English input: Today I have went to the store to to buys some many bottle of water.\nGood English output: Today I went to the store to buy some bottles of water.\nPoor English input: I have tried to hit ball with bat, but my swing is has miss.\nGood English output: I tried to hit the ball with the bat, but my swing missed.\nBrown et al. 2020, Language Models are Few-Shot Learners"
+    "section": "GPT-3: Correcting English Grammar",
+    "text": "GPT-3: Correcting English Grammar\nPoor English input: Today I have went to the store to to buys some many bottle of water.\nGood English output: Today I went to the store to buy some bottles of water.\nPoor English input: I have tried to hit ball with bat, but my swing is has miss.\nGood English output: I tried to hit the ball with the bat, but my swing missed.\nBrown et al. 2020, Language Models are Few-Shot Learners"
   },
   {
     "objectID": "lecs/w09/lec09.html#large-language-models-llms",
     "href": "lecs/w09/lec09.html#large-language-models-llms",
     "title": "CSC413 Neural Networks and Deep Learning",
     "section": "Large Language Models (LLMs)",
-    "text": "Large Language Models (LLMs)\nMany Transformer-based models have been developed since 2017.\n\nGenerative Pre-Trained Transformer (GPT-1/2/3)\n\nDecoder-only 12-layer/12-headed Transformer.\nInspired GPT-Neo, GPT-J, GPT-NeoX, ChatGPT.\nGPT-4 coming out soon."
+    "text": "Large Language Models (LLMs)\nMany Transformer-based models have been developed since 2017.\n\nGenerative Pre-Trained Transformer (GPT-1/2/3/4, …)\n\nDecoder-only Transformer: GPT-1 has 12 layers and 12 heads; GPT-3 (175B parameters) has 96 layers and 96 heads.\nInspired GPT-Neo, GPT-J, GPT-NeoX, LLaMA, and many others."
   },
   {
-    "objectID": "lecs/w09/lec09.html#large-language-models-llms-ii",
-    "href": "lecs/w09/lec09.html#large-language-models-llms-ii",
+    "objectID": "lecs/w09/lec09.html#large-language-models-llms-1",
+    "href": "lecs/w09/lec09.html#large-language-models-llms-1",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Large Language Models (LLMs) II",
-    "text": "Large Language Models (LLMs) II\n\nBidirectional Encoder Representations from Transformers (BERT)\n\nEncoder-only 12-layer/12-headed Transformer.\nInspired ALBERT, RoBERTa, SBERT, DeBERTa, etc."
+    "section": "Large Language Models (LLMs)",
+    "text": "Large Language Models (LLMs)\n\nBidirectional Encoder Representations from Transformers (BERT)\n\nEncoder-only 12-layer/12-headed Transformer.\nInspired ALBERT, RoBERTa, SBERT, DeBERTa, etc."
   },
   {
-    "objectID": "lecs/w09/lec09.html#large-language-models-llms-iii",
-    "href": "lecs/w09/lec09.html#large-language-models-llms-iii",
+    "objectID": "lecs/w09/lec09.html#large-language-models-llms-2",
+    "href": "lecs/w09/lec09.html#large-language-models-llms-2",
     "title": "CSC413 Neural Networks and Deep Learning",
-    "section": "Large Language Models (LLMs) III",
-    "text": "Large Language Models (LLMs) III\n\nAnd many, many more: en.wikipedia.org/wiki/Large_language_model\n\nMany benchmarks have been developed such as GLUE and SQuAD.\nBig players in the LLM space include Google (Brain, DeepMind), Meta (formerly Facebook, FAIR), Microsoft, Amazon, EleutherAI, OpenAI, Cohere, Hugging Face."
+    "section": "Large Language Models (LLMs)",
+    "text": "Large Language Models (LLMs)\n\nAnd many, many more: en.wikipedia.org/wiki/Large_language_model\n\nMany benchmarks have been developed such as GLUE and SQuAD.\nBig players in the LLM space include Google (Brain, DeepMind), Meta (formerly Facebook, FAIR), Microsoft, Amazon, Anthropic, Mistral, DeepSeek, EleutherAI, OpenAI, Cohere, Hugging Face."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#from-gpt-to-chatgpt",
+    "href": "lecs/w09/lec09.html#from-gpt-to-chatgpt",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "From GPT to ChatGPT",
+    "text": "From GPT to ChatGPT\nA pre-trained language model only continues text. To turn it into an assistant:\n\nInstruction tuning: fine-tune on examples of prompts paired with good responses\nReinforcement learning from human feedback (RLHF): humans rank model responses, a reward model is trained on these rankings, and the language model is optimized with RL to get high reward\n\n\nOuyang et al., Training language models to follow instructions with human feedback. NeurIPS, 2022."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#instruction-tuning",
+    "href": "lecs/w09/lec09.html#instruction-tuning",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Instruction Tuning",
+    "text": "Instruction Tuning\nPre-training data is mostly web text. Given the prompt “Explain the moon landing to a 6 year old”, a pre-trained model may continue with more similar questions instead of answering.\nIdea: collect demonstrations of the behaviour we want: a prompt \\({\\bf x}\\), and a response \\({\\bf y} = (y_1, \\dots, y_T)\\) written by a human labeler, showing what a helpful answer looks like.\n\n\n\n\n\n\n\nPrompt \\({\\bf x}\\)\nResponse \\({\\bf y}\\)\n\n\n\n\nExplain the moon landing to a 6 year old.\nPeople went to the moon in a big rocket, walked around, and came back to tell everyone what they saw.\n\n\n\nFine-tuning the pre-trained model on these pairs is called instruction tuning or supervised fine-tuning (SFT)."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#instruction-tuning-1",
+    "href": "lecs/w09/lec09.html#instruction-tuning-1",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "Instruction Tuning",
+    "text": "Instruction Tuning\nConcatenate the prompt and the response into one token sequence, and train with the same next-token cross-entropy as in pre-training (teacher forcing, causal mask), but only count the loss on the response tokens:\n\\[\n\\mathcal{L}(\\theta) = -\\sum_{t=1}^{T} \\log p_\\theta\\left(y_t \\mid {\\bf x}, y_1, \\dots, y_{t-1}\\right)\n\\]\n\nStart from the pre-trained weights. The dataset is tiny compared to pre-training (about 13k prompts for InstructGPT), so this is cheap\nThe model mostly learns the format and behaviour of an assistant; its knowledge still comes from pre-training\n\n\nLimitation: the model can only imitate the demonstrations, and they are slow and expensive to write. For many prompts it is much easier for a person to say which of two responses is better than to write the best response themselves. This is what RLHF uses."
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#rlhf-learning-a-reward-model",
+    "href": "lecs/w09/lec09.html#rlhf-learning-a-reward-model",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "RLHF: Learning a Reward Model",
+    "text": "RLHF: Learning a Reward Model\n\nFor a prompt \\({\\bf x}\\), sample several responses from the instruction-tuned model, and have labelers rank them from best to worst\nTrain a reward model \\(r_\\phi({\\bf x}, {\\bf y}) \\in \\mathbb{R}\\) that scores how good a response is. It is a transformer too (e.g. initialized from the language model, with the final layer replaced by a linear layer that outputs a scalar)\n\nFor every pair where labelers preferred \\({\\bf y}_w\\) over \\({\\bf y}_l\\), minimize\n\\[\n\\mathcal{L}(\\phi) = -\\log \\sigma\\left(r_\\phi({\\bf x}, {\\bf y}_w) - r_\\phi({\\bf x}, {\\bf y}_l)\\right)\n\\]\n\nThis is logistic regression on the difference of the scores: the model predicts \\(p({\\bf y}_w \\text{ preferred}) = \\sigma(r_w - r_l)\\)\nOnly differences of scores matter, which matches the data: humans give comparisons, not absolute scores\nRanking \\(K\\) responses gives \\(\\binom{K}{2}\\) comparisons from one labeling task"
+  },
+  {
+    "objectID": "lecs/w09/lec09.html#rlhf-optimizing-the-language-model",
+    "href": "lecs/w09/lec09.html#rlhf-optimizing-the-language-model",
+    "title": "CSC413 Neural Networks and Deep Learning",
+    "section": "RLHF: Optimizing the Language Model",
+    "text": "RLHF: Optimizing the Language Model\n\nFine-tune the language model \\(p_\\theta\\) to produce responses with high reward. Starting from the instruction-tuned model \\(p_{\\text{SFT}}\\), maximize\n\n\\[\n\\mathbb{E}_{{\\bf x},\\; {\\bf y} \\sim p_\\theta(\\cdot \\mid {\\bf x})}\\left[ r_\\phi({\\bf x}, {\\bf y}) - \\beta \\log \\frac{p_\\theta({\\bf y} \\mid {\\bf x})}{p_{\\text{SFT}}({\\bf y} \\mid {\\bf x})} \\right]\n\\]\n\nSampling tokens is not differentiable, so we cannot backpropagate through it. An RL algorithm (PPO in InstructGPT) estimates the gradient from sampled responses and their rewards\nThe second term keeps the model close to \\(p_{\\text{SFT}}\\) (on average it is a KL divergence, see a later lecture). Without it, the model exploits the reward model’s mistakes (reward hacking): text that scores high but is not actually good\n\n\nResult: labelers preferred the outputs of the 1.3B-parameter InstructGPT over those of the 175B-parameter GPT-3 (Ouyang et al., 2022)."
   },
   {
     "objectID": "lecs/w01/lec01.html#introduction-instructors",

@@ -5,3 +5,11 @@
 .border-thick {
     border-width: 3px;
 }
+
+.reveal .slides section.small-title h2 {
+    font-size: 1.2em;
+}
+
+.reveal .slides section.smaller.small-title h2 {
+    font-size: calc(1.2em / 0.7);
+}
